@@ -12,7 +12,7 @@ class MSelectItem {
 @JsonSerializable()
 class MSPResult {
     @JsonKey(name: 'NEW_ID')
-    String newid;
+    var newid = 0;
     @JsonKey(name: 'result')
     var result = "";
 

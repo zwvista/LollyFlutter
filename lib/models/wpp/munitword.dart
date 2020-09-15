@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lolly_flutter/models/misc/MCommon.dart';
-import 'package:lolly_flutter/models/misc/MTextbook.dart';
+import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
 part 'munitword.g.dart';
 

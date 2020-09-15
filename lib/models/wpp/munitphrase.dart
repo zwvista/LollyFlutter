@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lolly_flutter/models/misc/MTextbook.dart';
+import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
 part 'munitphrase.g.dart';
 
