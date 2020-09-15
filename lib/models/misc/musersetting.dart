@@ -36,3 +36,9 @@ class MUserSetting {
     Map<String, dynamic> toJson() => _$MUserSettingToJson(this);
 }
 
+class MUserSettingInfo {
+    var usersettingid = 0;
+    var valueid = 0;
+
+    MUserSettingInfo(this.usersettingid, this.valueid);
+}

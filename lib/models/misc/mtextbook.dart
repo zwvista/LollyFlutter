@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'MCommon.dart';
+
 part 'mtextbook.g.dart';
 
 @JsonSerializable()
@@ -24,6 +26,11 @@ class MTextbook {
     var units = "";
     @JsonKey(name: 'PARTS')
     var parts = "";
+
+    List<MSelectItem> lstUnits;
+    String unitstr(int unit) => lstUnits.firstWhere((o) => o.value == unit).label;
+    List<MSelectItem> lstParts;
+    String partstr(int part) => lstParts.firstWhere((o) => o.value == part).label;
 
     MTextbook() {}
     factory MTextbook.fromJson(Map<String, dynamic> json) => _$MTextbookFromJson(json);

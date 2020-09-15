@@ -31,3 +31,7 @@ class MAutoCorrect {
     factory MAutoCorrect.fromJson(Map<String, dynamic> json) => _$MAutoCorrectFromJson(json);
     Map<String, dynamic> toJson() => _$MAutoCorrectToJson(this);
 }
+
+String autoCorrect(String text, List<MAutoCorrect> lstAutoCorrects,
+        String Function(MAutoCorrect) colFunc1, String Function(MAutoCorrect) colFunc2) =>
+    lstAutoCorrects.fold(text, (str, row) => str.replaceAll(colFunc1(row), colFunc2(row)));

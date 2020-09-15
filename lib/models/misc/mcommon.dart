@@ -2,6 +2,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'mcommon.g.dart';
 
+class MSelectItem {
+    var value = 0;
+    var label = "";
+
+    MSelectItem(this.value, this.label);
+}
+
 @JsonSerializable()
 class MSPResult {
     @JsonKey(name: 'NEW_ID')
