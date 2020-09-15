@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lolly_flutter/models/misc/MTextbook.dart';
 
 part 'munitphrase.g.dart';
 
@@ -34,6 +35,10 @@ class MUnitPhrase {
   var phrase = "";
   @JsonKey(name: 'TRANSLATION')
   String translation;
+
+  MTextbook textbook;
+  String get unitstr => textbook.unitstr(unit);
+  String get partstr => textbook.partstr(part);
 
   MUnitPhrase() {}
   factory MUnitPhrase.fromJson(Map<String, dynamic> json) => _$MUnitPhraseFromJson(json);

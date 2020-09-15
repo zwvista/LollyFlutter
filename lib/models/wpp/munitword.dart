@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lolly_flutter/models/misc/MCommon.dart';
+import 'package:lolly_flutter/models/misc/MTextbook.dart';
 
 part 'munitword.g.dart';
 
@@ -40,6 +42,11 @@ class MUnitWord {
   var correct = 0;
   @JsonKey(name: 'TOTAL')
   var total = 0;
+
+  MTextbook textbook;
+  String get unitstr => textbook.unitstr(unit);
+  String get partstr => textbook.partstr(part);
+  String get accuracy => total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
 
   MUnitWord() {}
   factory MUnitWord.fromJson(Map<String, dynamic> json) => _$MUnitWordFromJson(json);
