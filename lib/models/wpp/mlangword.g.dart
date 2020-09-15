@@ -1,0 +1,41 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'mlangword.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+MLangWords _$MLangWordsFromJson(Map<String, dynamic> json) {
+  return MLangWords()
+    ..lst = (json['records'] as List)
+        ?.map((e) =>
+            e == null ? null : MLangWord.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$MLangWordsToJson(MLangWords instance) =>
+    <String, dynamic>{
+      'records': instance.lst,
+    };
+
+MLangWord _$MLangWordFromJson(Map<String, dynamic> json) {
+  return MLangWord()
+    ..id = json['ID'] as int
+    ..langid = json['LANGID'] as int
+    ..word = json['WORD'] as String
+    ..note = json['NOTE'] as String
+    ..famiid = json['FAMIID'] as int
+    ..correct = json['CORRECT'] as int
+    ..total = json['TOTAL'] as int;
+}
+
+Map<String, dynamic> _$MLangWordToJson(MLangWord instance) => <String, dynamic>{
+      'ID': instance.id,
+      'LANGID': instance.langid,
+      'WORD': instance.word,
+      'NOTE': instance.note,
+      'FAMIID': instance.famiid,
+      'CORRECT': instance.correct,
+      'TOTAL': instance.total,
+    };
