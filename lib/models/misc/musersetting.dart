@@ -43,8 +43,8 @@ class MUserSetting {
 }
 
 class MUserSettingInfo {
-  var usersettingid = 0;
-  var valueid = 0;
+  final int usersettingid;
+  final int valueid;
 
   MUserSettingInfo(this.usersettingid, this.valueid);
 }

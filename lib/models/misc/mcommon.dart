@@ -2,6 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'mcommon.g.dart';
 
+class GlobalConstants {
+  static final userid = 1;
+}
+
 class MSelectItem {
   var value = 0;
   var label = "";
