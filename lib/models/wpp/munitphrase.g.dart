@@ -30,7 +30,10 @@ MUnitPhrase _$MUnitPhraseFromJson(Map<String, dynamic> json) {
     ..seqnum = json['SEQNUM'] as int
     ..phraseid = json['PHRASEID'] as int
     ..phrase = json['PHRASE'] as String
-    ..translation = json['TRANSLATION'] as String;
+    ..translation = json['TRANSLATION'] as String
+    ..textbook = json['textbook'] == null
+        ? null
+        : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$MUnitPhraseToJson(MUnitPhrase instance) =>
@@ -45,4 +48,5 @@ Map<String, dynamic> _$MUnitPhraseToJson(MUnitPhrase instance) =>
       'PHRASEID': instance.phraseid,
       'PHRASE': instance.phrase,
       'TRANSLATION': instance.translation,
+      'textbook': instance.textbook,
     };

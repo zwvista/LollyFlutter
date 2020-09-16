@@ -33,7 +33,10 @@ MUnitWord _$MUnitWordFromJson(Map<String, dynamic> json) {
     ..wordid = json['WORDID'] as int
     ..famiid = json['FAMIID'] as int
     ..correct = json['CORRECT'] as int
-    ..total = json['TOTAL'] as int;
+    ..total = json['TOTAL'] as int
+    ..textbook = json['textbook'] == null
+        ? null
+        : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$MUnitWordToJson(MUnitWord instance) => <String, dynamic>{
@@ -50,4 +53,5 @@ Map<String, dynamic> _$MUnitWordToJson(MUnitWord instance) => <String, dynamic>{
       'FAMIID': instance.famiid,
       'CORRECT': instance.correct,
       'TOTAL': instance.total,
+      'textbook': instance.textbook,
     };

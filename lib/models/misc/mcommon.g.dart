@@ -8,7 +8,7 @@ part of 'mcommon.dart';
 
 MSPResult _$MSPResultFromJson(Map<String, dynamic> json) {
   return MSPResult()
-    ..newid = json['NEW_ID'] as String
+    ..newid = json['NEW_ID'] as int
     ..result = json['result'] as String;
 }
 

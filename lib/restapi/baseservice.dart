@@ -29,7 +29,8 @@ class BaseService {
     return response.body as int;
   }
 
-  Future<MSPResult> callSPByUrl(String url, Map<String, dynamic> itemMap) async {
+  Future<MSPResult> callSPByUrl(
+      String url, Map<String, dynamic> itemMap) async {
     final body = itemMap.map((k, v) => MapEntry("P_" + k, v));
     final response = await http.post("${urlSP}url", body: body);
     return MSPResult.fromJson(json.decode(response.body));
