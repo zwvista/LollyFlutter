@@ -4,5 +4,6 @@ import '../misc/baseservice.dart';
 
 class VoiceService extends BaseService {
   Future<List<MVoice>> getData(int langid) async =>
-      MVoices.fromJson(await getDataByUrl("VVOICES?filter=LANGID,eq,${langid}")).lst;
+      MVoices.fromJson(await getDataByUrl("VVOICES?filter=LANGID,eq,$langid"))
+          .lst;
 }

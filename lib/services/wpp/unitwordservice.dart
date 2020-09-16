@@ -7,7 +7,7 @@ class UnitWordService extends BaseService {
   Future<List<MUnitWord>> getDataByTextbookUnitPart(
       MTextbook textbook, int unitPartFrom, int unitPartTo) async {
     final lst = MUnitWords.fromJson(await getDataByUrl(
-            "VUNITWORDS?filter=TEXTBOOKID,eq,${textbook.id}&filter=UNITPART,bt,${unitPartFrom},${unitPartTo}&order=UNITPART&order=SEQNUM"))
+            "VUNITWORDS?filter=TEXTBOOKID,eq,${textbook.id}&filter=UNITPART,bt,$unitPartFrom,$unitPartTo&order=UNITPART&order=SEQNUM"))
         .lst;
     for (var o in lst) o.textbook = textbook;
     return lst;
@@ -23,14 +23,14 @@ class UnitWordService extends BaseService {
   Future<List<MUnitWord>> getDataByLang(
       int langid, List<MTextbook> lstTextbooks) async {
     final lst = MUnitWords.fromJson(await getDataByUrl(
-            "VUNITWORDS?filter=LANGID,eq,${langid}&order=TEXTBOOKID&order=UNIT&order=PART&order=SEQNUM"))
+            "VUNITWORDS?filter=LANGID,eq,$langid&order=TEXTBOOKID&order=UNIT&order=PART&order=SEQNUM"))
         .lst;
     return _setTextbook(lst, lstTextbooks);
   }
 
   Future<MUnitWord> getDataById(int id, List<MTextbook> lstTextbooks) async {
     var lst =
-        MUnitWords.fromJson(await getDataByUrl("VUNITWORDS?filter=ID,eq,${id}"))
+        MUnitWords.fromJson(await getDataByUrl("VUNITWORDS?filter=ID,eq,$id"))
             .lst;
     lst = _setTextbook(lst, lstTextbooks);
     return lst.isNotEmpty ? lst[0] : null;
@@ -39,7 +39,7 @@ class UnitWordService extends BaseService {
   Future<List<MUnitWord>> getDataByLangWord(
       int langid, String word, List<MTextbook> lstTextbooks) async {
     final lst = MUnitWords.fromJson(await getDataByUrl(
-            "VUNITWORDS?filter=LANGID,eq,${langid}&filter=WORD,eq,${Uri.encodeComponent(word)}"))
+            "VUNITWORDS?filter=LANGID,eq,$langid&filter=WORD,eq,${Uri.encodeComponent(word)}"))
         .lst
         .where((o) => o.word == word)
         .toList();
@@ -50,10 +50,10 @@ class UnitWordService extends BaseService {
       (await callSPByUrl("UNITWORDS_CREATE", item.toJson())).newid;
 
   Future updateSeqNum(int id, int seqnum) async =>
-      print(await updateByUrl("UNITWORDS/${id}", "SEQNUM=${seqnum}"));
+      print(await updateByUrl("UNITWORDS/$id", "SEQNUM=$seqnum"));
 
   Future updateNote(int id, String note) async =>
-      print(await updateByUrl("UNITWORDS/${id}", "NOTE=${note}"));
+      print(await updateByUrl("UNITWORDS/$id", "NOTE=$note"));
 
   Future update(MUnitWord item) async =>
       print(await callSPByUrl("UNITWORDS_UPDATE", item.toJson()));

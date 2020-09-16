@@ -6,7 +6,7 @@ import '../misc/baseservice.dart';
 class TextbookService extends BaseService {
   Future<List<MTextbook>> getDataByLang(int langid) async {
     final lst = MTextbooks.fromJson(
-            await getDataByUrl("TEXTBOOKS?filter=LANGID,eq,${langid}"))
+            await getDataByUrl("TEXTBOOKS?filter=LANGID,eq,$langid"))
         .lst;
     List<String> f(String units) {
       var m = RegExp(r"UNITS,(\d+)").firstMatch(units);
@@ -44,5 +44,5 @@ class TextbookService extends BaseService {
       await createByUrl("TEXTBOOKS", item.toJson());
   Future update(MTextbook item) async =>
       print(await updateByUrl("TEXTBOOKS/${item.id}", item.toJson()));
-  Future delete(int id) async => print(await deleteByUrl("TEXTBOOKS/${id}"));
+  Future delete(int id) async => print(await deleteByUrl("TEXTBOOKS/$id"));
 }

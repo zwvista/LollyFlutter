@@ -5,7 +5,7 @@ import '../misc/baseservice.dart';
 
 class UserSettingService extends BaseService {
   Future<List<MVoice>> getDataByUser(int userid) async => MVoices.fromJson(
-          await getDataByUrl("USERSETTINGS?filter=USERID,eq,${userid}"))
+          await getDataByUrl("USERSETTINGS?filter=USERID,eq,$userid"))
       .lst;
 
   Future updateByInt(MUserSettingInfo info, int v) async =>
@@ -13,5 +13,5 @@ class UserSettingService extends BaseService {
 
   Future updateByString(MUserSettingInfo info, String v) async =>
       print(await updateByUrl(
-          "USERSETTINGS/${info.usersettingid}", "VALUE${info.valueid}=${v}"));
+          "USERSETTINGS/${info.usersettingid}", "VALUE${info.valueid}=$v"));
 }
