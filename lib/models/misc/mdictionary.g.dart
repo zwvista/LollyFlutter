@@ -6,41 +6,15 @@ part of 'mdictionary.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MDictsReference _$MDictsReferenceFromJson(Map<String, dynamic> json) {
-  return MDictsReference()
+MDictionaries _$MDictionariesFromJson(Map<String, dynamic> json) {
+  return MDictionaries()
     ..lst = (json['records'] as List)
         ?.map((e) =>
             e == null ? null : MDictionary.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
-Map<String, dynamic> _$MDictsReferenceToJson(MDictsReference instance) =>
-    <String, dynamic>{
-      'records': instance.lst,
-    };
-
-MDictsNote _$MDictsNoteFromJson(Map<String, dynamic> json) {
-  return MDictsNote()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MDictionary.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$MDictsNoteToJson(MDictsNote instance) =>
-    <String, dynamic>{
-      'records': instance.lst,
-    };
-
-MDictsTranslation _$MDictsTranslationFromJson(Map<String, dynamic> json) {
-  return MDictsTranslation()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MDictionary.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$MDictsTranslationToJson(MDictsTranslation instance) =>
+Map<String, dynamic> _$MDictionariesToJson(MDictionaries instance) =>
     <String, dynamic>{
       'records': instance.lst,
     };

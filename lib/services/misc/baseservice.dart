@@ -13,15 +13,15 @@ class BaseService {
     return json.decode(response.body);
   }
 
-  Future<MSPResult> createByUrl(String url, Map<String, dynamic> body) async {
+  Future<int> createByUrl(String url, Map<String, dynamic> body) async {
     body.remove("ID");
     final response = await http.post("${urlAPI}url", body: body);
-    return MSPResult.fromJson(json.decode(response.body));
+    return response.body as int;
   }
 
-  Future<MSPResult> updateByUrl(String url, String body) async {
+  Future<int> updateByUrl(String url, body) async {
     final response = await http.put("${urlAPI}url", body: body);
-    return MSPResult.fromJson(json.decode(response.body));
+    return response.body as int;
   }
 
   Future<int> deleteByUrl(String url) async {

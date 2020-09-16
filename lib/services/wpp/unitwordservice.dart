@@ -1,7 +1,7 @@
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 
-import 'baseservice.dart';
+import '../misc/baseservice.dart';
 
 class UnitWordService extends BaseService {
   Future<List<MUnitWord>> getDataByTextbookUnitPart(
@@ -16,7 +16,7 @@ class UnitWordService extends BaseService {
   List<MUnitWord> _setTextbook(
       List<MUnitWord> lst, List<MTextbook> lstTextbooks) {
     for (var o in lst)
-      o.textbook = lstTextbooks.firstWhere((o3) => o3.id == o.textbook);
+      o.textbook = lstTextbooks.firstWhere((o3) => o3.id == o.textbookid);
     return lst;
   }
 

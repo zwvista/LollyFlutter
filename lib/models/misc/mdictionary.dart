@@ -1,46 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'MAutoCorrect.dart';
-
 part 'mdictionary.g.dart';
 
 @JsonSerializable()
-class MDictsReference {
+class MDictionaries {
   @JsonKey(name: 'records')
   List<MDictionary> lst;
 
-  MDictsReference() {}
+  MDictionaries() {}
 
-  factory MDictsReference.fromJson(Map<String, dynamic> json) =>
-      _$MDictsReferenceFromJson(json);
+  factory MDictionaries.fromJson(Map<String, dynamic> json) =>
+      _$MDictionariesFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MDictsReferenceToJson(this);
-}
-
-@JsonSerializable()
-class MDictsNote {
-  @JsonKey(name: 'records')
-  List<MDictionary> lst;
-
-  MDictsNote() {}
-
-  factory MDictsNote.fromJson(Map<String, dynamic> json) =>
-      _$MDictsNoteFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MDictsNoteToJson(this);
-}
-
-@JsonSerializable()
-class MDictsTranslation {
-  @JsonKey(name: 'records')
-  List<MDictionary> lst;
-
-  MDictsTranslation() {}
-
-  factory MDictsTranslation.fromJson(Map<String, dynamic> json) =>
-      _$MDictsTranslationFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MDictsTranslationToJson(this);
+  Map<String, dynamic> toJson() => _$MDictionariesToJson(this);
 }
 
 @JsonSerializable()
