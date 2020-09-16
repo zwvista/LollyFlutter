@@ -10,6 +10,32 @@ class MSelectItem {
 }
 
 @JsonSerializable()
+class MCodes {
+  @JsonKey(name: 'records')
+  List<MCode> lst;
+
+  MCodes() {}
+
+  factory MCodes.fromJson(Map<String, dynamic> json) => _$MCodesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MCodesToJson(this);
+}
+
+@JsonSerializable()
+class MCode {
+  @JsonKey(name: 'CODE')
+  var code = 0;
+  @JsonKey(name: 'NAME')
+  var name = "";
+
+  MCode() {}
+
+  factory MCode.fromJson(Map<String, dynamic> json) => _$MCodeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MCodeToJson(this);
+}
+
+@JsonSerializable()
 class MSPResult {
   @JsonKey(name: 'NEW_ID')
   var newid = 0;
