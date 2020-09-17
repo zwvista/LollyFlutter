@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 
 import '../misc/baseservice.dart';
@@ -9,14 +11,14 @@ class LangPhraseService extends BaseService {
           .lst;
 
   Future<int> create(MLangPhrase item) async =>
-      await createByUrl("LANGPHRASES", item.toJson());
+      await createByUrl("LANGPHRASES", json.encode(item));
 
   Future updateTranslation(int id, String translation) async =>
       print(await updateByUrl("LANGPHRASES/$id", "TRANSLATION=$translation"));
 
   Future update(MLangPhrase item) async =>
-      print(await callSPByUrl("LANGPHRASES/${item.id}", item.toJson()));
+      print(await callSPByUrl("LANGPHRASES/${item.id}", json.encode(item)));
 
   Future delete(MLangPhrase item) async =>
-      print(await callSPByUrl("LANGPHRASES_DELETE", item.toJson()));
+      print(await callSPByUrl("LANGPHRASES_DELETE", json.encode(item)));
 }

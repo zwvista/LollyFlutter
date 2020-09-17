@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
 
@@ -47,7 +49,7 @@ class UnitPhraseService extends BaseService {
   }
 
   Future<int> create(MUnitPhrase item) async =>
-      (await callSPByUrl("UNITPHRASES_CREATE", item.toJson())).newid;
+      (await callSPByUrl("UNITPHRASES_CREATE", json.encode(item))).newid;
 
   Future updateSeqNum(int id, int seqnum) async =>
       print(await updateByUrl("UNITPHRASES/$id", "SEQNUM=$seqnum"));
@@ -56,8 +58,8 @@ class UnitPhraseService extends BaseService {
       print(await updateByUrl("UNITPHRASES/$id", "TRANSLATION=$translation"));
 
   Future update(MUnitPhrase item) async =>
-      print(await callSPByUrl("UNITPHRASES_UPDATE", item.toJson()));
+      print(await callSPByUrl("UNITPHRASES_UPDATE", json.encode(item)));
 
   Future delete(MUnitPhrase item) async =>
-      print(await callSPByUrl("UNITPHRASES_DELETE", item.toJson()));
+      print(await callSPByUrl("UNITPHRASES_DELETE", json.encode(item)));
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
 
 import '../misc/baseservice.dart';
@@ -20,8 +22,8 @@ class DictionaryService extends BaseService {
               "VDICTSTRANSLATION?filter=LANGIDFROM,eq,$langid"))
           .lst;
   Future<int> create(MDictionary item) async =>
-      await createByUrl("DICTIONARIES", item.toJson());
+      await createByUrl("DICTIONARIES", json.encode(item));
   Future update(MDictionary item) async =>
-      print(await updateByUrl("DICTIONARIES/${item.id}", item.toJson()));
+      print(await updateByUrl("DICTIONARIES/${item.id}", json.encode(item)));
   Future delete(int id) async => print(await deleteByUrl("DICTIONARIES/$id"));
 }

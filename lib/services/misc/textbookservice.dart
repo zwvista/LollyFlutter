@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
@@ -41,8 +43,8 @@ class TextbookService extends BaseService {
   }
 
   Future<int> create(MTextbook item) async =>
-      await createByUrl("TEXTBOOKS", item.toJson());
+      await createByUrl("TEXTBOOKS", json.encode(item));
   Future update(MTextbook item) async =>
-      print(await updateByUrl("TEXTBOOKS/${item.id}", item.toJson()));
+      print(await updateByUrl("TEXTBOOKS/${item.id}", json.encode(item)));
   Future delete(int id) async => print(await deleteByUrl("TEXTBOOKS/$id"));
 }
