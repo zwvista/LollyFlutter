@@ -52,16 +52,15 @@ class SettingsViewModel {
     }
   }
 
-  MUserSettingInfo INFO_USLANGID;
-  int get uslangid => int.parse(getUSValue(INFO_USLANGID));
-  set uslangid(int value) => setUSValue(INFO_USLANGID, value.toString());
+  MUserSettingInfo INFO_USLANG;
+  int get uslang => int.parse(getUSValue(INFO_USLANG));
+  set uslang(int value) => setUSValue(INFO_USLANG, value.toString());
   MUserSettingInfo INFO_USVOICEID;
-  int get usvoiceid => int.parse(getUSValue(INFO_USLANGID));
-  set usvoiceid(int value) => setUSValue(INFO_USLANGID, value.toString());
-  MUserSettingInfo INFO_USTEXTBOOKID;
-  int get ustextbookid => int.parse(getUSValue(INFO_USTEXTBOOKID));
-  set ustextbookid(int value) =>
-      setUSValue(INFO_USTEXTBOOKID, value.toString());
+  int get usvoiceid => int.parse(getUSValue(INFO_USLANG));
+  set usvoiceid(int value) => setUSValue(INFO_USLANG, value.toString());
+  MUserSettingInfo INFO_USTEXTBOOK;
+  int get ustextbook => int.parse(getUSValue(INFO_USTEXTBOOK));
+  set ustextbook(int value) => setUSValue(INFO_USTEXTBOOK, value.toString());
   MUserSettingInfo INFO_USDICTREFERENCE;
   String get usdictreference => getUSValue(INFO_USDICTREFERENCE);
   set usdictreference(String value) => setUSValue(INFO_USDICTREFERENCE, value);
@@ -124,34 +123,34 @@ class SettingsViewModel {
     lstUSMappings = await _usMappingService.getData();
     lstUserSettings =
         await _userSettingService.getDataByUser(GlobalConstants.userid);
-    INFO_USLANGID = _getUSInfo(MUSMapping.NAME_USLANGID);
-    selectedLang = lstLanguages.firstWhere((o) => o.id == uslangid);
+    INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
+    selectedLang = lstLanguages.firstWhere((o) => o.id == uslang);
   }
 
   Future setSelectedLang(MLanguage v) async {
-    final isinit = uslangid == v.id;
-    uslangid = v.id;
-    INFO_USTEXTBOOKID = _getUSInfo(MUSMapping.NAME_USTEXTBOOKID);
+    final isinit = uslang == v.id;
+    uslang = v.id;
+    INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
     INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
     INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
     INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
-    INFO_USVOICEID = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICEID);
+    INFO_USVOICEID = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
     lstDictsReference =
-        await _dictionaryService.getDictsReferenceByLang(uslangid);
-    lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslangid);
+        await _dictionaryService.getDictsReferenceByLang(uslang);
+    lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslang);
     lstDictsTranslation =
-        await _dictionaryService.getDictsTranslationByLang(uslangid);
-    lstTextbooks = await _textbookService.getDataByLang(uslangid);
-    lstAutoCorrect = await _autoCorrectService.getDataByLang(uslangid);
-    lstVoices = await _voiceService.getDataByLang(uslangid);
+        await _dictionaryService.getDictsTranslationByLang(uslang);
+    lstTextbooks = await _textbookService.getDataByLang(uslang);
+    lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
+    lstVoices = await _voiceService.getDataByLang(uslang);
     selectedDictReference = lstDictsReference
         .firstWhere((o) => o.dictid.toString() == usdictreference);
     selectedDictNote = lstDictsNote.firstWhere((o) => o.dictid == usdictnote);
     selectedDictTranslation =
         lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation);
-    selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbookid);
+    selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbook);
     selectedVoice = lstVoices.firstWhere((o) => o.id == usvoiceid);
-    if (!isinit) await _userSettingService.updateByInt(INFO_USLANGID, uslangid);
+    if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
   }
 
   Future setSelectedVoice(MVoice v) async {
@@ -177,11 +176,11 @@ class SettingsViewModel {
   }
 
   Future setSelectedTextbook(MTextbook v) async {
-    ustextbookid = v.id;
+    ustextbook = v.id;
     INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
     INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
     INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
     INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
-    await _userSettingService.updateByInt(INFO_USTEXTBOOKID, ustextbookid);
+    await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
   }
 }
