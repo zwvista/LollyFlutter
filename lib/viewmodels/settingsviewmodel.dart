@@ -55,9 +55,9 @@ class SettingsViewModel {
   MUserSettingInfo INFO_USLANG;
   int get uslang => int.parse(getUSValue(INFO_USLANG));
   set uslang(int value) => setUSValue(INFO_USLANG, value.toString());
-  MUserSettingInfo INFO_USVOICEID;
-  int get usvoiceid => int.parse(getUSValue(INFO_USLANG));
-  set usvoiceid(int value) => setUSValue(INFO_USLANG, value.toString());
+  MUserSettingInfo INFO_USVOICE;
+  int get usvoice => int.parse(getUSValue(INFO_USLANG));
+  set usvoice(int value) => setUSValue(INFO_USLANG, value.toString());
   MUserSettingInfo INFO_USTEXTBOOK;
   int get ustextbook => int.parse(getUSValue(INFO_USTEXTBOOK));
   set ustextbook(int value) => setUSValue(INFO_USTEXTBOOK, value.toString());
@@ -134,7 +134,7 @@ class SettingsViewModel {
     INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
     INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
     INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
-    INFO_USVOICEID = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
+    INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
     lstDictsReference =
         await _dictionaryService.getDictsReferenceByLang(uslang);
     lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslang);
@@ -149,13 +149,13 @@ class SettingsViewModel {
     selectedDictTranslation =
         lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation);
     selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbook);
-    selectedVoice = lstVoices.firstWhere((o) => o.id == usvoiceid);
+    selectedVoice = lstVoices.firstWhere((o) => o.id == usvoice);
     if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
   }
 
   Future setSelectedVoice(MVoice v) async {
-    usvoiceid = v.id;
-    await _userSettingService.updateByInt(INFO_USVOICEID, usvoiceid);
+    usvoice = v.id;
+    await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
   }
 
   Future setSelectedDictReference(MDictionary v) async {
