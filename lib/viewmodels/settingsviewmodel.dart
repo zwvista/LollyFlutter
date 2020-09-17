@@ -1,3 +1,4 @@
+import 'package:lolly_flutter/models/misc/mautocorrect.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
 import 'package:lolly_flutter/models/misc/mlanguage.dart';
@@ -5,9 +6,13 @@ import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/misc/musersetting.dart';
 import 'package:lolly_flutter/models/misc/musmapping.dart';
 import 'package:lolly_flutter/models/misc/mvoice.dart';
+import 'package:lolly_flutter/services/misc/autocorrectservice.dart';
+import 'package:lolly_flutter/services/misc/dictionaryservice.dart';
 import 'package:lolly_flutter/services/misc/languageservice.dart';
+import 'package:lolly_flutter/services/misc/textbookservice.dart';
 import 'package:lolly_flutter/services/misc/usersettingservice.dart';
 import 'package:lolly_flutter/services/misc/usmappingservice.dart';
+import 'package:lolly_flutter/services/misc/voiceservice.dart';
 
 class SettingsViewModel {
   List<MUSMapping> lstUSMappings;
@@ -50,6 +55,9 @@ class SettingsViewModel {
   MUserSettingInfo INFO_USLANGID;
   int get uslangid => int.parse(getUSValue(INFO_USLANGID));
   set uslangid(int value) => setUSValue(INFO_USLANGID, value.toString());
+  MUserSettingInfo INFO_USVOICEID;
+  int get usvoiceid => int.parse(getUSValue(INFO_USLANGID));
+  set usvoiceid(int value) => setUSValue(INFO_USLANGID, value.toString());
   MUserSettingInfo INFO_USTEXTBOOKID;
   int get ustextbookid => int.parse(getUSValue(INFO_USTEXTBOOKID));
   set ustextbookid(int value) =>
@@ -89,10 +97,15 @@ class SettingsViewModel {
   MDictionary selectedDictNote;
   List<MDictionary> lstDictsTranslation;
   MDictionary selectedDictTranslation;
+  List<MAutoCorrect> lstAutoCorrect;
 
-  final languageService = LanguageService();
-  final usMappingService = USMappingService();
-  final userSettingService = UserSettingService();
+  final _languageService = LanguageService();
+  final _usMappingService = USMappingService();
+  final _userSettingService = UserSettingService();
+  final _dictionaryService = DictionaryService();
+  final _textbookService = TextbookService();
+  final _autoCorrectService = AutoCorrectService();
+  final _voiceService = VoiceService();
 
   MUserSettingInfo _getUSInfo(String name) {
     var o = lstUSMappings.firstWhere((v) => v.name == name);
@@ -107,11 +120,37 @@ class SettingsViewModel {
   }
 
   Future getData() async {
-    lstLanguages = await languageService.getData();
-    lstUSMappings = await usMappingService.getData();
+    lstLanguages = await _languageService.getData();
+    lstUSMappings = await _usMappingService.getData();
     lstUserSettings =
-        await userSettingService.getDataByUser(GlobalConstants.userid);
+        await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANGID = _getUSInfo(MUSMapping.NAME_USLANGID);
     selectedLang = lstLanguages.firstWhere((o) => o.id == uslangid);
+  }
+
+  Future setSelectedLang(MLanguage v) async {
+    final isinit = uslangid == v.id;
+    uslangid = v.id;
+    INFO_USTEXTBOOKID = _getUSInfo(MUSMapping.NAME_USTEXTBOOKID);
+    INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
+    INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
+    INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
+    INFO_USVOICEID = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICEID);
+    lstDictsReference =
+        await _dictionaryService.getDictsReferenceByLang(uslangid);
+    lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslangid);
+    lstDictsTranslation =
+        await _dictionaryService.getDictsTranslationByLang(uslangid);
+    lstTextbooks = await _textbookService.getDataByLang(uslangid);
+    lstAutoCorrect = await _autoCorrectService.getDataByLang(uslangid);
+    lstVoices = await _voiceService.getDataByLang(uslangid);
+    selectedDictReference = lstDictsReference
+        .firstWhere((o) => o.dictid.toString() == usdictreference);
+    selectedDictNote = lstDictsNote.firstWhere((o) => o.dictid == usdictnoteid);
+    selectedDictTranslation =
+        lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslationid);
+    selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbookid);
+    selectedVoice = lstVoices.firstWhere((o) => o.id == usvoiceid);
+    if (!isinit) _userSettingService.updateByInt(INFO_USLANGID, uslangid);
   }
 }

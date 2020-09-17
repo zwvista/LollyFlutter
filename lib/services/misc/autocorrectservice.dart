@@ -3,7 +3,7 @@ import 'package:lolly_flutter/models/misc/mautocorrect.dart';
 import '../misc/baseservice.dart';
 
 class AutoCorrectService extends BaseService {
-  Future<List<MAutoCorrect>> GetDataByLang(int langid) async =>
+  Future<List<MAutoCorrect>> getDataByLang(int langid) async =>
       MAutoCorrects.fromJson(
               await getDataByUrl("AUTOCORRECT?filter=LANGID,eq,$langid"))
           .lst;
