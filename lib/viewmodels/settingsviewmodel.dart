@@ -66,11 +66,11 @@ class SettingsViewModel {
   String get usdictreference => getUSValue(INFO_USDICTREFERENCE);
   set usdictreference(String value) => setUSValue(INFO_USDICTREFERENCE, value);
   MUserSettingInfo INFO_USDICTNOTE;
-  int get usdictnoteid => int.parse(getUSValue(INFO_USDICTNOTE));
-  set usdictnoteid(int value) => setUSValue(INFO_USDICTNOTE, value.toString());
+  int get usdictnote => int.parse(getUSValue(INFO_USDICTNOTE));
+  set usdictnote(int value) => setUSValue(INFO_USDICTNOTE, value.toString());
   MUserSettingInfo INFO_USDICTTRANSLATION;
-  int get usdicttranslationid => int.parse(getUSValue(INFO_USDICTTRANSLATION));
-  set usdicttranslationid(int value) =>
+  int get usdicttranslation => int.parse(getUSValue(INFO_USDICTTRANSLATION));
+  set usdicttranslation(int value) =>
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
   MUserSettingInfo INFO_USUNITFROM;
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM));
@@ -146,11 +146,42 @@ class SettingsViewModel {
     lstVoices = await _voiceService.getDataByLang(uslangid);
     selectedDictReference = lstDictsReference
         .firstWhere((o) => o.dictid.toString() == usdictreference);
-    selectedDictNote = lstDictsNote.firstWhere((o) => o.dictid == usdictnoteid);
+    selectedDictNote = lstDictsNote.firstWhere((o) => o.dictid == usdictnote);
     selectedDictTranslation =
-        lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslationid);
+        lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation);
     selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbookid);
     selectedVoice = lstVoices.firstWhere((o) => o.id == usvoiceid);
-    if (!isinit) _userSettingService.updateByInt(INFO_USLANGID, uslangid);
+    if (!isinit) await _userSettingService.updateByInt(INFO_USLANGID, uslangid);
+  }
+
+  Future setSelectedVoice(MVoice v) async {
+    usvoiceid = v.id;
+    await _userSettingService.updateByInt(INFO_USVOICEID, usvoiceid);
+  }
+
+  Future setSelectedDictReference(MDictionary v) async {
+    usdictreference = v.dictid.toString();
+    await _userSettingService.updateByString(
+        INFO_USDICTREFERENCE, usdictreference);
+  }
+
+  Future setSelectedDictNote(MDictionary v) async {
+    usdictnote = v.dictid;
+    await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
+  }
+
+  Future setSelectedDictTranslation(MDictionary v) async {
+    usdicttranslation = v.dictid;
+    await _userSettingService.updateByInt(
+        INFO_USDICTTRANSLATION, usdicttranslation);
+  }
+
+  Future setSelectedTextbook(MTextbook v) async {
+    ustextbookid = v.id;
+    INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
+    INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
+    INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
+    INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
+    await _userSettingService.updateByInt(INFO_USTEXTBOOKID, ustextbookid);
   }
 }
