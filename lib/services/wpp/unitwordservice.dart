@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 
 import '../misc/baseservice.dart';
 
-class UnitWordService extends BaseService {
+class UnitWordService extends BaseService<MUnitWord> {
   Future<List<MUnitWord>> getDataByTextbookUnitPart(
       MTextbook textbook, int unitPartFrom, int unitPartTo) async {
     final lst = MUnitWords.fromJson(await getDataByUrl(
@@ -49,17 +47,17 @@ class UnitWordService extends BaseService {
   }
 
   Future<int> create(MUnitWord item) async =>
-      (await callSPByUrl("UNITWORDS_CREATE", json.encode(item))).newid;
+      (await callSPByUrl("UNITWORDS_CREATE", item)).newid;
 
   Future updateSeqNum(int id, int seqnum) async =>
-      print(await updateByUrl("UNITWORDS/$id", "SEQNUM=$seqnum"));
+      print(await updateByUrlString("UNITWORDS/$id", "SEQNUM=$seqnum"));
 
   Future updateNote(int id, String note) async =>
-      print(await updateByUrl("UNITWORDS/$id", "NOTE=$note"));
+      print(await updateByUrlString("UNITWORDS/$id", "NOTE=$note"));
 
   Future update(MUnitWord item) async =>
-      print(await callSPByUrl("UNITWORDS_UPDATE", json.encode(item)));
+      print(await callSPByUrl("UNITWORDS_UPDATE", item));
 
   Future delete(MUnitWord item) async =>
-      print(await callSPByUrl("UNITWORDS_DELETE", json.encode(item)));
+      print(await callSPByUrl("UNITWORDS_DELETE", item));
 }

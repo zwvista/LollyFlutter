@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
 import '../misc/baseservice.dart';
 
-class TextbookService extends BaseService {
+class TextbookService extends BaseService<MTextbook> {
   Future<List<MTextbook>> getDataByLang(int langid) async {
     final lst = MTextbooks.fromJson(
             await getDataByUrl("TEXTBOOKS?filter=LANGID,eq,$langid"))
@@ -43,8 +41,8 @@ class TextbookService extends BaseService {
   }
 
   Future<int> create(MTextbook item) async =>
-      await createByUrl("TEXTBOOKS", json.encode(item));
+      await createByUrl("TEXTBOOKS", item);
   Future update(MTextbook item) async =>
-      print(await updateByUrl("TEXTBOOKS/${item.id}", json.encode(item)));
+      print(await updateByUrl("TEXTBOOKS/${item.id}", item));
   Future delete(int id) async => print(await deleteByUrl("TEXTBOOKS/$id"));
 }
