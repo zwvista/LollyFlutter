@@ -30,7 +30,7 @@ MDictionary _$MDictionaryFromJson(Map<String, dynamic> json) {
     ..seqnum = json['SEQNUM'] as int
     ..dicttypeid = json['DICTTYPEID'] as int
     ..dicttypename = json['DICTTYPENAME'] as String
-    ..dictname = json['DICTNAME'] as String
+    ..dictname = json['NAME'] as String
     ..url = json['URL'] as String
     ..chconv = json['CHCONV'] as String
     ..automation = json['AUTOMATION'] as String
@@ -51,7 +51,7 @@ Map<String, dynamic> _$MDictionaryToJson(MDictionary instance) =>
       'SEQNUM': instance.seqnum,
       'DICTTYPEID': instance.dicttypeid,
       'DICTTYPENAME': instance.dicttypename,
-      'DICTNAME': instance.dictname,
+      'NAME': instance.dictname,
       'URL': instance.url,
       'CHCONV': instance.chconv,
       'AUTOMATION': instance.automation,

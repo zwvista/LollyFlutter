@@ -35,7 +35,7 @@ class MDictionary {
   var dicttypeid = 0;
   @JsonKey(name: 'DICTTYPENAME')
   var dicttypename = "";
-  @JsonKey(name: 'DICTNAME')
+  @JsonKey(name: 'NAME')
   var dictname = "";
   @JsonKey(name: 'URL')
   String url;
