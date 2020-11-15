@@ -9,13 +9,13 @@ class BaseService<T> {
   final cssFolder = "https://zwvista.tk/lolly/css/";
 
   Future<Map<String, dynamic>> getDataByUrl(String url) async {
-    final response = await http.get("${urlAPI}url");
+    final response = await http.get("${urlAPI}$url");
     return json.decode(response.body);
   }
 
   Future<int> createByUrl(String url, T item) async {
     final body = json.encode(item).replaceAll('"ID":0,', '');
-    final response = await http.post("${urlAPI}url", body: body);
+    final response = await http.post("${urlAPI}$url", body: body);
     return response.body as int;
   }
 

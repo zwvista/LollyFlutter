@@ -30,12 +30,12 @@ class TextbookService extends BaseService<MTextbook> {
       o.lstUnits = f(o.units)
           .asMap()
           .map((i, s) => MapEntry(i, MSelectItem(i + 1, s)))
-          .values;
+          .values.toList();
       o.lstParts = o.parts
           .split(',')
           .asMap()
           .map((i, s) => MapEntry(i, MSelectItem(i + 1, s)))
-          .values;
+          .values.toList();
     });
     return lst;
   }

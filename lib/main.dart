@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 
-void main() {
+var vmSettings = SettingsViewModel();
+
+void main() async {
+  await vmSettings.getData();
   runApp(MyApp());
 }
 

@@ -125,6 +125,7 @@ class SettingsViewModel {
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     selectedLang = lstLanguages.firstWhere((o) => o.id == uslang);
+    await setSelectedLang(selectedLang);
   }
 
   Future setSelectedLang(MLanguage v) async {
@@ -149,7 +150,7 @@ class SettingsViewModel {
     selectedDictTranslation =
         lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation);
     selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbook);
-    selectedVoice = lstVoices.firstWhere((o) => o.id == usvoice);
+    selectedVoice = lstVoices.first;
     if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
   }
 
