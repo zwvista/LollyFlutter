@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
+import 'package:lolly_flutter/viewmodels/wordsunitviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import 'keys.dart';
-import 'model_provider.dart';
 
 class WordsUnitPage extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class WordsUnitPage extends StatefulWidget {
 
 class WordsUnitPageState extends State<WordsUnitPage> {
   final TextEditingController _controller = TextEditingController();
+  final vm = WordsUnitViewModel(false);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,14 @@ class WordsUnitPageState extends State<WordsUnitPage> {
             style: TextStyle(
               fontSize: 20.0,
             ),
-            onChanged: ModelProvider.of(context).textChangedCommand,
+            onChanged: vm.textChangedCommand,
           ),
         ),
         Expanded(
           child: RxLoader<List<MUnitWord>>(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
-            commandResults: ModelProvider.of(context).reloadCommand.results,
+            commandResults: vm.reloadCommand.results,
             dataBuilder: (context, data) =>
                 WordsUnitListView(data, key: AppKeys.wordsUnitList),
             placeHolderBuilder: (context) =>

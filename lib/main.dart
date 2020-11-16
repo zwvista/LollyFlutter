@@ -102,9 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case NavItem.profilePage:
-        return Center(
-          child: WordsUnitPage(),
-        );
+        return WordsUnitPage();
       case NavItem.orderPage:
         return Center(
           child: Text(

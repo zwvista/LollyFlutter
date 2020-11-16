@@ -9,7 +9,8 @@ class MUnitWords {
   List<MUnitWord> lst;
 
   MUnitWords() {}
-  factory MUnitWords.fromJson(Map<String, dynamic> json) => _$MUnitWordsFromJson(json);
+  factory MUnitWords.fromJson(Map<String, dynamic> json) =>
+      _$MUnitWordsFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitWordsToJson(this);
 }
 
@@ -45,9 +46,11 @@ class MUnitWord {
   MTextbook textbook;
   String get unitstr => textbook.unitstr(unit);
   String get partstr => textbook.partstr(part);
-  String get accuracy => total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
+  String get accuracy =>
+      total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
 
   MUnitWord() {}
-  factory MUnitWord.fromJson(Map<String, dynamic> json) => _$MUnitWordFromJson(json);
+  factory MUnitWord.fromJson(Map<String, dynamic> json) =>
+      _$MUnitWordFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitWordToJson(this);
 }

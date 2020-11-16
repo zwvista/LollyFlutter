@@ -8,9 +8,10 @@ class BaseService<T> {
   final urlSP = "https://zwvista.tk/lolly/sp.php/";
   final cssFolder = "https://zwvista.tk/lolly/css/";
 
+  // https://stackoverflow.com/questions/51368663/flutter-fetched-japanese-character-from-server-decoded-wrong
   Future<Map<String, dynamic>> getDataByUrl(String url) async {
     final response = await http.get("${urlAPI}$url");
-    return json.decode(response.body);
+    return json.decode(utf8.decode(response.bodyBytes));
   }
 
   Future<int> createByUrl(String url, T item) async {

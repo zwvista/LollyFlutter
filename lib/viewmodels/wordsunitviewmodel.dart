@@ -8,7 +8,7 @@ class WordsUnitViewModel {
   bool inbook;
   List<MUnitWord> lstUnitWords;
   final unitWordService = UnitWordService();
-  RxCommand<String, List<MUnitWord>> reloadCommand;
+  RxCommand<void, List<MUnitWord>> reloadCommand;
   RxCommand<String, String> textChangedCommand;
 
   WordsUnitViewModel(bool inbook) {

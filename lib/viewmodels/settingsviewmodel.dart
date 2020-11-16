@@ -89,17 +89,23 @@ class SettingsViewModel {
   bool get isInvaidUnitPart => usunitpartfrom > usunitpartto;
 
   List<MLanguage> lstLanguages;
-  MLanguage selectedLang;
+  MLanguage _selectedLang;
+  MLanguage get selectedLang => _selectedLang;
   List<MVoice> lstVoices;
-  MVoice selectedVoice;
+  MVoice _selectedVoice;
+  MVoice get selectedVoice => _selectedVoice;
   List<MTextbook> lstTextbooks;
-  MTextbook selectedTextbook;
+  MTextbook _selectedTextbook;
+  MTextbook get selectedTextbook => _selectedTextbook;
   List<MDictionary> lstDictsReference;
-  MDictionary selectedDictReference;
+  MDictionary _selectedDictReference;
+  MDictionary get selectedDictReference => _selectedDictReference;
   List<MDictionary> lstDictsNote;
-  MDictionary selectedDictNote;
+  MDictionary _selectedDictNote;
+  MDictionary get selectedDictNote => _selectedDictNote;
   List<MDictionary> lstDictsTranslation;
-  MDictionary selectedDictTranslation;
+  MDictionary _selectedDictTranslation;
+  MDictionary get selectedDictTranslation => _selectedDictTranslation;
   List<MAutoCorrect> lstAutoCorrect;
 
   final _languageService = LanguageService();
@@ -130,11 +136,11 @@ class SettingsViewModel {
     lstUserSettings =
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
-    selectedLang = lstLanguages.firstWhere((o) => o.id == uslang);
-    await setSelectedLang(selectedLang);
+    await setSelectedLang(lstLanguages.firstWhere((o) => o.id == uslang));
   }
 
   Future setSelectedLang(MLanguage v) async {
+    _selectedLang = v;
     final isinit = uslang == v.id;
     uslang = v.id;
     INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
@@ -150,39 +156,46 @@ class SettingsViewModel {
     lstTextbooks = await _textbookService.getDataByLang(uslang);
     lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
     lstVoices = await _voiceService.getDataByLang(uslang);
-    selectedDictReference = lstDictsReference
-        .firstWhere((o) => o.dictid.toString() == usdictreference);
-    selectedDictNote = lstDictsNote.firstWhere((o) => o.dictid == usdictnote);
-    selectedDictTranslation =
-        lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation);
-    selectedTextbook = lstTextbooks.firstWhere((o) => o.id == ustextbook);
-    selectedVoice = lstVoices.first;
+    await setSelectedDictReference(lstDictsReference
+        .firstWhere((o) => o.dictid.toString() == usdictreference));
+    await setSelectedDictNote(
+        lstDictsNote.firstWhere((o) => o.dictid == usdictnote));
+    await setSelectedDictTranslation(
+        lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation));
+    await setSelectedTextbook(
+        lstTextbooks.firstWhere((o) => o.id == ustextbook));
+    await setSelectedVoice(lstVoices.first);
     if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
   }
 
   Future setSelectedVoice(MVoice v) async {
+    _selectedVoice = v;
     usvoice = v.id;
     await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
   }
 
   Future setSelectedDictReference(MDictionary v) async {
+    _selectedDictReference = v;
     usdictreference = v.dictid.toString();
     await _userSettingService.updateByString(
         INFO_USDICTREFERENCE, usdictreference);
   }
 
   Future setSelectedDictNote(MDictionary v) async {
+    _selectedDictNote = v;
     usdictnote = v.dictid;
     await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
   }
 
   Future setSelectedDictTranslation(MDictionary v) async {
+    _selectedDictTranslation = v;
     usdicttranslation = v.dictid;
     await _userSettingService.updateByInt(
         INFO_USDICTTRANSLATION, usdicttranslation);
   }
 
   Future setSelectedTextbook(MTextbook v) async {
+    _selectedTextbook = v;
     ustextbook = v.id;
     INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
     INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
