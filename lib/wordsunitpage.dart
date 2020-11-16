@@ -15,7 +15,7 @@ class WordsUnitPage extends StatefulWidget {
 
 class WordsUnitPageState extends State<WordsUnitPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = WordsUnitViewModel(false);
+  final vm = WordsUnitViewModel(true);
 
   @override
   Widget build(BuildContext context) {

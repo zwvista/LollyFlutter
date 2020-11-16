@@ -17,27 +17,27 @@ class BaseService<T> {
   Future<int> createByUrl(String url, T item) async {
     final body = json.encode(item).replaceAll('"ID":0,', '');
     final response = await http.post("${urlAPI}$url", body: body);
-    return response.body as int;
+    return int.parse(response.body);
   }
 
   Future<int> updateByUrl(String url, T item) async =>
       await updateByUrlString(url, json.encode(item));
 
   Future<int> updateByUrlString(String url, String body) async {
-    final response = await http.put("${urlAPI}url", body: body);
-    return response.body as int;
+    final response = await http.put("${urlAPI}$url", body: body);
+    return int.parse(response.body);
   }
 
   Future<int> deleteByUrl(String url) async {
-    final response = await http.delete("${urlAPI}url");
-    return response.body as int;
+    final response = await http.delete("${urlAPI}$url");
+    return int.parse(response.body);
   }
 
   Future<MSPResult> callSPByUrl(String url, T item) async {
     final body = json
         .encode(item)
         .replaceAllMapped(RegExp('"(\w+)":'), (m) => '"P_{m.group(1)}":');
-    final response = await http.post("${urlSP}url", body: body);
+    final response = await http.post("${urlSP}$url", body: body);
     return MSPResult.fromJson(json.decode(response.body));
   }
 }
