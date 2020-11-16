@@ -5,6 +5,7 @@ class AppKeys {
   static final Key empty = new Key('empty container');
   static final Key noItems = new Key('noItems');
   static final Key wordsUnitList = new Key('wordsUnitList');
+  static final Key phrasesUnitList = new Key('phrasesUnitList');
   static final Key cityList = new Key('cityList');
   static final Key loadingSpinner = new Key('loadingSpinner');
   static final Key updateButtonEnabled = new Key('updateButtonEnabled');

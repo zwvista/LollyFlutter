@@ -6,7 +6,7 @@ class NavDrawerState {
 
 enum NavItem {
   homePage,
-  profilePage,
-  orderPage,
+  wordsUnitPage,
+  phrasesUnitPage,
   myCart,
 }

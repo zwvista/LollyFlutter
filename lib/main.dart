@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/pages/phrases/phrasesunitpage.dart';
+import 'package:lolly_flutter/pages/words/wordsunitpage.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
-import 'package:lolly_flutter/wordsunitpage.dart';
 
 var vmSettings = SettingsViewModel();
 
@@ -81,10 +82,10 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (state) {
       case NavItem.homePage:
         return 'Home';
-      case NavItem.profilePage:
-        return 'Profile Page';
-      case NavItem.orderPage:
-        return 'My Orders';
+      case NavItem.wordsUnitPage:
+        return 'Words in Unit';
+      case NavItem.phrasesUnitPage:
+        return 'Phrases in Unit';
       case NavItem.myCart:
         return 'My Cart';
       default:
@@ -101,15 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         );
-      case NavItem.profilePage:
+      case NavItem.wordsUnitPage:
         return WordsUnitPage();
-      case NavItem.orderPage:
-        return Center(
-          child: Text(
-            'My Orders',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        );
+      case NavItem.phrasesUnitPage:
+        return PhrasesUnitPage();
       case NavItem.myCart:
         return Center(
           child: Text(

@@ -10,8 +10,10 @@ class NavDrawerWidget extends StatelessWidget {
   final List<_NavigationItem> _listItems = [
     _NavigationItem(true, null, null, null),
     _NavigationItem(false, NavItem.homePage, "Home", Icons.home),
-    _NavigationItem(false, NavItem.profilePage, "Profile Page", Icons.person),
-    _NavigationItem(false, NavItem.orderPage, "My Orders", Icons.list),
+    _NavigationItem(
+        false, NavItem.wordsUnitPage, "Words in Unit", Icons.person),
+    _NavigationItem(
+        false, NavItem.phrasesUnitPage, "Phrases in Unit", Icons.list),
     _NavigationItem(false, NavItem.myCart, "My Cart", Icons.shopping_cart),
   ];
 
@@ -57,12 +59,16 @@ class NavDrawerWidget extends StatelessWidget {
             title: Text(
               data.title,
               style: TextStyle(
-                color: data.item == state.selectedItem ? Colors.green : Colors.blueGrey,
+                color: data.item == state.selectedItem
+                    ? Colors.green
+                    : Colors.blueGrey,
               ),
             ),
             leading: Icon(
               data.icon,
-              color: data.item == state.selectedItem ? Colors.green : Colors.blueGrey,
+              color: data.item == state.selectedItem
+                  ? Colors.green
+                  : Colors.blueGrey,
             ),
             onTap: () => _handleItemClick(context, data.item),
           ),

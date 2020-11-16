@@ -1,0 +1,34 @@
+import 'package:lolly_flutter/main.dart';
+import 'package:lolly_flutter/models/wpp/munitphrase.dart';
+import 'package:lolly_flutter/services/wpp/unitphraseservice.dart';
+import 'package:rx_command/rx_command.dart';
+import 'package:rxdart/rxdart.dart';
+
+class PhrasesUnitViewModel {
+  bool inbook;
+  List<MUnitPhrase> lstUnitPhrases;
+  final unitPhraseService = UnitPhraseService();
+  RxCommand<void, List<MUnitPhrase>> reloadCommand;
+  RxCommand<String, String> textChangedCommand;
+
+  PhrasesUnitViewModel(bool inbook) {
+    this.inbook = inbook;
+    reloadCommand = RxCommand.createAsyncNoParam<List<MUnitPhrase>>(reload);
+    // When the user starts typing
+    textChangedCommand = RxCommand.createSync<String, String>((s) => s);
+    textChangedCommand
+        // Wait for the user to stop typing for 500ms
+        .debounceTime(Duration(milliseconds: 500))
+        // Then call the updateWeatherCommand
+        .listen(reloadCommand);
+    reloadCommand.execute();
+  }
+
+  Future<List<MUnitPhrase>> reload() async => inbook
+      ? await unitPhraseService.getDataByTextbookUnitPart(
+          vmSettings.selectedTextbook,
+          vmSettings.usunitpartfrom,
+          vmSettings.usunitpartto)
+      : await unitPhraseService.getDataByLang(
+          vmSettings.selectedLang.id, vmSettings.lstTextbooks);
+}

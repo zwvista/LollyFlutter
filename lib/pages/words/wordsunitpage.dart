@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
-import 'package:lolly_flutter/viewmodels/wordsunitviewmodel.dart';
+import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
+import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
-import 'keys.dart';
+import '../../keys.dart';
 
 class WordsUnitPage extends StatefulWidget {
   @override
@@ -22,20 +23,23 @@ class WordsUnitPageState extends State<WordsUnitPage> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            key: AppKeys.textField,
-            autocorrect: false,
-            controller: _controller,
-            decoration: InputDecoration(
-              hintText: "Filter cities",
-            ),
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-            onChanged: vm.textChangedCommand,
-          ),
-        ),
+            padding: const EdgeInsets.all(16.0),
+            child: Row(children: <Widget>[
+              Expanded(
+                child: TextField(
+                  key: AppKeys.textField,
+                  autocorrect: false,
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    hintText: "Filter",
+                  ),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                  onChanged: vm.textChangedCommand,
+                ),
+              )
+            ])),
         Expanded(
           child: RxLoader<List<MUnitWord>>(
             spinnerKey: AppKeys.loadingSpinner,
@@ -79,20 +83,23 @@ class WordsUnitItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Column(children: <Widget>[
-        Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-        Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-        Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
-      ]),
-      title: Text(
-        entry.word,
-        style: TextStyle(fontSize: 20, color: Colors.orange),
-      ),
-      subtitle: Text(entry.note,
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            color: Color.fromARGB(255, 255, 0, 255),
-          )),
-    );
+        leading: Column(children: <Widget>[
+          Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
+          Text(entry.partstr, style: TextStyle(color: Colors.blue)),
+          Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
+        ]),
+        title: Text(
+          entry.word,
+          style: TextStyle(fontSize: 20, color: Colors.orange),
+        ),
+        subtitle: Text(entry.note,
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              color: Color.fromARGB(255, 255, 0, 255),
+            )),
+        trailing:
+            Icon(Icons.keyboard_arrow_right, color: Colors.blue, size: 30.0),
+        onTap: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => WordsDictPage())));
   }
 }
