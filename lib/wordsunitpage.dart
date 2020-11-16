@@ -79,11 +79,20 @@ class WordsUnitItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(entry.word),
-      subtitle: Text(
-        entry.note,
-        style: TextStyle(fontStyle: FontStyle.italic),
+      leading: Column(children: <Widget>[
+        Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
+        Text(entry.partstr, style: TextStyle(color: Colors.blue)),
+        Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
+      ]),
+      title: Text(
+        entry.word,
+        style: TextStyle(fontSize: 20, color: Colors.orange),
       ),
+      subtitle: Text(entry.note,
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Color.fromARGB(255, 255, 0, 255),
+          )),
     );
   }
 }

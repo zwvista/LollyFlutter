@@ -21,6 +21,7 @@ class WordsUnitViewModel {
         .debounceTime(Duration(milliseconds: 500))
         // Then call the updateWeatherCommand
         .listen(reloadCommand);
+    reloadCommand.execute();
   }
 
   Future<List<MUnitWord>> reload() async => inbook
