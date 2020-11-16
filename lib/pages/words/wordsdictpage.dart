@@ -10,11 +10,9 @@ class WordsDictPage extends StatefulWidget {
 
 class WordsDictPageState extends State<WordsDictPage> {
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Dictionary',
-      theme: ThemeData(
-          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
-      home: Column(
+    return Scaffold(
+      appBar: AppBar(title: Text('Dictionary')),
+      body: Column(
         children: <Widget>[],
       ),
     );
