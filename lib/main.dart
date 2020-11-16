@@ -4,6 +4,7 @@ import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
+import 'package:lolly_flutter/wordsunitpage.dart';
 
 var vmSettings = SettingsViewModel();
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lolly Flutter',
-      theme: ThemeData(primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
+      theme: ThemeData(
+          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
       home: MyHomePage(),
     );
     ;
@@ -101,10 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       case NavItem.profilePage:
         return Center(
-          child: Text(
-            'Profile Page',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          child: WordsUnitPage(),
         );
       case NavItem.orderPage:
         return Center(

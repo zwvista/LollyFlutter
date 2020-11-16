@@ -83,6 +83,10 @@ class SettingsViewModel {
   MUserSettingInfo INFO_USPARTTO;
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO));
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
+  int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
+  int get usunitpartto => usunitto * 10 + uspartto;
+  bool get isSingleUnitPart => usunitpartfrom == usunitpartto;
+  bool get isInvaidUnitPart => usunitpartfrom > usunitpartto;
 
   List<MLanguage> lstLanguages;
   MLanguage selectedLang;
@@ -112,7 +116,9 @@ class SettingsViewModel {
         ? o.entityid
         : o.level == 1
             ? selectedLang.id
-            : o.level == 2 ? selectedTextbook.id : 0;
+            : o.level == 2
+                ? selectedTextbook.id
+                : 0;
     var o2 = lstUserSettings
         .firstWhere((v) => v.kind == o.kind && v.entityid == entityid);
     return MUserSettingInfo(o2.id, o.valueid);
