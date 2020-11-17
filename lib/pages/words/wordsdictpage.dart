@@ -13,7 +13,12 @@ class WordsDictPageState extends State<WordsDictPage> {
     return Scaffold(
       appBar: AppBar(title: Text('Dictionary')),
       body: Column(
-        children: <Widget>[],
+        children: <Widget>[
+          Row(children: <Widget>[
+            Expanded(flex: 2, child: DropdownButton()),
+            Expanded(flex: 1, child: DropdownButton())
+          ]),
+        ],
       ),
     );
   }
