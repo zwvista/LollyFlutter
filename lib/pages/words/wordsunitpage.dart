@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
+import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
@@ -33,11 +34,15 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   decoration: InputDecoration(
                     hintText: "Filter",
                   ),
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
                   onChanged: vm.textChangedCommand,
                 ),
+              ),
+              DropdownButton(
+                value: vm.scopeFilter,
+                items: SettingsViewModel.scopeWordFilters
+                    .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                    .toList(),
+                onChanged: (s) => setState(() => vm.scopeFilter = s),
               )
             ])),
         Expanded(
@@ -45,8 +50,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) =>
-                WordsUnitListView(data, key: AppKeys.wordsUnitList),
+            dataBuilder: (context, data) => WordsUnitListView(data),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(

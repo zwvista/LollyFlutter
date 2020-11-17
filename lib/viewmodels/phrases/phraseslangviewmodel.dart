@@ -1,23 +1,22 @@
 import 'package:lolly_flutter/main.dart';
-import 'package:lolly_flutter/models/wpp/munitword.dart';
-import 'package:lolly_flutter/services/wpp/unitwordservice.dart';
+import 'package:lolly_flutter/models/wpp/munitphrase.dart';
+import 'package:lolly_flutter/services/wpp/unitphraseservice.dart';
+import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../settingsviewmodel.dart';
-
-class WordsUnitViewModel {
+class PhrasesLangViewModel {
   bool inbook;
-  List<MUnitWord> lstUnitWords;
-  final unitWordService = UnitWordService();
-  RxCommand<void, List<MUnitWord>> reloadCommand;
+  List<MUnitPhrase> lstUnitPhrases;
+  final unitPhraseService = UnitPhraseService();
+  RxCommand<void, List<MUnitPhrase>> reloadCommand;
   RxCommand<String, String> textChangedCommand;
   var textFilter = "";
-  var scopeFilter = SettingsViewModel.scopeWordFilters[0];
+  var scopeFilter = SettingsViewModel.scopePhraseFilters[0];
 
-  WordsUnitViewModel(bool inbook) {
+  PhrasesLangViewModel(bool inbook) {
     this.inbook = inbook;
-    reloadCommand = RxCommand.createAsyncNoParam<List<MUnitWord>>(reload);
+    reloadCommand = RxCommand.createAsyncNoParam<List<MUnitPhrase>>(reload);
     // When the user starts typing
     textChangedCommand = RxCommand.createSync<String, String>((s) => s);
     textChangedCommand
@@ -28,11 +27,11 @@ class WordsUnitViewModel {
     reloadCommand.execute();
   }
 
-  Future<List<MUnitWord>> reload() async => inbook
-      ? await unitWordService.getDataByTextbookUnitPart(
+  Future<List<MUnitPhrase>> reload() async => inbook
+      ? await unitPhraseService.getDataByTextbookUnitPart(
           vmSettings.selectedTextbook,
           vmSettings.usunitpartfrom,
           vmSettings.usunitpartto)
-      : await unitWordService.getDataByLang(
+      : await unitPhraseService.getDataByLang(
           vmSettings.selectedLang.id, vmSettings.lstTextbooks);
 }

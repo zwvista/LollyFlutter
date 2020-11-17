@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lolly_flutter/models/wpp/munitphrase.dart';
-import 'package:lolly_flutter/viewmodels/phrases/phrasesunitviewmodel.dart';
+import 'package:lolly_flutter/models/wpp/munitword.dart';
+import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/words/wordslangviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 
-class PhrasesUnitPage extends StatefulWidget {
+class WordsLangPage extends StatefulWidget {
   @override
-  PhrasesUnitPageState createState() {
-    return PhrasesUnitPageState();
+  WordsLangPageState createState() {
+    return WordsLangPageState();
   }
 }
 
-class PhrasesUnitPageState extends State<PhrasesUnitPage> {
+class WordsLangPageState extends State<WordsLangPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = PhrasesUnitViewModel(true);
+  final vm = WordsLangViewModel(true);
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +39,18 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
               ),
               DropdownButton(
                 value: vm.scopeFilter,
-                items: SettingsViewModel.scopePhraseFilters
+                items: SettingsViewModel.scopeWordFilters
                     .map((s) => DropdownMenuItem(value: s, child: Text(s)))
                     .toList(),
                 onChanged: (s) => setState(() => vm.scopeFilter = s),
               )
             ])),
         Expanded(
-          child: RxLoader<List<MUnitPhrase>>(
+          child: RxLoader<List<MUnitWord>>(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) =>
-                PhrasesUnitListView(data, key: AppKeys.phrasesUnitList),
+            dataBuilder: (context, data) => WordsLangListView(data),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(
@@ -63,10 +63,10 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
   }
 }
 
-class PhrasesUnitListView extends StatelessWidget {
-  final List<MUnitPhrase> data;
+class WordsLangListView extends StatelessWidget {
+  final List<MUnitWord> data;
 
-  PhrasesUnitListView(this.data, {Key key}) : super(key: key);
+  WordsLangListView(this.data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,35 +74,36 @@ class PhrasesUnitListView extends StatelessWidget {
       key: AppKeys.cityList,
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) =>
-          PhrasesUnitItem(entry: data[index]),
+          WordsLangItem(entry: data[index]),
     );
   }
 }
 
-class PhrasesUnitItem extends StatelessWidget {
-  final MUnitPhrase entry;
+class WordsLangItem extends StatelessWidget {
+  final MUnitWord entry;
 
-  PhrasesUnitItem({Key key, @required this.entry}) : super(key: key);
+  WordsLangItem({Key key, @required this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Column(children: <Widget>[
-        Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-        Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-        Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
-      ]),
-      title: Text(
-        entry.phrase,
-        style: TextStyle(fontSize: 20, color: Colors.orange),
-      ),
-      subtitle: Text(entry.translation,
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            color: Color.fromARGB(255, 255, 0, 255),
-          )),
-      trailing:
-          Icon(Icons.keyboard_arrow_right, color: Colors.blue, size: 30.0),
-    );
+        leading: Column(children: <Widget>[
+          Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
+          Text(entry.partstr, style: TextStyle(color: Colors.blue)),
+          Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
+        ]),
+        title: Text(
+          entry.word,
+          style: TextStyle(fontSize: 20, color: Colors.orange),
+        ),
+        subtitle: Text(entry.note,
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              color: Color.fromARGB(255, 255, 0, 255),
+            )),
+        trailing:
+            Icon(Icons.keyboard_arrow_right, color: Colors.blue, size: 30.0),
+        onTap: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => WordsDictPage())));
   }
 }

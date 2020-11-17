@@ -14,6 +14,14 @@ class NavDrawerWidget extends StatelessWidget {
         false, NavItem.wordsUnitPage, "Words in Unit", Icons.person),
     _NavigationItem(
         false, NavItem.phrasesUnitPage, "Phrases in Unit", Icons.list),
+    _NavigationItem(
+        false, NavItem.wordsTextbookPage, "Words in Textbook", Icons.person),
+    _NavigationItem(
+        false, NavItem.phrasesTextbookPage, "Phrases in Textbook", Icons.list),
+    _NavigationItem(
+        false, NavItem.wordsLangPage, "Words in Language", Icons.person),
+    _NavigationItem(
+        false, NavItem.phrasesLangPage, "Phrases in Language", Icons.list),
     _NavigationItem(false, NavItem.myCart, "My Cart", Icons.shopping_cart),
   ];
 

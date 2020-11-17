@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../settingsviewmodel.dart';
 
-class WordsUnitViewModel {
+class WordsTextbookViewModel {
   bool inbook;
   List<MUnitWord> lstUnitWords;
   final unitWordService = UnitWordService();
@@ -15,7 +15,7 @@ class WordsUnitViewModel {
   var textFilter = "";
   var scopeFilter = SettingsViewModel.scopeWordFilters[0];
 
-  WordsUnitViewModel(bool inbook) {
+  WordsTextbookViewModel(bool inbook) {
     this.inbook = inbook;
     reloadCommand = RxCommand.createAsyncNoParam<List<MUnitWord>>(reload);
     // When the user starts typing

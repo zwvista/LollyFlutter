@@ -116,6 +116,9 @@ class SettingsViewModel {
   final _autoCorrectService = AutoCorrectService();
   final _voiceService = VoiceService();
 
+  static final scopeWordFilters = ["Word", "Note"];
+  static final scopePhraseFilters = ["Phrase", "Translation"];
+
   MUserSettingInfo _getUSInfo(String name) {
     var o = lstUSMappings.firstWhere((v) => v.name == name);
     var entityid = o.entityid != -1

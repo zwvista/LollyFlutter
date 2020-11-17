@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/pages/phrases/phraseslangpage.dart';
+import 'package:lolly_flutter/pages/phrases/phrasestextbookpage.dart';
 import 'package:lolly_flutter/pages/phrases/phrasesunitpage.dart';
+import 'package:lolly_flutter/pages/words/wordslangpage.dart';
+import 'package:lolly_flutter/pages/words/wordstextbookpage.dart';
 import 'package:lolly_flutter/pages/words/wordsunitpage.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 
@@ -86,6 +90,14 @@ class _MyHomePageState extends State<MyHomePage> {
         return 'Words in Unit';
       case NavItem.phrasesUnitPage:
         return 'Phrases in Unit';
+      case NavItem.wordsTextbookPage:
+        return 'Words in Textbook';
+      case NavItem.phrasesTextbookPage:
+        return 'Phrases in Textbook';
+      case NavItem.wordsLangPage:
+        return 'Words in Language';
+      case NavItem.phrasesLangPage:
+        return 'Phrases in Language';
       case NavItem.myCart:
         return 'My Cart';
       default:
@@ -106,6 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
         return WordsUnitPage();
       case NavItem.phrasesUnitPage:
         return PhrasesUnitPage();
+      case NavItem.wordsTextbookPage:
+        return WordsTextbookPage();
+      case NavItem.phrasesTextbookPage:
+        return PhrasesTextbookPage();
+      case NavItem.wordsLangPage:
+        return WordsLangPage();
+      case NavItem.phrasesLangPage:
+        return PhrasesLangPage();
       case NavItem.myCart:
         return Center(
           child: Text(

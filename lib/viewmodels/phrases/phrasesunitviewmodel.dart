@@ -1,6 +1,7 @@
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
 import 'package:lolly_flutter/services/wpp/unitphraseservice.dart';
+import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -10,6 +11,8 @@ class PhrasesUnitViewModel {
   final unitPhraseService = UnitPhraseService();
   RxCommand<void, List<MUnitPhrase>> reloadCommand;
   RxCommand<String, String> textChangedCommand;
+  var textFilter = "";
+  var scopeFilter = SettingsViewModel.scopePhraseFilters[0];
 
   PhrasesUnitViewModel(bool inbook) {
     this.inbook = inbook;

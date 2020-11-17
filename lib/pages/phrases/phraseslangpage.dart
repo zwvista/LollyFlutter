@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
-import 'package:lolly_flutter/viewmodels/phrases/phrasesunitviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/phrases/phraseslangviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 
-class PhrasesUnitPage extends StatefulWidget {
+class PhrasesLangPage extends StatefulWidget {
   @override
-  PhrasesUnitPageState createState() {
-    return PhrasesUnitPageState();
+  PhrasesLangPageState createState() {
+    return PhrasesLangPageState();
   }
 }
 
-class PhrasesUnitPageState extends State<PhrasesUnitPage> {
+class PhrasesLangPageState extends State<PhrasesLangPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = PhrasesUnitViewModel(true);
+  final vm = PhrasesLangViewModel(true);
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) =>
-                PhrasesUnitListView(data, key: AppKeys.phrasesUnitList),
+            dataBuilder: (context, data) => PhrasesLangListView(data),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(
@@ -63,10 +62,10 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
   }
 }
 
-class PhrasesUnitListView extends StatelessWidget {
+class PhrasesLangListView extends StatelessWidget {
   final List<MUnitPhrase> data;
 
-  PhrasesUnitListView(this.data, {Key key}) : super(key: key);
+  PhrasesLangListView(this.data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +73,15 @@ class PhrasesUnitListView extends StatelessWidget {
       key: AppKeys.cityList,
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) =>
-          PhrasesUnitItem(entry: data[index]),
+          PhrasesLangItem(entry: data[index]),
     );
   }
 }
 
-class PhrasesUnitItem extends StatelessWidget {
+class PhrasesLangItem extends StatelessWidget {
   final MUnitPhrase entry;
 
-  PhrasesUnitItem({Key key, @required this.entry}) : super(key: key);
+  PhrasesLangItem({Key key, @required this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
