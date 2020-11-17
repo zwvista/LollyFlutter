@@ -2,7 +2,7 @@ import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 
 import '../misc/baseservice.dart';
 
-class LangPhraseService extends BaseService<MLangPhrase> {
+class LangPhrasesService extends BaseService<MLangPhrase> {
   Future<List<MLangPhrase>> getDataByLang(int langid) async =>
       MLangPhrases.fromJson(await getDataByUrl(
               "LANGPHRASES?filter=LANGID,eq,$langid&order=PHRASE"))

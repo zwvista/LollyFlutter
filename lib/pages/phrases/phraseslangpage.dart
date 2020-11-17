@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/models/wpp/munitphrase.dart';
+import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phraseslangviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -17,7 +17,7 @@ class PhrasesLangPage extends StatefulWidget {
 
 class PhrasesLangPageState extends State<PhrasesLangPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = PhrasesLangViewModel(true);
+  final vm = PhrasesLangViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
               )
             ])),
         Expanded(
-          child: RxLoader<List<MUnitPhrase>>(
+          child: RxLoader<List<MLangPhrase>>(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
@@ -64,7 +64,7 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
 }
 
 class PhrasesLangListView extends StatelessWidget {
-  final List<MUnitPhrase> data;
+  final List<MLangPhrase> data;
 
   PhrasesLangListView(this.data, {Key key}) : super(key: key);
 
@@ -80,7 +80,7 @@ class PhrasesLangListView extends StatelessWidget {
 }
 
 class PhrasesLangItem extends StatelessWidget {
-  final MUnitPhrase entry;
+  final MLangPhrase entry;
 
   PhrasesLangItem({Key key, @required this.entry}) : super(key: key);
 
@@ -92,11 +92,6 @@ class PhrasesLangItem extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: ListTile(
-          leading: Column(children: <Widget>[
-            Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-            Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-            Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
-          ]),
           title: Text(
             entry.phrase,
             style: TextStyle(fontSize: 20, color: Colors.orange),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
-import 'package:lolly_flutter/viewmodels/phrases/phrasestextbookviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/phrases/phrasesunitviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
@@ -17,7 +17,7 @@ class PhrasesTextbookPage extends StatefulWidget {
 
 class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = PhrasesTextbookViewModel(true);
+  final vm = PhrasesUnitViewModel(false);
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
-import 'package:lolly_flutter/viewmodels/words/wordstextbookviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
@@ -18,7 +18,7 @@ class WordsTextbookPage extends StatefulWidget {
 
 class WordsTextbookPageState extends State<WordsTextbookPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = WordsTextbookViewModel(true);
+  final vm = WordsUnitViewModel(false);
 
   @override
   Widget build(BuildContext context) {

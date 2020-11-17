@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/models/wpp/munitword.dart';
+import 'package:lolly_flutter/models/wpp/mlangword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/wordslangviewmodel.dart';
@@ -18,7 +18,7 @@ class WordsLangPage extends StatefulWidget {
 
 class WordsLangPageState extends State<WordsLangPage> {
   final TextEditingController _controller = TextEditingController();
-  final vm = WordsLangViewModel(true);
+  final vm = WordsLangViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class WordsLangPageState extends State<WordsLangPage> {
               )
             ])),
         Expanded(
-          child: RxLoader<List<MUnitWord>>(
+          child: RxLoader<List<MLangWord>>(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
@@ -65,7 +65,7 @@ class WordsLangPageState extends State<WordsLangPage> {
 }
 
 class WordsLangListView extends StatelessWidget {
-  final List<MUnitWord> data;
+  final List<MLangWord> data;
 
   WordsLangListView(this.data, {Key key}) : super(key: key);
 
@@ -81,7 +81,7 @@ class WordsLangListView extends StatelessWidget {
 }
 
 class WordsLangItem extends StatelessWidget {
-  final MUnitWord entry;
+  final MLangWord entry;
 
   WordsLangItem({Key key, @required this.entry}) : super(key: key);
 
@@ -93,12 +93,6 @@ class WordsLangItem extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: ListTile(
-            leading: Column(children: <Widget>[
-              Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-              Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-              Text(entry.seqnum.toString(),
-                  style: TextStyle(color: Colors.blue))
-            ]),
             title: Text(
               entry.word,
               style: TextStyle(fontSize: 20, color: Colors.orange),
