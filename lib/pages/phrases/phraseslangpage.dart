@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phraseslangviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
@@ -85,23 +86,54 @@ class PhrasesLangItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Column(children: <Widget>[
-        Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-        Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-        Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
-      ]),
-      title: Text(
-        entry.phrase,
-        style: TextStyle(fontSize: 20, color: Colors.orange),
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
+      child: Container(
+        color: Colors.white,
+        child: ListTile(
+          leading: Column(children: <Widget>[
+            Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
+            Text(entry.partstr, style: TextStyle(color: Colors.blue)),
+            Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
+          ]),
+          title: Text(
+            entry.phrase,
+            style: TextStyle(fontSize: 20, color: Colors.orange),
+          ),
+          subtitle: Text(entry.translation,
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                color: Color.fromARGB(255, 255, 0, 255),
+              )),
+          trailing:
+              Icon(Icons.keyboard_arrow_right, color: Colors.blue, size: 30.0),
+        ),
       ),
-      subtitle: Text(entry.translation,
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            color: Color.fromARGB(255, 255, 0, 255),
-          )),
-      trailing:
-          Icon(Icons.keyboard_arrow_right, color: Colors.blue, size: 30.0),
+      actions: <Widget>[
+        IconSlideAction(
+          caption: 'Archive',
+          color: Colors.blue,
+          icon: Icons.archive,
+        ),
+        IconSlideAction(
+          caption: 'Share',
+          color: Colors.indigo,
+          icon: Icons.share,
+        ),
+      ],
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: 'More',
+          color: Colors.black45,
+          icon: Icons.more_horiz,
+        ),
+        IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+        ),
+      ],
     );
   }
 }
