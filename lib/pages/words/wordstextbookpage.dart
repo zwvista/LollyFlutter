@@ -51,7 +51,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) => WordsTextbookListView(data),
+            dataBuilder: (context, data) => WordsTextbookListView(vm),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(
@@ -65,25 +65,29 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
 }
 
 class WordsTextbookListView extends StatelessWidget {
-  final List<MUnitWord> data;
+  final WordsUnitViewModel vm;
 
-  WordsTextbookListView(this.data, {Key key}) : super(key: key);
+  WordsTextbookListView(this.vm);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       key: AppKeys.cityList,
-      itemCount: data.length,
+      itemCount: vm.lstUnitWords.length,
       itemBuilder: (BuildContext context, int index) =>
-          WordsTextbookItem(entry: data[index]),
+          WordsTextbookItem(vm, index),
     );
   }
 }
 
 class WordsTextbookItem extends StatelessWidget {
-  final MUnitWord entry;
+  final WordsUnitViewModel vm;
+  final int index;
+  MUnitWord entry;
 
-  WordsTextbookItem({Key key, @required this.entry}) : super(key: key);
+  WordsTextbookItem(this.vm, this.index) {
+    entry = vm.lstUnitWords[index];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +116,8 @@ class WordsTextbookItem extends StatelessWidget {
                   icon: Icon(Icons.keyboard_arrow_right,
                       color: Colors.blue, size: 30.0),
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WordsDictPage()))))),
+                      builder: (context) => WordsDictPage(
+                          vm.lstUnitWords.map((e) => e.word), index)))))),
       actions: <Widget>[
         IconSlideAction(
           caption: 'Archive',

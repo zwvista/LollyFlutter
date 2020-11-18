@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WordsDictPage extends StatefulWidget {
+  List<String> lstWords;
+  int currentWordIndex;
+  WordsDictPage(this.lstWords, this.currentWordIndex);
   @override
   WordsDictPageState createState() {
     return WordsDictPageState();

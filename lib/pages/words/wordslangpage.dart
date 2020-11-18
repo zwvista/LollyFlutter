@@ -51,7 +51,7 @@ class WordsLangPageState extends State<WordsLangPage> {
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) => WordsLangListView(data),
+            dataBuilder: (context, data) => WordsLangListView(vm),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(
@@ -65,25 +65,29 @@ class WordsLangPageState extends State<WordsLangPage> {
 }
 
 class WordsLangListView extends StatelessWidget {
-  final List<MLangWord> data;
+  final WordsLangViewModel vm;
 
-  WordsLangListView(this.data, {Key key}) : super(key: key);
+  WordsLangListView(this.vm);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       key: AppKeys.cityList,
-      itemCount: data.length,
+      itemCount: vm.lstLangWords.length,
       itemBuilder: (BuildContext context, int index) =>
-          WordsLangItem(entry: data[index]),
+          WordsLangItem(vm, index),
     );
   }
 }
 
 class WordsLangItem extends StatelessWidget {
-  final MLangWord entry;
+  final WordsLangViewModel vm;
+  final int index;
+  MLangWord entry;
 
-  WordsLangItem({Key key, @required this.entry}) : super(key: key);
+  WordsLangItem(this.vm, this.index) {
+    entry = vm.lstLangWords[index];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +109,9 @@ class WordsLangItem extends StatelessWidget {
             trailing: IconButton(
                 icon: Icon(Icons.keyboard_arrow_right,
                     color: Colors.blue, size: 30.0),
-                onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => WordsDictPage())))),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WordsDictPage(
+                        vm.lstLangWords.map((e) => e.word), index))))),
       ),
       actions: <Widget>[
         IconSlideAction(
