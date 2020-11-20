@@ -18,8 +18,18 @@ class WordsDictPageState extends State<WordsDictPage> {
       body: Column(
         children: <Widget>[
           Row(children: <Widget>[
-            Expanded(flex: 2, child: DropdownButton()),
-            Expanded(flex: 1, child: DropdownButton())
+            Expanded(
+                child: DropdownButton(
+              value: widget.lstWords[widget.currentWordIndex],
+              items: widget.lstWords
+                  .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                  .toList(),
+              onChanged: (String value) {},
+            )),
+            Expanded(
+                child: DropdownButton(
+              onChanged: (value) {},
+            ))
           ]),
         ],
       ),

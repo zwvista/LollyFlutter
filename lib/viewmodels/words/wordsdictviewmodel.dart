@@ -1,4 +1,6 @@
-class WordsDictViewModel {
+import 'package:scoped_model/scoped_model.dart';
+
+class WordsDictViewModel extends Model {
   List<String> lstWords;
   var currentWordIndex = 0;
   String get currentWord => lstWords[currentWordIndex];
