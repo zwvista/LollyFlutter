@@ -4,9 +4,8 @@ import 'package:lolly_flutter/services/wpp/langphraseservice.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-class PhrasesLangViewModel extends Model {
+class PhrasesLangViewModel {
   List<MLangPhrase> lstLangPhrases;
   final langPhrasesService = LangPhrasesService();
   RxCommand<void, List<MLangPhrase>> reloadCommand;

@@ -4,9 +4,8 @@ import 'package:lolly_flutter/services/wpp/unitphraseservice.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-class PhrasesUnitViewModel extends Model {
+class PhrasesUnitViewModel {
   bool inbook;
   List<MUnitPhrase> lstUnitPhrases;
   final unitPhraseService = UnitPhraseService();

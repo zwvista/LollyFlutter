@@ -5,9 +5,8 @@ import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
 import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:rx_widgets/rx_widgets.dart';
-import 'package:scoped_model/scoped_model.dart';
-
 import '../../keys.dart';
 
 class WordsUnitPage extends StatefulWidget {
@@ -24,8 +23,8 @@ class WordsUnitPageState extends State<WordsUnitPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModel(
-        model: vm,
+    return ChangeNotifierProvider.value(
+        value: vm,
         child: Column(
           children: <Widget>[
             Padding(

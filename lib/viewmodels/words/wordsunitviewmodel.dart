@@ -1,13 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/services/wpp/unitwordservice.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:scoped_model/scoped_model.dart';
-
 import '../settingsviewmodel.dart';
 
-class WordsUnitViewModel extends Model {
+class WordsUnitViewModel with ChangeNotifier {
   bool inbook;
   List<MUnitWord> lstUnitWords;
   final unitWordService = UnitWordService();

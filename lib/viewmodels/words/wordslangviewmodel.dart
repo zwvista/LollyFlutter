@@ -3,11 +3,9 @@ import 'package:lolly_flutter/models/wpp/mlangword.dart';
 import 'package:lolly_flutter/services/wpp/langwordservice.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:scoped_model/scoped_model.dart';
-
 import '../settingsviewmodel.dart';
 
-class WordsLangViewModel extends Model {
+class WordsLangViewModel {
   List<MLangWord> lstLangWords;
   final langWordService = LangWordService();
   RxCommand<void, List<MLangWord>> reloadCommand;
