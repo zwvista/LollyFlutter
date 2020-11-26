@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -100,6 +101,28 @@ class SettingsPageState extends State<SettingsPage> {
         decoration: InputDecoration(
           labelText: "Part(From)",
         ),
+      ),
+      Row(
+        children: [
+          Expanded(
+            child: DropdownButtonFormField(
+              value: vm.toType,
+              items: SettingsViewModel.lstToTypes
+                  .map((e) => DropdownMenuItem(
+                      value: UnitPartToType.values[e.value],
+                      child: Text(e.label)))
+                  .toList(),
+              onChanged: (e) => setState(() => vm.setSelectedTextbook(e)),
+            ),
+          ),
+          Expanded(
+              child: ButtonBar(
+            children: [
+              FlatButton(onPressed: () {}, child: Text("Previous")),
+              FlatButton(onPressed: () {}, child: Text("Next"))
+            ],
+          )),
+        ],
       ),
       DropdownButtonFormField(
         value: vm.usunitto,

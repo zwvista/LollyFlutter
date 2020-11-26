@@ -6,6 +6,10 @@ class GlobalConstants {
   static final userid = 1;
 }
 
+enum DictWebBrowserStatus { Ready, Navigating, Automating }
+
+enum UnitPartToType { Unit, Part, To }
+
 class MSelectItem {
   var value = 0;
   var label = "";

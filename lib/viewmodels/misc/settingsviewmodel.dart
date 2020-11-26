@@ -118,6 +118,12 @@ class SettingsViewModel {
 
   List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits;
   List<MSelectItem> get lstParts => selectedTextbook?.lstParts;
+  static final List<MSelectItem> lstToTypes = [
+    MSelectItem(0, "Unit"),
+    MSelectItem(1, "Part"),
+    MSelectItem(2, "To")
+  ];
+  UnitPartToType toType = UnitPartToType.To;
 
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
