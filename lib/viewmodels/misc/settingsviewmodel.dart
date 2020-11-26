@@ -15,12 +15,13 @@ import 'package:lolly_flutter/services/misc/usmappingservice.dart';
 import 'package:lolly_flutter/services/misc/voiceservice.dart';
 
 class SettingsViewModel {
-  List<MUSMapping> lstUSMappings;
-  List<MUserSetting> lstUserSettings;
+  List<MUSMapping> lstUSMappings = [];
+  List<MUserSetting> lstUserSettings = [];
 
   String getUSValue(MUserSettingInfo info) {
-    final o = lstUserSettings.firstWhere((o2) => o2.id == info.usersettingid);
-    switch (info.valueid) {
+    final o = lstUserSettings.firstWhere((o2) => o2.id == info.usersettingid,
+        orElse: () => null);
+    switch (info?.valueid) {
       case 1:
         return o.value1;
       case 2:
@@ -35,8 +36,9 @@ class SettingsViewModel {
   }
 
   void setUSValue(MUserSettingInfo info, String value) {
-    final o = lstUserSettings.firstWhere((o2) => o2.id == info.usersettingid);
-    switch (info.valueid) {
+    final o = lstUserSettings.firstWhere((o2) => o2.id == info.usersettingid,
+        orElse: () => null);
+    switch (info?.valueid) {
       case 1:
         o.value1 = value;
         break;
@@ -72,16 +74,16 @@ class SettingsViewModel {
   set usdicttranslation(int value) =>
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
   MUserSettingInfo INFO_USUNITFROM;
-  int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM));
+  int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
   MUserSettingInfo INFO_USPARTFROM;
-  int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM));
+  int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
   MUserSettingInfo INFO_USUNITTO;
-  int get usunitto => int.parse(getUSValue(INFO_USUNITTO));
+  int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
   MUserSettingInfo INFO_USPARTTO;
-  int get uspartto => int.parse(getUSValue(INFO_USPARTTO));
+  int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
   int get usunitpartto => usunitto * 10 + uspartto;
