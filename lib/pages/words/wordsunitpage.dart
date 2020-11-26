@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
-import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:rx_widgets/rx_widgets.dart';
+
 import '../../keys.dart';
 
 class WordsUnitPage extends StatefulWidget {

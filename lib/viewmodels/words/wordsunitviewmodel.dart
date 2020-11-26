@@ -4,7 +4,8 @@ import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/services/wpp/unitwordservice.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
-import '../settingsviewmodel.dart';
+
+import '../misc/settingsviewmodel.dart';
 
 class WordsUnitViewModel with ChangeNotifier {
   bool inbook;

@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/pages/misc/settingspage.dart';
 import 'package:lolly_flutter/pages/phrases/phraseslangpage.dart';
 import 'package:lolly_flutter/pages/phrases/phrasestextbookpage.dart';
 import 'package:lolly_flutter/pages/phrases/phrasesunitpage.dart';
 import 'package:lolly_flutter/pages/words/wordslangpage.dart';
 import 'package:lolly_flutter/pages/words/wordstextbookpage.dart';
 import 'package:lolly_flutter/pages/words/wordsunitpage.dart';
-import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
+
+import 'file:///C:/zw/Lolly/LollyFlutter/lib/viewmodels/misc/settingsviewmodel.dart';
 
 var vmSettings = SettingsViewModel();
 
@@ -86,6 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (state) {
       case NavItem.homePage:
         return 'Home';
+      case NavItem.settingsPage:
+        return 'Settings';
       case NavItem.wordsUnitPage:
         return 'Words in Unit';
       case NavItem.phrasesUnitPage:
@@ -114,6 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         );
+      case NavItem.settingsPage:
+        return SettingsPage();
       case NavItem.wordsUnitPage:
         return WordsUnitPage();
       case NavItem.phrasesUnitPage:

@@ -116,6 +116,9 @@ class SettingsViewModel {
   final _autoCorrectService = AutoCorrectService();
   final _voiceService = VoiceService();
 
+  List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits;
+  List<MSelectItem> get lstParts => selectedTextbook?.lstParts;
+
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
 

@@ -10,6 +10,7 @@ class NavDrawerWidget extends StatelessWidget {
   final List<_NavigationItem> _listItems = [
     _NavigationItem(true, null, null, null),
     _NavigationItem(false, NavItem.homePage, "Home", Icons.home),
+    _NavigationItem(false, NavItem.settingsPage, "Settings", Icons.home),
     _NavigationItem(
         false, NavItem.wordsUnitPage, "Words in Unit", Icons.person),
     _NavigationItem(

@@ -3,7 +3,8 @@ import 'package:lolly_flutter/models/wpp/mlangword.dart';
 import 'package:lolly_flutter/services/wpp/langwordservice.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
-import '../settingsviewmodel.dart';
+
+import '../misc/settingsviewmodel.dart';
 
 class WordsLangViewModel {
   List<MLangWord> lstLangWords;

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
+import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrasesunitviewmodel.dart';
-import 'package:lolly_flutter/viewmodels/settingsviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
