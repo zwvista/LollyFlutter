@@ -89,7 +89,8 @@ class SettingsPageState extends State<SettingsPage> {
                     ?.map((e) =>
                         DropdownMenuItem(value: e, child: Text(e.textbookname)))
                     ?.toList(),
-                onChanged: (e) => setState(() => vm.setSelectedTextbook(e)),
+                onChanged: (e) =>
+                    setState(() async => await vm.setSelectedTextbook(e)),
                 decoration: InputDecoration(
                   labelText: "Textbook",
                 ),
@@ -100,7 +101,7 @@ class SettingsPageState extends State<SettingsPage> {
                     ?.map((e) =>
                         DropdownMenuItem(value: e.value, child: Text(e.label)))
                     ?.toList(),
-                onChanged: (e) => setState(() => vm.setSelectedTextbook(e)),
+                onChanged: (e) => setState(() => vm.updateUnitFrom(e)),
                 decoration: InputDecoration(
                   labelText: "Unit(From)",
                 ),
@@ -111,7 +112,9 @@ class SettingsPageState extends State<SettingsPage> {
                     ?.map((e) =>
                         DropdownMenuItem(value: e.value, child: Text(e.label)))
                     ?.toList(),
-                onChanged: (e) => setState(() => vm.setSelectedTextbook(e)),
+                onChanged: (e) => !vm.partFromIsEnabled
+                    ? null
+                    : setState(() => vm.updatePartFrom(e)),
                 decoration: InputDecoration(
                   labelText: "Part(From)",
                 ),
@@ -145,7 +148,9 @@ class SettingsPageState extends State<SettingsPage> {
                     ?.map((e) =>
                         DropdownMenuItem(value: e.value, child: Text(e.label)))
                     ?.toList(),
-                onChanged: (e) => setState(() => vm.setSelectedTextbook(e)),
+                onChanged: (e) => !vm.unitToIsEnabled
+                    ? null
+                    : setState(() => vm.updateUnitTo(e)),
                 decoration: InputDecoration(
                   labelText: "Unit(To)",
                 ),
@@ -156,7 +161,9 @@ class SettingsPageState extends State<SettingsPage> {
                     ?.map((e) =>
                         DropdownMenuItem(value: e.value, child: Text(e.label)))
                     ?.toList(),
-                onChanged: (e) => setState(() => vm.setSelectedTextbook(e)),
+                onChanged: (e) => !vm.partToIsEnabled
+                    ? null
+                    : setState(() => vm.updatePartTo(e)),
                 decoration: InputDecoration(
                   labelText: "Part(To)",
                 ),

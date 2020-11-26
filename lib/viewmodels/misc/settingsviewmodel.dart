@@ -120,12 +120,23 @@ class SettingsViewModel {
 
   List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits;
   List<MSelectItem> get lstParts => selectedTextbook?.lstParts;
+  int get partCount => lstParts?.length ?? 0;
+  bool get isSingleUnit =>
+      usunitfrom == usunitto && uspartfrom == 1 && uspartto == partCount;
+  bool get isSinglePart => partCount == 1;
   static final List<MSelectItem> lstToTypes = [
     MSelectItem(0, "Unit"),
     MSelectItem(1, "Part"),
     MSelectItem(2, "To")
   ];
   UnitPartToType toType = UnitPartToType.To;
+  bool unitToIsEnabled = true;
+  bool partToIsEnabled = true;
+  bool previousIsEnabled = true;
+  bool nextIsEnabled = true;
+  String previousText = "Previous";
+  String nextText = "Next";
+  bool partFromIsEnabled = true;
 
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
@@ -215,6 +226,88 @@ class SettingsViewModel {
     INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
     INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
     INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
+    setToType(isSingleUnit
+        ? UnitPartToType.Unit
+        : isSingleUnitPart
+            ? UnitPartToType.Part
+            : UnitPartToType.To);
     await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
+  }
+
+  Future setToType(UnitPartToType v) async {
+    toType = v;
+    final b = v == UnitPartToType.To;
+    unitToIsEnabled = b;
+    partToIsEnabled = b && !isSinglePart;
+    previousIsEnabled = !b;
+    nextIsEnabled = !b;
+    final b2 = v != UnitPartToType.Unit;
+    final t = !b2 ? "Unit" : "Part";
+    previousText = "Previous " + t;
+    nextText = "Next " + t;
+    partFromIsEnabled = b2 && !isSinglePart;
+    if (v == UnitPartToType.Unit)
+      await _doUpdateSingleUnit();
+    else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();
+  }
+
+  Future updateUnitFrom(int v) async {
+    await _doUpdateUnitFrom(v, check: false);
+    if (toType == UnitPartToType.Unit)
+      await _doUpdateSingleUnit();
+    else if (toType == UnitPartToType.Part || isInvaidUnitPart)
+      await _doUpdateUnitPartTo();
+  }
+
+  Future updatePartFrom(int v) async {
+    await _doUpdatePartFrom(v, check: false);
+    if (toType == UnitPartToType.Part || isInvaidUnitPart)
+      await _doUpdateUnitPartTo();
+  }
+
+  Future updateUnitTo(int v) async {
+    await _doUpdateUnitTo(v, check: false);
+    if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
+  }
+
+  Future updatePartTo(int v) async {
+    await _doUpdatePartTo(v, check: false);
+    if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
+  }
+
+  Future _doUpdateUnitPartFrom() async {
+    await _doUpdateUnitFrom(usunitto);
+    await _doUpdatePartFrom(uspartto);
+  }
+
+  Future _doUpdateUnitPartTo() async {
+    await _doUpdateUnitTo(usunitfrom);
+    await _doUpdatePartTo(uspartfrom);
+  }
+
+  Future _doUpdateSingleUnit() async {
+    await _doUpdateUnitTo(usunitfrom);
+    await _doUpdatePartFrom(1);
+    await _doUpdatePartTo(partCount);
+  }
+
+  Future _doUpdateUnitFrom(int v, {bool check = true}) async {
+    if (check && usunitfrom == v) return;
+    await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = v);
+  }
+
+  Future _doUpdatePartFrom(int v, {bool check = true}) async {
+    if (check && uspartfrom == v) return;
+    await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = v);
+  }
+
+  Future _doUpdateUnitTo(int v, {bool check = true}) async {
+    if (check && usunitto == v) return;
+    await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = v);
+  }
+
+  Future _doUpdatePartTo(int v, {bool check = true}) async {
+    if (check && uspartto == v) return;
+    await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = v);
   }
 }
