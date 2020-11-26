@@ -10,8 +10,7 @@ import 'package:lolly_flutter/pages/phrases/phrasesunitpage.dart';
 import 'package:lolly_flutter/pages/words/wordslangpage.dart';
 import 'package:lolly_flutter/pages/words/wordstextbookpage.dart';
 import 'package:lolly_flutter/pages/words/wordsunitpage.dart';
-
-import 'file:///C:/zw/Lolly/LollyFlutter/lib/viewmodels/misc/settingsviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
 
 var vmSettings = SettingsViewModel();
 
