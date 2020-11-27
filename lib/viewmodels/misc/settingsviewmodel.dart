@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mautocorrect.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
@@ -14,12 +15,12 @@ import 'package:lolly_flutter/services/misc/usersettingservice.dart';
 import 'package:lolly_flutter/services/misc/usmappingservice.dart';
 import 'package:lolly_flutter/services/misc/voiceservice.dart';
 
-class SettingsViewModel {
+class SettingsViewModel with ChangeNotifier {
   List<MUSMapping> lstUSMappings = [];
   List<MUserSetting> lstUserSettings = [];
 
   String getUSValue(MUserSettingInfo info) {
-    final o = lstUserSettings.firstWhere((o2) => o2.id == info.usersettingid,
+    final o = lstUserSettings.firstWhere((o2) => o2.id == info?.usersettingid,
         orElse: () => null);
     switch (info?.valueid) {
       case 1:
@@ -36,7 +37,7 @@ class SettingsViewModel {
   }
 
   void setUSValue(MUserSettingInfo info, String value) {
-    final o = lstUserSettings.firstWhere((o2) => o2.id == info.usersettingid,
+    final o = lstUserSettings.firstWhere((o2) => o2.id == info?.usersettingid,
         orElse: () => null);
     switch (info?.valueid) {
       case 1:
@@ -75,15 +76,19 @@ class SettingsViewModel {
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
   MUserSettingInfo INFO_USUNITFROM;
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
+  String get usunitfromstr => selectedTextbook.unitstr(usunitfrom);
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
   MUserSettingInfo INFO_USPARTFROM;
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
+  String get uspartfromstr => selectedTextbook.partstr(uspartfrom);
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
   MUserSettingInfo INFO_USUNITTO;
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
+  String get usunittostr => selectedTextbook.unitstr(usunitto);
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
   MUserSettingInfo INFO_USPARTTO;
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
+  String get usparttostr => selectedTextbook.partstr(uspartto);
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
   int get usunitpartto => usunitto * 10 + uspartto;
@@ -162,6 +167,7 @@ class SettingsViewModel {
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     await setSelectedLang(lstLanguages.firstWhere((o) => o.id == uslang));
+    notifyListeners();
   }
 
   Future setSelectedLang(MLanguage v) async {
@@ -191,12 +197,14 @@ class SettingsViewModel {
         lstTextbooks.firstWhere((o) => o.id == ustextbook));
     await setSelectedVoice(lstVoices.first);
     if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
+    notifyListeners();
   }
 
   Future setSelectedVoice(MVoice v) async {
     _selectedVoice = v;
     usvoice = v.id;
     await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
+    notifyListeners();
   }
 
   Future setSelectedDictReference(MDictionary v) async {
@@ -204,12 +212,14 @@ class SettingsViewModel {
     usdictreference = v.dictid.toString();
     await _userSettingService.updateByString(
         INFO_USDICTREFERENCE, usdictreference);
+    notifyListeners();
   }
 
   Future setSelectedDictNote(MDictionary v) async {
     _selectedDictNote = v;
     usdictnote = v.dictid;
     await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
+    notifyListeners();
   }
 
   Future setSelectedDictTranslation(MDictionary v) async {
@@ -217,6 +227,7 @@ class SettingsViewModel {
     usdicttranslation = v.dictid;
     await _userSettingService.updateByInt(
         INFO_USDICTTRANSLATION, usdicttranslation);
+    notifyListeners();
   }
 
   Future setSelectedTextbook(MTextbook v) async {
@@ -232,6 +243,7 @@ class SettingsViewModel {
             ? UnitPartToType.Part
             : UnitPartToType.To);
     await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
+    notifyListeners();
   }
 
   Future setToType(UnitPartToType v) async {
@@ -249,6 +261,7 @@ class SettingsViewModel {
     if (v == UnitPartToType.Unit)
       await _doUpdateSingleUnit();
     else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();
+    notifyListeners();
   }
 
   Future updateUnitFrom(int v) async {
@@ -257,22 +270,26 @@ class SettingsViewModel {
       await _doUpdateSingleUnit();
     else if (toType == UnitPartToType.Part || isInvaidUnitPart)
       await _doUpdateUnitPartTo();
+    notifyListeners();
   }
 
   Future updatePartFrom(int v) async {
     await _doUpdatePartFrom(v, check: false);
     if (toType == UnitPartToType.Part || isInvaidUnitPart)
       await _doUpdateUnitPartTo();
+    notifyListeners();
   }
 
   Future updateUnitTo(int v) async {
     await _doUpdateUnitTo(v, check: false);
     if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
+    notifyListeners();
   }
 
   Future updatePartTo(int v) async {
     await _doUpdatePartTo(v, check: false);
     if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
+    notifyListeners();
   }
 
   Future _doUpdateUnitPartFrom() async {
