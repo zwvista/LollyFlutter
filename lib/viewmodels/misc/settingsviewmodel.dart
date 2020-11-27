@@ -59,8 +59,8 @@ class SettingsViewModel with ChangeNotifier {
   int get uslang => int.parse(getUSValue(INFO_USLANG));
   set uslang(int value) => setUSValue(INFO_USLANG, value.toString());
   MUserSettingInfo INFO_USVOICE;
-  int get usvoice => int.parse(getUSValue(INFO_USLANG));
-  set usvoice(int value) => setUSValue(INFO_USLANG, value.toString());
+  int get usvoice => int.parse(getUSValue(INFO_USVOICE));
+  set usvoice(int value) => setUSValue(INFO_USVOICE, value.toString());
   MUserSettingInfo INFO_USTEXTBOOK;
   int get ustextbook => int.parse(getUSValue(INFO_USTEXTBOOK));
   set ustextbook(int value) => setUSValue(INFO_USTEXTBOOK, value.toString());
@@ -76,44 +76,44 @@ class SettingsViewModel with ChangeNotifier {
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
   MUserSettingInfo INFO_USUNITFROM;
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
-  String get usunitfromstr => selectedTextbook.unitstr(usunitfrom);
+  String get usunitfromstr => selectedTextbook?.unitstr(usunitfrom) ?? "";
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
   MUserSettingInfo INFO_USPARTFROM;
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
-  String get uspartfromstr => selectedTextbook.partstr(uspartfrom);
+  String get uspartfromstr => selectedTextbook?.partstr(uspartfrom) ?? "";
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
   MUserSettingInfo INFO_USUNITTO;
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
-  String get usunittostr => selectedTextbook.unitstr(usunitto);
+  String get usunittostr => selectedTextbook?.unitstr(usunitto) ?? "";
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
   MUserSettingInfo INFO_USPARTTO;
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
-  String get usparttostr => selectedTextbook.partstr(uspartto);
+  String get usparttostr => selectedTextbook?.partstr(uspartto) ?? "";
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
   int get usunitpartto => usunitto * 10 + uspartto;
   bool get isSingleUnitPart => usunitpartfrom == usunitpartto;
   bool get isInvaidUnitPart => usunitpartfrom > usunitpartto;
 
-  List<MLanguage> lstLanguages;
+  List<MLanguage> lstLanguages = [];
   MLanguage _selectedLang;
   MLanguage get selectedLang => _selectedLang;
-  List<MVoice> lstVoices;
+  List<MVoice> lstVoices = [];
   MVoice _selectedVoice;
   MVoice get selectedVoice => _selectedVoice;
-  List<MTextbook> lstTextbooks;
+  List<MTextbook> lstTextbooks = [];
   MTextbook _selectedTextbook;
   MTextbook get selectedTextbook => _selectedTextbook;
-  List<MDictionary> lstDictsReference;
+  List<MDictionary> lstDictsReference = [];
   MDictionary _selectedDictReference;
   MDictionary get selectedDictReference => _selectedDictReference;
-  List<MDictionary> lstDictsNote;
+  List<MDictionary> lstDictsNote = [];
   MDictionary _selectedDictNote;
   MDictionary get selectedDictNote => _selectedDictNote;
-  List<MDictionary> lstDictsTranslation;
+  List<MDictionary> lstDictsTranslation = [];
   MDictionary _selectedDictTranslation;
   MDictionary get selectedDictTranslation => _selectedDictTranslation;
-  List<MAutoCorrect> lstAutoCorrect;
+  List<MAutoCorrect> lstAutoCorrect = [];
 
   final _languageService = LanguageService();
   final _usMappingService = USMappingService();
@@ -167,7 +167,6 @@ class SettingsViewModel with ChangeNotifier {
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     await setSelectedLang(lstLanguages.firstWhere((o) => o.id == uslang));
-    notifyListeners();
   }
 
   Future setSelectedLang(MLanguage v) async {
@@ -179,13 +178,18 @@ class SettingsViewModel with ChangeNotifier {
     INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
     INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
     INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
+    _selectedDictReference = null;
     lstDictsReference =
         await _dictionaryService.getDictsReferenceByLang(uslang);
+    _selectedDictNote = null;
     lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslang);
+    _selectedDictTranslation = null;
     lstDictsTranslation =
         await _dictionaryService.getDictsTranslationByLang(uslang);
+    _selectedTextbook = null;
     lstTextbooks = await _textbookService.getDataByLang(uslang);
     lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
+    _selectedVoice = null;
     lstVoices = await _voiceService.getDataByLang(uslang);
     await setSelectedDictReference(lstDictsReference
         .firstWhere((o) => o.dictid.toString() == usdictreference));
@@ -197,7 +201,6 @@ class SettingsViewModel with ChangeNotifier {
         lstTextbooks.firstWhere((o) => o.id == ustextbook));
     await setSelectedVoice(lstVoices.first);
     if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
-    notifyListeners();
   }
 
   Future setSelectedVoice(MVoice v) async {

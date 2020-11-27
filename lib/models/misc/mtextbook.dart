@@ -33,11 +33,13 @@ class MTextbook {
   @JsonKey(ignore: true)
   List<MSelectItem> lstUnits;
 
-  String unitstr(int unit) => lstUnits.firstWhere((o) => o.value == unit).label;
+  String unitstr(int unit) =>
+      lstUnits.firstWhere((o) => o.value == unit, orElse: () => null)?.label;
   @JsonKey(ignore: true)
   List<MSelectItem> lstParts;
 
-  String partstr(int part) => lstParts.firstWhere((o) => o.value == part).label;
+  String partstr(int part) =>
+      lstParts.firstWhere((o) => o.value == part, orElse: () => null)?.label;
 
   MTextbook() {}
 
