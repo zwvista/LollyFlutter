@@ -125,6 +125,7 @@ class SettingsViewModel with ChangeNotifier {
 
   List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits;
   List<MSelectItem> get lstParts => selectedTextbook?.lstParts;
+  int get unitCount => lstUnits?.length ?? 0;
   int get partCount => lstParts?.length ?? 0;
   bool get isSingleUnit =>
       usunitfrom == usunitto && uspartfrom == 1 && uspartto == partCount;
@@ -293,6 +294,38 @@ class SettingsViewModel with ChangeNotifier {
     await _doUpdatePartTo(v, check: false);
     if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     notifyListeners();
+  }
+
+  Future previousUnitPart() async {
+    if (toType == UnitPartToType.Unit) {
+      if (usunitfrom > 1) {
+        await _doUpdateUnitFrom(usunitfrom - 1);
+        await _doUpdateUnitTo(usunitfrom);
+      }
+    } else if (uspartfrom > 1) {
+      await _doUpdatePartFrom(uspartfrom - 1);
+      await _doUpdateUnitPartTo();
+    } else if (usunitfrom > 1) {
+      await _doUpdateUnitFrom(usunitfrom - 1);
+      await _doUpdatePartFrom(partCount);
+      await _doUpdateUnitPartTo();
+    }
+  }
+
+  Future nextUnitPart() async {
+    if (toType == UnitPartToType.Unit) {
+      if (usunitfrom < unitCount) {
+        await _doUpdateUnitFrom(usunitfrom + 1);
+        await _doUpdateUnitTo(usunitfrom);
+      }
+    } else if (uspartfrom > 1) {
+      await _doUpdatePartFrom(uspartfrom + 1);
+      await _doUpdateUnitPartTo();
+    } else if (usunitfrom > 1) {
+      await _doUpdateUnitFrom(usunitfrom + 1);
+      await _doUpdatePartFrom(1);
+      await _doUpdateUnitPartTo();
+    }
   }
 
   Future _doUpdateUnitPartFrom() async {
