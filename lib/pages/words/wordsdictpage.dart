@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/viewmodels/words/wordsdictviewmodel.dart';
+import 'package:swipedetector/swipedetector.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WordsDictPage extends StatefulWidget {
@@ -45,20 +46,31 @@ class WordsDictPageState extends State<WordsDictPage> {
             Expanded(
                 flex: 1,
                 child: DropdownButton(
-                  value: vmSettings.selectedDictReference,
-                  items: vmSettings.lstDictsReference
-                      .map((e) =>
-                          DropdownMenuItem(value: e, child: Text(e.dictname)))
-                      .toList(),
-                  isExpanded: true,
-                  onChanged: (value) {},
-                ))
+                    value: vmSettings.selectedDictReference,
+                    items: vmSettings.lstDictsReference
+                        .map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.dictname)))
+                        .toList(),
+                    isExpanded: true,
+                    onChanged: (value) => setState(() {
+                          vmSettings.setSelectedDictReference(value);
+                          controller.loadUrl(vm.currentUrl);
+                        })))
           ]),
           Expanded(
+              child: SwipeDetector(
             child: WebView(
                 initialUrl: vm.currentUrl,
                 onWebViewCreated: (c) => controller = c),
-          )
+            onSwipeLeft: () => setState(() {
+              vm.next(-1);
+              controller.loadUrl(vm.currentUrl);
+            }),
+            onSwipeRight: () => setState(() {
+              vm.next(1);
+              controller.loadUrl(vm.currentUrl);
+            }),
+          ))
         ],
       ),
     );
