@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lolly_flutter/services/misc/htmltransformservice.dart';
+
+import 'mautocorrect.dart';
 
 part 'mdictionary.g.dart';
 
@@ -38,19 +41,19 @@ class MDictionary {
   @JsonKey(name: 'NAME')
   var dictname = "";
   @JsonKey(name: 'URL')
-  String url;
+  String url = "";
   @JsonKey(name: 'CHCONV')
-  String chconv;
+  String chconv = "";
   @JsonKey(name: 'AUTOMATION')
-  String automation;
+  String automation = "";
   @JsonKey(name: 'TRANSFORM')
-  String transform;
+  String transform = "";
   @JsonKey(name: 'WAIT')
   var wait = 0;
   @JsonKey(name: 'TEMPLATE')
-  String template;
+  String template = "";
   @JsonKey(name: 'TEMPLATE2')
-  String template2;
+  String template2 = "";
 
   MDictionary() {}
 
@@ -59,21 +62,18 @@ class MDictionary {
 
   Map<String, dynamic> toJson() => _$MDictionaryToJson(this);
 
-// String urlString(String word, List<MAutoCorrect> lstAutoCorrects) {
-//     final word2 = chconv == "BASIC" ? autoCorrect(word, lstAutoCorrects, (o) => o.extended, (o) => o.basic) : word;
-//     final wordUrl = url.replaceAll("{0}", URLEncoder.encode(word2, "UTF-8"));
-//     print("urlString: " + wordUrl);
-//     return wordUrl;
-// }
-//
-// String htmlString(String html, String word, bool useTemplate2) {
-//     final t = useTemplate2 && !template2.isNullOrEmpty() ? template2 : template
-//     return extractTextFrom(html, transform!!, t) { text, t ->
-//     t.replace( "{0}", word)
-//         .replace("{1}", cssFolder)
-//         .replace("{2}", text)
-//     }
-// }
-}
+  String urlString(String word, List<MAutoCorrect> lstAutoCorrects) {
+    final word2 = chconv == "BASIC"
+        ? autoCorrect(word, lstAutoCorrects, (o) => o.extended, (o) => o.basic)
+        : word;
+    final wordUrl = url.replaceAll("{0}", Uri.encodeFull(word2));
+    print("urlString: " + wordUrl);
+    return wordUrl;
+  }
 
-const cssFolder = "https://zwvista.tk/lolly/css/";
+  String htmlString(String html, String word, bool useTemplate2) {
+    final t = useTemplate2 && template2.isNotEmpty ? template2 : template;
+    return HtmlTransformService.extractTextFromHtml(html, transform, t,
+        (text, t) => HtmlTransformService.applyTemplate(t, word, text));
+  }
+}
