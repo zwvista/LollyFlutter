@@ -33,10 +33,14 @@ class WordsDictPageState extends State<WordsDictPage> {
                 child: DropdownButton(
                   value: vm.currentWord,
                   items: vm.lstWords
-                      .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                      .map((e) =>
+                          DropdownMenuItem(value: e, child: Text(e.label)))
                       .toList(),
                   isExpanded: true,
-                  onChanged: (String value) {},
+                  onChanged: (value) => setState(() {
+                    vm.setIndex(value.value);
+                    controller.loadUrl(vm.currentUrl);
+                  }),
                 )),
             Expanded(
                 flex: 1,
@@ -51,7 +55,9 @@ class WordsDictPageState extends State<WordsDictPage> {
                 ))
           ]),
           Expanded(
-            child: WebView(initialUrl: vm.currentUrl),
+            child: WebView(
+                initialUrl: vm.currentUrl,
+                onWebViewCreated: (c) => controller = c),
           )
         ],
       ),
