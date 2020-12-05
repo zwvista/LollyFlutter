@@ -9,13 +9,13 @@ class BaseService<T> {
 
   // https://stackoverflow.com/questions/51368663/flutter-fetched-japanese-character-from-server-decoded-wrong
   Future<Map<String, dynamic>> getDataByUrl(String url) async {
-    final response = await http.get("${urlAPI}$url");
+    final response = await http.get("$urlAPI$url");
     return json.decode(utf8.decode(response.bodyBytes));
   }
 
   Future<int> createByUrl(String url, T item) async {
     final body = json.encode(item).replaceAll('"ID":0,', '');
-    final response = await http.post("${urlAPI}$url", body: body);
+    final response = await http.post("$urlAPI$url", body: body);
     return int.parse(response.body);
   }
 
@@ -23,12 +23,12 @@ class BaseService<T> {
       await updateByUrlString(url, json.encode(item));
 
   Future<int> updateByUrlString(String url, String body) async {
-    final response = await http.put("${urlAPI}$url", body: body);
+    final response = await http.put("$urlAPI$url", body: body);
     return int.parse(response.body);
   }
 
   Future<int> deleteByUrl(String url) async {
-    final response = await http.delete("${urlAPI}$url");
+    final response = await http.delete("$urlAPI$url");
     return int.parse(response.body);
   }
 
@@ -36,8 +36,13 @@ class BaseService<T> {
     final body = json
         .encode(item)
         .replaceAllMapped(RegExp('"(\w+)":'), (m) => '"P_{m.group(1)}":');
-    final response = await http.post("${urlSP}$url", body: body);
+    final response = await http.post("$urlSP$url", body: body);
     return MSPResult.fromJson(json.decode(response.body));
+  }
+
+  static Future<String> getHtmlByUrl(String url) async {
+    final response = await http.get(url);
+    return response.body;
   }
 }
 
