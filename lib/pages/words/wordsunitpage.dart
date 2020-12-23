@@ -52,7 +52,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
               child: RxLoader<List<MUnitWord>>(
                 spinnerKey: AppKeys.loadingSpinner,
                 radius: 25.0,
-                commandResults: vm.reloadCommand.results,
+                commandResults: vm.filterCommand.results,
                 dataBuilder: (context, data) => ListView.builder(
                   itemCount: vm.lstUnitWords.length,
                   itemBuilder: (BuildContext context, int index) {

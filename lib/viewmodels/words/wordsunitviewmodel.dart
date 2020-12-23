@@ -9,31 +9,36 @@ import '../misc/settingsviewmodel.dart';
 
 class WordsUnitViewModel with ChangeNotifier {
   bool inbook;
-  List<MUnitWord> lstUnitWords;
+  List<MUnitWord> lstUnitWordsAll, lstUnitWords;
   final unitWordService = UnitWordService();
-  RxCommand<void, List<MUnitWord>> reloadCommand;
+  RxCommand<void, List<MUnitWord>> reloadCommand, filterCommand;
   RxCommand<String, String> textChangedCommand;
   var textFilter = "";
   var scopeFilter = SettingsViewModel.scopeWordFilters[0];
 
   WordsUnitViewModel(bool inbook) {
     this.inbook = inbook;
-    reloadCommand = RxCommand.createAsyncNoParam<List<MUnitWord>>(reload);
-    // When the user starts typing
-    textChangedCommand = RxCommand.createSync<String, String>((s) => s);
+    reloadCommand = RxCommand.createAsyncNoParam(() async => lstUnitWordsAll =
+        inbook
+            ? await unitWordService.getDataByTextbookUnitPart(
+                vmSettings.selectedTextbook,
+                vmSettings.usunitpartfrom,
+                vmSettings.usunitpartto)
+            : await unitWordService.getDataByLang(
+                vmSettings.selectedLang.id, vmSettings.lstTextbooks));
+    filterCommand = RxCommand.createSyncNoParam(() => lstUnitWords =
+        textFilter.isEmpty
+            ? lstUnitWordsAll
+            : lstUnitWordsAll
+                .where((o) => (scopeFilter == "Word" ? o.word : o.note)
+                    .toLowerCase()
+                    .contains(textFilter.toLowerCase()))
+                .toList());
+    reloadCommand.listen(filterCommand);
+    textChangedCommand = RxCommand.createSync((s) => textFilter = s);
     textChangedCommand
-        // Wait for the user to stop typing for 500ms
         .debounceTime(Duration(milliseconds: 500))
-        // Then call the updateWeatherCommand
-        .listen(reloadCommand);
+        .listen(filterCommand);
     reloadCommand.execute();
   }
-
-  Future<List<MUnitWord>> reload() async => lstUnitWords = inbook
-      ? await unitWordService.getDataByTextbookUnitPart(
-          vmSettings.selectedTextbook,
-          vmSettings.usunitpartfrom,
-          vmSettings.usunitpartto)
-      : await unitWordService.getDataByLang(
-          vmSettings.selectedLang.id, vmSettings.lstTextbooks);
 }
