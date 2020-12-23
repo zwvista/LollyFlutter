@@ -102,6 +102,7 @@ class SettingsViewModel with ChangeNotifier {
   MVoice _selectedVoice;
   MVoice get selectedVoice => _selectedVoice;
   List<MTextbook> lstTextbooks = [];
+  List<MSelectItem> lstTextbookFilters = [];
   MTextbook _selectedTextbook;
   MTextbook get selectedTextbook => _selectedTextbook;
   List<MDictionary> lstDictsReference = [];
@@ -189,6 +190,9 @@ class SettingsViewModel with ChangeNotifier {
         await _dictionaryService.getDictsTranslationByLang(uslang);
     _selectedTextbook = null;
     lstTextbooks = await _textbookService.getDataByLang(uslang);
+    lstTextbookFilters =
+        lstTextbooks.map((o) => MSelectItem(o.id, o.textbookname)).toList();
+    lstTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
     lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
     _selectedVoice = null;
     lstVoices = await _voiceService.getDataByLang(uslang);

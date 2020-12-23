@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
 import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
 class WordsTextbookPage extends StatefulWidget {
   @override
@@ -22,32 +22,48 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(children: <Widget>[
-              Expanded(
-                child: TextField(
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    hintText: "Filter",
+            child: Column(children: [
+              Row(children: [
+                Expanded(
+                  child: TextField(
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      hintText: "Filter",
+                    ),
+                    onChanged: vm.textFilterChangedCommand,
                   ),
-                  onChanged: vm.textFilterChangedCommand,
                 ),
-              ),
-              StreamBuilder<String>(
-                  stream: vm.scopeFilterChangedCommand,
-                  builder: (context, snapshot) => DropdownButton(
-                        value: vm.scopeFilter,
-                        items: SettingsViewModel.scopeWordFilters
-                            .map((s) =>
-                                DropdownMenuItem(value: s, child: Text(s)))
-                            .toList(),
-                        onChanged: vm.scopeFilterChangedCommand,
-                      ))
+                StreamBuilder(
+                    stream: vm.scopeFilterChangedCommand,
+                    builder: (context, snapshot) => DropdownButton(
+                          value: vm.scopeFilter,
+                          items: SettingsViewModel.scopeWordFilters
+                              .map((s) =>
+                                  DropdownMenuItem(value: s, child: Text(s)))
+                              .toList(),
+                          onChanged: vm.scopeFilterChangedCommand,
+                        ))
+              ]),
+              Row(children: [
+                Expanded(
+                  child: StreamBuilder(
+                      stream: vm.textbookFilterChangedCommand,
+                      builder: (context, snapshot) => DropdownButtonFormField(
+                            value: vm.textbookFilter,
+                            items: vmSettings.lstTextbookFilters
+                                .map((o) => DropdownMenuItem(
+                                    value: o.value, child: Text(o.label)))
+                                .toList(),
+                            onChanged: vm.textbookFilterChangedCommand,
+                          )),
+                )
+              ])
             ])),
         Expanded(
-          child: RxLoader<List<MUnitWord>>(
+          child: RxLoader(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.filterCommand.results,
