@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
 import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
@@ -22,10 +21,10 @@ class WordsUnitPageState extends State<WordsUnitPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(children: <Widget>[
+            child: Row(children: [
               Expanded(
                 child: TextField(
                   autocorrect: false,
@@ -35,7 +34,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   onChanged: vm.textFilterChangedCommand,
                 ),
               ),
-              StreamBuilder<String>(
+              StreamBuilder(
                   stream: vm.scopeFilterChangedCommand,
                   builder: (context, snapshot) => DropdownButton(
                         value: vm.scopeFilter,
@@ -47,7 +46,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                       ))
             ])),
         Expanded(
-          child: RxLoader<List<MUnitWord>>(
+          child: RxLoader(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
             commandResults: vm.filterCommand.results,
@@ -61,7 +60,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   child: Container(
                     color: Colors.white,
                     child: ListTile(
-                        leading: Column(children: <Widget>[
+                        leading: Column(children: [
                           Text(entry.unitstr,
                               style: TextStyle(color: Colors.blue)),
                           Text(entry.partstr,
