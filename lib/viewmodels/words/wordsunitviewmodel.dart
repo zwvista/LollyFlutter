@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/services/wpp/unitwordservice.dart';
@@ -7,12 +6,12 @@ import 'package:rxdart/rxdart.dart';
 
 import '../misc/settingsviewmodel.dart';
 
-class WordsUnitViewModel with ChangeNotifier {
+class WordsUnitViewModel {
   bool inbook;
   List<MUnitWord> lstUnitWordsAll, lstUnitWords;
   final unitWordService = UnitWordService();
   RxCommand<void, List<MUnitWord>> reloadCommand, filterCommand;
-  RxCommand<String, String> textChangedCommand;
+  RxCommand<String, String> textFilterChangedCommand, scopeFilterChangedCommand;
   var textFilter = "";
   var scopeFilter = SettingsViewModel.scopeWordFilters[0];
 
@@ -35,10 +34,12 @@ class WordsUnitViewModel with ChangeNotifier {
                     .contains(textFilter.toLowerCase()))
                 .toList());
     reloadCommand.listen(filterCommand);
-    textChangedCommand = RxCommand.createSync((s) => textFilter = s);
-    textChangedCommand
+    textFilterChangedCommand = RxCommand.createSync((s) => textFilter = s);
+    textFilterChangedCommand
         .debounceTime(Duration(milliseconds: 500))
         .listen(filterCommand);
+    scopeFilterChangedCommand = RxCommand.createSync((s) => scopeFilter = s);
+    scopeFilterChangedCommand.listen(filterCommand);
     reloadCommand.execute();
   }
 }

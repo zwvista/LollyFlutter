@@ -11,14 +11,13 @@ import '../../keys.dart';
 
 class WordsTextbookPage extends StatefulWidget {
   @override
-  WordsTextbookPageState createState() {
-    return WordsTextbookPageState();
-  }
+  WordsTextbookPageState createState() => WordsTextbookPageState();
 }
 
 class WordsTextbookPageState extends State<WordsTextbookPage> {
-  final TextEditingController _controller = TextEditingController();
   final vm = WordsUnitViewModel(false);
+
+  WordsTextbookPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -29,117 +28,95 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
             child: Row(children: <Widget>[
               Expanded(
                 child: TextField(
-                  key: AppKeys.textField,
                   autocorrect: false,
-                  controller: _controller,
                   decoration: InputDecoration(
                     hintText: "Filter",
                   ),
-                  onChanged: vm.textChangedCommand,
+                  onChanged: vm.textFilterChangedCommand,
                 ),
               ),
-              DropdownButton(
-                value: vm.scopeFilter,
-                items: SettingsViewModel.scopeWordFilters
-                    .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                    .toList(),
-                onChanged: (s) => setState(() => vm.scopeFilter = s),
-              )
+              StreamBuilder<String>(
+                  stream: vm.scopeFilterChangedCommand,
+                  builder: (context, snapshot) => DropdownButton(
+                        value: vm.scopeFilter,
+                        items: SettingsViewModel.scopeWordFilters
+                            .map((s) =>
+                                DropdownMenuItem(value: s, child: Text(s)))
+                            .toList(),
+                        onChanged: vm.scopeFilterChangedCommand,
+                      ))
             ])),
         Expanded(
           child: RxLoader<List<MUnitWord>>(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
-            commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) => WordsTextbookListView(vm),
+            commandResults: vm.filterCommand.results,
+            dataBuilder: (context, data) => ListView.builder(
+              itemCount: vm.lstUnitWords.length,
+              itemBuilder: (BuildContext context, int index) {
+                final entry = vm.lstUnitWords[index];
+                return Slidable(
+                  actionPane: SlidableDrawerActionPane(),
+                  actionExtentRatio: 0.25,
+                  child: Container(
+                    color: Colors.white,
+                    child: ListTile(
+                        leading: Column(children: <Widget>[
+                          Text(entry.unitstr,
+                              style: TextStyle(color: Colors.blue)),
+                          Text(entry.partstr,
+                              style: TextStyle(color: Colors.blue)),
+                          Text(entry.seqnum.toString(),
+                              style: TextStyle(color: Colors.blue))
+                        ]),
+                        title: Text(
+                          entry.word,
+                          style: TextStyle(fontSize: 20, color: Colors.orange),
+                        ),
+                        subtitle: Text(entry.note,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Color.fromARGB(255, 255, 0, 255),
+                            )),
+                        trailing: IconButton(
+                            icon: Icon(Icons.keyboard_arrow_right,
+                                color: Colors.blue, size: 30.0),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => WordsDictPage(
+                                        vm.lstUnitWords
+                                            .map((e) => e.word)
+                                            .toList(),
+                                        index))))),
+                  ),
+                  actions: [
+                    IconSlideAction(
+                      caption: 'Edit',
+                      color: Colors.blue,
+                      icon: Icons.mode_edit,
+                    ),
+                  ],
+                  secondaryActions: [
+                    IconSlideAction(
+                      caption: 'More',
+                      color: Colors.black45,
+                      icon: Icons.more_horiz,
+                    ),
+                    IconSlideAction(
+                      caption: 'Delete',
+                      color: Colors.red,
+                      icon: Icons.delete,
+                    ),
+                  ],
+                );
+              },
+            ),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(
                 key: AppKeys.loaderError,
                 child: Text("Error: ${ex.toString()}")),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class WordsTextbookListView extends StatelessWidget {
-  final WordsUnitViewModel vm;
-
-  WordsTextbookListView(this.vm);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      key: AppKeys.cityList,
-      itemCount: vm.lstUnitWords.length,
-      itemBuilder: (BuildContext context, int index) =>
-          WordsTextbookItem(vm, index),
-    );
-  }
-}
-
-class WordsTextbookItem extends StatelessWidget {
-  final WordsUnitViewModel vm;
-  final int index;
-  MUnitWord entry;
-
-  WordsTextbookItem(this.vm, this.index) {
-    entry = vm.lstUnitWords[index];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
-      child: Container(
-          color: Colors.white,
-          child: ListTile(
-              leading: Column(children: <Widget>[
-                Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-                Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-                Text(entry.seqnum.toString(),
-                    style: TextStyle(color: Colors.blue))
-              ]),
-              title: Text(
-                entry.word,
-                style: TextStyle(fontSize: 20, color: Colors.orange),
-              ),
-              subtitle: Text(entry.note,
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: Color.fromARGB(255, 255, 0, 255),
-                  )),
-              trailing: IconButton(
-                  icon: Icon(Icons.keyboard_arrow_right,
-                      color: Colors.blue, size: 30.0),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WordsDictPage(
-                          vm.lstUnitWords.map((e) => e.word), index)))))),
-      actions: <Widget>[
-        IconSlideAction(
-          caption: 'Archive',
-          color: Colors.blue,
-          icon: Icons.archive,
-        ),
-        IconSlideAction(
-          caption: 'Share',
-          color: Colors.indigo,
-          icon: Icons.share,
-        ),
-      ],
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'More',
-          color: Colors.black45,
-          icon: Icons.more_horiz,
-        ),
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
         ),
       ],
     );
