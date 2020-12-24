@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/models/wpp/munitphrase.dart';
+import 'package:lolly_flutter/pages/phrases/phrases_textbook_detail_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -39,26 +39,26 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                 StreamBuilder(
                     stream: vm.scopeFilterChangedCommand,
                     builder: (context, snapshot) => DropdownButton(
-                      value: vm.scopeFilter,
-                      items: SettingsViewModel.scopePhraseFilters
-                          .map((s) =>
-                          DropdownMenuItem(value: s, child: Text(s)))
-                          .toList(),
-                      onChanged: vm.scopeFilterChangedCommand,
-                    ))
+                          value: vm.scopeFilter,
+                          items: SettingsViewModel.scopePhraseFilters
+                              .map((s) =>
+                                  DropdownMenuItem(value: s, child: Text(s)))
+                              .toList(),
+                          onChanged: vm.scopeFilterChangedCommand,
+                        ))
               ]),
               Row(children: [
                 Expanded(
                   child: StreamBuilder(
                       stream: vm.textbookFilterChangedCommand,
                       builder: (context, snapshot) => DropdownButtonFormField(
-                        value: vm.textbookFilter,
-                        items: vmSettings.lstTextbookFilters
-                            .map((o) => DropdownMenuItem(
-                            value: o.value, child: Text(o.label)))
-                            .toList(),
-                        onChanged: vm.textbookFilterChangedCommand,
-                      )),
+                            value: vm.textbookFilter,
+                            items: vmSettings.lstTextbookFilters
+                                .map((o) => DropdownMenuItem(
+                                    value: o.value, child: Text(o.label)))
+                                .toList(),
+                            onChanged: vm.textbookFilterChangedCommand,
+                          )),
                 )
               ])
             ])),
@@ -75,8 +75,8 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
                   child: Container(
-                    color: Colors.white,
-                    child: ListTile(
+                      color: Colors.white,
+                      child: ListTile(
                         leading: Column(children: <Widget>[
                           Text(entry.unitstr,
                               style: TextStyle(color: Colors.blue)),
@@ -93,13 +93,16 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 255, 0, 255),
-                            )),)
-                  ),
+                            )),
+                      )),
                   actions: [
                     IconSlideAction(
                       caption: 'Edit',
                       color: Colors.blue,
                       icon: Icons.mode_edit,
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PhrasesTextbookDetailPage(
+                              vm, vm.lstUnitPhrases[index]))),
                     ),
                   ],
                   secondaryActions: [

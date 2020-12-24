@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/words/words_dict_page.dart';
+import 'package:lolly_flutter/pages/words/words_lang_detail_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_lang_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -82,10 +83,13 @@ class WordsLangPageState extends State<WordsLangPage> {
                   ),
                   actions: [
                     IconSlideAction(
-                      caption: 'Edit',
-                      color: Colors.blue,
-                      icon: Icons.mode_edit,
-                    ),
+                        caption: 'Edit',
+                        color: Colors.blue,
+                        icon: Icons.mode_edit,
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => WordsLangDetailPage(
+                                    vm, vm.lstLangWords[index])))),
                   ],
                   secondaryActions: [
                     IconSlideAction(

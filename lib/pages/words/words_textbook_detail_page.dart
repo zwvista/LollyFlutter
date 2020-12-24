@@ -41,6 +41,13 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                       ),
                       enabled: false,
                     ),
+                    TextFormField(
+                      initialValue: item.textbookname,
+                      decoration: InputDecoration(
+                        labelText: "TEXTBOOK",
+                      ),
+                      enabled: false,
+                    ),
                     DropdownButtonFormField(
                         value: item.unit,
                         items: item.textbook.lstUnits
