@@ -7,131 +7,122 @@ import 'package:lolly_flutter/viewmodels/phrases/phrasesunitviewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
 class PhrasesTextbookPage extends StatefulWidget {
   @override
-  PhrasesTextbookPageState createState() {
-    return PhrasesTextbookPageState();
-  }
+  PhrasesTextbookPageState createState() => PhrasesTextbookPageState();
 }
 
 class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
-  final TextEditingController _controller = TextEditingController();
   final vm = PhrasesUnitViewModel(false);
+
+  PhrasesTextbookPageState();
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(children: <Widget>[
-              Expanded(
-                child: TextField(
-                  key: AppKeys.textField,
-                  autocorrect: false,
-                  controller: _controller,
-                  decoration: InputDecoration(
-                    hintText: "Filter",
+            child: Column(children: [
+              Row(children: [
+                Expanded(
+                  child: TextField(
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      hintText: "Filter",
+                    ),
+                    onChanged: vm.textFilterChangedCommand,
                   ),
-                  onChanged: vm.textChangedCommand,
                 ),
-              ),
-              DropdownButton(
-                value: vm.scopeFilter,
-                items: SettingsViewModel.scopePhraseFilters
-                    .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                    .toList(),
-                onChanged: (s) => setState(() => vm.scopeFilter = s),
-              )
+                StreamBuilder(
+                    stream: vm.scopeFilterChangedCommand,
+                    builder: (context, snapshot) => DropdownButton(
+                      value: vm.scopeFilter,
+                      items: SettingsViewModel.scopePhraseFilters
+                          .map((s) =>
+                          DropdownMenuItem(value: s, child: Text(s)))
+                          .toList(),
+                      onChanged: vm.scopeFilterChangedCommand,
+                    ))
+              ]),
+              Row(children: [
+                Expanded(
+                  child: StreamBuilder(
+                      stream: vm.textbookFilterChangedCommand,
+                      builder: (context, snapshot) => DropdownButtonFormField(
+                        value: vm.textbookFilter,
+                        items: vmSettings.lstTextbookFilters
+                            .map((o) => DropdownMenuItem(
+                            value: o.value, child: Text(o.label)))
+                            .toList(),
+                        onChanged: vm.textbookFilterChangedCommand,
+                      )),
+                )
+              ])
             ])),
         Expanded(
-          child: RxLoader<List<MUnitPhrase>>(
+          child: RxLoader(
             spinnerKey: AppKeys.loadingSpinner,
             radius: 25.0,
-            commandResults: vm.reloadCommand.results,
-            dataBuilder: (context, data) => PhrasesTextbookListView(data),
+            commandResults: vm.filterCommand.results,
+            dataBuilder: (context, data) => ListView.builder(
+              itemCount: vm.lstUnitPhrases.length,
+              itemBuilder: (BuildContext context, int index) {
+                final entry = vm.lstUnitPhrases[index];
+                return Slidable(
+                  actionPane: SlidableDrawerActionPane(),
+                  actionExtentRatio: 0.25,
+                  child: Container(
+                    color: Colors.white,
+                    child: ListTile(
+                        leading: Column(children: <Widget>[
+                          Text(entry.unitstr,
+                              style: TextStyle(color: Colors.blue)),
+                          Text(entry.partstr,
+                              style: TextStyle(color: Colors.blue)),
+                          Text(entry.seqnum.toString(),
+                              style: TextStyle(color: Colors.blue))
+                        ]),
+                        title: Text(
+                          entry.phrase,
+                          style: TextStyle(fontSize: 20, color: Colors.orange),
+                        ),
+                        subtitle: Text(entry.translation,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Color.fromARGB(255, 255, 0, 255),
+                            )),)
+                  ),
+                  actions: [
+                    IconSlideAction(
+                      caption: 'Edit',
+                      color: Colors.blue,
+                      icon: Icons.mode_edit,
+                    ),
+                  ],
+                  secondaryActions: [
+                    IconSlideAction(
+                      caption: 'More',
+                      color: Colors.black45,
+                      icon: Icons.more_horiz,
+                    ),
+                    IconSlideAction(
+                      caption: 'Delete',
+                      color: Colors.red,
+                      icon: Icons.delete,
+                    ),
+                  ],
+                );
+              },
+            ),
             placeHolderBuilder: (context) =>
                 Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
             errorBuilder: (context, ex) => Center(
                 key: AppKeys.loaderError,
                 child: Text("Error: ${ex.toString()}")),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class PhrasesTextbookListView extends StatelessWidget {
-  final List<MUnitPhrase> data;
-
-  PhrasesTextbookListView(this.data, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      key: AppKeys.cityList,
-      itemCount: data.length,
-      itemBuilder: (BuildContext context, int index) =>
-          PhrasesTextbookItem(entry: data[index]),
-    );
-  }
-}
-
-class PhrasesTextbookItem extends StatelessWidget {
-  final MUnitPhrase entry;
-
-  PhrasesTextbookItem({Key key, @required this.entry}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
-      child: Container(
-        color: Colors.white,
-        child: ListTile(
-          leading: Column(children: <Widget>[
-            Text(entry.unitstr, style: TextStyle(color: Colors.blue)),
-            Text(entry.partstr, style: TextStyle(color: Colors.blue)),
-            Text(entry.seqnum.toString(), style: TextStyle(color: Colors.blue))
-          ]),
-          title: Text(
-            entry.phrase,
-            style: TextStyle(fontSize: 20, color: Colors.orange),
-          ),
-          subtitle: Text(entry.translation,
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                color: Color.fromARGB(255, 255, 0, 255),
-              )),
-          trailing:
-              Icon(Icons.keyboard_arrow_right, color: Colors.blue, size: 30.0),
-        ),
-      ),
-      actions: <Widget>[
-        IconSlideAction(
-          caption: 'Archive',
-          color: Colors.blue,
-          icon: Icons.archive,
-        ),
-        IconSlideAction(
-          caption: 'Share',
-          color: Colors.indigo,
-          icon: Icons.share,
-        ),
-      ],
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'More',
-          color: Colors.black45,
-          icon: Icons.more_horiz,
-        ),
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
         ),
       ],
     );

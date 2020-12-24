@@ -6,25 +6,34 @@ import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PhrasesLangViewModel {
-  List<MLangPhrase> lstLangPhrases;
-  final langPhrasesService = LangPhrasesService();
-  RxCommand<void, List<MLangPhrase>> reloadCommand;
-  RxCommand<String, String> textChangedCommand;
+  List<MLangPhrase> lstLangPhrasesAll, lstLangPhrases;
+  final langPhraseService = LangPhraseService();
+  RxCommand<void, List<MLangPhrase>> reloadCommand, filterCommand;
+  RxCommand<String, String> textFilterChangedCommand, scopeFilterChangedCommand;
   var textFilter = "";
   var scopeFilter = SettingsViewModel.scopePhraseFilters[0];
 
   PhrasesLangViewModel() {
-    reloadCommand = RxCommand.createAsyncNoParam<List<MLangPhrase>>(reload);
-    // When the user starts typing
-    textChangedCommand = RxCommand.createSync<String, String>((s) => s);
-    textChangedCommand
-        // Wait for the user to stop typing for 500ms
+    reloadCommand = RxCommand.createAsyncNoParam<List<MLangPhrase>>(() async =>
+        lstLangPhrasesAll =
+            await langPhraseService.getDataByLang(vmSettings.selectedLang.id));
+    filterCommand = RxCommand.createSyncNoParam(() => lstLangPhrases =
+        textFilter.isEmpty
+            ? lstLangPhrasesAll
+            : lstLangPhrasesAll
+                .where((o) =>
+                    scopeFilter.isNotEmpty ||
+                    (scopeFilter == "Phrase" ? o.phrase : o.translation)
+                        .toLowerCase()
+                        .contains(textFilter.toLowerCase()))
+                .toList());
+    reloadCommand.listen(filterCommand);
+    textFilterChangedCommand = RxCommand.createSync<String, String>((s) => s);
+    textFilterChangedCommand
         .debounceTime(Duration(milliseconds: 500))
-        // Then call the updateWeatherCommand
         .listen(reloadCommand);
+    scopeFilterChangedCommand = RxCommand.createSync((s) => scopeFilter = s);
+    scopeFilterChangedCommand.listen(filterCommand);
     reloadCommand.execute();
   }
-
-  Future<List<MLangPhrase>> reload() async =>
-      await langPhrasesService.getDataByLang(vmSettings.selectedLang.id);
 }
