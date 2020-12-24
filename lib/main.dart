@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
-import 'package:lolly_flutter/pages/misc/settingspage.dart';
+import 'package:lolly_flutter/pages/misc/settings_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_lang_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_textbook_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_page.dart';

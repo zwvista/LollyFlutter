@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/words/words_dict_page.dart';
+import 'package:lolly_flutter/pages/words/words_unit_detail_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -93,6 +94,9 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                       caption: 'Edit',
                       color: Colors.blue,
                       icon: Icons.mode_edit,
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              WordsUnitDetailPage(vm, vm.lstUnitWords[index]))),
                     ),
                   ],
                   secondaryActions: [

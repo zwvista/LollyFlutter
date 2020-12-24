@@ -16,9 +16,7 @@ class WordsDictPage extends StatefulWidget {
     vm = WordsDictViewModel(lstWords, index);
   }
   @override
-  WordsDictPageState createState() {
-    return WordsDictPageState(vm);
-  }
+  WordsDictPageState createState() => WordsDictPageState(vm);
 }
 
 class WordsDictPageState extends State<WordsDictPage> {
