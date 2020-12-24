@@ -1,6 +1,6 @@
 import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class LangPhraseService extends BaseService<MLangPhrase> {
   Future<List<MLangPhrase>> getDataByLang(int langid) async =>

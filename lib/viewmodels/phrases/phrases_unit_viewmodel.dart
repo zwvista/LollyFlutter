@@ -1,7 +1,7 @@
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
-import 'package:lolly_flutter/services/wpp/unitphraseservice.dart';
-import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
+import 'package:lolly_flutter/services/wpp/unit_phrase_service.dart';
+import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 

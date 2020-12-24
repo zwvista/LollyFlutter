@@ -1,7 +1,7 @@
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class UnitPhraseService extends BaseService<MUnitPhrase> {
   Future<List<MUnitPhrase>> getDataByTextbookUnitPart(

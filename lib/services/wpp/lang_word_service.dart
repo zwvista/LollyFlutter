@@ -1,6 +1,6 @@
 import 'package:lolly_flutter/models/wpp/mlangword.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class LangWordService extends BaseService<MLangWord> {
   Future<List<MLangWord>> getDataByLang(int langid) async =>

@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
-import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
-import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
+import 'package:lolly_flutter/models/wpp/munitphrase.dart';
+import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
-class WordsUnitPage extends StatefulWidget {
+class PhrasesTextbookPage extends StatefulWidget {
   @override
-  WordsUnitPageState createState() => WordsUnitPageState();
+  PhrasesTextbookPageState createState() => PhrasesTextbookPageState();
 }
 
-class WordsUnitPageState extends State<WordsUnitPage> {
-  final vm = WordsUnitViewModel(true);
+class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
+  final vm = PhrasesUnitViewModel(false);
 
-  WordsUnitPageState();
+  PhrasesTextbookPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -24,26 +25,42 @@ class WordsUnitPageState extends State<WordsUnitPage> {
       children: [
         Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(children: [
-              Expanded(
-                child: TextField(
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    hintText: "Filter",
+            child: Column(children: [
+              Row(children: [
+                Expanded(
+                  child: TextField(
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      hintText: "Filter",
+                    ),
+                    onChanged: vm.textFilterChangedCommand,
                   ),
-                  onChanged: vm.textFilterChangedCommand,
                 ),
-              ),
-              StreamBuilder(
-                  stream: vm.scopeFilterChangedCommand,
-                  builder: (context, snapshot) => DropdownButton(
-                        value: vm.scopeFilter,
-                        items: SettingsViewModel.scopeWordFilters
-                            .map((s) =>
-                                DropdownMenuItem(value: s, child: Text(s)))
+                StreamBuilder(
+                    stream: vm.scopeFilterChangedCommand,
+                    builder: (context, snapshot) => DropdownButton(
+                      value: vm.scopeFilter,
+                      items: SettingsViewModel.scopePhraseFilters
+                          .map((s) =>
+                          DropdownMenuItem(value: s, child: Text(s)))
+                          .toList(),
+                      onChanged: vm.scopeFilterChangedCommand,
+                    ))
+              ]),
+              Row(children: [
+                Expanded(
+                  child: StreamBuilder(
+                      stream: vm.textbookFilterChangedCommand,
+                      builder: (context, snapshot) => DropdownButtonFormField(
+                        value: vm.textbookFilter,
+                        items: vmSettings.lstTextbookFilters
+                            .map((o) => DropdownMenuItem(
+                            value: o.value, child: Text(o.label)))
                             .toList(),
-                        onChanged: vm.scopeFilterChangedCommand,
-                      ))
+                        onChanged: vm.textbookFilterChangedCommand,
+                      )),
+                )
+              ])
             ])),
         Expanded(
           child: RxLoader(
@@ -51,16 +68,16 @@ class WordsUnitPageState extends State<WordsUnitPage> {
             radius: 25.0,
             commandResults: vm.filterCommand.results,
             dataBuilder: (context, data) => ListView.builder(
-              itemCount: vm.lstUnitWords.length,
+              itemCount: vm.lstUnitPhrases.length,
               itemBuilder: (BuildContext context, int index) {
-                final entry = vm.lstUnitWords[index];
+                final entry = vm.lstUnitPhrases[index];
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
                   child: Container(
                     color: Colors.white,
                     child: ListTile(
-                        leading: Column(children: [
+                        leading: Column(children: <Widget>[
                           Text(entry.unitstr,
                               style: TextStyle(color: Colors.blue)),
                           Text(entry.partstr,
@@ -69,24 +86,14 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                               style: TextStyle(color: Colors.blue))
                         ]),
                         title: Text(
-                          entry.word,
+                          entry.phrase,
                           style: TextStyle(fontSize: 20, color: Colors.orange),
                         ),
-                        subtitle: Text(entry.note,
+                        subtitle: Text(entry.translation,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 255, 0, 255),
-                            )),
-                        trailing: IconButton(
-                            icon: Icon(Icons.keyboard_arrow_right,
-                                color: Colors.blue, size: 30.0),
-                            onPressed: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => WordsDictPage(
-                                        vm.lstUnitWords
-                                            .map((e) => e.word)
-                                            .toList(),
-                                        index))))),
+                            )),)
                   ),
                   actions: [
                     IconSlideAction(

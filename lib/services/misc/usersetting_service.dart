@@ -1,6 +1,6 @@
 import 'package:lolly_flutter/models/misc/musersetting.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class UserSettingService extends BaseService<MUserSetting> {
   Future<List<MUserSetting>> getDataByUser(int userid) async =>

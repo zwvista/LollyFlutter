@@ -1,6 +1,6 @@
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class CodeService extends BaseService<MCode> {
   Future<List<MCode>> getDictCodes() async =>

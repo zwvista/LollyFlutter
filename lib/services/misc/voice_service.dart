@@ -1,6 +1,6 @@
 import 'package:lolly_flutter/models/misc/mvoice.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class VoiceService extends BaseService<MVoice> {
   Future<List<MVoice>> getDataByLang(int langid) async =>

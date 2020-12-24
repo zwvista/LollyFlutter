@@ -1,23 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/pages/words/wordsdictpage.dart';
-import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
-import 'package:lolly_flutter/viewmodels/words/wordsunitviewmodel.dart';
+import 'package:lolly_flutter/pages/words/words_dict_page.dart';
+import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
-import '../../main.dart';
 
-class WordsTextbookPage extends StatefulWidget {
+class WordsUnitPage extends StatefulWidget {
   @override
-  WordsTextbookPageState createState() => WordsTextbookPageState();
+  WordsUnitPageState createState() => WordsUnitPageState();
 }
 
-class WordsTextbookPageState extends State<WordsTextbookPage> {
-  final vm = WordsUnitViewModel(false);
+class WordsUnitPageState extends State<WordsUnitPage> {
+  final vm = WordsUnitViewModel(true);
 
-  WordsTextbookPageState();
+  WordsUnitPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -25,42 +24,26 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
       children: [
         Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(children: [
-              Row(children: [
-                Expanded(
-                  child: TextField(
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      hintText: "Filter",
-                    ),
-                    onChanged: vm.textFilterChangedCommand,
+            child: Row(children: [
+              Expanded(
+                child: TextField(
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    hintText: "Filter",
                   ),
+                  onChanged: vm.textFilterChangedCommand,
                 ),
-                StreamBuilder(
-                    stream: vm.scopeFilterChangedCommand,
-                    builder: (context, snapshot) => DropdownButton(
-                          value: vm.scopeFilter,
-                          items: SettingsViewModel.scopeWordFilters
-                              .map((s) =>
-                                  DropdownMenuItem(value: s, child: Text(s)))
-                              .toList(),
-                          onChanged: vm.scopeFilterChangedCommand,
-                        ))
-              ]),
-              Row(children: [
-                Expanded(
-                  child: StreamBuilder(
-                      stream: vm.textbookFilterChangedCommand,
-                      builder: (context, snapshot) => DropdownButtonFormField(
-                            value: vm.textbookFilter,
-                            items: vmSettings.lstTextbookFilters
-                                .map((o) => DropdownMenuItem(
-                                    value: o.value, child: Text(o.label)))
-                                .toList(),
-                            onChanged: vm.textbookFilterChangedCommand,
-                          )),
-                )
-              ])
+              ),
+              StreamBuilder(
+                  stream: vm.scopeFilterChangedCommand,
+                  builder: (context, snapshot) => DropdownButton(
+                        value: vm.scopeFilter,
+                        items: SettingsViewModel.scopeWordFilters
+                            .map((s) =>
+                                DropdownMenuItem(value: s, child: Text(s)))
+                            .toList(),
+                        onChanged: vm.scopeFilterChangedCommand,
+                      ))
             ])),
         Expanded(
           child: RxLoader(
@@ -77,7 +60,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                   child: Container(
                     color: Colors.white,
                     child: ListTile(
-                        leading: Column(children: <Widget>[
+                        leading: Column(children: [
                           Text(entry.unitstr,
                               style: TextStyle(color: Colors.blue)),
                           Text(entry.partstr,

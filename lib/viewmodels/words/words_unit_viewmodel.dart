@@ -1,10 +1,10 @@
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
-import 'package:lolly_flutter/services/wpp/unitwordservice.dart';
+import 'package:lolly_flutter/services/wpp/unit_word_service.dart';
 import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../misc/settingsviewmodel.dart';
+import '../misc/settings_viewmodel.dart';
 
 class WordsUnitViewModel {
   bool inbook;

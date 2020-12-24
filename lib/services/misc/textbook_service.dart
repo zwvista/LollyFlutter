@@ -1,7 +1,7 @@
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class TextbookService extends BaseService<MTextbook> {
   Future<List<MTextbook>> getDataByLang(int langid) async {
@@ -30,12 +30,14 @@ class TextbookService extends BaseService<MTextbook> {
       o.lstUnits = f(o.units)
           .asMap()
           .map((i, s) => MapEntry(i, MSelectItem(i + 1, s)))
-          .values.toList();
+          .values
+          .toList();
       o.lstParts = o.parts
           .split(',')
           .asMap()
           .map((i, s) => MapEntry(i, MSelectItem(i + 1, s)))
-          .values.toList();
+          .values
+          .toList();
     });
     return lst;
   }

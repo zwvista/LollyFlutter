@@ -1,6 +1,6 @@
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
 
-import '../misc/baseservice.dart';
+import '../misc/base_service.dart';
 
 class DictionaryService extends BaseService<MDictionary> {
   Future<List<MDictionary>> getDictsByLang(int langid) async =>

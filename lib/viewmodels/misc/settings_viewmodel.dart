@@ -7,13 +7,13 @@ import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/misc/musersetting.dart';
 import 'package:lolly_flutter/models/misc/musmapping.dart';
 import 'package:lolly_flutter/models/misc/mvoice.dart';
-import 'package:lolly_flutter/services/misc/autocorrectservice.dart';
-import 'package:lolly_flutter/services/misc/dictionaryservice.dart';
-import 'package:lolly_flutter/services/misc/languageservice.dart';
-import 'package:lolly_flutter/services/misc/textbookservice.dart';
-import 'package:lolly_flutter/services/misc/usersettingservice.dart';
-import 'package:lolly_flutter/services/misc/usmappingservice.dart';
-import 'package:lolly_flutter/services/misc/voiceservice.dart';
+import 'package:lolly_flutter/services/misc/autocorrect_service.dart';
+import 'package:lolly_flutter/services/misc/dictionary_service.dart';
+import 'package:lolly_flutter/services/misc/language_service.dart';
+import 'package:lolly_flutter/services/misc/textbook_service.dart';
+import 'package:lolly_flutter/services/misc/usersetting_service.dart';
+import 'package:lolly_flutter/services/misc/usmapping_service.dart';
+import 'package:lolly_flutter/services/misc/voice_service.dart';
 
 class SettingsViewModel with ChangeNotifier {
   List<MUSMapping> lstUSMappings = [];

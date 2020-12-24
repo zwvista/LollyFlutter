@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
-import 'package:lolly_flutter/viewmodels/phrases/phraseslangviewmodel.dart';
+import 'package:lolly_flutter/pages/words/words_dict_page.dart';
+import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/words/words_lang_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 
-class PhrasesLangPage extends StatefulWidget {
+class WordsLangPage extends StatefulWidget {
   @override
-  PhrasesLangPageState createState() => PhrasesLangPageState();
+  WordsLangPageState createState() => WordsLangPageState();
 }
 
-class PhrasesLangPageState extends State<PhrasesLangPage> {
-  final vm = PhrasesLangViewModel();
+class WordsLangPageState extends State<WordsLangPage> {
+  final vm = WordsLangViewModel();
 
-  PhrasesLangPageState();
+  WordsLangPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                   stream: vm.scopeFilterChangedCommand,
                   builder: (context, snapshot) => DropdownButton(
                         value: vm.scopeFilter,
-                        items: SettingsViewModel.scopePhraseFilters
+                        items: SettingsViewModel.scopeWordFilters
                             .map((s) =>
                                 DropdownMenuItem(value: s, child: Text(s)))
                             .toList(),
@@ -50,25 +51,35 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
             radius: 25.0,
             commandResults: vm.filterCommand.results,
             dataBuilder: (context, data) => ListView.builder(
-              itemCount: vm.lstLangPhrases.length,
+              itemCount: vm.lstLangWords.length,
               itemBuilder: (BuildContext context, int index) {
-                final entry = vm.lstLangPhrases[index];
+                final entry = vm.lstLangWords[index];
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
                   child: Container(
-                      color: Colors.white,
-                      child: ListTile(
+                    color: Colors.white,
+                    child: ListTile(
                         title: Text(
-                          entry.phrase,
+                          entry.word,
                           style: TextStyle(fontSize: 20, color: Colors.orange),
                         ),
-                        subtitle: Text(entry.translation,
+                        subtitle: Text(entry.note,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 255, 0, 255),
                             )),
-                      )),
+                        trailing: IconButton(
+                            icon: Icon(Icons.keyboard_arrow_right,
+                                color: Colors.blue, size: 30.0),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => WordsDictPage(
+                                        vm.lstLangWords
+                                            .map((e) => e.word)
+                                            .toList(),
+                                        index))))),
+                  ),
                   actions: [
                     IconSlideAction(
                       caption: 'Edit',

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:lolly_flutter/models/misc/mtransformitem.dart';
 
-import 'baseservice.dart';
+import 'base_service.dart';
 
 class HtmlTransformService {
   static final escapes = {

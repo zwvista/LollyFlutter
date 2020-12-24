@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
-import 'package:lolly_flutter/services/misc/baseservice.dart';
-import 'package:lolly_flutter/viewmodels/words/wordsdictviewmodel.dart';
+import 'package:lolly_flutter/services/misc/base_service.dart';
+import 'package:lolly_flutter/viewmodels/words/words_dict_viewmodel.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

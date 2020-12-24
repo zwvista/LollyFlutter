@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/models/wpp/munitphrase.dart';
-import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
-import 'package:lolly_flutter/viewmodels/phrases/phrasesunitviewmodel.dart';
+import 'package:lolly_flutter/pages/words/words_dict_page.dart';
+import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
 
-class PhrasesTextbookPage extends StatefulWidget {
+class WordsTextbookPage extends StatefulWidget {
   @override
-  PhrasesTextbookPageState createState() => PhrasesTextbookPageState();
+  WordsTextbookPageState createState() => WordsTextbookPageState();
 }
 
-class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
-  final vm = PhrasesUnitViewModel(false);
+class WordsTextbookPageState extends State<WordsTextbookPage> {
+  final vm = WordsUnitViewModel(false);
 
-  PhrasesTextbookPageState();
+  WordsTextbookPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -39,26 +39,26 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                 StreamBuilder(
                     stream: vm.scopeFilterChangedCommand,
                     builder: (context, snapshot) => DropdownButton(
-                      value: vm.scopeFilter,
-                      items: SettingsViewModel.scopePhraseFilters
-                          .map((s) =>
-                          DropdownMenuItem(value: s, child: Text(s)))
-                          .toList(),
-                      onChanged: vm.scopeFilterChangedCommand,
-                    ))
+                          value: vm.scopeFilter,
+                          items: SettingsViewModel.scopeWordFilters
+                              .map((s) =>
+                                  DropdownMenuItem(value: s, child: Text(s)))
+                              .toList(),
+                          onChanged: vm.scopeFilterChangedCommand,
+                        ))
               ]),
               Row(children: [
                 Expanded(
                   child: StreamBuilder(
                       stream: vm.textbookFilterChangedCommand,
                       builder: (context, snapshot) => DropdownButtonFormField(
-                        value: vm.textbookFilter,
-                        items: vmSettings.lstTextbookFilters
-                            .map((o) => DropdownMenuItem(
-                            value: o.value, child: Text(o.label)))
-                            .toList(),
-                        onChanged: vm.textbookFilterChangedCommand,
-                      )),
+                            value: vm.textbookFilter,
+                            items: vmSettings.lstTextbookFilters
+                                .map((o) => DropdownMenuItem(
+                                    value: o.value, child: Text(o.label)))
+                                .toList(),
+                            onChanged: vm.textbookFilterChangedCommand,
+                          )),
                 )
               ])
             ])),
@@ -68,9 +68,9 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
             radius: 25.0,
             commandResults: vm.filterCommand.results,
             dataBuilder: (context, data) => ListView.builder(
-              itemCount: vm.lstUnitPhrases.length,
+              itemCount: vm.lstUnitWords.length,
               itemBuilder: (BuildContext context, int index) {
-                final entry = vm.lstUnitPhrases[index];
+                final entry = vm.lstUnitWords[index];
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
@@ -86,14 +86,24 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                               style: TextStyle(color: Colors.blue))
                         ]),
                         title: Text(
-                          entry.phrase,
+                          entry.word,
                           style: TextStyle(fontSize: 20, color: Colors.orange),
                         ),
-                        subtitle: Text(entry.translation,
+                        subtitle: Text(entry.note,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: Color.fromARGB(255, 255, 0, 255),
-                            )),)
+                            )),
+                        trailing: IconButton(
+                            icon: Icon(Icons.keyboard_arrow_right,
+                                color: Colors.blue, size: 30.0),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => WordsDictPage(
+                                        vm.lstUnitWords
+                                            .map((e) => e.word)
+                                            .toList(),
+                                        index))))),
                   ),
                   actions: [
                     IconSlideAction(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
-import 'package:lolly_flutter/viewmodels/misc/settingsviewmodel.dart';
+import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {

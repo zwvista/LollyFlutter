@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lolly_flutter/services/misc/htmltransformservice.dart';
+import 'package:lolly_flutter/services/misc/html_transform_service.dart';
 
 import 'mautocorrect.dart';
 
