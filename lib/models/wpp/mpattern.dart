@@ -19,28 +19,16 @@ class MPattern {
   var id = 0;
   @JsonKey(name: 'LANGID')
   var langid = 0;
-  @JsonKey(name: 'TEXTBOOKID')
-  var textbookid = 0;
-  @JsonKey(name: 'TEXTBOOKNAME')
-  var textbookname = "";
-  @JsonKey(name: 'UNIT')
-  var unit = 0;
-  @JsonKey(name: 'PART')
-  var part = 0;
-  @JsonKey(name: 'SEQNUM')
-  var seqnum = 0;
-  @JsonKey(name: 'WORD')
-  var word = "";
+  @JsonKey(name: 'PATTERN')
+  var pattern = "";
   @JsonKey(name: 'NOTE')
-  String note;
-  @JsonKey(name: 'WORDID')
-  var wordid = 0;
-  @JsonKey(name: 'FAMIID')
-  var famiid = 0;
-  @JsonKey(name: 'CORRECT')
-  var correct = 0;
-  @JsonKey(name: 'TOTAL')
-  var total = 0;
+  var note = "";
+  @JsonKey(name: 'TAGS')
+  var tags = "";
+  @JsonKey(name: 'IDS_MERGE')
+  var idsMerge = "";
+  @JsonKey(name: 'PATTERNS_SPLIT')
+  var patternsSplit = "";
 
   MPattern() {}
   factory MPattern.fromJson(Map<String, dynamic> json) =>
