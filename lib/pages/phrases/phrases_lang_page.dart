@@ -82,10 +82,25 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                   ],
                   secondaryActions: [
                     IconSlideAction(
-                      caption: 'More',
-                      color: Colors.black45,
-                      icon: Icons.more_horiz,
-                    ),
+                        caption: 'More',
+                        color: Colors.black45,
+                        icon: Icons.more_horiz,
+                        onTap: () => showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  SimpleDialog(title: Text("More"), children: [
+                                SimpleDialogOption(
+                                    child: Text("Edit"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    }),
+                                SimpleDialogOption(
+                                    child: Text("Delete"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    }),
+                              ]),
+                            )),
                     IconSlideAction(
                       caption: 'Delete',
                       color: Colors.red,
