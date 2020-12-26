@@ -4,6 +4,7 @@ import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
 import 'package:lolly_flutter/pages/misc/settings_page.dart';
+import 'package:lolly_flutter/pages/patterns/patterns_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_lang_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_textbook_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_page.dart';
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _bloc = NavDrawerBloc();
+    _bloc = NavDrawerBloc(NavDrawerState(NavItem.homePage));
     _content = _getContentForState(_bloc.state.selectedItem);
   }
 
@@ -101,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return 'Words in Language';
       case NavItem.phrasesLangPage:
         return 'Phrases in Language';
-      case NavItem.myCart:
-        return 'My Cart';
+      case NavItem.patternPage:
+        return 'Patterns in Language';
       default:
         return '';
     }
@@ -131,13 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return WordsLangPage();
       case NavItem.phrasesLangPage:
         return PhrasesLangPage();
-      case NavItem.myCart:
-        return Center(
-          child: Text(
-            'My Cart',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        );
+      case NavItem.patternPage:
+        return PatternsPage();
       default:
         return Center(
           child: Text(

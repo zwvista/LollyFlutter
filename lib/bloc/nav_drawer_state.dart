@@ -13,5 +13,5 @@ enum NavItem {
   phrasesTextbookPage,
   wordsLangPage,
   phrasesLangPage,
-  myCart,
+  patternPage,
 }

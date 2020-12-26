@@ -147,6 +147,7 @@ class SettingsViewModel with ChangeNotifier {
 
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
+  static final scopePatternFilters = ["Pattern", "Note", "Tags"];
 
   MUserSettingInfo _getUSInfo(String name) {
     var o = lstUSMappings.firstWhere((v) => v.name == name);

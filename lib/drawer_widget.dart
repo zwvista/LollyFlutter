@@ -23,7 +23,8 @@ class NavDrawerWidget extends StatelessWidget {
         false, NavItem.wordsLangPage, "Words in Language", Icons.person),
     _NavigationItem(
         false, NavItem.phrasesLangPage, "Phrases in Language", Icons.list),
-    _NavigationItem(false, NavItem.myCart, "My Cart", Icons.shopping_cart),
+    _NavigationItem(false, NavItem.patternPage, "Patterns in Language",
+        Icons.shopping_cart),
   ];
 
   NavDrawerWidget(this.accountName, this.accountEmail);
