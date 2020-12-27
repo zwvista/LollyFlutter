@@ -93,15 +93,39 @@ class PatternsPageState extends State<PatternsPage> {
                                     title: Text("More"),
                                     children: [
                                       SimpleDialogOption(
+                                          child: Text("Delete"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }),
+                                      SimpleDialogOption(
                                           child: Text("Edit"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             edit();
                                           }),
                                       SimpleDialogOption(
-                                          child: Text("Delete"),
+                                          child: Text("Browse Web Pages"),
                                           onPressed: () {
                                             Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Edit Web Pages"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Copy Pattern"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Google Pattern"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
                                           }),
                                     ]),
                               )),

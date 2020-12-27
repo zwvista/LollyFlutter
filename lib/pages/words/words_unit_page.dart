@@ -112,15 +112,45 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                     title: Text("More"),
                                     children: [
                                       SimpleDialogOption(
+                                          child: Text("Delete"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }),
+                                      SimpleDialogOption(
                                           child: Text("Edit"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             edit();
                                           }),
                                       SimpleDialogOption(
-                                          child: Text("Delete"),
+                                          child: Text("Retrieve Note"),
                                           onPressed: () {
                                             Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Clear Note"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Copy Word"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Google Word"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Online Dictionary"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
                                           }),
                                     ]),
                               )),

@@ -27,7 +27,7 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Phrases in Unit(Detail)')),
+        appBar: AppBar(title: Text('Phrases in Textbook(Detail)')),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
