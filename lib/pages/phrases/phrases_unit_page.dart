@@ -19,113 +19,116 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
   PhrasesUnitPageState();
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(children: [
-              Expanded(
-                child: TextField(
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    hintText: "Filter",
+  Widget build(BuildContext context) => Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(children: [
+                Expanded(
+                  child: TextField(
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      hintText: "Filter",
+                    ),
+                    onChanged: vm.textFilterChangedCommand,
                   ),
-                  onChanged: vm.textFilterChangedCommand,
                 ),
+                StreamBuilder(
+                    stream: vm.scopeFilterChangedCommand,
+                    builder: (context, snapshot) => DropdownButton(
+                          value: vm.scopeFilter,
+                          items: SettingsViewModel.scopePhraseFilters
+                              .map((s) =>
+                                  DropdownMenuItem(value: s, child: Text(s)))
+                              .toList(),
+                          onChanged: vm.scopeFilterChangedCommand,
+                        ))
+              ])),
+          Expanded(
+            child: RxLoader(
+              spinnerKey: AppKeys.loadingSpinner,
+              radius: 25.0,
+              commandResults: vm.filterCommand.results,
+              dataBuilder: (context, data) => ListView.builder(
+                itemCount: vm.lstUnitPhrases.length,
+                itemBuilder: (BuildContext context, int index) {
+                  void edit() => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          PhrasesUnitDetailPage(vm, vm.lstUnitPhrases[index])));
+
+                  final entry = vm.lstUnitPhrases[index];
+                  return Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          leading: Column(children: [
+                            Text(entry.unitstr,
+                                style: TextStyle(color: Colors.blue)),
+                            Text(entry.partstr,
+                                style: TextStyle(color: Colors.blue)),
+                            Text(entry.seqnum.toString(),
+                                style: TextStyle(color: Colors.blue))
+                          ]),
+                          title: Text(
+                            entry.phrase,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.orange),
+                          ),
+                          subtitle: Text(entry.translation,
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Color.fromARGB(255, 255, 0, 255),
+                              )),
+                        )),
+                    actions: [
+                      IconSlideAction(
+                        caption: 'Edit',
+                        color: Colors.blue,
+                        icon: Icons.mode_edit,
+                        onTap: () => edit(),
+                      ),
+                    ],
+                    secondaryActions: [
+                      IconSlideAction(
+                          caption: 'More',
+                          color: Colors.black45,
+                          icon: Icons.more_horiz,
+                          onTap: () => showDialog(
+                                context: context,
+                                builder: (context) => SimpleDialog(
+                                    title: Text("More"),
+                                    children: [
+                                      SimpleDialogOption(
+                                          child: Text("Edit"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Delete"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }),
+                                    ]),
+                              )),
+                      IconSlideAction(
+                        caption: 'Delete',
+                        color: Colors.red,
+                        icon: Icons.delete,
+                      ),
+                    ],
+                  );
+                },
               ),
-              StreamBuilder(
-                  stream: vm.scopeFilterChangedCommand,
-                  builder: (context, snapshot) => DropdownButton(
-                        value: vm.scopeFilter,
-                        items: SettingsViewModel.scopePhraseFilters
-                            .map((s) =>
-                                DropdownMenuItem(value: s, child: Text(s)))
-                            .toList(),
-                        onChanged: vm.scopeFilterChangedCommand,
-                      ))
-            ])),
-        Expanded(
-          child: RxLoader(
-            spinnerKey: AppKeys.loadingSpinner,
-            radius: 25.0,
-            commandResults: vm.filterCommand.results,
-            dataBuilder: (context, data) => ListView.builder(
-              itemCount: vm.lstUnitPhrases.length,
-              itemBuilder: (BuildContext context, int index) {
-                final entry = vm.lstUnitPhrases[index];
-                return Slidable(
-                  actionPane: SlidableDrawerActionPane(),
-                  actionExtentRatio: 0.25,
-                  child: Container(
-                      color: Colors.white,
-                      child: ListTile(
-                        leading: Column(children: [
-                          Text(entry.unitstr,
-                              style: TextStyle(color: Colors.blue)),
-                          Text(entry.partstr,
-                              style: TextStyle(color: Colors.blue)),
-                          Text(entry.seqnum.toString(),
-                              style: TextStyle(color: Colors.blue))
-                        ]),
-                        title: Text(
-                          entry.phrase,
-                          style: TextStyle(fontSize: 20, color: Colors.orange),
-                        ),
-                        subtitle: Text(entry.translation,
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Color.fromARGB(255, 255, 0, 255),
-                            )),
-                      )),
-                  actions: [
-                    IconSlideAction(
-                      caption: 'Edit',
-                      color: Colors.blue,
-                      icon: Icons.mode_edit,
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PhrasesUnitDetailPage(
-                              vm, vm.lstUnitPhrases[index]))),
-                    ),
-                  ],
-                  secondaryActions: [
-                    IconSlideAction(
-                        caption: 'More',
-                        color: Colors.black45,
-                        icon: Icons.more_horiz,
-                        onTap: () => showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  SimpleDialog(title: Text("More"), children: [
-                                SimpleDialogOption(
-                                    child: Text("Edit"),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }),
-                                SimpleDialogOption(
-                                    child: Text("Delete"),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }),
-                              ]),
-                            )),
-                    IconSlideAction(
-                      caption: 'Delete',
-                      color: Colors.red,
-                      icon: Icons.delete,
-                    ),
-                  ],
-                );
-              },
+              placeHolderBuilder: (context) => Center(
+                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+              errorBuilder: (context, ex) => Center(
+                  key: AppKeys.loaderError,
+                  child: Text("Error: ${ex.toString()}")),
             ),
-            placeHolderBuilder: (context) =>
-                Center(key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
-            errorBuilder: (context, ex) => Center(
-                key: AppKeys.loaderError,
-                child: Text("Error: ${ex.toString()}")),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 }
