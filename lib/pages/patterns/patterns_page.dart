@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_detail_page.dart';
+import 'package:lolly_flutter/pages/patterns/patterns_webpages_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -113,7 +114,12 @@ class PatternsPageState extends State<PatternsPage> {
                                           child: Text("Edit Web Pages"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PatternsWebPagesPage(
+                                                            vm.lstPatterns[
+                                                                index])));
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Copy Pattern"),

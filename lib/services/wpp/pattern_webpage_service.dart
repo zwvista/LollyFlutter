@@ -1,4 +1,4 @@
-import 'package:lolly_flutter/models/wpp/mpatternWebPage.dart';
+import 'package:lolly_flutter/models/wpp/mpatternwebpage.dart';
 
 import '../misc/base_service.dart';
 
