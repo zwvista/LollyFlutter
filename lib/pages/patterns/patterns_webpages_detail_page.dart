@@ -57,12 +57,30 @@ class PatternsWebPagesDetailPageState
                       enabled: false,
                     ),
                     TextFormField(
-                      initialValue: item.webpageid.toString(),
-                      decoration: InputDecoration(
-                        labelText: "TAGS",
-                      ),
-                      enabled: false,
-                    ),
+                        initialValue: item.seqnum.toString(),
+                        decoration: InputDecoration(
+                          labelText: "SEQNUM",
+                        ),
+                        onSaved: (s) => item.seqnum = int.parse(s)),
+                    TextFormField(
+                        initialValue: item.webpageid.toString(),
+                        decoration: InputDecoration(
+                          labelText: "WEBPAGEID",
+                        ),
+                        enabled: false,
+                        onSaved: (s) => item.webpageid = int.parse(s)),
+                    TextFormField(
+                        initialValue: item.title.toString(),
+                        decoration: InputDecoration(
+                          labelText: "TITLE",
+                        ),
+                        onSaved: (s) => item.title = s),
+                    TextFormField(
+                        initialValue: item.url.toString(),
+                        decoration: InputDecoration(
+                          labelText: "URL",
+                        ),
+                        onSaved: (s) => item.url = s),
                     RaisedButton(
                         color: Colors.blueAccent,
                         onPressed: () {
