@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_detail_page.dart';
+import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -116,15 +116,15 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                                           child: Text("Copy Phrase"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            Clipboard.setData(ClipboardData(
-                                                text: vm.lstUnitPhrases[index]
-                                                    .phrase));
+                                            vm.lstUnitPhrases[index].phrase
+                                                .copyToClipboard();
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Google Phrase"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
+                                            vm.lstUnitPhrases[index].phrase
+                                                .google();
                                           }),
                                     ]),
                               )),

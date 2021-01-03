@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_detail_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_webpages_page.dart';
+import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -126,15 +126,15 @@ class PatternsPageState extends State<PatternsPage> {
                                           child: Text("Copy Pattern"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            Clipboard.setData(ClipboardData(
-                                                text: vm.lstPatterns[index]
-                                                    .pattern));
+                                            vm.lstPatterns[index].pattern
+                                                .copyToClipboard();
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Google Pattern"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
+                                            vm.lstPatterns[index].pattern
+                                                .google();
                                           }),
                                     ]),
                               )),

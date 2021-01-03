@@ -42,6 +42,7 @@ dependencies:
   webview_flutter: ^1.0.7
   swipedetector: ^1.2.0
   drag_and_drop_lists: ^0.2.1
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:

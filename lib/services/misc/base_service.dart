@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:lolly_flutter/models/misc/mcommon.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BaseService<T> {
   final urlAPI = "https://zwvista.tk/lolly/api.php/records/";
@@ -53,5 +55,13 @@ extension StringExtensions on String {
     var s = this;
     replacements.forEach((key, value) => s = s.replaceAll(key, value));
     return s;
+  }
+
+  void copyToClipboard() async =>
+      await Clipboard.setData(ClipboardData(text: this));
+
+  void google() async {
+    final url = "https://www.google.com/search?q=" + Uri.encodeFull(this);
+    await launch(url);
   }
 }

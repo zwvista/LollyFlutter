@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/words/words_dict_page.dart';
 import 'package:lolly_flutter/pages/words/words_lang_detail_page.dart';
+import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_lang_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -130,15 +130,15 @@ class WordsLangPageState extends State<WordsLangPage> {
                                           child: Text("Copy Word"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            Clipboard.setData(ClipboardData(
-                                                text: vm
-                                                    .lstLangWords[index].word));
+                                            vm.lstLangWords[index].word
+                                                .copyToClipboard();
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Google Word"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
+                                            vm.lstLangWords[index].word
+                                                .google();
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Online Dictionary"),
