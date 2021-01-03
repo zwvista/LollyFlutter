@@ -126,24 +126,12 @@ class PatternsPageState extends State<PatternsPage> {
                                           child: Text("Copy Pattern"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Google Pattern"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            edit();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Copy Word"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
                                             Clipboard.setData(ClipboardData(
                                                 text: vm.lstPatterns[index]
                                                     .pattern));
                                           }),
                                       SimpleDialogOption(
-                                          child: Text("Google Word"),
+                                          child: Text("Google Pattern"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             edit();

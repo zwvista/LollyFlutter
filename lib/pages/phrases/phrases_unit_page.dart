@@ -113,7 +113,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                                             edit();
                                           }),
                                       SimpleDialogOption(
-                                          child: Text("Copy Word"),
+                                          child: Text("Copy Phrase"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Clipboard.setData(ClipboardData(
@@ -121,7 +121,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                                                     .phrase));
                                           }),
                                       SimpleDialogOption(
-                                          child: Text("Google Word"),
+                                          child: Text("Google Phrase"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             edit();
