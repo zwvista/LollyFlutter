@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_detail_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_webpages_page.dart';
@@ -129,6 +130,20 @@ class PatternsPageState extends State<PatternsPage> {
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Google Pattern"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Copy Word"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Clipboard.setData(ClipboardData(
+                                                text: vm.lstPatterns[index]
+                                                    .pattern));
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Google Word"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             edit();

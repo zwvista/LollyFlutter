@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/words/words_dict_page.dart';
 import 'package:lolly_flutter/pages/words/words_textbook_detail_page.dart';
@@ -155,7 +156,9 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                                           child: Text("Copy Word"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
+                                            Clipboard.setData(ClipboardData(
+                                                text: vm
+                                                    .lstUnitWords[index].word));
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Google Word"),

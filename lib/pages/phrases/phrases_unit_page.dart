@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_detail_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
@@ -101,15 +102,29 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                                     title: Text("More"),
                                     children: [
                                       SimpleDialogOption(
+                                          child: Text("Delete"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }),
+                                      SimpleDialogOption(
                                           child: Text("Edit"),
                                           onPressed: () {
                                             Navigator.pop(context);
                                             edit();
                                           }),
                                       SimpleDialogOption(
-                                          child: Text("Delete"),
+                                          child: Text("Copy Word"),
                                           onPressed: () {
                                             Navigator.pop(context);
+                                            Clipboard.setData(ClipboardData(
+                                                text: vm.lstUnitPhrases[index]
+                                                    .phrase));
+                                          }),
+                                      SimpleDialogOption(
+                                          child: Text("Google Word"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            edit();
                                           }),
                                     ]),
                               )),
