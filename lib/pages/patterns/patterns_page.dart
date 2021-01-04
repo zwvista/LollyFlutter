@@ -51,8 +51,9 @@ class PatternsPageState extends State<PatternsPage> {
               spinnerKey: AppKeys.loadingSpinner,
               radius: 25.0,
               commandResults: vm.filterCommand.results,
-              dataBuilder: (context, data) => ListView.builder(
+              dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstPatterns.length,
+                separatorBuilder: (context, index) => Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
@@ -62,20 +63,20 @@ class PatternsPageState extends State<PatternsPage> {
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
-                    child: Column(children: [
-                      ListTile(
-                        title: Text(
-                          entry.pattern,
-                          style: TextStyle(fontSize: 20, color: Colors.orange),
-                        ),
-                        subtitle: Text(entry.tags,
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Color.fromARGB(255, 255, 0, 255),
-                            )),
-                      ),
-                      Divider()
-                    ]),
+                    child: Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          title: Text(
+                            entry.pattern,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.orange),
+                          ),
+                          subtitle: Text(entry.tags,
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Color.fromARGB(255, 255, 0, 255),
+                              )),
+                        )),
                     actions: [
                       IconSlideAction(
                         caption: 'Edit',

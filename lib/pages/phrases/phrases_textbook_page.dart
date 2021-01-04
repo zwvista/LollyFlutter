@@ -67,8 +67,9 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
               spinnerKey: AppKeys.loadingSpinner,
               radius: 25.0,
               commandResults: vm.filterCommand.results,
-              dataBuilder: (context, data) => ListView.builder(
+              dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstUnitPhrases.length,
+                separatorBuilder: (context, index) => Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => PhrasesTextbookDetailPage(
@@ -78,28 +79,28 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
-                    child: Column(children: [
-                      ListTile(
-                        leading: Column(children: <Widget>[
-                          Text(entry.unitstr,
-                              style: TextStyle(color: Colors.blue)),
-                          Text(entry.partstr,
-                              style: TextStyle(color: Colors.blue)),
-                          Text(entry.seqnum.toString(),
-                              style: TextStyle(color: Colors.blue))
-                        ]),
-                        title: Text(
-                          entry.phrase,
-                          style: TextStyle(fontSize: 20, color: Colors.orange),
-                        ),
-                        subtitle: Text(entry.translation,
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Color.fromARGB(255, 255, 0, 255),
-                            )),
-                      ),
-                      Divider()
-                    ]),
+                    child: Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          leading: Column(children: <Widget>[
+                            Text(entry.unitstr,
+                                style: TextStyle(color: Colors.blue)),
+                            Text(entry.partstr,
+                                style: TextStyle(color: Colors.blue)),
+                            Text(entry.seqnum.toString(),
+                                style: TextStyle(color: Colors.blue))
+                          ]),
+                          title: Text(
+                            entry.phrase,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.orange),
+                          ),
+                          subtitle: Text(entry.translation,
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Color.fromARGB(255, 255, 0, 255),
+                              )),
+                        )),
                     actions: [
                       IconSlideAction(
                         caption: 'Edit',

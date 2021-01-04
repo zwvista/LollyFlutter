@@ -36,8 +36,9 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                   spinnerKey: AppKeys.loadingSpinner,
                   radius: 25.0,
                   commandResults: vm.reloadCommand.results,
-                  dataBuilder: (context, data) => ListView.builder(
+                  dataBuilder: (context, data) => ListView.separated(
                     itemCount: vm.lstPatternsWebPages.length,
+                    separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (BuildContext context, int index) {
                       void edit() =>
                           Navigator.of(context).push(MaterialPageRoute(
@@ -48,8 +49,9 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                       return Slidable(
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
-                        child: Column(children: [
-                          ListTile(
+                        child: Container(
+                            color: Colors.white,
+                            child: ListTile(
                             title: Text(
                               entry.title,
                               style:
@@ -60,9 +62,7 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                                   fontStyle: FontStyle.italic,
                                   color: Color.fromARGB(255, 255, 0, 255),
                                 )),
-                          ),
-                          Divider()
-                        ]),
+                          )),
                         actions: [
                           IconSlideAction(
                             caption: 'Edit',
