@@ -30,24 +30,21 @@ class WordsDictPageState extends State<WordsDictPage> {
     return Scaffold(
       appBar: AppBar(title: Text('Dictionary')),
       body: Column(
-        children: <Widget>[
-          Row(children: <Widget>[
+        children: [
+          Row(children: [
             Expanded(
-                flex: 1,
                 child: DropdownButton(
-                  value: vm.currentWord,
-                  items: vm.lstWords
-                      .map((e) =>
-                          DropdownMenuItem(value: e, child: Text(e.label)))
-                      .toList(),
-                  isExpanded: true,
-                  onChanged: (value) => setState(() {
-                    vm.setIndex(value.value);
-                    _searchDict();
-                  }),
-                )),
+              value: vm.currentWord,
+              items: vm.lstWords
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e.label)))
+                  .toList(),
+              isExpanded: true,
+              onChanged: (value) => setState(() {
+                vm.setIndex(value.value);
+                _searchDict();
+              }),
+            )),
             Expanded(
-                flex: 1,
                 child: DropdownButton(
                     value: vmSettings.selectedDictReference,
                     items: vmSettings.lstDictsReference
