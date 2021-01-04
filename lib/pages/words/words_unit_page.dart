@@ -7,8 +7,10 @@ import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
 class WordsUnitPage extends StatefulWidget {
   @override
@@ -62,9 +64,8 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
-                    child: Container(
-                      color: Colors.white,
-                      child: ListTile(
+                    child: Column(children: [
+                      ListTile(
                           leading: Column(children: [
                             Text(entry.unitstr,
                                 style: TextStyle(color: Colors.blue)),
@@ -93,7 +94,8 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                               .map((e) => e.word)
                                               .toList(),
                                           index))))),
-                    ),
+                      Divider()
+                    ]),
                     actions: [
                       IconSlideAction(
                         caption: 'Edit',
@@ -151,9 +153,14 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Online Dictionary"),
-                                          onPressed: () {
+                                          onPressed: () async {
                                             Navigator.pop(context);
-                                            edit();
+                                            final url = vmSettings
+                                                .selectedDictReference
+                                                .urlString(
+                                                    vm.lstUnitWords[index].word,
+                                                    vmSettings.lstAutoCorrect);
+                                            await launch(url);
                                           }),
                                     ]),
                               )),

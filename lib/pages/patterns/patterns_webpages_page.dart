@@ -48,20 +48,21 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                       return Slidable(
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
-                        child: Container(
-                            color: Colors.white,
-                            child: ListTile(
-                              title: Text(
-                                entry.title,
+                        child: Column(children: [
+                          ListTile(
+                            title: Text(
+                              entry.title,
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.orange),
+                            ),
+                            subtitle: Text(entry.url,
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.orange),
-                              ),
-                              subtitle: Text(entry.url,
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 255, 0, 255),
-                                  )),
-                            )),
+                                  fontStyle: FontStyle.italic,
+                                  color: Color.fromARGB(255, 255, 0, 255),
+                                )),
+                          ),
+                          Divider()
+                        ]),
                         actions: [
                           IconSlideAction(
                             caption: 'Edit',

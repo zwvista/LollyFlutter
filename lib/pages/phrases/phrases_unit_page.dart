@@ -61,28 +61,28 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
-                    child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          leading: Column(children: [
-                            Text(entry.unitstr,
-                                style: TextStyle(color: Colors.blue)),
-                            Text(entry.partstr,
-                                style: TextStyle(color: Colors.blue)),
-                            Text(entry.seqnum.toString(),
-                                style: TextStyle(color: Colors.blue))
-                          ]),
-                          title: Text(
-                            entry.phrase,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
-                          ),
-                          subtitle: Text(entry.translation,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 255, 0, 255),
-                              )),
-                        )),
+                    child: Column(children: [
+                      ListTile(
+                        leading: Column(children: [
+                          Text(entry.unitstr,
+                              style: TextStyle(color: Colors.blue)),
+                          Text(entry.partstr,
+                              style: TextStyle(color: Colors.blue)),
+                          Text(entry.seqnum.toString(),
+                              style: TextStyle(color: Colors.blue))
+                        ]),
+                        title: Text(
+                          entry.phrase,
+                          style: TextStyle(fontSize: 20, color: Colors.orange),
+                        ),
+                        subtitle: Text(entry.translation,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Color.fromARGB(255, 255, 0, 255),
+                            )),
+                      ),
+                      Divider()
+                    ]),
                     actions: [
                       IconSlideAction(
                         caption: 'Edit',

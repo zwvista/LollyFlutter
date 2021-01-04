@@ -7,8 +7,10 @@ import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_lang_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
 class WordsLangPage extends StatefulWidget {
   @override
@@ -62,9 +64,7 @@ class WordsLangPageState extends State<WordsLangPage> {
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
-                    child: Container(
-                      color: Colors.white,
-                      child: ListTile(
+                    child: Column(children: [ListTile(
                           title: Text(
                             entry.word,
                             style:
@@ -85,7 +85,8 @@ class WordsLangPageState extends State<WordsLangPage> {
                                               .map((e) => e.word)
                                               .toList(),
                                           index))))),
-                    ),
+                      Divider()
+                    ]),
                     actions: [
                       IconSlideAction(
                           caption: 'Edit',
@@ -142,9 +143,14 @@ class WordsLangPageState extends State<WordsLangPage> {
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Online Dictionary"),
-                                          onPressed: () {
+                                          onPressed: () async {
                                             Navigator.pop(context);
-                                            edit();
+                                            final url = vmSettings
+                                                .selectedDictReference
+                                                .urlString(
+                                                    vm.lstLangWords[index].word,
+                                                    vmSettings.lstAutoCorrect);
+                                            await launch(url);
                                           }),
                                     ]),
                               )),

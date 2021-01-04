@@ -62,20 +62,20 @@ class PatternsPageState extends State<PatternsPage> {
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
-                    child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            entry.pattern,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
-                          ),
-                          subtitle: Text(entry.tags,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 255, 0, 255),
-                              )),
-                        )),
+                    child: Column(children: [
+                      ListTile(
+                        title: Text(
+                          entry.pattern,
+                          style: TextStyle(fontSize: 20, color: Colors.orange),
+                        ),
+                        subtitle: Text(entry.tags,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Color.fromARGB(255, 255, 0, 255),
+                            )),
+                      ),
+                      Divider()
+                    ]),
                     actions: [
                       IconSlideAction(
                         caption: 'Edit',
