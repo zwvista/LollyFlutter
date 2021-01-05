@@ -7,7 +7,7 @@ class NavDrawerBloc extends Bloc<NavDrawerEvent, NavDrawerState> {
   NavDrawerBloc(NavDrawerState initialState) : super(initialState);
 
   @override
-  NavDrawerState get initialState => NavDrawerState(NavItem.homePage);
+  NavDrawerState get initialState => NavDrawerState(NavItem.searchPage);
 
   @override
   Stream<NavDrawerState> mapEventToState(NavDrawerEvent event) async* {

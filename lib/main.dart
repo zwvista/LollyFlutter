@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _bloc = NavDrawerBloc(NavDrawerState(NavItem.homePage));
+    _bloc = NavDrawerBloc(NavDrawerState(NavItem.searchPage));
     _content = _getContentForState(_bloc.state.selectedItem);
   }
 
@@ -86,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _getAppbarTitle(NavItem state) {
     switch (state) {
-      case NavItem.homePage:
-        return 'Home';
+      case NavItem.searchPage:
+        return 'Search';
       case NavItem.settingsPage:
         return 'Settings';
       case NavItem.wordsUnitPage:
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _getContentForState(NavItem state) {
     switch (state) {
-      case NavItem.homePage:
+      case NavItem.searchPage:
         return Center(
           child: Text(
             'Home Page',

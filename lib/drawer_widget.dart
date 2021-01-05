@@ -9,7 +9,7 @@ class NavDrawerWidget extends StatelessWidget {
   final String accountEmail;
   final List<_NavigationItem> _listItems = [
     _NavigationItem(true, null, null, null),
-    _NavigationItem(false, NavItem.homePage, "Home", Icons.home),
+    _NavigationItem(false, NavItem.searchPage, "Home", Icons.home),
     _NavigationItem(false, NavItem.settingsPage, "Settings", Icons.home),
     _NavigationItem(
         false, NavItem.wordsUnitPage, "Words in Unit", Icons.person),
