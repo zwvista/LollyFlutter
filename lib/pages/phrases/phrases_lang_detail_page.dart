@@ -57,6 +57,7 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
                     RaisedButton(
                         color: Colors.blueAccent,
                         onPressed: () {
+                          if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();
                           Navigator.pop(context);
                         },

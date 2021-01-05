@@ -116,6 +116,7 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                     RaisedButton(
                         color: Colors.blueAccent,
                         onPressed: () {
+                          if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();
                           Navigator.pop(context);
                         },
