@@ -44,6 +44,8 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
                         decoration: InputDecoration(
                           labelText: "PATTERN",
                         ),
+                        validator: (v) =>
+                            v.isEmpty ? "PATTERN must not be empty" : null,
                         onSaved: (s) => item.pattern = s),
                     TextFormField(
                         initialValue: item.note,

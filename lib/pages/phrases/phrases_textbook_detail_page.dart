@@ -90,6 +90,8 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                         decoration: InputDecoration(
                           labelText: "PHRASE",
                         ),
+                        validator: (v) =>
+                            v.isEmpty ? "PHRASE must not be empty" : null,
                         onSaved: (s) => item.phrase = s),
                     TextFormField(
                         initialValue: item.translation,

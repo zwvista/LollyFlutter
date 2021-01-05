@@ -82,6 +82,8 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                         decoration: InputDecoration(
                           labelText: "WORD",
                         ),
+                        validator: (v) =>
+                            v.isEmpty ? "WORD must not be empty" : null,
                         onSaved: (s) => item.word = s),
                     TextFormField(
                         initialValue: item.note,

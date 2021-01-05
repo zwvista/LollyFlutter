@@ -74,12 +74,16 @@ class PatternsWebPagesDetailPageState
                         decoration: InputDecoration(
                           labelText: "TITLE",
                         ),
+                        validator: (v) =>
+                            v.isEmpty ? "TITLE must not be empty" : null,
                         onSaved: (s) => item.title = s),
                     TextFormField(
                         initialValue: item.url.toString(),
                         decoration: InputDecoration(
                           labelText: "URL",
                         ),
+                        validator: (v) =>
+                            v.isEmpty ? "URL must not be empty" : null,
                         onSaved: (s) => item.url = s),
                     RaisedButton(
                         color: Colors.blueAccent,
