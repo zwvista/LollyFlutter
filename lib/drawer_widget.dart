@@ -9,22 +9,22 @@ class NavDrawerWidget extends StatelessWidget {
   final String accountEmail;
   final List<_NavigationItem> _listItems = [
     _NavigationItem(true, null, null, null),
-    _NavigationItem(false, NavItem.searchPage, "Home", Icons.home),
-    _NavigationItem(false, NavItem.settingsPage, "Settings", Icons.home),
+    _NavigationItem(false, NavItem.searchPage, "Search", Icons.search),
+    _NavigationItem(false, NavItem.settingsPage, "Settings", Icons.settings),
     _NavigationItem(
-        false, NavItem.wordsUnitPage, "Words in Unit", Icons.person),
+        false, NavItem.wordsUnitPage, "Words in Unit", Icons.directions_bus),
     _NavigationItem(
-        false, NavItem.phrasesUnitPage, "Phrases in Unit", Icons.list),
-    _NavigationItem(
-        false, NavItem.wordsTextbookPage, "Words in Textbook", Icons.person),
-    _NavigationItem(
-        false, NavItem.phrasesTextbookPage, "Phrases in Textbook", Icons.list),
-    _NavigationItem(
-        false, NavItem.wordsLangPage, "Words in Language", Icons.person),
-    _NavigationItem(
-        false, NavItem.phrasesLangPage, "Phrases in Language", Icons.list),
+        false, NavItem.phrasesUnitPage, "Phrases in Unit", Icons.train),
+    _NavigationItem(false, NavItem.wordsTextbookPage, "Words in Textbook",
+        Icons.directions_car),
+    _NavigationItem(false, NavItem.phrasesTextbookPage, "Phrases in Textbook",
+        Icons.local_taxi),
+    _NavigationItem(false, NavItem.wordsLangPage, "Words in Language",
+        Icons.airplanemode_active),
+    _NavigationItem(false, NavItem.phrasesLangPage, "Phrases in Language",
+        Icons.directions_bike),
     _NavigationItem(false, NavItem.patternPage, "Patterns in Language",
-        Icons.shopping_cart),
+        Icons.directions_boat),
   ];
 
   NavDrawerWidget(this.accountName, this.accountEmail);

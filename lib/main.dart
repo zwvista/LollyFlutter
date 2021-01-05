@@ -73,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
               centerTitle: false,
               brightness: Brightness.light,
               backgroundColor: Colors.indigo,
+              actions: _getActionsForState(state.selectedItem),
             ),
             body: AnimatedSwitcher(
               switchInCurve: Curves.easeInExpo,
@@ -141,6 +142,27 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         );
+    }
+  }
+
+  List<IconButton> _getActionsForState(NavItem state) {
+    switch (state) {
+      case NavItem.wordsUnitPage:
+        return [];
+      case NavItem.phrasesUnitPage:
+        return [];
+      case NavItem.wordsTextbookPage:
+        return [];
+      case NavItem.phrasesTextbookPage:
+        return [];
+      case NavItem.wordsLangPage:
+        return [];
+      case NavItem.phrasesLangPage:
+        return [];
+      case NavItem.patternPage:
+        return [];
+      default:
+        return [];
     }
   }
 }
