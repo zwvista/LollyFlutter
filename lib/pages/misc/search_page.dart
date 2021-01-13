@@ -32,6 +32,18 @@ class SearchPageState extends State<SearchPage> {
       Row(children: [
         Expanded(
             child: DropdownButton(
+                value: vmSettings.selectedLang,
+                items: vmSettings.lstLanguages
+                    .map((e) =>
+                        DropdownMenuItem(value: e, child: Text(e.langname)))
+                    .toList(),
+                isExpanded: true,
+                onChanged: (value) => setState(() {
+                      vmSettings.setSelectedLang(value);
+                      _searchDict();
+                    }))),
+        Expanded(
+            child: DropdownButton(
                 value: vmSettings.selectedDictReference,
                 items: vmSettings.lstDictsReference
                     .map((e) =>

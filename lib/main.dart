@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/pages/misc/search_page.dart';
 import 'package:lolly_flutter/pages/misc/settings_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_lang_page.dart';
@@ -113,12 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _getContentForState(NavItem state) {
     switch (state) {
       case NavItem.searchPage:
-        return Center(
-          child: Text(
-            'Home Page',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        );
+        return SearchPage();
       case NavItem.settingsPage:
         return SettingsPage();
       case NavItem.wordsUnitPage:
