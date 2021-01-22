@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_detail_page.dart';
+import 'package:lolly_flutter/pages/patterns/patterns_webpages_browse_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_webpages_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
@@ -110,7 +111,12 @@ class PatternsPageState extends State<PatternsPage> {
                                           child: Text("Browse Web Pages"),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            edit();
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PatternsWebPagesBrowsePage(
+                                                            vm.lstPatterns[
+                                                                index])));
                                           }),
                                       SimpleDialogOption(
                                           child: Text("Edit Web Pages"),

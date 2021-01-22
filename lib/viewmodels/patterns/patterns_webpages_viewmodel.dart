@@ -6,13 +6,18 @@ import 'package:rx_command/rx_command.dart';
 class PatternsWebPagesViewModel {
   MPattern selectedPattern;
   List<MPatternWebPage> lstPatternsWebPages;
+  MPatternWebPage selectedWebPage;
   final patternWebPageService = PatternWebPageService();
   RxCommand<void, List<MPatternWebPage>> reloadCommand;
 
   PatternsWebPagesViewModel(this.selectedPattern) {
-    reloadCommand = RxCommand.createAsyncNoParam(() async =>
-        lstPatternsWebPages =
-            await patternWebPageService.getDataByPattern(selectedPattern.id));
+    reloadCommand = RxCommand.createAsyncNoParam(() async {
+      lstPatternsWebPages =
+          await patternWebPageService.getDataByPattern(selectedPattern.id);
+      selectedWebPage =
+          lstPatternsWebPages.firstWhere((e) => true, orElse: () => null);
+      return lstPatternsWebPages;
+    });
     reloadCommand.execute();
   }
 }
