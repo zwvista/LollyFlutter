@@ -9,6 +9,7 @@ class PatternsWebPagesViewModel {
   MPatternWebPage selectedWebPage;
   final patternWebPageService = PatternWebPageService();
   RxCommand<void, List<MPatternWebPage>> reloadCommand;
+  RxCommand<MPatternWebPage, MPatternWebPage> selectionChangedCommand;
 
   PatternsWebPagesViewModel(this.selectedPattern) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
@@ -18,6 +19,7 @@ class PatternsWebPagesViewModel {
           lstPatternsWebPages.firstWhere((e) => true, orElse: () => null);
       return lstPatternsWebPages;
     });
+    selectionChangedCommand = RxCommand.createSync((s) => selectedWebPage = s);
     reloadCommand.execute();
   }
 }

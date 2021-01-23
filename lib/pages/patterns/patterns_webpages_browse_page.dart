@@ -21,7 +21,11 @@ class PatternsWebPagesBrowsePageState
   PatternsWebPagesViewModel vm;
   WebViewController controller;
 
-  PatternsWebPagesBrowsePageState(this.vm);
+  PatternsWebPagesBrowsePageState(this.vm) {
+    void loadPage() => controller.loadUrl(vm.selectedWebPage.url);
+    vm.reloadCommand.listen((_) => loadPage());
+    vm.selectionChangedCommand.listen((_) => loadPage());
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,17 +33,16 @@ class PatternsWebPagesBrowsePageState
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(children: [
-              DropdownButton(
-                  value: vm.selectedWebPage,
-                  items: vm.lstPatternsWebPages
-                      .map((e) =>
-                          DropdownMenuItem(value: e, child: Text(e.title)))
-                      .toList(),
-                  isExpanded: true,
-                  onChanged: (v) => setState(() {
-                        vm.selectedWebPage = v;
-                        controller.loadUrl(v.url);
-                      })),
+              StreamBuilder(
+                  stream: vm.reloadCommand,
+                  builder: (context, snapshot) => DropdownButton(
+                      value: vm.selectedWebPage,
+                      items: vm.lstPatternsWebPages
+                          .map((e) =>
+                              DropdownMenuItem(value: e, child: Text(e.title)))
+                          .toList(),
+                      isExpanded: true,
+                      onChanged: vm.selectionChangedCommand)),
               Expanded(
                 child: WebView(onWebViewCreated: (c) => controller = c),
               )
