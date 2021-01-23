@@ -24,20 +24,25 @@ class PatternsWebPagesBrowsePageState
   PatternsWebPagesBrowsePageState(this.vm);
 
   Widget build(BuildContext context) {
-    return Column(children: [
-      DropdownButton(
-          value: vm.selectedWebPage,
-          items: vm.lstPatternsWebPages
-              .map((e) => DropdownMenuItem(value: e, child: Text(e.title)))
-              .toList(),
-          isExpanded: true,
-          onChanged: (v) => setState(() {
-                vm.selectedWebPage = v;
-                controller.loadUrl(v.url);
-              })),
-      Expanded(
-        child: WebView(onWebViewCreated: (c) => controller = c),
-      )
-    ]);
+    return Scaffold(
+        appBar: AppBar(title: Text('Patterns Web Pages(Browse)')),
+        body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(children: [
+              DropdownButton(
+                  value: vm.selectedWebPage,
+                  items: vm.lstPatternsWebPages
+                      .map((e) =>
+                          DropdownMenuItem(value: e, child: Text(e.title)))
+                      .toList(),
+                  isExpanded: true,
+                  onChanged: (v) => setState(() {
+                        vm.selectedWebPage = v;
+                        controller.loadUrl(v.url);
+                      })),
+              Expanded(
+                child: WebView(onWebViewCreated: (c) => controller = c),
+              )
+            ])));
   }
 }

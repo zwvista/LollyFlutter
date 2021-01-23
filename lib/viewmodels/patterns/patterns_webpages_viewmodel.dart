@@ -5,7 +5,7 @@ import 'package:rx_command/rx_command.dart';
 
 class PatternsWebPagesViewModel {
   MPattern selectedPattern;
-  List<MPatternWebPage> lstPatternsWebPages;
+  List<MPatternWebPage> lstPatternsWebPages = [];
   MPatternWebPage selectedWebPage;
   final patternWebPageService = PatternWebPageService();
   RxCommand<void, List<MPatternWebPage>> reloadCommand;

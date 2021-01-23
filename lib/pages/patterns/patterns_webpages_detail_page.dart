@@ -28,7 +28,7 @@ class PatternsWebPagesDetailPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('PatternsWebPages in Language(Detail)')),
+        appBar: AppBar(title: Text('Patterns Web Pages(Detail)')),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
