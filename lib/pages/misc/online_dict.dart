@@ -16,7 +16,7 @@ class OnlineDict {
 
   void searchDict() async {
     final item = vmSettings.selectedDictReference;
-    final url = item.urlString(iOnlineDict.getWord, vmSettings.lstAutoCorrect);
+    final url = iOnlineDict.getUrl;
     if (item.dicttypename == "OFFLINE") {
       final html = await BaseService.getHtmlByUrl(url);
       final str = item.htmlString(html, iOnlineDict.getWord, true);
@@ -52,4 +52,6 @@ class OnlineDict {
       dictStatus = DictWebBrowserStatus.Ready;
     }
   }
+
+  void loadUrl() => controller.loadUrl(iOnlineDict.getUrl);
 }

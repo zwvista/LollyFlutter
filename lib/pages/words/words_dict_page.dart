@@ -63,11 +63,11 @@ class WordsDictPageState extends State<WordsDictPage> {
                 onPageFinished: (s) => onlineDict.onPageFinished()),
             onSwipeLeft: () => setState(() {
               vm.next(-1);
-              onlineDict.controller.loadUrl(vm.getUrl);
+              onlineDict.loadUrl();
             }),
             onSwipeRight: () => setState(() {
               vm.next(1);
-              onlineDict.controller.loadUrl(vm.getUrl);
+              onlineDict.loadUrl();
             }),
           ))
         ],
