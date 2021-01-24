@@ -8,8 +8,9 @@ class MUnitPhrases {
   @JsonKey(name: 'records')
   List<MUnitPhrase> lst;
 
-  MUnitPhrases() {}
-  factory MUnitPhrases.fromJson(Map<String, dynamic> json) => _$MUnitPhrasesFromJson(json);
+  MUnitPhrases();
+  factory MUnitPhrases.fromJson(Map<String, dynamic> json) =>
+      _$MUnitPhrasesFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitPhrasesToJson(this);
 }
 
@@ -40,7 +41,8 @@ class MUnitPhrase {
   String get unitstr => textbook.unitstr(unit);
   String get partstr => textbook.partstr(part);
 
-  MUnitPhrase() {}
-  factory MUnitPhrase.fromJson(Map<String, dynamic> json) => _$MUnitPhraseFromJson(json);
+  MUnitPhrase();
+  factory MUnitPhrase.fromJson(Map<String, dynamic> json) =>
+      _$MUnitPhraseFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitPhraseToJson(this);
 }

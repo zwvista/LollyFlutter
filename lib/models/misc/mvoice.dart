@@ -7,7 +7,7 @@ class MVoices {
   @JsonKey(name: 'records')
   List<MVoice> lst;
 
-  MVoices() {}
+  MVoices();
 
   factory MVoices.fromJson(Map<String, dynamic> json) =>
       _$MVoicesFromJson(json);
@@ -28,7 +28,7 @@ class MVoice {
   @JsonKey(name: 'VOICENAME')
   var voicename = "";
 
-  MVoice() {}
+  MVoice();
 
   factory MVoice.fromJson(Map<String, dynamic> json) => _$MVoiceFromJson(json);
 

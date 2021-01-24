@@ -7,8 +7,9 @@ class MLangWords {
   @JsonKey(name: 'records')
   List<MLangWord> lst;
 
-  MLangWords() {}
-  factory MLangWords.fromJson(Map<String, dynamic> json) => _$MLangWordsFromJson(json);
+  MLangWords();
+  factory MLangWords.fromJson(Map<String, dynamic> json) =>
+      _$MLangWordsFromJson(json);
   Map<String, dynamic> toJson() => _$MLangWordsToJson(this);
 }
 
@@ -29,9 +30,11 @@ class MLangWord {
   @JsonKey(name: 'TOTAL')
   var total = 0;
 
-  String get accuracy => total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
+  String get accuracy =>
+      total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
 
-  MLangWord() {}
-  factory MLangWord.fromJson(Map<String, dynamic> json) => _$MLangWordFromJson(json);
+  MLangWord();
+  factory MLangWord.fromJson(Map<String, dynamic> json) =>
+      _$MLangWordFromJson(json);
   Map<String, dynamic> toJson() => _$MLangWordToJson(this);
 }

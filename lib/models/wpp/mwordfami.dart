@@ -7,8 +7,9 @@ class MWordsFami {
   @JsonKey(name: 'records')
   List<MWordFami> lst;
 
-  MWordsFami() {}
-  factory MWordsFami.fromJson(Map<String, dynamic> json) => _$MWordsFamiFromJson(json);
+  MWordsFami();
+  factory MWordsFami.fromJson(Map<String, dynamic> json) =>
+      _$MWordsFamiFromJson(json);
   Map<String, dynamic> toJson() => _$MWordsFamiToJson(this);
 }
 
@@ -23,7 +24,8 @@ class MWordFami {
   @JsonKey(name: 'TOTAL')
   var total = 0;
 
-  MWordFami() {}
-  factory MWordFami.fromJson(Map<String, dynamic> json) => _$MWordFamiFromJson(json);
+  MWordFami();
+  factory MWordFami.fromJson(Map<String, dynamic> json) =>
+      _$MWordFamiFromJson(json);
   Map<String, dynamic> toJson() => _$MWordFamiToJson(this);
 }

@@ -7,7 +7,7 @@ class MPatterns {
   @JsonKey(name: 'records')
   List<MPattern> lst;
 
-  MPatterns() {}
+  MPatterns();
   factory MPatterns.fromJson(Map<String, dynamic> json) =>
       _$MPatternsFromJson(json);
   Map<String, dynamic> toJson() => _$MPatternsToJson(this);
@@ -30,7 +30,7 @@ class MPattern {
   @JsonKey(name: 'PATTERNS_SPLIT')
   var patternsSplit = "";
 
-  MPattern() {}
+  MPattern();
   factory MPattern.fromJson(Map<String, dynamic> json) =>
       _$MPatternFromJson(json);
   Map<String, dynamic> toJson() => _$MPatternToJson(this);

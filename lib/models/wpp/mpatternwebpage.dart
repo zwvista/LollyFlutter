@@ -7,7 +7,7 @@ class MPatternWebPages {
   @JsonKey(name: 'records')
   List<MPatternWebPage> lst;
 
-  MPatternWebPages() {}
+  MPatternWebPages();
   factory MPatternWebPages.fromJson(Map<String, dynamic> json) =>
       _$MPatternWebPagesFromJson(json);
   Map<String, dynamic> toJson() => _$MPatternWebPagesToJson(this);
@@ -32,7 +32,7 @@ class MPatternWebPage {
   @JsonKey(name: 'URL')
   var url = "";
 
-  MPatternWebPage() {}
+  MPatternWebPage();
   factory MPatternWebPage.fromJson(Map<String, dynamic> json) =>
       _$MPatternWebPageFromJson(json);
   Map<String, dynamic> toJson() => _$MPatternWebPageToJson(this);

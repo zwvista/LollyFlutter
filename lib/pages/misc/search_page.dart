@@ -11,12 +11,12 @@ class SearchPage extends StatefulWidget {
   SearchPageState createState() => SearchPageState();
 }
 
-class SearchPageState extends State<SearchPage> implements IOnlineDict {
+class SearchPageState extends State<SearchPage> {
   final vm = SearchViewModel();
   OnlineDict onlineDict;
 
   SearchPageState() {
-    onlineDict = OnlineDict(this);
+    onlineDict = OnlineDict(vm);
   }
 
   Widget build(BuildContext context) {
@@ -61,16 +61,10 @@ class SearchPageState extends State<SearchPage> implements IOnlineDict {
       ]),
       Expanded(
         child: WebView(
-            initialUrl: vm.currentUrl,
+            initialUrl: vm.getUrl,
             onWebViewCreated: (c) => onlineDict.controller = c,
             onPageFinished: (s) => onlineDict.onPageFinished()),
       )
     ]);
   }
-
-  @override
-  String get url => vm.currentUrl;
-
-  @override
-  String get word => vm.word;
 }

@@ -5,5 +5,5 @@ class PatternsDetailViewModel {
   PatternsViewModel vm;
   MPattern item;
 
-  PatternsDetailViewModel(this.vm, this.item) {}
+  PatternsDetailViewModel(this.vm, this.item);
 }

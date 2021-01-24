@@ -10,7 +10,7 @@ class MDictionaries {
   @JsonKey(name: 'records')
   List<MDictionary> lst;
 
-  MDictionaries() {}
+  MDictionaries();
 
   factory MDictionaries.fromJson(Map<String, dynamic> json) =>
       _$MDictionariesFromJson(json);
@@ -55,7 +55,7 @@ class MDictionary {
   @JsonKey(name: 'TEMPLATE2')
   String template2 = "";
 
-  MDictionary() {}
+  MDictionary();
 
   factory MDictionary.fromJson(Map<String, dynamic> json) =>
       _$MDictionaryFromJson(json);

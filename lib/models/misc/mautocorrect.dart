@@ -7,7 +7,7 @@ class MAutoCorrects {
   @JsonKey(name: 'records')
   List<MAutoCorrect> lst;
 
-  MAutoCorrects() {}
+  MAutoCorrects();
 
   factory MAutoCorrects.fromJson(Map<String, dynamic> json) =>
       _$MAutoCorrectsFromJson(json);
@@ -30,7 +30,7 @@ class MAutoCorrect {
   @JsonKey(name: 'BASIC')
   var basic = "";
 
-  MAutoCorrect() {}
+  MAutoCorrect();
 
   factory MAutoCorrect.fromJson(Map<String, dynamic> json) =>
       _$MAutoCorrectFromJson(json);

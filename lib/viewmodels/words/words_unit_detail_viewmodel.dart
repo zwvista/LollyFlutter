@@ -5,5 +5,5 @@ class WordsUnitDetailViewModel {
   WordsUnitViewModel vm;
   MUnitWord item;
 
-  WordsUnitDetailViewModel(this.vm, this.item) {}
+  WordsUnitDetailViewModel(this.vm, this.item);
 }

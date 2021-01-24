@@ -5,5 +5,5 @@ class PhrasesLangDetailViewModel {
   PhrasesLangViewModel vm;
   MLangPhrase item;
 
-  PhrasesLangDetailViewModel(this.vm, this.item) {}
+  PhrasesLangDetailViewModel(this.vm, this.item);
 }

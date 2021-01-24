@@ -9,7 +9,7 @@ class MTextbooks {
   @JsonKey(name: 'records')
   List<MTextbook> lst;
 
-  MTextbooks() {}
+  MTextbooks();
 
   factory MTextbooks.fromJson(Map<String, dynamic> json) =>
       _$MTextbooksFromJson(json);
@@ -41,7 +41,7 @@ class MTextbook {
   String partstr(int part) =>
       lstParts.firstWhere((o) => o.value == part, orElse: () => null)?.label;
 
-  MTextbook() {}
+  MTextbook();
 
   factory MTextbook.fromJson(Map<String, dynamic> json) =>
       _$MTextbookFromJson(json);

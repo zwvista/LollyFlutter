@@ -133,12 +133,12 @@ class SettingsPageState extends State<SettingsPage> {
                           flex: 2,
                           child: ButtonBar(
                             children: [
-                              FlatButton(
+                              TextButton(
                                   onPressed: !vm.previousIsEnabled
                                       ? null
                                       : () => vm.previousUnitPart(),
                                   child: Text(vm.previousText)),
-                              FlatButton(
+                              TextButton(
                                   onPressed: !vm.nextIsEnabled
                                       ? null
                                       : () => vm.nextUnitPart(),

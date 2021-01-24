@@ -5,5 +5,5 @@ class PatternsWebPagesDetailViewModel {
   PatternsWebPagesViewModel vm;
   MPatternWebPage item;
 
-  PatternsWebPagesDetailViewModel(this.vm, this.item) {}
+  PatternsWebPagesDetailViewModel(this.vm, this.item);
 }

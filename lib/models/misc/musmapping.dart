@@ -7,7 +7,7 @@ class MUSMappings {
   @JsonKey(name: 'records')
   List<MUSMapping> lst;
 
-  MUSMappings() {}
+  MUSMappings();
 
   factory MUSMappings.fromJson(Map<String, dynamic> json) =>
       _$MUSMappingsFromJson(json);
@@ -30,33 +30,33 @@ class MUSMapping {
   @JsonKey(name: 'LEVEL')
   var level = 0;
 
-  MUSMapping() {}
+  MUSMapping();
 
   factory MUSMapping.fromJson(Map<String, dynamic> json) =>
       _$MUSMappingFromJson(json);
 
   Map<String, dynamic> toJson() => _$MUSMappingToJson(this);
 
-  static final NAME_USLANG = "USLANG";
-  static final NAME_USROWSPERPAGEOPTIONS = "USROWSPERPAGEOPTIONS";
-  static final NAME_USROWSPERPAGE = "USROWSPERPAGE";
-  static final NAME_USLEVELCOLORS = "USLEVELCOLORS";
-  static final NAME_USSCANINTERVAL = "USSCANINTERVAL";
-  static final NAME_USREVIEWINTERVAL = "USREVIEWINTERVAL";
+  static const NAME_USLANG = "USLANG";
+  static const NAME_USROWSPERPAGEOPTIONS = "USROWSPERPAGEOPTIONS";
+  static const NAME_USROWSPERPAGE = "USROWSPERPAGE";
+  static const NAME_USLEVELCOLORS = "USLEVELCOLORS";
+  static const NAME_USSCANINTERVAL = "USSCANINTERVAL";
+  static const NAME_USREVIEWINTERVAL = "USREVIEWINTERVAL";
 
-  static final NAME_USTEXTBOOK = "USTEXTBOOK";
-  static final NAME_USDICTREFERENCE = "USDICTREFERENCE";
-  static final NAME_USDICTNOTE = "USDICTNOTE";
-  static final NAME_USDICTSREFERENCE = "USDICTSREFERENCE";
-  static final NAME_USDICTTRANSLATION = "USDICTTRANSLATION";
-  static final NAME_USMACVOICE = "USMACVOICE";
-  static final NAME_USIOSVOICE = "USIOSVOICE";
-  static final NAME_USANDROIDVOICE = "USANDROIDVOICE";
-  static final NAME_USWEBVOICE = "USWEBVOICE";
-  static final NAME_USWINDOWSVOICE = "USWINDOWSVOICE";
+  static const NAME_USTEXTBOOK = "USTEXTBOOK";
+  static const NAME_USDICTREFERENCE = "USDICTREFERENCE";
+  static const NAME_USDICTNOTE = "USDICTNOTE";
+  static const NAME_USDICTSREFERENCE = "USDICTSREFERENCE";
+  static const NAME_USDICTTRANSLATION = "USDICTTRANSLATION";
+  static const NAME_USMACVOICE = "USMACVOICE";
+  static const NAME_USIOSVOICE = "USIOSVOICE";
+  static const NAME_USANDROIDVOICE = "USANDROIDVOICE";
+  static const NAME_USWEBVOICE = "USWEBVOICE";
+  static const NAME_USWINDOWSVOICE = "USWINDOWSVOICE";
 
-  static final NAME_USUNITFROM = "USUNITFROM";
-  static final NAME_USPARTFROM = "USPARTFROM";
-  static final NAME_USUNITTO = "USUNITTO";
-  static final NAME_USPARTTO = "USPARTTO";
+  static const NAME_USUNITFROM = "USUNITFROM";
+  static const NAME_USPARTFROM = "USPARTFROM";
+  static const NAME_USUNITTO = "USUNITTO";
+  static const NAME_USPARTTO = "USPARTTO";
 }

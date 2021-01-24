@@ -1,9 +1,15 @@
 import 'package:lolly_flutter/main.dart';
 
-class SearchViewModel {
+class IOnlineDict {
+  String get getWord => '';
+  String get getUrl => '';
+}
+
+class SearchViewModel implements IOnlineDict {
   var word = "";
-  String get currentUrl => vmSettings.selectedDictReference
+  String get getWord => word;
+  String get getUrl => vmSettings.selectedDictReference
       .urlString(word, vmSettings.lstAutoCorrect);
 
-  SearchViewModel() {}
+  SearchViewModel();
 }

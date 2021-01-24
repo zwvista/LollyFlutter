@@ -5,5 +5,5 @@ class PhrasesUnitDetailViewModel {
   PhrasesUnitViewModel vm;
   MUnitPhrase item;
 
-  PhrasesUnitDetailViewModel(this.vm, this.item) {}
+  PhrasesUnitDetailViewModel(this.vm, this.item);
 }

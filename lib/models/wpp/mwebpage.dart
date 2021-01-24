@@ -7,7 +7,7 @@ class MWebPages {
   @JsonKey(name: 'records')
   List<MWebPage> lst;
 
-  MWebPages() {}
+  MWebPages();
   factory MWebPages.fromJson(Map<String, dynamic> json) =>
       _$MWebPagesFromJson(json);
   Map<String, dynamic> toJson() => _$MWebPagesToJson(this);
@@ -22,7 +22,7 @@ class MWebPage {
   @JsonKey(name: 'URL')
   var url = "";
 
-  MWebPage() {}
+  MWebPage();
   factory MWebPage.fromJson(Map<String, dynamic> json) =>
       _$MWebPageFromJson(json);
   Map<String, dynamic> toJson() => _$MWebPageToJson(this);

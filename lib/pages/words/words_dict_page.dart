@@ -16,12 +16,12 @@ class WordsDictPage extends StatefulWidget {
   WordsDictPageState createState() => WordsDictPageState(vm);
 }
 
-class WordsDictPageState extends State<WordsDictPage> implements IOnlineDict {
+class WordsDictPageState extends State<WordsDictPage> {
   final WordsDictViewModel vm;
   OnlineDict onlineDict;
 
   WordsDictPageState(this.vm) {
-    onlineDict = OnlineDict(this);
+    onlineDict = OnlineDict(vm);
   }
 
   Widget build(BuildContext context) {
@@ -58,26 +58,20 @@ class WordsDictPageState extends State<WordsDictPage> implements IOnlineDict {
           Expanded(
               child: SwipeDetector(
             child: WebView(
-                initialUrl: vm.currentUrl,
+                initialUrl: vm.getUrl,
                 onWebViewCreated: (c) => onlineDict.controller = c,
                 onPageFinished: (s) => onlineDict.onPageFinished()),
             onSwipeLeft: () => setState(() {
               vm.next(-1);
-              onlineDict.controller.loadUrl(vm.currentUrl);
+              onlineDict.controller.loadUrl(vm.getUrl);
             }),
             onSwipeRight: () => setState(() {
               vm.next(1);
-              onlineDict.controller.loadUrl(vm.currentUrl);
+              onlineDict.controller.loadUrl(vm.getUrl);
             }),
           ))
         ],
       ),
     );
   }
-
-  @override
-  String get url => vm.currentUrl;
-
-  @override
-  String get word => vm.currentWord.label;
 }

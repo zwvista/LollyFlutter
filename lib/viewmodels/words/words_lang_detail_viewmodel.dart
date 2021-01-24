@@ -5,5 +5,5 @@ class WordsLangDetailViewModel {
   WordsLangViewModel vm;
   MLangWord item;
 
-  WordsLangDetailViewModel(this.vm, this.item) {}
+  WordsLangDetailViewModel(this.vm, this.item);
 }

@@ -8,7 +8,7 @@ class MUnitWords {
   @JsonKey(name: 'records')
   List<MUnitWord> lst;
 
-  MUnitWords() {}
+  MUnitWords();
   factory MUnitWords.fromJson(Map<String, dynamic> json) =>
       _$MUnitWordsFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitWordsToJson(this);
@@ -49,7 +49,7 @@ class MUnitWord {
   String get accuracy =>
       total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
 
-  MUnitWord() {}
+  MUnitWord();
   factory MUnitWord.fromJson(Map<String, dynamic> json) =>
       _$MUnitWordFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitWordToJson(this);

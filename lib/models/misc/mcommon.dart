@@ -22,7 +22,7 @@ class MCodes {
   @JsonKey(name: 'records')
   List<MCode> lst;
 
-  MCodes() {}
+  MCodes();
 
   factory MCodes.fromJson(Map<String, dynamic> json) => _$MCodesFromJson(json);
 
@@ -36,7 +36,7 @@ class MCode {
   @JsonKey(name: 'NAME')
   var name = "";
 
-  MCode() {}
+  MCode();
 
   factory MCode.fromJson(Map<String, dynamic> json) => _$MCodeFromJson(json);
 
@@ -50,7 +50,7 @@ class MSPResult {
   @JsonKey(name: 'result')
   var result = "";
 
-  MSPResult() {}
+  MSPResult();
 
   factory MSPResult.fromJson(Map<String, dynamic> json) =>
       _$MSPResultFromJson(json);

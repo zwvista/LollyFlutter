@@ -7,8 +7,9 @@ class MLangPhrases {
   @JsonKey(name: 'records')
   List<MLangPhrase> lst;
 
-  MLangPhrases() {}
-  factory MLangPhrases.fromJson(Map<String, dynamic> json) => _$MLangPhrasesFromJson(json);
+  MLangPhrases();
+  factory MLangPhrases.fromJson(Map<String, dynamic> json) =>
+      _$MLangPhrasesFromJson(json);
   Map<String, dynamic> toJson() => _$MLangPhrasesToJson(this);
 }
 
@@ -23,7 +24,8 @@ class MLangPhrase {
   @JsonKey(name: 'TRANSLATION')
   String translation;
 
-  MLangPhrase() {}
-  factory MLangPhrase.fromJson(Map<String, dynamic> json) => _$MLangPhraseFromJson(json);
+  MLangPhrase();
+  factory MLangPhrase.fromJson(Map<String, dynamic> json) =>
+      _$MLangPhraseFromJson(json);
   Map<String, dynamic> toJson() => _$MLangPhraseToJson(this);
 }

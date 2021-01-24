@@ -7,7 +7,7 @@ class MUserSettings {
   @JsonKey(name: 'records')
   List<MUserSetting> lst;
 
-  MUserSettings() {}
+  MUserSettings();
 
   factory MUserSettings.fromJson(Map<String, dynamic> json) =>
       _$MUserSettingsFromJson(json);
@@ -34,7 +34,7 @@ class MUserSetting {
   @JsonKey(name: 'VALUE4')
   String value4;
 
-  MUserSetting() {}
+  MUserSetting();
 
   factory MUserSetting.fromJson(Map<String, dynamic> json) =>
       _$MUserSettingFromJson(json);

@@ -7,7 +7,7 @@ class MLanguages {
   @JsonKey(name: 'records')
   List<MLanguage> lst;
 
-  MLanguages() {}
+  MLanguages();
 
   factory MLanguages.fromJson(Map<String, dynamic> json) =>
       _$MLanguagesFromJson(json);
@@ -24,7 +24,7 @@ class MLanguage {
   @JsonKey(name: 'VOICE')
   String voice;
 
-  MLanguage() {}
+  MLanguage();
 
   factory MLanguage.fromJson(Map<String, dynamic> json) =>
       _$MLanguageFromJson(json);
