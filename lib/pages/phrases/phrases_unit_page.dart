@@ -10,8 +10,9 @@ import 'package:rx_widgets/rx_widgets.dart';
 import '../../keys.dart';
 
 class PhrasesUnitPage extends StatefulWidget {
+  final state = PhrasesUnitPageState();
   @override
-  PhrasesUnitPageState createState() => PhrasesUnitPageState();
+  PhrasesUnitPageState createState() => state;
 }
 
 class PhrasesUnitPageState extends State<PhrasesUnitPage> {
@@ -147,4 +148,24 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
           ),
         ],
       );
+
+  void more() {
+    showDialog(
+        context: context,
+        builder: (context) => SimpleDialog(title: Text("More"), children: [
+              SimpleDialogOption(
+                  child: Text("Add"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            PhrasesUnitDetailPage(vm, vm.newUnitPhrase())));
+                  }),
+              SimpleDialogOption(
+                  child: Text("Batch Edit"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ]));
+  }
 }

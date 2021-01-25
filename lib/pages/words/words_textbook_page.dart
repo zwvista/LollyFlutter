@@ -13,8 +13,9 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WordsTextbookPage extends StatefulWidget {
+  final state = WordsTextbookPageState();
   @override
-  WordsTextbookPageState createState() => WordsTextbookPageState();
+  WordsTextbookPageState createState() => state;
 }
 
 class WordsTextbookPageState extends State<WordsTextbookPage> {

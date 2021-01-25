@@ -150,7 +150,12 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ];
       case NavItem.phrasesUnitPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as PhrasesUnitPage).state.more(),
+          )
+        ];
       case NavItem.wordsTextbookPage:
         return [];
       case NavItem.phrasesTextbookPage:

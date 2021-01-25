@@ -13,8 +13,9 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WordsLangPage extends StatefulWidget {
+  final state = WordsLangPageState();
   @override
-  WordsLangPageState createState() => WordsLangPageState();
+  WordsLangPageState createState() => state;
 }
 
 class WordsLangPageState extends State<WordsLangPage> {

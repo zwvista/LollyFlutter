@@ -12,8 +12,9 @@ import 'package:rx_widgets/rx_widgets.dart';
 import '../../keys.dart';
 
 class PatternsPage extends StatefulWidget {
+  final state = PatternsPageState();
   @override
-  PatternsPageState createState() => PatternsPageState();
+  PatternsPageState createState() => state;
 }
 
 class PatternsPageState extends State<PatternsPage> {
