@@ -23,7 +23,7 @@ class TextbookService extends BaseService<MTextbook> {
       }
       m = RegExp(r"CUSTOM,(.+)").firstMatch(units);
       if (m != null) return m.group(1).split(',');
-      return new List<String>();
+      return [];
     }
 
     lst.forEach((o) {

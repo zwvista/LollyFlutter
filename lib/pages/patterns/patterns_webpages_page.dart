@@ -9,11 +9,10 @@ import 'package:rx_widgets/rx_widgets.dart';
 import '../../keys.dart';
 
 class PatternsWebPagesPage extends StatefulWidget {
-  PatternsWebPagesViewModel vm;
+  final PatternsWebPagesViewModel vm;
 
-  PatternsWebPagesPage(MPattern item) {
+  PatternsWebPagesPage(MPattern item) :
     vm = PatternsWebPagesViewModel(item);
-  }
 
   @override
   PatternsWebPagesPageState createState() => PatternsWebPagesPageState(vm);

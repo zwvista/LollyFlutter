@@ -5,11 +5,10 @@ import 'package:lolly_flutter/viewmodels/words/words_lang_detail_viewmodel.dart'
 import 'package:lolly_flutter/viewmodels/words/words_lang_viewmodel.dart';
 
 class WordsLangDetailPage extends StatefulWidget {
-  WordsLangDetailViewModel vmDetail;
+  final WordsLangDetailViewModel vmDetail;
 
-  WordsLangDetailPage(WordsLangViewModel vm, MLangWord item) {
-    vmDetail = WordsLangDetailViewModel(vm, item);
-  }
+  WordsLangDetailPage(WordsLangViewModel vm, MLangWord item)
+      : vmDetail = WordsLangDetailViewModel(vm, item);
 
   @override
   WordsLangDetailPageState createState() => WordsLangDetailPageState(vmDetail);
@@ -67,8 +66,9 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
                       ),
                       enabled: false,
                     ),
-                    RaisedButton(
-                        color: Colors.blueAccent,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent),
                         onPressed: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();

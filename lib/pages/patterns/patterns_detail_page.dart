@@ -5,11 +5,10 @@ import 'package:lolly_flutter/viewmodels/patterns/patterns_detail_viewmodel.dart
 import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 
 class PatternsDetailPage extends StatefulWidget {
-  PatternsDetailViewModel vmDetail;
+  final PatternsDetailViewModel vmDetail;
 
-  PatternsDetailPage(PatternsViewModel vm, MPattern item) {
-    vmDetail = PatternsDetailViewModel(vm, item);
-  }
+  PatternsDetailPage(PatternsViewModel vm, MPattern item)
+      : vmDetail = PatternsDetailViewModel(vm, item);
 
   @override
   PatternsDetailPageState createState() => PatternsDetailPageState(vmDetail);
@@ -59,8 +58,9 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
                           labelText: "TAGS",
                         ),
                         onSaved: (s) => item.tags = s),
-                    RaisedButton(
-                        color: Colors.blueAccent,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent),
                         onPressed: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();

@@ -6,11 +6,10 @@ import 'package:lolly_flutter/viewmodels/words/words_unit_detail_viewmodel.dart'
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 
 class WordsTextbookDetailPage extends StatefulWidget {
-  WordsUnitDetailViewModel vmDetail;
+  final WordsUnitDetailViewModel vmDetail;
 
-  WordsTextbookDetailPage(WordsUnitViewModel vm, MUnitWord item) {
-    vmDetail = WordsUnitDetailViewModel(vm, item);
-  }
+  WordsTextbookDetailPage(WordsUnitViewModel vm, MUnitWord item)
+      : vmDetail = WordsUnitDetailViewModel(vm, item);
 
   @override
   WordsTextbookDetailPageState createState() =>
@@ -113,8 +112,9 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                       ),
                       enabled: false,
                     ),
-                    RaisedButton(
-                        color: Colors.blueAccent,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent),
                         onPressed: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();

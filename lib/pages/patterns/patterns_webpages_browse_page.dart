@@ -5,11 +5,10 @@ import 'package:lolly_flutter/viewmodels/patterns/patterns_webpages_viewmodel.da
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PatternsWebPagesBrowsePage extends StatefulWidget {
-  PatternsWebPagesViewModel vm;
+  final PatternsWebPagesViewModel vm;
 
-  PatternsWebPagesBrowsePage(MPattern item) {
-    vm = PatternsWebPagesViewModel(item);
-  }
+  PatternsWebPagesBrowsePage(MPattern item)
+      : vm = PatternsWebPagesViewModel(item);
 
   @override
   PatternsWebPagesBrowsePageState createState() =>

@@ -5,12 +5,10 @@ import 'package:lolly_flutter/viewmodels/patterns/patterns_webpages_detail_viewm
 import 'package:lolly_flutter/viewmodels/patterns/patterns_webpages_viewmodel.dart';
 
 class PatternsWebPagesDetailPage extends StatefulWidget {
-  PatternsWebPagesDetailViewModel vmDetail;
+  final PatternsWebPagesDetailViewModel vmDetail;
 
-  PatternsWebPagesDetailPage(
-      PatternsWebPagesViewModel vm, MPatternWebPage item) {
-    vmDetail = PatternsWebPagesDetailViewModel(vm, item);
-  }
+  PatternsWebPagesDetailPage(PatternsWebPagesViewModel vm, MPatternWebPage item)
+      : vmDetail = PatternsWebPagesDetailViewModel(vm, item);
 
   @override
   PatternsWebPagesDetailPageState createState() =>
@@ -85,8 +83,9 @@ class PatternsWebPagesDetailPageState
                         validator: (v) =>
                             v.isEmpty ? "URL must not be empty" : null,
                         onSaved: (s) => item.url = s),
-                    RaisedButton(
-                        color: Colors.blueAccent,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent),
                         onPressed: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();

@@ -6,11 +6,10 @@ import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_detail_viewmodel.d
 import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 
 class PhrasesUnitDetailPage extends StatefulWidget {
-  PhrasesUnitDetailViewModel vmDetail;
+  final PhrasesUnitDetailViewModel vmDetail;
 
-  PhrasesUnitDetailPage(PhrasesUnitViewModel vm, MUnitPhrase item) {
-    vmDetail = PhrasesUnitDetailViewModel(vm, item);
-  }
+  PhrasesUnitDetailPage(PhrasesUnitViewModel vm, MUnitPhrase item)
+      : vmDetail = PhrasesUnitDetailViewModel(vm, item);
 
   @override
   PhrasesUnitDetailPageState createState() =>
@@ -92,8 +91,9 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                           labelText: "NOTE",
                         ),
                         onSaved: (s) => item.translation = s),
-                    RaisedButton(
-                        color: Colors.blueAccent,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent),
                         onPressed: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();

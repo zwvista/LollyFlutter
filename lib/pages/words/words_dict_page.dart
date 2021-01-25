@@ -7,11 +7,11 @@ import 'package:swipedetector/swipedetector.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WordsDictPage extends StatefulWidget {
-  WordsDictViewModel vm;
+  final WordsDictViewModel vm;
 
-  WordsDictPage(List<String> lstWords, int index) {
-    vm = WordsDictViewModel(lstWords, index);
-  }
+  WordsDictPage(List<String> lstWords, int index)
+      : vm = WordsDictViewModel(lstWords, index);
+
   @override
   WordsDictPageState createState() => WordsDictPageState(vm);
 }

@@ -5,11 +5,10 @@ import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_detail_viewmodel.d
 import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_viewmodel.dart';
 
 class PhrasesLangDetailPage extends StatefulWidget {
-  PhrasesLangDetailViewModel vmDetail;
+  final PhrasesLangDetailViewModel vmDetail;
 
-  PhrasesLangDetailPage(PhrasesLangViewModel vm, MLangPhrase item) {
-    vmDetail = PhrasesLangDetailViewModel(vm, item);
-  }
+  PhrasesLangDetailPage(PhrasesLangViewModel vm, MLangPhrase item)
+      : vmDetail = PhrasesLangDetailViewModel(vm, item);
 
   @override
   PhrasesLangDetailPageState createState() =>
@@ -54,8 +53,9 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
                           labelText: "NOTE",
                         ),
                         onSaved: (s) => item.translation = s),
-                    RaisedButton(
-                        color: Colors.blueAccent,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent),
                         onPressed: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();
