@@ -11,15 +11,12 @@ class PatternsDetailPage extends StatefulWidget {
       : vmDetail = PatternsDetailViewModel(vm, item);
 
   @override
-  PatternsDetailPageState createState() => PatternsDetailPageState(vmDetail);
+  PatternsDetailPageState createState() => PatternsDetailPageState();
 }
 
 class PatternsDetailPageState extends State<PatternsDetailPage> {
   final _formKey = GlobalKey<FormState>();
-  final PatternsDetailViewModel vmDetail;
-  MPattern get item => vmDetail.item;
-
-  PatternsDetailPageState(this.vmDetail);
+  MPattern get item => widget.vmDetail.item;
 
   @override
   Widget build(BuildContext context) {

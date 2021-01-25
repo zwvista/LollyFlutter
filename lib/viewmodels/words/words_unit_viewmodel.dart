@@ -51,4 +51,16 @@ class WordsUnitViewModel {
     textbookFilterChangedCommand.listen(filterCommand);
     reloadCommand.execute();
   }
+
+  MUnitWord newUnitWord() {
+    int f(MUnitWord o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
+    final maxElem = lstUnitWords.reduce((acc, v) => f(acc) < f(v) ? v : acc);
+    return MUnitWord()
+      ..langid = vmSettings.selectedLang.id
+      ..textbookid = vmSettings.ustextbook
+      ..unit = maxElem?.unit ?? vmSettings.usunitto
+      ..part = maxElem?.part ?? vmSettings.uspartto
+      ..seqnum = (maxElem?.seqnum ?? 0) + 1
+      ..textbook = vmSettings.selectedTextbook;
+  }
 }

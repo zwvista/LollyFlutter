@@ -143,7 +143,12 @@ class _MyHomePageState extends State<MyHomePage> {
   List<IconButton> _getActionsForState(NavItem state) {
     switch (state) {
       case NavItem.wordsUnitPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as WordsUnitPage).state.more(),
+          )
+        ];
       case NavItem.phrasesUnitPage:
         return [];
       case NavItem.wordsTextbookPage:

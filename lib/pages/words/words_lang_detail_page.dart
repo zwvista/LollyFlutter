@@ -11,15 +11,12 @@ class WordsLangDetailPage extends StatefulWidget {
       : vmDetail = WordsLangDetailViewModel(vm, item);
 
   @override
-  WordsLangDetailPageState createState() => WordsLangDetailPageState(vmDetail);
+  WordsLangDetailPageState createState() => WordsLangDetailPageState();
 }
 
 class WordsLangDetailPageState extends State<WordsLangDetailPage> {
   final _formKey = GlobalKey<FormState>();
-  final WordsLangDetailViewModel vmDetail;
-  MLangWord get item => vmDetail.item;
-
-  WordsLangDetailPageState(this.vmDetail);
+  MLangWord get item => widget.vmDetail.item;
 
   @override
   Widget build(BuildContext context) {

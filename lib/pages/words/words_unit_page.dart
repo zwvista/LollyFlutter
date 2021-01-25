@@ -13,14 +13,14 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WordsUnitPage extends StatefulWidget {
+  // https://stackoverflow.com/questions/50557842/flutter-call-a-function-on-a-child-widgets-state/50558628
+  final state = WordsUnitPageState();
   @override
-  WordsUnitPageState createState() => WordsUnitPageState();
+  WordsUnitPageState createState() => state;
 }
 
 class WordsUnitPageState extends State<WordsUnitPage> {
   final vm = WordsUnitViewModel(true);
-
-  WordsUnitPageState();
 
   @override
   Widget build(BuildContext context) => Column(
@@ -182,4 +182,44 @@ class WordsUnitPageState extends State<WordsUnitPage> {
           ),
         ],
       );
+
+  void more() {
+    showDialog(
+        context: context,
+        builder: (context) => SimpleDialog(title: Text("More"), children: [
+              SimpleDialogOption(
+                  child: Text("Add"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            WordsUnitDetailPage(vm, vm.newUnitWord())));
+                  }),
+              SimpleDialogOption(
+                  child: Text("Retrieve All Notes"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              SimpleDialogOption(
+                  child: Text("Retrieve Notes If Empty"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              SimpleDialogOption(
+                  child: Text("Clear All Notes"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              SimpleDialogOption(
+                  child: Text("Clear Notes If Empty"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              SimpleDialogOption(
+                  child: Text("Batch Edit"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ]));
+  }
 }

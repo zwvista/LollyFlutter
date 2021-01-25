@@ -12,16 +12,12 @@ class WordsTextbookDetailPage extends StatefulWidget {
       : vmDetail = WordsUnitDetailViewModel(vm, item);
 
   @override
-  WordsTextbookDetailPageState createState() =>
-      WordsTextbookDetailPageState(vmDetail);
+  WordsTextbookDetailPageState createState() => WordsTextbookDetailPageState();
 }
 
 class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
   final _formKey = GlobalKey<FormState>();
-  final WordsUnitDetailViewModel vmDetail;
-  MUnitWord get item => vmDetail.item;
-
-  WordsTextbookDetailPageState(this.vmDetail);
+  MUnitWord get item => widget.vmDetail.item;
 
   @override
   Widget build(BuildContext context) {

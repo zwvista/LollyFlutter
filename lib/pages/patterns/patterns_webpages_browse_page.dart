@@ -17,7 +17,7 @@ class PatternsWebPagesBrowsePage extends StatefulWidget {
 
 class PatternsWebPagesBrowsePageState
     extends State<PatternsWebPagesBrowsePage> {
-  PatternsWebPagesViewModel vm;
+  final PatternsWebPagesViewModel vm;
   WebViewController controller;
 
   PatternsWebPagesBrowsePageState(this.vm) {
