@@ -39,4 +39,6 @@ class PatternsViewModel {
     scopeFilterChangedCommand.listen(filterCommand);
     reloadCommand.execute();
   }
+
+  MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang.id;
 }

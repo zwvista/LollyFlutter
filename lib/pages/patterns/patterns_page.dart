@@ -164,4 +164,9 @@ class PatternsPageState extends State<PatternsPage> {
           ),
         ],
       );
+
+  void more() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PatternsDetailPage(vm, vm.newPattern())));
+  }
 }

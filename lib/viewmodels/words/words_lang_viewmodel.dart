@@ -37,4 +37,6 @@ class WordsLangViewModel {
     scopeFilterChangedCommand.listen(filterCommand);
     reloadCommand.execute();
   }
+
+  MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang.id;
 }

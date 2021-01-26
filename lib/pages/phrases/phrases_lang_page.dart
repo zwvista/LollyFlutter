@@ -140,4 +140,9 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
           ),
         ],
       );
+
+  void more() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PhrasesLangDetailPage(vm, vm.newLangPhrase())));
+  }
 }

@@ -174,4 +174,9 @@ class WordsLangPageState extends State<WordsLangPage> {
           ),
         ],
       );
+
+  void more() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => WordsLangDetailPage(vm, vm.newLangWord())));
+  }
 }

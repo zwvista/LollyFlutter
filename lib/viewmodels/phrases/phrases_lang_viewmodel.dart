@@ -36,4 +36,7 @@ class PhrasesLangViewModel {
     scopeFilterChangedCommand.listen(filterCommand);
     reloadCommand.execute();
   }
+
+  MLangPhrase newLangPhrase() =>
+      MLangPhrase()..langid = vmSettings.selectedLang.id;
 }

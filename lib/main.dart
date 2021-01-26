@@ -161,11 +161,26 @@ class _MyHomePageState extends State<MyHomePage> {
       case NavItem.phrasesTextbookPage:
         return [];
       case NavItem.wordsLangPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as WordsLangPage).state.more(),
+          )
+        ];
       case NavItem.phrasesLangPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as PhrasesLangPage).state.more(),
+          )
+        ];
       case NavItem.patternPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as PatternsPage).state.more(),
+          )
+        ];
       default:
         return [];
     }
