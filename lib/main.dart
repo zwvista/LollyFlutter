@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
@@ -14,7 +15,8 @@ import 'package:lolly_flutter/pages/words/words_textbook_page.dart';
 import 'package:lolly_flutter/pages/words/words_unit_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 
-var vmSettings = SettingsViewModel();
+final vmSettings = SettingsViewModel();
+final flutterTts = FlutterTts();
 
 void main() async {
   await vmSettings.getData();
