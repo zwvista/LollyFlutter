@@ -74,7 +74,8 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                 itemBuilder: (BuildContext context, int index) {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => PhrasesTextbookDetailPage(
-                          vm, vm.lstUnitPhrases[index])));
+                          vm, vm.lstUnitPhrases[index]),
+                      fullscreenDialog: true));
 
                   final entry = vm.lstUnitPhrases[index];
                   return Slidable(

@@ -21,61 +21,59 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Words in Language(Detail)')),
+        appBar: AppBar(title: Text('Words in Language(Detail)'), actions: [
+          TextButton(
+            child: Text("Save"),
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+            ),
+            onPressed: () {
+              if (!_formKey.currentState.validate()) return;
+              _formKey.currentState.save();
+              Navigator.pop(context);
+            },
+          )
+        ]),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
                 key: _formKey,
-                child: ListView(
-                  children: [
-                    TextFormField(
-                      initialValue: item.id.toString(),
-                      decoration: InputDecoration(
-                        labelText: "ID",
-                      ),
-                      enabled: false,
+                child: ListView(children: [
+                  TextFormField(
+                    initialValue: item.id.toString(),
+                    decoration: InputDecoration(
+                      labelText: "ID",
                     ),
-                    TextFormField(
-                        initialValue: item.word,
-                        decoration: InputDecoration(
-                          labelText: "WORD",
-                        ),
-                        validator: (v) =>
-                            v.isEmpty ? "WORD must not be empty" : null,
-                        onSaved: (s) => item.word = s),
-                    TextFormField(
-                        initialValue: item.note,
-                        decoration: InputDecoration(
-                          labelText: "NOTE",
-                        ),
-                        onSaved: (s) => item.note = s),
-                    TextFormField(
-                      initialValue: item.famiid.toString(),
+                    enabled: false,
+                  ),
+                  TextFormField(
+                      initialValue: item.word,
                       decoration: InputDecoration(
-                        labelText: "FAMIID",
+                        labelText: "WORD",
                       ),
-                      enabled: false,
-                    ),
-                    TextFormField(
-                      initialValue: item.accuracy,
+                      validator: (v) =>
+                          v.isEmpty ? "WORD must not be empty" : null,
+                      onSaved: (s) => item.word = s),
+                  TextFormField(
+                      initialValue: item.note,
                       decoration: InputDecoration(
-                        labelText: "ACCURACY",
+                        labelText: "NOTE",
                       ),
-                      enabled: false,
+                      onSaved: (s) => item.note = s),
+                  TextFormField(
+                    initialValue: item.famiid.toString(),
+                    decoration: InputDecoration(
+                      labelText: "FAMIID",
                     ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent),
-                        onPressed: () {
-                          if (!_formKey.currentState.validate()) return;
-                          _formKey.currentState.save();
-                          Navigator.pop(context);
-                        },
-                        child: Text("Save",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ))),
-                  ],
-                ))));
+                    enabled: false,
+                  ),
+                  TextFormField(
+                    initialValue: item.accuracy,
+                    decoration: InputDecoration(
+                      labelText: "ACCURACY",
+                    ),
+                    enabled: false,
+                  ),
+                ]))));
   }
 }

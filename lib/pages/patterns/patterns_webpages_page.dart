@@ -11,8 +11,7 @@ import '../../keys.dart';
 class PatternsWebPagesPage extends StatefulWidget {
   final PatternsWebPagesViewModel vm;
 
-  PatternsWebPagesPage(MPattern item) :
-    vm = PatternsWebPagesViewModel(item);
+  PatternsWebPagesPage(MPattern item) : vm = PatternsWebPagesViewModel(item);
 
   @override
   PatternsWebPagesPageState createState() => PatternsWebPagesPageState(vm);
@@ -42,7 +41,8 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                       void edit() =>
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => PatternsWebPagesDetailPage(
-                                  vm, vm.lstPatternsWebPages[index])));
+                                  vm, vm.lstPatternsWebPages[index]),
+                              fullscreenDialog: true));
 
                       final entry = vm.lstPatternsWebPages[index];
                       return Slidable(
@@ -51,17 +51,17 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                         child: Container(
                             color: Colors.white,
                             child: ListTile(
-                            title: Text(
-                              entry.title,
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.orange),
-                            ),
-                            subtitle: Text(entry.url,
+                              title: Text(
+                                entry.title,
                                 style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Color.fromARGB(255, 255, 0, 255),
-                                )),
-                          )),
+                                    fontSize: 20, color: Colors.orange),
+                              ),
+                              subtitle: Text(entry.url,
+                                  style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Color.fromARGB(255, 255, 0, 255),
+                                  )),
+                            )),
                         actions: [
                           IconSlideAction(
                             caption: 'Edit',

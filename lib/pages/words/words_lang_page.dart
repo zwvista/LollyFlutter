@@ -60,7 +60,8 @@ class WordsLangPageState extends State<WordsLangPage> {
                 itemBuilder: (BuildContext context, int index) {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          WordsLangDetailPage(vm, vm.lstLangWords[index])));
+                          WordsLangDetailPage(vm, vm.lstLangWords[index]),
+                      fullscreenDialog: true));
 
                   final entry = vm.lstLangWords[index];
                   return Slidable(

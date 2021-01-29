@@ -21,47 +21,45 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Phrases in Language(Detail)')),
+        appBar: AppBar(title: Text('Phrases in Language(Detail)'), actions: [
+          TextButton(
+            child: Text("Save"),
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+            ),
+            onPressed: () {
+              if (!_formKey.currentState.validate()) return;
+              _formKey.currentState.save();
+              Navigator.pop(context);
+            },
+          )
+        ]),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
                 key: _formKey,
-                child: ListView(
-                  children: [
-                    TextFormField(
-                      initialValue: item.id.toString(),
-                      decoration: InputDecoration(
-                        labelText: "ID",
-                      ),
-                      enabled: false,
+                child: ListView(children: [
+                  TextFormField(
+                    initialValue: item.id.toString(),
+                    decoration: InputDecoration(
+                      labelText: "ID",
                     ),
-                    TextFormField(
-                        initialValue: item.phrase,
-                        decoration: InputDecoration(
-                          labelText: "PHRASE",
-                        ),
-                        validator: (v) =>
-                            v.isEmpty ? "PHRASE must not be empty" : null,
-                        onSaved: (s) => item.phrase = s),
-                    TextFormField(
-                        initialValue: item.translation,
-                        decoration: InputDecoration(
-                          labelText: "NOTE",
-                        ),
-                        onSaved: (s) => item.translation = s),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent),
-                        onPressed: () {
-                          if (!_formKey.currentState.validate()) return;
-                          _formKey.currentState.save();
-                          Navigator.pop(context);
-                        },
-                        child: Text("Save",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ))),
-                  ],
-                ))));
+                    enabled: false,
+                  ),
+                  TextFormField(
+                      initialValue: item.phrase,
+                      decoration: InputDecoration(
+                        labelText: "PHRASE",
+                      ),
+                      validator: (v) =>
+                          v.isEmpty ? "PHRASE must not be empty" : null,
+                      onSaved: (s) => item.phrase = s),
+                  TextFormField(
+                      initialValue: item.translation,
+                      decoration: InputDecoration(
+                        labelText: "NOTE",
+                      ),
+                      onSaved: (s) => item.translation = s),
+                ]))));
   }
 }

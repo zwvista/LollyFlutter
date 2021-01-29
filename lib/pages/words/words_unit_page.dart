@@ -60,7 +60,8 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                 itemBuilder: (BuildContext context, int index) {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          WordsUnitDetailPage(vm, vm.lstUnitWords[index])));
+                          WordsUnitDetailPage(vm, vm.lstUnitWords[index]),
+                      fullscreenDialog: true));
 
                   final entry = vm.lstUnitWords[index];
                   return Slidable(
@@ -221,7 +222,8 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => WordsUnitBatchEditPage(vm)));
+                        builder: (context) => WordsUnitBatchEditPage(vm),
+                        fullscreenDialog: true));
                   }),
             ]));
   }

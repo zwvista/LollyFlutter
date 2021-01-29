@@ -58,7 +58,8 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                   final entry = vm.lstLangPhrases[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          PhrasesLangDetailPage(vm, vm.lstLangPhrases[index])));
+                          PhrasesLangDetailPage(vm, vm.lstLangPhrases[index]),
+                      fullscreenDialog: true));
 
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),

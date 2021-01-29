@@ -59,7 +59,8 @@ class PatternsPageState extends State<PatternsPage> {
                 itemBuilder: (BuildContext context, int index) {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          PatternsDetailPage(vm, vm.lstPatterns[index])));
+                          PatternsDetailPage(vm, vm.lstPatterns[index]),
+                      fullscreenDialog: true));
 
                   final entry = vm.lstPatterns[index];
                   return Slidable(
