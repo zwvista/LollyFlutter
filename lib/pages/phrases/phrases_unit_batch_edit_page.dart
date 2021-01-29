@@ -1,27 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lolly_flutter/viewmodels/words/words_unit_batch_edit_viewmodel.dart';
-import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_batch_edit_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 
-class WordsUnitBatchEditPage extends StatefulWidget {
-  final WordsUnitBatchEditViewModel vmBatch;
+class PhrasesUnitBatchEditPage extends StatefulWidget {
+  final PhrasesUnitBatchEditViewModel vmBatch;
 
-  WordsUnitBatchEditPage(WordsUnitViewModel vm)
-      : vmBatch = WordsUnitBatchEditViewModel(vm);
+  PhrasesUnitBatchEditPage(PhrasesUnitViewModel vm)
+      : vmBatch = PhrasesUnitBatchEditViewModel(vm);
 
   @override
-  WordsUnitBatchEditPageState createState() => WordsUnitBatchEditPageState();
+  PhrasesUnitBatchEditPageState createState() =>
+      PhrasesUnitBatchEditPageState();
 }
 
-class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
+class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
   final _formKey = GlobalKey<FormState>();
-  WordsUnitBatchEditViewModel get vmBatch => widget.vmBatch;
+  PhrasesUnitBatchEditViewModel get vmBatch => widget.vmBatch;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Words in Unit(Detail)')),
+        appBar: AppBar(title: Text('Phrases in Unit(Detail)')),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
