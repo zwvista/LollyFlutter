@@ -104,36 +104,42 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                   readOnly: !vmBatch.seqnumIsChecked.lastResult,
                                   onChanged: vmBatch.seqnum))
                         ])),
-                Expanded(
-                    child: ListView.separated(
-                        itemCount: vmBatch.vm.lstUnitWords.length,
-                        separatorBuilder: (context, index) => Divider(),
-                        itemBuilder: (BuildContext context, int index) {
-                          final entry = vmBatch.vm.lstUnitWords[index];
-                          return ListTile(
-                              leading: Column(children: [
-                                Text(entry.unitstr,
-                                    style: TextStyle(color: Colors.blue)),
-                                Text(entry.partstr,
-                                    style: TextStyle(color: Colors.blue)),
-                                Text(entry.seqnum.toString(),
-                                    style: TextStyle(color: Colors.blue))
-                              ]),
-                              title: Text(
-                                entry.word,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.orange),
-                              ),
-                              subtitle: Text(entry.note,
+                StreamBuilder(
+                    stream: vmBatch.selectedItemsCmd,
+                    builder: (context, snapshot) => Expanded(
+                        child: ListView.separated(
+                            itemCount: vmBatch.vm.lstUnitWords.length,
+                            separatorBuilder: (context, index) => Divider(),
+                            itemBuilder: (BuildContext context, int index) {
+                              final entry = vmBatch.vm.lstUnitWords[index];
+                              return ListTile(
+                                leading: Column(children: [
+                                  Text(entry.unitstr,
+                                      style: TextStyle(color: Colors.blue)),
+                                  Text(entry.partstr,
+                                      style: TextStyle(color: Colors.blue)),
+                                  Text(entry.seqnum.toString(),
+                                      style: TextStyle(color: Colors.blue))
+                                ]),
+                                title: Text(
+                                  entry.word,
                                   style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 255, 0, 255),
-                                  )),
-                              trailing: IconButton(
-                                  icon: Icon(Icons.keyboard_arrow_right,
-                                      color: Colors.blue, size: 30.0),
-                                  onPressed: () {}));
-                        }))
+                                      fontSize: 20, color: Colors.orange),
+                                ),
+                                subtitle: Text(entry.note,
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 255, 0, 255),
+                                    )),
+                                trailing: Visibility(
+                                    child: Icon(Icons.favorite,
+                                        color: Colors.red, size: 30.0),
+                                    visible:
+                                        vmBatch.selectedItems.contains(entry)),
+                                onTap: () =>
+                                    vmBatch.selectedItemsCmd.execute(entry),
+                              );
+                            })))
               ],
             )));
   }
