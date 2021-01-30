@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_batch_edit_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 
+import '../../main.dart';
+
 class WordsUnitBatchEditPage extends StatefulWidget {
   final WordsUnitBatchEditViewModel vmBatch;
 
@@ -35,63 +37,73 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                Row(children: [
-                  SizedBox(
-                      height: 24.0,
-                      width: 30.0,
-                      child: Checkbox(
-                          value: vmBatch.unitIsChecked,
-                          onChanged: (v) => vmBatch.unitIsChecked = v)),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                        value: vmBatch.unit,
-                        decoration: InputDecoration(
-                          labelText: "UNIT",
-                        ),
-                        items: vmBatch.textbook.lstUnits
-                            .map((o) => DropdownMenuItem(
-                                value: o.value, child: Text(o.label)))
-                            .toList(),
-                        onChanged: (v) => vmBatch.unit = v),
-                  )
-                ]),
-                Row(children: [
-                  SizedBox(
-                      height: 24.0,
-                      width: 30.0,
-                      child: Checkbox(
-                          value: vmBatch.partIsChecked,
-                          onChanged: (v) => vmBatch.partIsChecked = v)),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                        value: vmBatch.part,
-                        decoration: InputDecoration(
-                          labelText: "PART",
-                        ),
-                        items: vmBatch.textbook.lstParts
-                            .map((o) => DropdownMenuItem(
-                                value: o.value, child: Text(o.label)))
-                            .toList(),
-                        onChanged: (v) => vmBatch.part = v),
-                  )
-                ]),
-                Row(children: [
-                  SizedBox(
-                      height: 24.0,
-                      width: 30.0,
-                      child: Checkbox(
-                          value: vmBatch.seqnumIsChecked,
-                          onChanged: (v) => vmBatch.seqnumIsChecked = v)),
-                  Expanded(
-                      child: TextFormField(
-                    initialValue: vmBatch.seqnum.toString(),
-                    decoration: InputDecoration(
-                      labelText: "SEQNUM(+)",
-                    ),
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    onChanged: (s) => vmBatch.seqnum = int.parse(s),
-                  ))
-                ]),
+                StreamBuilder(
+                    stream: vmBatch.unitIsChecked,
+                    builder: (context, snapshot) => Row(children: [
+                          SizedBox(
+                              height: 24.0,
+                              width: 30.0,
+                              child: Checkbox(
+                                  value: vmBatch.unitIsChecked.lastResult,
+                                  onChanged: vmBatch.unitIsChecked)),
+                          Expanded(
+                              child: DropdownButtonFormField(
+                                  value: vmBatch.unit.lastResult,
+                                  decoration: InputDecoration(
+                                    labelText: "UNIT",
+                                  ),
+                                  items: vmSettings.selectedTextbook.lstUnits
+                                      .map((o) => DropdownMenuItem(
+                                          value: o.value, child: Text(o.label)))
+                                      .toList(),
+                                  onChanged: vmBatch.unitIsChecked.lastResult
+                                      ? vmBatch.unit
+                                      : null))
+                        ])),
+                StreamBuilder(
+                    stream: vmBatch.partIsChecked,
+                    builder: (context, snapshot) => Row(children: [
+                          SizedBox(
+                              height: 24.0,
+                              width: 30.0,
+                              child: Checkbox(
+                                  value: vmBatch.partIsChecked.lastResult,
+                                  onChanged: vmBatch.partIsChecked)),
+                          Expanded(
+                              child: DropdownButtonFormField(
+                                  value: vmBatch.part.lastResult,
+                                  decoration: InputDecoration(
+                                    labelText: "PART",
+                                  ),
+                                  items: vmSettings.selectedTextbook.lstParts
+                                      .map((o) => DropdownMenuItem(
+                                          value: o.value, child: Text(o.label)))
+                                      .toList(),
+                                  onChanged: vmBatch.partIsChecked.lastResult
+                                      ? vmBatch.part
+                                      : null))
+                        ])),
+                StreamBuilder(
+                    stream: vmBatch.seqnumIsChecked,
+                    builder: (context, snapshot) => Row(children: [
+                          SizedBox(
+                              height: 24.0,
+                              width: 30.0,
+                              child: Checkbox(
+                                  value: vmBatch.seqnumIsChecked.lastResult,
+                                  onChanged: vmBatch.seqnumIsChecked)),
+                          Expanded(
+                              child: TextFormField(
+                                  initialValue: vmBatch.seqnum.lastResult,
+                                  decoration: InputDecoration(
+                                    labelText: "SEQNUM(+)",
+                                  ),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  readOnly: !vmBatch.seqnumIsChecked.lastResult,
+                                  onChanged: vmBatch.seqnum))
+                        ])),
               ],
             )));
   }

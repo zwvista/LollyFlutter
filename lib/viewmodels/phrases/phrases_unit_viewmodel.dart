@@ -16,8 +16,7 @@ class PhrasesUnitViewModel {
   var scopeFilter = SettingsViewModel.scopePhraseFilters[0];
   var textbookFilter = 0;
 
-  PhrasesUnitViewModel(bool inbook) {
-    this.inbook = inbook;
+  PhrasesUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async => lstUnitPhrasesAll =
         inbook
             ? await unitPhraseService.getDataByTextbookUnitPart(
