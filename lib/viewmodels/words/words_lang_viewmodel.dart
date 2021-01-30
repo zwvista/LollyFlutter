@@ -30,7 +30,7 @@ class WordsLangViewModel {
     reloadCommand.listen(filterCommand);
     textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
     scopeFilter.listen(filterCommand);
-    reloadCommand.execute();
+    reloadCommand();
   }
 
   MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang.id;

@@ -37,7 +37,7 @@ class PatternsViewModel {
         .listen(filterCommand);
     scopeFilterChangedCommand = RxCommand.createSync((s) => scopeFilter = s);
     scopeFilterChangedCommand.listen(filterCommand);
-    reloadCommand.execute();
+    reloadCommand();
   }
 
   MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang.id;

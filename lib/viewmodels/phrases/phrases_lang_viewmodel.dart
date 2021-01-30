@@ -31,7 +31,7 @@ class PhrasesLangViewModel {
     reloadCommand.listen(filterCommand);
     textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
     scopeFilter.listen(filterCommand);
-    reloadCommand.execute();
+    reloadCommand();
   }
 
   MLangPhrase newLangPhrase() =>

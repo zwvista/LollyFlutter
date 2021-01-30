@@ -137,8 +137,7 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                         color: Colors.red, size: 30.0),
                                     visible:
                                         vmBatch.selectedItems.contains(entry)),
-                                onTap: () =>
-                                    vmBatch.selectedItemsCmd.execute(entry),
+                                onTap: () => vmBatch.selectedItemsCmd(entry),
                               );
                             })))
               ],

@@ -43,7 +43,7 @@ class WordsUnitViewModel {
     textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
     scopeFilter.listen(filterCommand);
     textbookFilter.listen(filterCommand);
-    reloadCommand.execute();
+    reloadCommand();
   }
 
   MUnitWord newUnitWord() {
