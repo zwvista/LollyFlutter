@@ -34,31 +34,31 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                       decoration: InputDecoration(
                         hintText: "Filter",
                       ),
-                      onChanged: vm.textFilterChangedCommand,
+                      onChanged: vm.textFilter,
                     ),
                   ),
                   StreamBuilder(
-                      stream: vm.scopeFilterChangedCommand,
+                      stream: vm.scopeFilter,
                       builder: (context, snapshot) => DropdownButton(
-                            value: vm.scopeFilter,
+                            value: vm.scopeFilter.lastResult,
                             items: SettingsViewModel.scopePhraseFilters
                                 .map((s) =>
                                     DropdownMenuItem(value: s, child: Text(s)))
                                 .toList(),
-                            onChanged: vm.scopeFilterChangedCommand,
+                            onChanged: vm.scopeFilter,
                           ))
                 ]),
                 Row(children: [
                   Expanded(
                     child: StreamBuilder(
-                        stream: vm.textbookFilterChangedCommand,
+                        stream: vm.textbookFilter,
                         builder: (context, snapshot) => DropdownButtonFormField(
-                              value: vm.textbookFilter,
+                              value: vm.textbookFilter.lastResult,
                               items: vmSettings.lstTextbookFilters
                                   .map((o) => DropdownMenuItem(
                                       value: o.value, child: Text(o.label)))
                                   .toList(),
-                              onChanged: vm.textbookFilterChangedCommand,
+                              onChanged: vm.textbookFilter,
                             )),
                   )
                 ])

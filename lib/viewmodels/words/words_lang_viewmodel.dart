@@ -10,31 +10,26 @@ class WordsLangViewModel {
   List<MLangWord> lstLangWordsAll, lstLangWords;
   final langWordService = LangWordService();
   RxCommand<void, List<MLangWord>> reloadCommand, filterCommand;
-  RxCommand<String, String> textFilterChangedCommand, scopeFilterChangedCommand;
-  var textFilter = "";
-  var scopeFilter = SettingsViewModel.scopeWordFilters[0];
+  final textFilter =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  final scopeFilter = RxCommand.createSync((String s) => s,
+      initialLastResult: SettingsViewModel.scopeWordFilters[0]);
 
   WordsLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam<List<MLangWord>>(() async =>
         lstLangWordsAll =
             await langWordService.getDataByLang(vmSettings.selectedLang.id));
-    filterCommand = RxCommand.createSyncNoParam(() => lstLangWords =
-        textFilter.isEmpty
-            ? lstLangWordsAll
-            : lstLangWordsAll
-                .where((o) =>
-                    scopeFilter.isNotEmpty ||
-                    (scopeFilter == "Word" ? o.word : o.note)
-                        .toLowerCase()
-                        .contains(textFilter.toLowerCase()))
-                .toList());
+    filterCommand = RxCommand.createSyncNoParam(() => lstLangWords = textFilter
+            .lastResult.isEmpty
+        ? lstLangWordsAll
+        : lstLangWordsAll
+            .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
+                .toLowerCase()
+                .contains(textFilter.lastResult.toLowerCase()))
+            .toList());
     reloadCommand.listen(filterCommand);
-    textFilterChangedCommand = RxCommand.createSync<String, String>((s) => s);
-    textFilterChangedCommand
-        .debounceTime(Duration(milliseconds: 500))
-        .listen(reloadCommand);
-    scopeFilterChangedCommand = RxCommand.createSync((s) => scopeFilter = s);
-    scopeFilterChangedCommand.listen(filterCommand);
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
+    scopeFilter.listen(filterCommand);
     reloadCommand.execute();
   }
 

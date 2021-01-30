@@ -35,18 +35,18 @@ class WordsLangPageState extends State<WordsLangPage> {
                     decoration: InputDecoration(
                       hintText: "Filter",
                     ),
-                    onChanged: vm.textFilterChangedCommand,
+                    onChanged: vm.textFilter,
                   ),
                 ),
                 StreamBuilder(
-                    stream: vm.scopeFilterChangedCommand,
+                    stream: vm.scopeFilter,
                     builder: (context, snapshot) => DropdownButton(
-                          value: vm.scopeFilter,
+                          value: vm.scopeFilter.lastResult,
                           items: SettingsViewModel.scopeWordFilters
                               .map((s) =>
                                   DropdownMenuItem(value: s, child: Text(s)))
                               .toList(),
-                          onChanged: vm.scopeFilterChangedCommand,
+                          onChanged: vm.scopeFilter,
                         ))
               ])),
           Expanded(

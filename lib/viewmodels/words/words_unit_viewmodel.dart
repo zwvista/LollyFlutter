@@ -11,11 +11,12 @@ class WordsUnitViewModel {
   List<MUnitWord> lstUnitWordsAll, lstUnitWords;
   final unitWordService = UnitWordService();
   RxCommand<void, List<MUnitWord>> reloadCommand, filterCommand;
-  RxCommand<String, String> textFilterChangedCommand, scopeFilterChangedCommand;
-  RxCommand<int, int> textbookFilterChangedCommand;
-  var textFilter = "";
-  var scopeFilter = SettingsViewModel.scopeWordFilters[0];
-  var textbookFilter = 0;
+  final textFilter =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  final scopeFilter = RxCommand.createSync((String s) => s,
+      initialLastResult: SettingsViewModel.scopeWordFilters[0]);
+  final textbookFilter =
+      RxCommand.createSync((int v) => v, initialLastResult: 0);
 
   WordsUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async => lstUnitWordsAll =
@@ -26,28 +27,22 @@ class WordsUnitViewModel {
                 vmSettings.usunitpartto)
             : await unitWordService.getDataByLang(
                 vmSettings.selectedLang.id, vmSettings.lstTextbooks));
-    filterCommand = RxCommand.createSyncNoParam(() => lstUnitWords = textFilter
-                .isEmpty &&
-            textbookFilter == 0
-        ? lstUnitWordsAll
-        : lstUnitWordsAll
-            .where((o) =>
-                scopeFilter.isNotEmpty ||
-                (scopeFilter == "Word" ? o.word : o.note)
-                    .toLowerCase()
-                    .contains(textFilter.toLowerCase()))
-            .where((o) => textbookFilter == 0 || o.textbookid == textbookFilter)
-            .toList());
+    filterCommand = RxCommand.createSyncNoParam(() => lstUnitWords =
+        textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
+            ? lstUnitWordsAll
+            : lstUnitWordsAll
+                .where((o) =>
+                    (scopeFilter.lastResult == "Word" ? o.word : o.note)
+                        .toLowerCase()
+                        .contains(textFilter.lastResult.toLowerCase()))
+                .where((o) =>
+                    textbookFilter.lastResult == 0 ||
+                    o.textbookid == textbookFilter.lastResult)
+                .toList());
     reloadCommand.listen(filterCommand);
-    textFilterChangedCommand = RxCommand.createSync((s) => textFilter = s);
-    textFilterChangedCommand
-        .debounceTime(Duration(milliseconds: 500))
-        .listen(filterCommand);
-    scopeFilterChangedCommand = RxCommand.createSync((s) => scopeFilter = s);
-    scopeFilterChangedCommand.listen(filterCommand);
-    textbookFilterChangedCommand =
-        RxCommand.createSync((v) => textbookFilter = v);
-    textbookFilterChangedCommand.listen(filterCommand);
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
+    scopeFilter.listen(filterCommand);
+    textbookFilter.listen(filterCommand);
     reloadCommand.execute();
   }
 

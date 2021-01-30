@@ -18,7 +18,6 @@ class PhrasesUnitBatchEditPage extends StatefulWidget {
 }
 
 class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
-  final _formKey = GlobalKey<FormState>();
   PhrasesUnitBatchEditViewModel get vmBatch => widget.vmBatch;
 
   @override
