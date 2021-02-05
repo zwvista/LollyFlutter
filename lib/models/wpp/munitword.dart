@@ -1,4 +1,3 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
@@ -16,7 +15,6 @@ class MUnitWords {
 }
 
 @JsonSerializable()
-@CopyWith()
 class MUnitWord {
   @JsonKey(name: 'ID')
   var id = 0;
@@ -51,21 +49,7 @@ class MUnitWord {
   String get accuracy =>
       total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
 
-  MUnitWord(
-      {this.id,
-      this.langid,
-      this.textbookid,
-      this.textbookname,
-      this.unit,
-      this.part,
-      this.seqnum,
-      this.word,
-      this.note,
-      this.wordid,
-      this.famiid,
-      this.correct,
-      this.total,
-      this.textbook});
+  MUnitWord();
   factory MUnitWord.fromJson(Map<String, dynamic> json) =>
       _$MUnitWordFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitWordToJson(this);

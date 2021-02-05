@@ -3,46 +3,6 @@
 part of 'munitword.dart';
 
 // **************************************************************************
-// CopyWithGenerator
-// **************************************************************************
-
-extension MUnitWordCopyWith on MUnitWord {
-  MUnitWord copyWith({
-    int correct,
-    int famiid,
-    int id,
-    int langid,
-    String note,
-    int part,
-    int seqnum,
-    MTextbook textbook,
-    int textbookid,
-    String textbookname,
-    int total,
-    int unit,
-    String word,
-    int wordid,
-  }) {
-    return MUnitWord(
-      correct: correct ?? this.correct,
-      famiid: famiid ?? this.famiid,
-      id: id ?? this.id,
-      langid: langid ?? this.langid,
-      note: note ?? this.note,
-      part: part ?? this.part,
-      seqnum: seqnum ?? this.seqnum,
-      textbook: textbook ?? this.textbook,
-      textbookid: textbookid ?? this.textbookid,
-      textbookname: textbookname ?? this.textbookname,
-      total: total ?? this.total,
-      unit: unit ?? this.unit,
-      word: word ?? this.word,
-      wordid: wordid ?? this.wordid,
-    );
-  }
-}
-
-// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
@@ -60,24 +20,23 @@ Map<String, dynamic> _$MUnitWordsToJson(MUnitWords instance) =>
     };
 
 MUnitWord _$MUnitWordFromJson(Map<String, dynamic> json) {
-  return MUnitWord(
-    id: json['ID'] as int,
-    langid: json['LANGID'] as int,
-    textbookid: json['TEXTBOOKID'] as int,
-    textbookname: json['TEXTBOOKNAME'] as String,
-    unit: json['UNIT'] as int,
-    part: json['PART'] as int,
-    seqnum: json['SEQNUM'] as int,
-    word: json['WORD'] as String,
-    note: json['NOTE'] as String,
-    wordid: json['WORDID'] as int,
-    famiid: json['FAMIID'] as int,
-    correct: json['CORRECT'] as int,
-    total: json['TOTAL'] as int,
-    textbook: json['textbook'] == null
+  return MUnitWord()
+    ..id = json['ID'] as int
+    ..langid = json['LANGID'] as int
+    ..textbookid = json['TEXTBOOKID'] as int
+    ..textbookname = json['TEXTBOOKNAME'] as String
+    ..unit = json['UNIT'] as int
+    ..part = json['PART'] as int
+    ..seqnum = json['SEQNUM'] as int
+    ..word = json['WORD'] as String
+    ..note = json['NOTE'] as String
+    ..wordid = json['WORDID'] as int
+    ..famiid = json['FAMIID'] as int
+    ..correct = json['CORRECT'] as int
+    ..total = json['TOTAL'] as int
+    ..textbook = json['textbook'] == null
         ? null
-        : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>),
-  );
+        : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$MUnitWordToJson(MUnitWord instance) => <String, dynamic>{

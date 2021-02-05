@@ -61,4 +61,9 @@ class WordsUnitViewModel {
       ..seqnum = (maxElem?.seqnum ?? 0) + 1
       ..textbook = vmSettings.selectedTextbook;
   }
+
+  void update(MUnitWord item) async {
+    await unitWordService.update(item);
+    var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
+  }
 }
