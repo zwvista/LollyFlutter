@@ -31,8 +31,17 @@ class WordsUnitViewModel {
                 vmSettings.selectedLang.id, vmSettings.lstTextbooks);
         _reloaded = true;
       }
-      lstUnitWords = textFilter.lastResult.isEmpty &&
-              textbookFilter.lastResult == 0
+      _applyFilters();
+      return lstUnitWords;
+    });
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter.listen(reloadCommand);
+    textbookFilter.listen(reloadCommand);
+    reloadCommand();
+  }
+
+  void _applyFilters() => lstUnitWords =
+      textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
           ? lstUnitWordsAll
           : lstUnitWordsAll
               .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
@@ -42,13 +51,6 @@ class WordsUnitViewModel {
                   textbookFilter.lastResult == 0 ||
                   o.textbookid == textbookFilter.lastResult)
               .toList();
-      return lstUnitWords;
-    });
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter.listen(reloadCommand);
-    textbookFilter.listen(reloadCommand);
-    reloadCommand();
-  }
 
   MUnitWord newUnitWord() {
     int f(MUnitWord o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
@@ -65,5 +67,14 @@ class WordsUnitViewModel {
   void update(MUnitWord item) async {
     await unitWordService.update(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
+    item.copyFrom(o);
+  }
+
+  void create(MUnitWord item) async {
+    int id = await unitWordService.create(item);
+    var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
+    item.copyFrom(o);
+    lstUnitWordsAll.add(item);
+    _applyFilters();
   }
 }

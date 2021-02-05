@@ -53,4 +53,21 @@ class MUnitWord {
   factory MUnitWord.fromJson(Map<String, dynamic> json) =>
       _$MUnitWordFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitWordToJson(this);
+
+  void copyFrom(MUnitWord x) {
+    id = x.id;
+    langid = x.langid;
+    textbookid = x.textbookid;
+    textbookname = x.textbookname;
+    unit = x.unit;
+    part = x.part;
+    seqnum = x.seqnum;
+    word = x.word;
+    note = x.note;
+    wordid = x.wordid;
+    famiid = x.famiid;
+    correct = x.correct;
+    total = x.total;
+    textbook = x.textbook;
+  }
 }

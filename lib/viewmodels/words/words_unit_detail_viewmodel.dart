@@ -6,4 +6,6 @@ class WordsUnitDetailViewModel {
   MUnitWord item;
 
   WordsUnitDetailViewModel(this.vm, this.item);
+
+  void save() {}
 }

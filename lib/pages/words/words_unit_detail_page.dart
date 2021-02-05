@@ -31,6 +31,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
             onPressed: () {
               if (!_formKey.currentState.validate()) return;
               _formKey.currentState.save();
+              widget.vmDetail.save();
               Navigator.pop(context);
             },
           )
