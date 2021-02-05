@@ -9,7 +9,8 @@ class PhrasesUnitViewModel {
   bool inbook;
   List<MUnitPhrase> lstUnitPhrasesAll, lstUnitPhrases;
   final unitPhraseService = UnitPhraseService();
-  RxCommand<void, List<MUnitPhrase>> reloadCommand, filterCommand;
+  var _reloaded = false;
+  RxCommand<void, List<MUnitPhrase>> reloadCommand;
   final textFilter =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   final scopeFilter = RxCommand.createSync((String s) => s,
@@ -18,31 +19,35 @@ class PhrasesUnitViewModel {
       RxCommand.createSync((int v) => v, initialLastResult: 0);
 
   PhrasesUnitViewModel(this.inbook) {
-    reloadCommand = RxCommand.createAsyncNoParam(() async => lstUnitPhrasesAll =
+    reloadCommand = RxCommand.createAsyncNoParam(() async {
+      if (!_reloaded) {
         inbook
             ? await unitPhraseService.getDataByTextbookUnitPart(
                 vmSettings.selectedTextbook,
                 vmSettings.usunitpartfrom,
                 vmSettings.usunitpartto)
             : await unitPhraseService.getDataByLang(
-                vmSettings.selectedLang.id, vmSettings.lstTextbooks));
-    filterCommand = RxCommand.createSyncNoParam(() => lstUnitPhrases =
-        textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
-            ? lstUnitPhrasesAll
-            : lstUnitPhrasesAll
-                .where((o) => (scopeFilter.lastResult == "Phrase"
-                        ? o.phrase
-                        : o.translation)
-                    .toLowerCase()
-                    .contains(textFilter.lastResult.toLowerCase()))
-                .where((o) =>
-                    textbookFilter.lastResult == 0 ||
-                    o.textbookid == textbookFilter.lastResult)
-                .toList());
-    reloadCommand.listen(filterCommand);
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
-    scopeFilter.listen(filterCommand);
-    textbookFilter.listen(filterCommand);
+                vmSettings.selectedLang.id, vmSettings.lstTextbooks);
+        _reloaded = true;
+      }
+      lstUnitPhrases =
+          textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
+              ? lstUnitPhrasesAll
+              : lstUnitPhrasesAll
+                  .where((o) => (scopeFilter.lastResult == "Phrase"
+                          ? o.phrase
+                          : o.translation)
+                      .toLowerCase()
+                      .contains(textFilter.lastResult.toLowerCase()))
+                  .where((o) =>
+                      textbookFilter.lastResult == 0 ||
+                      o.textbookid == textbookFilter.lastResult)
+                  .toList();
+      return lstUnitPhrases;
+    });
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter.listen(reloadCommand);
+    textbookFilter.listen(reloadCommand);
     reloadCommand();
   }
 

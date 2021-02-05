@@ -50,7 +50,7 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
             child: RxLoader(
               spinnerKey: AppKeys.loadingSpinner,
               radius: 25.0,
-              commandResults: vm.filterCommand.results,
+              commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstLangPhrases.length,
                 separatorBuilder: (context, index) => Divider(),

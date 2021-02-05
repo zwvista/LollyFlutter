@@ -8,29 +8,33 @@ import 'package:rxdart/rxdart.dart';
 class PhrasesLangViewModel {
   List<MLangPhrase> lstLangPhrasesAll, lstLangPhrases;
   final langPhraseService = LangPhraseService();
-  RxCommand<void, List<MLangPhrase>> reloadCommand, filterCommand;
+  var _reloaded = false;
+  RxCommand<void, List<MLangPhrase>> reloadCommand;
   final textFilter =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   final scopeFilter = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopeWordFilters[0]);
 
   PhrasesLangViewModel() {
-    reloadCommand = RxCommand.createAsyncNoParam<List<MLangPhrase>>(() async =>
+    reloadCommand = RxCommand.createAsyncNoParam(() async {
+      if (!_reloaded) {
         lstLangPhrasesAll =
-            await langPhraseService.getDataByLang(vmSettings.selectedLang.id));
-    filterCommand = RxCommand.createSyncNoParam(() => lstLangPhrases =
-        textFilter.lastResult.isEmpty
-            ? lstLangPhrasesAll
-            : lstLangPhrasesAll
-                .where((o) => (scopeFilter.lastResult == "Phrase"
-                        ? o.phrase
-                        : o.translation)
-                    .toLowerCase()
-                    .contains(textFilter.lastResult.toLowerCase()))
-                .toList());
-    reloadCommand.listen(filterCommand);
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
-    scopeFilter.listen(filterCommand);
+            await langPhraseService.getDataByLang(vmSettings.selectedLang.id);
+        _reloaded = true;
+      }
+      lstLangPhrases = textFilter.lastResult.isEmpty
+          ? lstLangPhrasesAll
+          : lstLangPhrasesAll
+              .where((o) => (scopeFilter.lastResult == "Phrase"
+                      ? o.phrase
+                      : o.translation)
+                  .toLowerCase()
+                  .contains(textFilter.lastResult.toLowerCase()))
+              .toList();
+      return lstLangPhrases;
+    });
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter.listen(reloadCommand);
     reloadCommand();
   }
 

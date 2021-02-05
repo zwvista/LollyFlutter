@@ -69,7 +69,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
             child: RxLoader(
               spinnerKey: AppKeys.loadingSpinner,
               radius: 25.0,
-              commandResults: vm.filterCommand.results,
+              commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstUnitWords.length,
                 separatorBuilder: (context, index) => Divider(),

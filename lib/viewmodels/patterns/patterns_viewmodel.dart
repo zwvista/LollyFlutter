@@ -8,35 +8,35 @@ import 'package:rxdart/rxdart.dart';
 class PatternsViewModel {
   List<MPattern> lstPatternsAll, lstPatterns;
   final patternService = PatternService();
-  RxCommand<void, List<MPattern>> reloadCommand, filterCommand;
-  RxCommand<String, String> textFilterChangedCommand, scopeFilterChangedCommand;
-  var textFilter = "";
-  var scopeFilter = SettingsViewModel.scopePatternFilters[0];
+  var _reloaded = false;
+  RxCommand<void, List<MPattern>> reloadCommand;
+  final textFilter =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  final scopeFilter = RxCommand.createSync((String s) => s,
+      initialLastResult: SettingsViewModel.scopePatternFilters[0]);
 
   PatternsViewModel() {
-    reloadCommand = RxCommand.createAsyncNoParam(() async => lstPatternsAll =
-        await patternService.getDataByLang(vmSettings.selectedLang.id));
-    filterCommand =
-        RxCommand.createSyncNoParam(() => lstPatterns = textFilter.isEmpty
-            ? lstPatternsAll
-            : lstPatternsAll
-                .where((o) =>
-                    scopeFilter.isNotEmpty ||
-                    (scopeFilter == "Pattern"
-                            ? o.pattern
-                            : scopeFilter == "Note"
-                                ? o.note
-                                : o.tags)
-                        .toLowerCase()
-                        .contains(textFilter.toLowerCase()))
-                .toList());
-    reloadCommand.listen(filterCommand);
-    textFilterChangedCommand = RxCommand.createSync((s) => textFilter = s);
-    textFilterChangedCommand
-        .debounceTime(Duration(milliseconds: 500))
-        .listen(filterCommand);
-    scopeFilterChangedCommand = RxCommand.createSync((s) => scopeFilter = s);
-    scopeFilterChangedCommand.listen(filterCommand);
+    reloadCommand = RxCommand.createAsyncNoParam(() async {
+      if (!_reloaded) {
+        lstPatternsAll =
+            await patternService.getDataByLang(vmSettings.selectedLang.id);
+        _reloaded = true;
+      }
+      lstPatterns = textFilter.lastResult.isEmpty
+          ? lstPatternsAll
+          : lstPatternsAll
+              .where((o) => (scopeFilter.lastResult == "Pattern"
+                      ? o.pattern
+                      : scopeFilter.lastResult == "Note"
+                          ? o.note
+                          : o.tags)
+                  .toLowerCase()
+                  .contains(textFilter.lastResult.toLowerCase()))
+              .toList();
+      return lstPatterns;
+    });
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter.listen(reloadCommand);
     reloadCommand();
   }
 

@@ -53,7 +53,7 @@ class WordsLangPageState extends State<WordsLangPage> {
             child: RxLoader(
               spinnerKey: AppKeys.loadingSpinner,
               radius: 25.0,
-              commandResults: vm.filterCommand.results,
+              commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstLangWords.length,
                 separatorBuilder: (context, index) => Divider(),

@@ -10,7 +10,8 @@ class WordsUnitViewModel {
   bool inbook;
   List<MUnitWord> lstUnitWordsAll, lstUnitWords;
   final unitWordService = UnitWordService();
-  RxCommand<void, List<MUnitWord>> reloadCommand, filterCommand;
+  var _reloaded = false;
+  RxCommand<void, List<MUnitWord>> reloadCommand;
   final textFilter =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   final scopeFilter = RxCommand.createSync((String s) => s,
@@ -19,30 +20,33 @@ class WordsUnitViewModel {
       RxCommand.createSync((int v) => v, initialLastResult: 0);
 
   WordsUnitViewModel(this.inbook) {
-    reloadCommand = RxCommand.createAsyncNoParam(() async => lstUnitWordsAll =
-        inbook
+    reloadCommand = RxCommand.createAsyncNoParam(() async {
+      if (!_reloaded) {
+        lstUnitWordsAll = inbook
             ? await unitWordService.getDataByTextbookUnitPart(
                 vmSettings.selectedTextbook,
                 vmSettings.usunitpartfrom,
                 vmSettings.usunitpartto)
             : await unitWordService.getDataByLang(
-                vmSettings.selectedLang.id, vmSettings.lstTextbooks));
-    filterCommand = RxCommand.createSyncNoParam(() => lstUnitWords =
-        textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
-            ? lstUnitWordsAll
-            : lstUnitWordsAll
-                .where((o) =>
-                    (scopeFilter.lastResult == "Word" ? o.word : o.note)
-                        .toLowerCase()
-                        .contains(textFilter.lastResult.toLowerCase()))
-                .where((o) =>
-                    textbookFilter.lastResult == 0 ||
-                    o.textbookid == textbookFilter.lastResult)
-                .toList());
-    reloadCommand.listen(filterCommand);
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(filterCommand);
-    scopeFilter.listen(filterCommand);
-    textbookFilter.listen(filterCommand);
+                vmSettings.selectedLang.id, vmSettings.lstTextbooks);
+        _reloaded = true;
+      }
+      lstUnitWords = textFilter.lastResult.isEmpty &&
+              textbookFilter.lastResult == 0
+          ? lstUnitWordsAll
+          : lstUnitWordsAll
+              .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
+                  .toLowerCase()
+                  .contains(textFilter.lastResult.toLowerCase()))
+              .where((o) =>
+                  textbookFilter.lastResult == 0 ||
+                  o.textbookid == textbookFilter.lastResult)
+              .toList();
+      return lstUnitWords;
+    });
+    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter.listen(reloadCommand);
+    textbookFilter.listen(reloadCommand);
     reloadCommand();
   }
 

@@ -34,25 +34,25 @@ class PatternsPageState extends State<PatternsPage> {
                     decoration: InputDecoration(
                       hintText: "Filter",
                     ),
-                    onChanged: vm.textFilterChangedCommand,
+                    onChanged: vm.textFilter,
                   ),
                 ),
                 StreamBuilder(
-                    stream: vm.scopeFilterChangedCommand,
+                    stream: vm.scopeFilter,
                     builder: (context, snapshot) => DropdownButton(
-                          value: vm.scopeFilter,
+                          value: vm.scopeFilter.lastResult,
                           items: SettingsViewModel.scopePatternFilters
                               .map((s) =>
                                   DropdownMenuItem(value: s, child: Text(s)))
                               .toList(),
-                          onChanged: vm.scopeFilterChangedCommand,
+                          onChanged: vm.scopeFilter,
                         ))
               ])),
           Expanded(
             child: RxLoader(
               spinnerKey: AppKeys.loadingSpinner,
               radius: 25.0,
-              commandResults: vm.filterCommand.results,
+              commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstPatterns.length,
                 separatorBuilder: (context, index) => Divider(),
