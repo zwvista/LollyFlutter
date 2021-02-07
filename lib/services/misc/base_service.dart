@@ -39,7 +39,7 @@ class BaseService<T> {
         .encode(item)
         .replaceAllMapped(RegExp('"(\w+)":'), (m) => '"P_{m.group(1)}":');
     final response = await http.post("$urlSP$url", body: body);
-    return MSPResult.fromJson(json.decode(response.body));
+    return MSPResult.fromJson(json.decode(response.body)[0][0]);
   }
 
   static Future<String> getHtmlByUrl(String url) async {

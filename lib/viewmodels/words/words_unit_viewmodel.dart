@@ -64,13 +64,13 @@ class WordsUnitViewModel {
       ..textbook = vmSettings.selectedTextbook;
   }
 
-  void update(MUnitWord item) async {
+  Future update(MUnitWord item) async {
     await unitWordService.update(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
     item.copyFrom(o);
   }
 
-  void create(MUnitWord item) async {
+  Future create(MUnitWord item) async {
     int id = await unitWordService.create(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
     item.copyFrom(o);

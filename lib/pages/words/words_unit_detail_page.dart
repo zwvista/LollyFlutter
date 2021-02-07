@@ -28,10 +28,10 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
             style: TextButton.styleFrom(
               primary: Colors.white,
             ),
-            onPressed: () {
+            onPressed: () async {
               if (!_formKey.currentState.validate()) return;
               _formKey.currentState.save();
-              widget.vmDetail.save();
+              await widget.vmDetail.save();
               Navigator.pop(context);
             },
           )

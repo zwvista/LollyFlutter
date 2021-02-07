@@ -7,5 +7,10 @@ class WordsUnitDetailViewModel {
 
   WordsUnitDetailViewModel(this.vm, this.item);
 
-  void save() {}
+  Future save() async {
+    if (item.id == 0)
+      await vm.create(item);
+    else
+      await vm.update(item);
+  }
 }
