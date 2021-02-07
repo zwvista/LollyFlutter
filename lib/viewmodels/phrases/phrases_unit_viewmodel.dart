@@ -30,19 +30,7 @@ class PhrasesUnitViewModel {
                 vmSettings.selectedLang.id, vmSettings.lstTextbooks);
         _reloaded = true;
       }
-      lstUnitPhrases =
-          textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
-              ? lstUnitPhrasesAll
-              : lstUnitPhrasesAll
-                  .where((o) => (scopeFilter.lastResult == "Phrase"
-                          ? o.phrase
-                          : o.translation)
-                      .toLowerCase()
-                      .contains(textFilter.lastResult.toLowerCase()))
-                  .where((o) =>
-                      textbookFilter.lastResult == 0 ||
-                      o.textbookid == textbookFilter.lastResult)
-                  .toList();
+      _applyFilters();
       return lstUnitPhrases;
     });
     textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
@@ -50,6 +38,19 @@ class PhrasesUnitViewModel {
     textbookFilter.listen(reloadCommand);
     reloadCommand();
   }
+
+  void _applyFilters() => lstUnitPhrases = textFilter.lastResult.isEmpty &&
+          textbookFilter.lastResult == 0
+      ? lstUnitPhrasesAll
+      : lstUnitPhrasesAll
+          .where((o) =>
+              (scopeFilter.lastResult == "Phrase" ? o.phrase : o.translation)
+                  .toLowerCase()
+                  .contains(textFilter.lastResult.toLowerCase()))
+          .where((o) =>
+              textbookFilter.lastResult == 0 ||
+              o.textbookid == textbookFilter.lastResult)
+          .toList();
 
   MUnitPhrase newUnitPhrase() {
     int f(MUnitPhrase o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
@@ -61,5 +62,21 @@ class PhrasesUnitViewModel {
       ..part = maxElem?.part ?? vmSettings.uspartto
       ..seqnum = (maxElem?.seqnum ?? 0) + 1
       ..textbook = vmSettings.selectedTextbook;
+  }
+
+  Future update(MUnitPhrase item) async {
+    await unitPhraseService.update(item);
+    var o =
+        await unitPhraseService.getDataById(item.id, vmSettings.lstTextbooks);
+    item.copyFrom(o);
+  }
+
+  Future create(MUnitPhrase item) async {
+    await unitPhraseService.create(item);
+    var o =
+        await unitPhraseService.getDataById(item.id, vmSettings.lstTextbooks);
+    item.copyFrom(o);
+    lstUnitPhrasesAll.add(item);
+    _applyFilters();
   }
 }

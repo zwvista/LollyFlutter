@@ -35,10 +35,8 @@ class BaseService<T> {
   }
 
   Future<MSPResult> callSPByUrl(String url, T item) async {
-    final body = (json.decode(json.encode(item).replaceAllMapped(
-                RegExp(r'"(\w+)":'), (m) => '"P_${m.group(1)}":'))
-            as Map<String, dynamic>)
-        .map((k, v) => MapEntry(k, v.toString()));
+    final body = (json.decode(json.encode(item)) as Map<String, dynamic>)
+        .map((k, v) => MapEntry("P_" + k, v.toString()));
     final response = await http.post("$urlSP$url", body: body);
     return MSPResult.fromJson(json.decode(response.body)[0][0]);
   }

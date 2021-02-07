@@ -71,7 +71,7 @@ class WordsUnitViewModel {
   }
 
   Future create(MUnitWord item) async {
-    int id = await unitWordService.create(item);
+    await unitWordService.create(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
     item.copyFrom(o);
     lstUnitWordsAll.add(item);

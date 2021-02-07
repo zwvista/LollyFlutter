@@ -6,4 +6,11 @@ class PhrasesUnitDetailViewModel {
   MUnitPhrase item;
 
   PhrasesUnitDetailViewModel(this.vm, this.item);
+
+  Future save() async {
+    if (item.id == 0)
+      await vm.create(item);
+    else
+      await vm.update(item);
+  }
 }

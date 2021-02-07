@@ -23,13 +23,7 @@ class WordsLangViewModel {
             await langWordService.getDataByLang(vmSettings.selectedLang.id);
         _reloaded = true;
       }
-      lstLangWords = textFilter.lastResult.isEmpty
-          ? lstLangWordsAll
-          : lstLangWordsAll
-              .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
-                  .toLowerCase()
-                  .contains(textFilter.lastResult.toLowerCase()))
-              .toList();
+      _applyFilters();
       return lstLangWords;
     });
     textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
@@ -37,5 +31,23 @@ class WordsLangViewModel {
     reloadCommand();
   }
 
+  void _applyFilters() => lstLangWords = textFilter.lastResult.isEmpty
+      ? lstLangWordsAll
+      : lstLangWordsAll
+          .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
+              .toLowerCase()
+              .contains(textFilter.lastResult.toLowerCase()))
+          .toList();
+
   MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang.id;
+
+  Future update(MLangWord item) async {
+    await langWordService.update(item);
+  }
+
+  Future create(MLangWord item) async {
+    item.id = await langWordService.create(item);
+    lstLangWordsAll.add(item);
+    _applyFilters();
+  }
 }

@@ -33,7 +33,7 @@ class MUnitWord {
   @JsonKey(name: 'WORD')
   var word = "";
   @JsonKey(name: 'NOTE')
-  String note;
+  var note = "";
   @JsonKey(name: 'WORDID')
   var wordid = 0;
   @JsonKey(name: 'FAMIID')

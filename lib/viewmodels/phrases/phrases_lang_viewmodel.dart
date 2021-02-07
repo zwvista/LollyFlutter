@@ -22,15 +22,7 @@ class PhrasesLangViewModel {
             await langPhraseService.getDataByLang(vmSettings.selectedLang.id);
         _reloaded = true;
       }
-      lstLangPhrases = textFilter.lastResult.isEmpty
-          ? lstLangPhrasesAll
-          : lstLangPhrasesAll
-              .where((o) => (scopeFilter.lastResult == "Phrase"
-                      ? o.phrase
-                      : o.translation)
-                  .toLowerCase()
-                  .contains(textFilter.lastResult.toLowerCase()))
-              .toList();
+      _applyFilters();
       return lstLangPhrases;
     });
     textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
@@ -38,6 +30,25 @@ class PhrasesLangViewModel {
     reloadCommand();
   }
 
+  void _applyFilters() => lstLangPhrases = textFilter.lastResult.isEmpty
+      ? lstLangPhrasesAll
+      : lstLangPhrasesAll
+          .where((o) =>
+              (scopeFilter.lastResult == "Phrase" ? o.phrase : o.translation)
+                  .toLowerCase()
+                  .contains(textFilter.lastResult.toLowerCase()))
+          .toList();
+
   MLangPhrase newLangPhrase() =>
       MLangPhrase()..langid = vmSettings.selectedLang.id;
+
+  Future update(MLangPhrase item) async {
+    await langPhraseService.update(item);
+  }
+
+  Future create(MLangPhrase item) async {
+    item.id = await langPhraseService.create(item);
+    lstLangPhrasesAll.add(item);
+    _applyFilters();
+  }
 }

@@ -28,9 +28,10 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
             style: TextButton.styleFrom(
               primary: Colors.white,
             ),
-            onPressed: () {
+            onPressed: () async {
               if (!_formKey.currentState.validate()) return;
               _formKey.currentState.save();
+              await widget.vmDetail.save();
               Navigator.pop(context);
             },
           )

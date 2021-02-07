@@ -35,7 +35,7 @@ class MUnitPhrase {
   @JsonKey(name: 'PHRASE')
   var phrase = "";
   @JsonKey(name: 'TRANSLATION')
-  String translation;
+  var translation = "";
 
   MTextbook textbook;
   String get unitstr => textbook.unitstr(unit);
@@ -45,4 +45,18 @@ class MUnitPhrase {
   factory MUnitPhrase.fromJson(Map<String, dynamic> json) =>
       _$MUnitPhraseFromJson(json);
   Map<String, dynamic> toJson() => _$MUnitPhraseToJson(this);
+
+  void copyFrom(MUnitPhrase x) {
+    id = x.id;
+    langid = x.langid;
+    textbookid = x.textbookid;
+    textbookname = x.textbookname;
+    unit = x.unit;
+    part = x.part;
+    seqnum = x.seqnum;
+    phrase = x.phrase;
+    translation = x.translation;
+    phraseid = x.phraseid;
+    textbook = x.textbook;
+  }
 }
