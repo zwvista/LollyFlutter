@@ -19,8 +19,8 @@ final vmSettings = SettingsViewModel();
 final flutterTts = FlutterTts();
 
 void main() async {
-  await vmSettings.getData();
   runApp(MyApp());
+  await vmSettings.getData();
 }
 
 // https://github.com/askNilesh/flutter_drawer_with_bloc

@@ -15,6 +15,8 @@ import 'package:lolly_flutter/services/misc/usersetting_service.dart';
 import 'package:lolly_flutter/services/misc/usmapping_service.dart';
 import 'package:lolly_flutter/services/misc/voice_service.dart';
 
+import '../../main.dart';
+
 class SettingsViewModel with ChangeNotifier {
   List<MUSMapping> lstUSMappings = [];
   List<MUserSetting> lstUserSettings = [];
@@ -101,6 +103,7 @@ class SettingsViewModel with ChangeNotifier {
   List<MVoice> lstVoices = [];
   MVoice _selectedVoice;
   MVoice get selectedVoice => _selectedVoice;
+  dynamic ttsVoices;
   List<MTextbook> lstTextbooks = [];
   List<MSelectItem> lstTextbookFilters = [];
   MTextbook _selectedTextbook;
@@ -197,6 +200,7 @@ class SettingsViewModel with ChangeNotifier {
     lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
     _selectedVoice = null;
     lstVoices = await _voiceService.getDataByLang(uslang);
+    ttsVoices = await flutterTts.getVoices;
     await setSelectedDictReference(lstDictsReference
         .firstWhere((o) => o.dictid.toString() == usdictreference));
     await setSelectedDictNote(
