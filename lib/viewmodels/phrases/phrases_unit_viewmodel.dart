@@ -14,7 +14,7 @@ class PhrasesUnitViewModel {
   final textFilter =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   final scopeFilter = RxCommand.createSync((String s) => s,
-      initialLastResult: SettingsViewModel.scopeWordFilters[0]);
+      initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
   final textbookFilter =
       RxCommand.createSync((int v) => v, initialLastResult: 0);
 

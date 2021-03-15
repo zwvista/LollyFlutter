@@ -13,7 +13,7 @@ class PhrasesLangViewModel {
   final textFilter =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   final scopeFilter = RxCommand.createSync((String s) => s,
-      initialLastResult: SettingsViewModel.scopeWordFilters[0]);
+      initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
 
   PhrasesLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
