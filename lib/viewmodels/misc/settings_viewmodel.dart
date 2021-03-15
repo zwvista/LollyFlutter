@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mautocorrect.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
@@ -17,7 +16,7 @@ import 'package:lolly_flutter/services/misc/voice_service.dart';
 
 import '../../main.dart';
 
-class SettingsViewModel with ChangeNotifier {
+class SettingsViewModel {
   List<MUSMapping> lstUSMappings = [];
   List<MUserSetting> lstUserSettings = [];
 
@@ -217,7 +216,6 @@ class SettingsViewModel with ChangeNotifier {
     _selectedVoice = v;
     usvoice = v.id;
     await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
-    notifyListeners();
   }
 
   Future setSelectedDictReference(MDictionary v) async {
@@ -225,14 +223,12 @@ class SettingsViewModel with ChangeNotifier {
     usdictreference = v.dictid.toString();
     await _userSettingService.updateByString(
         INFO_USDICTREFERENCE, usdictreference);
-    notifyListeners();
   }
 
   Future setSelectedDictNote(MDictionary v) async {
     _selectedDictNote = v;
     usdictnote = v.dictid;
     await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
-    notifyListeners();
   }
 
   Future setSelectedDictTranslation(MDictionary v) async {
@@ -240,7 +236,6 @@ class SettingsViewModel with ChangeNotifier {
     usdicttranslation = v.dictid;
     await _userSettingService.updateByInt(
         INFO_USDICTTRANSLATION, usdicttranslation);
-    notifyListeners();
   }
 
   Future setSelectedTextbook(MTextbook v) async {
@@ -256,7 +251,6 @@ class SettingsViewModel with ChangeNotifier {
             ? UnitPartToType.Part
             : UnitPartToType.To);
     await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
-    notifyListeners();
   }
 
   Future setToType(UnitPartToType v) async {
@@ -274,7 +268,6 @@ class SettingsViewModel with ChangeNotifier {
     if (v == UnitPartToType.Unit)
       await _doUpdateSingleUnit();
     else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();
-    notifyListeners();
   }
 
   Future updateUnitFrom(int v) async {
@@ -283,26 +276,22 @@ class SettingsViewModel with ChangeNotifier {
       await _doUpdateSingleUnit();
     else if (toType == UnitPartToType.Part || isInvaidUnitPart)
       await _doUpdateUnitPartTo();
-    notifyListeners();
   }
 
   Future updatePartFrom(int v) async {
     await _doUpdatePartFrom(v, check: false);
     if (toType == UnitPartToType.Part || isInvaidUnitPart)
       await _doUpdateUnitPartTo();
-    notifyListeners();
   }
 
   Future updateUnitTo(int v) async {
     await _doUpdateUnitTo(v, check: false);
     if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
-    notifyListeners();
   }
 
   Future updatePartTo(int v) async {
     await _doUpdatePartTo(v, check: false);
     if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
-    notifyListeners();
   }
 
   Future previousUnitPart() async {
