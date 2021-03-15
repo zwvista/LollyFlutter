@@ -10,10 +10,12 @@ class PatternsViewModel {
   final patternService = PatternService();
   var _reloaded = false;
   RxCommand<void, List<MPattern>> reloadCommand;
-  final textFilter =
+  final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  final scopeFilter = RxCommand.createSync((String s) => s,
+  String get textFilter => textFilter_.lastResult;
+  final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopePatternFilters[0]);
+  String get scopeFilter => scopeFilter_.lastResult;
 
   PatternsViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
@@ -22,21 +24,21 @@ class PatternsViewModel {
             await patternService.getDataByLang(vmSettings.selectedLang.id);
         _reloaded = true;
       }
-      lstPatterns = textFilter.lastResult.isEmpty
+      lstPatterns = textFilter.isEmpty
           ? lstPatternsAll
           : lstPatternsAll
-              .where((o) => (scopeFilter.lastResult == "Pattern"
+              .where((o) => (scopeFilter == "Pattern"
                       ? o.pattern
-                      : scopeFilter.lastResult == "Note"
+                      : scopeFilter == "Note"
                           ? o.note
                           : o.tags)
                   .toLowerCase()
-                  .contains(textFilter.lastResult.toLowerCase()))
+                  .contains(textFilter.toLowerCase()))
               .toList();
       return lstPatterns;
     });
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter.listen(reloadCommand);
+    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter_.listen(reloadCommand);
     reloadCommand();
   }
 

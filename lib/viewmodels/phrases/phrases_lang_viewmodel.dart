@@ -10,10 +10,12 @@ class PhrasesLangViewModel {
   final langPhraseService = LangPhraseService();
   var _reloaded = false;
   RxCommand<void, List<MLangPhrase>> reloadCommand;
-  final textFilter =
+  final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  final scopeFilter = RxCommand.createSync((String s) => s,
+  String get textFilter => textFilter_.lastResult;
+  final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
+  String get scopeFilter => scopeFilter_.lastResult;
 
   PhrasesLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
@@ -25,18 +27,17 @@ class PhrasesLangViewModel {
       _applyFilters();
       return lstLangPhrases;
     });
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter.listen(reloadCommand);
+    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter_.listen(reloadCommand);
     reloadCommand();
   }
 
-  void _applyFilters() => lstLangPhrases = textFilter.lastResult.isEmpty
+  void _applyFilters() => lstLangPhrases = textFilter.isEmpty
       ? lstLangPhrasesAll
       : lstLangPhrasesAll
-          .where((o) =>
-              (scopeFilter.lastResult == "Phrase" ? o.phrase : o.translation)
-                  .toLowerCase()
-                  .contains(textFilter.lastResult.toLowerCase()))
+          .where((o) => (scopeFilter == "Phrase" ? o.phrase : o.translation)
+              .toLowerCase()
+              .contains(textFilter.toLowerCase()))
           .toList();
 
   MLangPhrase newLangPhrase() =>

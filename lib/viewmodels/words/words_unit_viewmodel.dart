@@ -12,12 +12,15 @@ class WordsUnitViewModel {
   final unitWordService = UnitWordService();
   var _reloaded = false;
   RxCommand<void, List<MUnitWord>> reloadCommand;
-  final textFilter =
+  final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  final scopeFilter = RxCommand.createSync((String s) => s,
+  String get textFilter => textFilter_.lastResult;
+  final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopeWordFilters[0]);
-  final textbookFilter =
+  String get scopeFilter => scopeFilter_.lastResult;
+  final textbookFilter_ =
       RxCommand.createSync((int v) => v, initialLastResult: 0);
+  int get textbookFilter => textbookFilter_.lastResult;
 
   WordsUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
@@ -34,23 +37,21 @@ class WordsUnitViewModel {
       _applyFilters();
       return lstUnitWords;
     });
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter.listen(reloadCommand);
-    textbookFilter.listen(reloadCommand);
+    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter_.listen(reloadCommand);
+    textbookFilter_.listen(reloadCommand);
     reloadCommand();
   }
 
-  void _applyFilters() => lstUnitWords =
-      textFilter.lastResult.isEmpty && textbookFilter.lastResult == 0
-          ? lstUnitWordsAll
-          : lstUnitWordsAll
-              .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
-                  .toLowerCase()
-                  .contains(textFilter.lastResult.toLowerCase()))
-              .where((o) =>
-                  textbookFilter.lastResult == 0 ||
-                  o.textbookid == textbookFilter.lastResult)
-              .toList();
+  void _applyFilters() => lstUnitWords = textFilter.isEmpty &&
+          textbookFilter == 0
+      ? lstUnitWordsAll
+      : lstUnitWordsAll
+          .where((o) => (scopeFilter == "Word" ? o.word : o.note)
+              .toLowerCase()
+              .contains(textFilter.toLowerCase()))
+          .where((o) => textbookFilter == 0 || o.textbookid == textbookFilter)
+          .toList();
 
   MUnitWord newUnitWord() {
     int f(MUnitWord o) => o.unit * 10000 + o.part * 1000 + o.seqnum;

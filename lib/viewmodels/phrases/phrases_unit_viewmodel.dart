@@ -11,12 +11,15 @@ class PhrasesUnitViewModel {
   final unitPhraseService = UnitPhraseService();
   var _reloaded = false;
   RxCommand<void, List<MUnitPhrase>> reloadCommand;
-  final textFilter =
+  final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  final scopeFilter = RxCommand.createSync((String s) => s,
+  String get textFilter => textFilter_.lastResult;
+  final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
-  final textbookFilter =
+  String get scopeFilter => scopeFilter_.lastResult;
+  final textbookFilter_ =
       RxCommand.createSync((int v) => v, initialLastResult: 0);
+  int get textbookFilter => textbookFilter_.lastResult;
 
   PhrasesUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
@@ -33,23 +36,20 @@ class PhrasesUnitViewModel {
       _applyFilters();
       return lstUnitPhrases;
     });
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter.listen(reloadCommand);
-    textbookFilter.listen(reloadCommand);
+    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter_.listen(reloadCommand);
+    textbookFilter_.listen(reloadCommand);
     reloadCommand();
   }
 
-  void _applyFilters() => lstUnitPhrases = textFilter.lastResult.isEmpty &&
-          textbookFilter.lastResult == 0
+  void _applyFilters() => lstUnitPhrases = textFilter.isEmpty &&
+          textbookFilter == 0
       ? lstUnitPhrasesAll
       : lstUnitPhrasesAll
-          .where((o) =>
-              (scopeFilter.lastResult == "Phrase" ? o.phrase : o.translation)
-                  .toLowerCase()
-                  .contains(textFilter.lastResult.toLowerCase()))
-          .where((o) =>
-              textbookFilter.lastResult == 0 ||
-              o.textbookid == textbookFilter.lastResult)
+          .where((o) => (scopeFilter == "Phrase" ? o.phrase : o.translation)
+              .toLowerCase()
+              .contains(textFilter.toLowerCase()))
+          .where((o) => textbookFilter == 0 || o.textbookid == textbookFilter)
           .toList();
 
   MUnitPhrase newUnitPhrase() {

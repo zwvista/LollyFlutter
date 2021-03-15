@@ -11,10 +11,12 @@ class WordsLangViewModel {
   final langWordService = LangWordService();
   var _reloaded = false;
   RxCommand<void, List<MLangWord>> reloadCommand;
-  final textFilter =
+  final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  final scopeFilter = RxCommand.createSync((String s) => s,
+  String get textFilter => textFilter_.lastResult;
+  final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopeWordFilters[0]);
+  String get scopeFilter => scopeFilter_.lastResult;
 
   WordsLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam<List<MLangWord>>(() async {
@@ -26,17 +28,17 @@ class WordsLangViewModel {
       _applyFilters();
       return lstLangWords;
     });
-    textFilter.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter.listen(reloadCommand);
+    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    scopeFilter_.listen(reloadCommand);
     reloadCommand();
   }
 
-  void _applyFilters() => lstLangWords = textFilter.lastResult.isEmpty
+  void _applyFilters() => lstLangWords = textFilter.isEmpty
       ? lstLangWordsAll
       : lstLangWordsAll
-          .where((o) => (scopeFilter.lastResult == "Word" ? o.word : o.note)
+          .where((o) => (scopeFilter == "Word" ? o.word : o.note)
               .toLowerCase()
-              .contains(textFilter.lastResult.toLowerCase()))
+              .contains(textFilter.toLowerCase()))
           .toList();
 
   MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang.id;
