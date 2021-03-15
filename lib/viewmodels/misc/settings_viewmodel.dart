@@ -109,8 +109,8 @@ class SettingsViewModel {
   MTextbook _selectedTextbook;
   MTextbook get selectedTextbook => _selectedTextbook;
   List<MDictionary> lstDictsReference = [];
-  MDictionary _selectedDictReference;
-  MDictionary get selectedDictReference => _selectedDictReference;
+  final selectedDictReference_ = RxCommand.createSync((MDictionary v) => v);
+  MDictionary get selectedDictReference => selectedDictReference_.lastResult;
   List<MDictionary> lstDictsNote = [];
   MDictionary _selectedDictNote;
   MDictionary get selectedDictNote => _selectedDictNote;
@@ -168,6 +168,7 @@ class SettingsViewModel {
 
   SettingsViewModel() {
     selectedLang_.listen((v) async => setSelectedLang(v));
+    selectedDictReference_.listen((v) async => setSelectedDictReference(v));
   }
 
   Future getData() async {
@@ -187,7 +188,7 @@ class SettingsViewModel {
     INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
     INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
     INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
-    _selectedDictReference = null;
+    selectedDictReference_(null);
     lstDictsReference =
         await _dictionaryService.getDictsReferenceByLang(uslang);
     _selectedDictNote = null;
@@ -223,7 +224,6 @@ class SettingsViewModel {
   }
 
   Future setSelectedDictReference(MDictionary v) async {
-    _selectedDictReference = v;
     usdictreference = v.dictid.toString();
     await _userSettingService.updateByString(
         INFO_USDICTREFERENCE, usdictreference);
