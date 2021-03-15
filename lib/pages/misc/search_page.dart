@@ -17,6 +17,7 @@ class SearchPageState extends State<SearchPage> {
 
   SearchPageState() {
     onlineDict = OnlineDict(vm);
+    vmSettings.selectedLang_.listen((value) => onlineDict.searchDict());
   }
 
   Widget build(BuildContext context) {
@@ -35,17 +36,16 @@ class SearchPageState extends State<SearchPage> {
           }),
       Row(children: [
         Expanded(
-            child: DropdownButton(
-                value: vmSettings.selectedLang,
-                items: vmSettings.lstLanguages
-                    .map((e) =>
-                        DropdownMenuItem(value: e, child: Text(e.langname)))
-                    .toList(),
-                isExpanded: true,
-                onChanged: (value) => setState(() {
-                      vmSettings.setSelectedLang(value);
-                      onlineDict.searchDict();
-                    }))),
+            child: StreamBuilder(
+                stream: vmSettings.selectedLang_,
+                builder: (context, snapshot) => DropdownButton(
+                    value: vmSettings.selectedLang,
+                    items: vmSettings.lstLanguages
+                        .map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.langname)))
+                        .toList(),
+                    isExpanded: true,
+                    onChanged: (value) => vmSettings.selectedLang_))),
         Expanded(
             child: DropdownButton(
                 value: vmSettings.selectedDictReference,

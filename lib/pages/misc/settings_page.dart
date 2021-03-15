@@ -20,17 +20,19 @@ class SettingsPageState extends State<SettingsPage> {
     return Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
         child: ListView(children: [
-          DropdownButtonFormField(
-            value: vm.selectedLang,
-            items: vm.lstLanguages
-                ?.map(
-                    (e) => DropdownMenuItem(value: e, child: Text(e.langname)))
-                ?.toList(),
-            onChanged: (e) => vm.setSelectedLang(e),
-            decoration: InputDecoration(
-              labelText: "Language",
-            ),
-          ),
+          StreamBuilder(
+              stream: vm.selectedLang_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.selectedLang,
+                    items: vm.lstLanguages
+                        ?.map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.langname)))
+                        ?.toList(),
+                    onChanged: vm.selectedLang_,
+                    decoration: InputDecoration(
+                      labelText: "Language",
+                    ),
+                  )),
           DropdownButtonFormField(
             value: vm.selectedVoice,
             items: vm.lstVoices

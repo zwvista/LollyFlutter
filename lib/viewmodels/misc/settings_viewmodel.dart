@@ -13,6 +13,7 @@ import 'package:lolly_flutter/services/misc/textbook_service.dart';
 import 'package:lolly_flutter/services/misc/usersetting_service.dart';
 import 'package:lolly_flutter/services/misc/usmapping_service.dart';
 import 'package:lolly_flutter/services/misc/voice_service.dart';
+import 'package:rx_command/rx_command.dart';
 
 import '../../main.dart';
 
@@ -97,8 +98,8 @@ class SettingsViewModel {
   bool get isInvaidUnitPart => usunitpartfrom > usunitpartto;
 
   List<MLanguage> lstLanguages = [];
-  MLanguage _selectedLang;
-  MLanguage get selectedLang => _selectedLang;
+  final selectedLang_ = RxCommand.createSync((MLanguage v) => v);
+  MLanguage get selectedLang => selectedLang_.lastResult;
   List<MVoice> lstVoices = [];
   MVoice _selectedVoice;
   MVoice get selectedVoice => _selectedVoice;
@@ -165,17 +166,20 @@ class SettingsViewModel {
     return MUserSettingInfo(o2.id, o.valueid);
   }
 
+  SettingsViewModel() {
+    selectedLang_.listen((v) async => setSelectedLang(v));
+  }
+
   Future getData() async {
     lstLanguages = await _languageService.getData();
     lstUSMappings = await _usMappingService.getData();
     lstUserSettings =
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
-    await setSelectedLang(lstLanguages.firstWhere((o) => o.id == uslang));
+    selectedLang_(lstLanguages.firstWhere((o) => o.id == uslang));
   }
 
   Future setSelectedLang(MLanguage v) async {
-    _selectedLang = v;
     final isinit = uslang == v.id;
     uslang = v.id;
     INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
