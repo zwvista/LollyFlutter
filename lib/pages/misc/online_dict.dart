@@ -16,6 +16,7 @@ class OnlineDict {
 
   void searchDict() async {
     final item = vmSettings.selectedDictReference;
+    if (item == null) return;
     final url = iOnlineDict.getUrl;
     if (item.dicttypename == "OFFLINE") {
       final html = await BaseService.getHtmlByUrl(url);

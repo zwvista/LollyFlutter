@@ -100,6 +100,7 @@ class SettingsViewModel {
   List<MLanguage> lstLanguages = [];
   final selectedLang_ = RxCommand.createSync((MLanguage v) => v);
   MLanguage get selectedLang => selectedLang_.lastResult;
+  RxCommand<MLanguage, void> setSelectedLang_;
   List<MVoice> lstVoices = [];
   MVoice _selectedVoice;
   MVoice get selectedVoice => _selectedVoice;
@@ -111,6 +112,7 @@ class SettingsViewModel {
   List<MDictionary> lstDictsReference = [];
   final selectedDictReference_ = RxCommand.createSync((MDictionary v) => v);
   MDictionary get selectedDictReference => selectedDictReference_.lastResult;
+  RxCommand<MDictionary, void> setSelectedDictReference_;
   List<MDictionary> lstDictsNote = [];
   MDictionary _selectedDictNote;
   MDictionary get selectedDictNote => _selectedDictNote;
@@ -167,8 +169,12 @@ class SettingsViewModel {
   }
 
   SettingsViewModel() {
-    selectedLang_.listen((v) async => setSelectedLang(v));
-    selectedDictReference_.listen((v) async => setSelectedDictReference(v));
+    setSelectedLang_ =
+        RxCommand.createAsyncNoResult((v) async => setSelectedLang(v));
+    selectedLang_.listen(setSelectedLang_);
+    setSelectedDictReference_ =
+        RxCommand.createAsyncNoResult((v) async => setSelectedDictReference(v));
+    selectedDictReference_.listen(setSelectedDictReference_);
   }
 
   Future getData() async {
@@ -205,7 +211,7 @@ class SettingsViewModel {
     _selectedVoice = null;
     lstVoices = await _voiceService.getDataByLang(uslang);
     ttsVoices = await flutterTts.getVoices;
-    await setSelectedDictReference(lstDictsReference
+    selectedDictReference_(lstDictsReference
         .firstWhere((o) => o.dictid.toString() == usdictreference));
     await setSelectedDictNote(
         lstDictsNote.firstWhere((o) => o.dictid == usdictnote));

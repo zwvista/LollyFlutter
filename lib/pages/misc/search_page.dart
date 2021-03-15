@@ -17,8 +17,8 @@ class SearchPageState extends State<SearchPage> {
 
   SearchPageState() {
     onlineDict = OnlineDict(vm);
-    vmSettings.selectedLang_.listen((v) => onlineDict.searchDict());
-    vmSettings.selectedDictReference_.listen((v) => onlineDict.searchDict());
+    vmSettings.setSelectedLang_.listen((v) => onlineDict.searchDict());
+    vmSettings.setSelectedDictReference_.listen((v) => onlineDict.searchDict());
   }
 
   Widget build(BuildContext context) {
