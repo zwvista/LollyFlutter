@@ -174,23 +174,81 @@ class SettingsViewModel {
   }
 
   SettingsViewModel() {
-    setSelectedLang_ =
-        RxCommand.createAsyncNoResult((v) async => setSelectedLang(v));
+    setSelectedLang_ = RxCommand.createAsyncNoResult((v) async {
+      final isinit = uslang == v.id;
+      uslang = v.id;
+      INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
+      INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
+      INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
+      INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
+      INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
+      selectedDictReference_(null);
+      lstDictsReference =
+          await _dictionaryService.getDictsReferenceByLang(uslang);
+      selectedDictNote_(null);
+      lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslang);
+      selectedDictTranslation_(null);
+      lstDictsTranslation =
+          await _dictionaryService.getDictsTranslationByLang(uslang);
+      selectedTextbook_(null);
+      lstTextbooks = await _textbookService.getDataByLang(uslang);
+      lstTextbookFilters =
+          lstTextbooks.map((o) => MSelectItem(o.id, o.textbookname)).toList();
+      lstTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
+      lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
+      selectedVoice_(null);
+      lstVoices = await _voiceService.getDataByLang(uslang);
+      ttsVoices = await flutterTts.getVoices;
+      selectedDictReference_(lstDictsReference
+          .firstWhere((o) => o.dictid.toString() == usdictreference));
+      selectedDictNote_(lstDictsNote.firstWhere((o) => o.dictid == usdictnote));
+      selectedDictTranslation_(
+          lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation));
+      selectedTextbook_(lstTextbooks.firstWhere((o) => o.id == ustextbook));
+      selectedVoice_(lstVoices.first);
+      if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
+    });
     selectedLang_.listen(setSelectedLang_);
-    setSelectedVoice_ =
-        RxCommand.createAsyncNoResult((v) async => setSelectedVoice(v));
+
+    setSelectedVoice_ = RxCommand.createAsyncNoResult((v) async {
+      usvoice = v.id;
+      await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
+    });
     selectedVoice_.listen(setSelectedVoice_);
-    setSelectedTextbook_ =
-        RxCommand.createAsyncNoResult((v) async => setSelectedTextbook(v));
+
+    setSelectedTextbook_ = RxCommand.createAsyncNoResult((v) async {
+      ustextbook = v.id;
+      INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
+      INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
+      INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
+      INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
+      setToType(isSingleUnit
+          ? UnitPartToType.Unit
+          : isSingleUnitPart
+              ? UnitPartToType.Part
+              : UnitPartToType.To);
+      await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
+    });
     selectedTextbook_.listen(setSelectedTextbook_);
-    setSelectedDictReference_ =
-        RxCommand.createAsyncNoResult((v) async => setSelectedDictReference(v));
+
+    setSelectedDictReference_ = RxCommand.createAsyncNoResult((v) async {
+      usdictreference = v.dictid.toString();
+      await _userSettingService.updateByString(
+          INFO_USDICTREFERENCE, usdictreference);
+    });
     selectedDictReference_.listen(setSelectedDictReference_);
-    setSelectedDictNote_ =
-        RxCommand.createAsyncNoResult((v) async => setSelectedDictNote(v));
+
+    setSelectedDictNote_ = RxCommand.createAsyncNoResult((v) async {
+      usdictnote = v.dictid;
+      await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
+    });
     selectedDictNote_.listen(setSelectedDictNote_);
-    setSelectedDictTranslation_ = RxCommand.createAsyncNoResult(
-        (v) async => setSelectedDictTranslation(v));
+
+    setSelectedDictTranslation_ = RxCommand.createAsyncNoResult((v) async {
+      usdicttranslation = v.dictid;
+      await _userSettingService.updateByInt(
+          INFO_USDICTTRANSLATION, usdicttranslation);
+    });
     selectedDictTranslation_.listen(setSelectedDictTranslation_);
   }
 
@@ -201,78 +259,6 @@ class SettingsViewModel {
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     selectedLang_(lstLanguages.firstWhere((o) => o.id == uslang));
-  }
-
-  Future setSelectedLang(MLanguage v) async {
-    final isinit = uslang == v.id;
-    uslang = v.id;
-    INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
-    INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
-    INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
-    INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
-    INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
-    selectedDictReference_(null);
-    lstDictsReference =
-        await _dictionaryService.getDictsReferenceByLang(uslang);
-    selectedDictNote_(null);
-    lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslang);
-    selectedDictTranslation_(null);
-    lstDictsTranslation =
-        await _dictionaryService.getDictsTranslationByLang(uslang);
-    selectedTextbook_(null);
-    lstTextbooks = await _textbookService.getDataByLang(uslang);
-    lstTextbookFilters =
-        lstTextbooks.map((o) => MSelectItem(o.id, o.textbookname)).toList();
-    lstTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
-    lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
-    selectedVoice_(null);
-    lstVoices = await _voiceService.getDataByLang(uslang);
-    ttsVoices = await flutterTts.getVoices;
-    selectedDictReference_(lstDictsReference
-        .firstWhere((o) => o.dictid.toString() == usdictreference));
-    setSelectedDictNote_(
-        lstDictsNote.firstWhere((o) => o.dictid == usdictnote));
-    setSelectedDictTranslation_(
-        lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation));
-    setSelectedTextbook_(lstTextbooks.firstWhere((o) => o.id == ustextbook));
-    selectedVoice_(lstVoices.first);
-    if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
-  }
-
-  Future setSelectedVoice(MVoice v) async {
-    usvoice = v.id;
-    await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
-  }
-
-  Future setSelectedDictReference(MDictionary v) async {
-    usdictreference = v.dictid.toString();
-    await _userSettingService.updateByString(
-        INFO_USDICTREFERENCE, usdictreference);
-  }
-
-  Future setSelectedDictNote(MDictionary v) async {
-    usdictnote = v.dictid;
-    await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
-  }
-
-  Future setSelectedDictTranslation(MDictionary v) async {
-    usdicttranslation = v.dictid;
-    await _userSettingService.updateByInt(
-        INFO_USDICTTRANSLATION, usdicttranslation);
-  }
-
-  Future setSelectedTextbook(MTextbook v) async {
-    ustextbook = v.id;
-    INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
-    INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
-    INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
-    INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
-    setToType(isSingleUnit
-        ? UnitPartToType.Unit
-        : isSingleUnitPart
-            ? UnitPartToType.Part
-            : UnitPartToType.To);
-    await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
   }
 
   Future setToType(UnitPartToType v) async {

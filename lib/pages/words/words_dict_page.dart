@@ -22,6 +22,7 @@ class WordsDictPageState extends State<WordsDictPage> {
 
   WordsDictPageState(this.vm) {
     onlineDict = OnlineDict(vm);
+    vmSettings.setSelectedDictReference_.listen((v) => onlineDict.searchDict());
   }
 
   Widget build(BuildContext context) {
@@ -43,17 +44,16 @@ class WordsDictPageState extends State<WordsDictPage> {
               }),
             )),
             Expanded(
-                child: DropdownButton(
-                    value: vmSettings.selectedDictReference,
-                    items: vmSettings.lstDictsReference
-                        .map((e) =>
-                            DropdownMenuItem(value: e, child: Text(e.dictname)))
-                        .toList(),
-                    isExpanded: true,
-                    onChanged: (value) => setState(() {
-                          vmSettings.setSelectedDictReference(value);
-                          onlineDict.searchDict();
-                        })))
+                child: StreamBuilder(
+                    stream: vmSettings.selectedDictReference_,
+                    builder: (context, snapshot) => DropdownButton(
+                        value: vmSettings.selectedDictReference,
+                        items: vmSettings.lstDictsReference
+                            .map((e) => DropdownMenuItem(
+                                value: e, child: Text(e.dictname)))
+                            .toList(),
+                        isExpanded: true,
+                        onChanged: vmSettings.selectedDictReference_)))
           ]),
           Expanded(
               child: SwipeDetector(
