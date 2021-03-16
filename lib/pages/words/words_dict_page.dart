@@ -22,7 +22,7 @@ class WordsDictPageState extends State<WordsDictPage> {
 
   WordsDictPageState(this.vm) {
     onlineDict = OnlineDict(vm);
-    vmSettings.setSelectedDictReference_.listen((v) => onlineDict.searchDict());
+    vmSettings.setSelectedDictReference.listen((v) => onlineDict.searchDict());
   }
 
   Widget build(BuildContext context) {
