@@ -33,61 +33,71 @@ class SettingsPageState extends State<SettingsPage> {
                       labelText: "Language",
                     ),
                   )),
-          DropdownButtonFormField(
-            value: vm.selectedVoice,
-            items: vm.lstVoices
-                ?.map(
-                    (e) => DropdownMenuItem(value: e, child: Text(e.voicename)))
-                ?.toList(),
-            onChanged: (e) => vm.setSelectedVoice(e),
-            decoration: InputDecoration(
-              labelText: "Voice",
-            ),
-          ),
-          DropdownButtonFormField(
-            value: vm.selectedDictReference,
-            items: vm.lstDictsReference
-                ?.map(
-                    (e) => DropdownMenuItem(value: e, child: Text(e.dictname)))
-                ?.toList(),
-            onChanged: (e) => vm.setSelectedDictReference(e),
-            decoration: InputDecoration(
-              labelText: "Dictionary(Reference)",
-            ),
-          ),
-          DropdownButtonFormField(
-            value: vm.selectedDictNote,
-            items: vm.lstDictsNote
-                ?.map(
-                    (e) => DropdownMenuItem(value: e, child: Text(e.dictname)))
-                ?.toList(),
-            onChanged: (e) => vm.setSelectedDictNote(e),
-            decoration: InputDecoration(
-              labelText: "Dictionary(Note)",
-            ),
-          ),
-          DropdownButtonFormField(
-            value: vm.selectedDictTranslation,
-            items: vm.lstDictsTranslation
-                ?.map(
-                    (e) => DropdownMenuItem(value: e, child: Text(e.dictname)))
-                ?.toList(),
-            onChanged: (e) => vm.setSelectedDictTranslation(e),
-            decoration: InputDecoration(
-              labelText: "Dictionary(Translation)",
-            ),
-          ),
-          DropdownButtonFormField(
-            value: vm.selectedTextbook,
-            items: vm.lstTextbooks
-                ?.map((e) =>
-                    DropdownMenuItem(value: e, child: Text(e.textbookname)))
-                ?.toList(),
-            onChanged: (e) => vm.setSelectedTextbook(e),
-            decoration: InputDecoration(
-              labelText: "Textbook",
-            ),
-          ),
+          StreamBuilder(
+              stream: vm.selectedVoice_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.selectedVoice,
+                    items: vm.lstVoices
+                        ?.map((e) => DropdownMenuItem(
+                            value: e, child: Text(e.voicename)))
+                        ?.toList(),
+                    onChanged: vm.selectedVoice_,
+                    decoration: InputDecoration(
+                      labelText: "Voice",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.selectedDictReference_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.selectedDictReference,
+                    items: vm.lstDictsReference
+                        ?.map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.dictname)))
+                        ?.toList(),
+                    onChanged: vm.selectedDictReference_,
+                    decoration: InputDecoration(
+                      labelText: "Dictionary(Reference)",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.selectedDictNote_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.selectedDictNote,
+                    items: vm.lstDictsNote
+                        ?.map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.dictname)))
+                        ?.toList(),
+                    onChanged: vm.selectedDictNote_,
+                    decoration: InputDecoration(
+                      labelText: "Dictionary(Note)",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.selectedDictTranslation_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.selectedDictTranslation,
+                    items: vm.lstDictsTranslation
+                        ?.map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.dictname)))
+                        ?.toList(),
+                    onChanged: vm.selectedDictTranslation_,
+                    decoration: InputDecoration(
+                      labelText: "Dictionary(Translation)",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.selectedTextbook_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.selectedTextbook,
+                    items: vm.lstTextbooks
+                        ?.map((e) => DropdownMenuItem(
+                            value: e, child: Text(e.textbookname)))
+                        ?.toList(),
+                    onChanged: vm.selectedTextbook_,
+                    decoration: InputDecoration(
+                      labelText: "Textbook",
+                    ),
+                  )),
           DropdownButtonFormField(
             value: vm.usunitfrom,
             items: vm.lstUnits
