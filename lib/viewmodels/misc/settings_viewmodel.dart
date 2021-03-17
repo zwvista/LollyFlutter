@@ -76,22 +76,35 @@ class SettingsViewModel {
   int get usdicttranslation => int.parse(getUSValue(INFO_USDICTTRANSLATION));
   set usdicttranslation(int value) =>
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
+
   MUserSettingInfo INFO_USUNITFROM;
+  final usunitfrom_ = RxCommand.createSync((int v) => v);
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
   String get usunitfromstr => selectedTextbook?.unitstr(usunitfrom) ?? "";
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
+  RxCommand<int, void> updateUnitFrom;
+
   MUserSettingInfo INFO_USPARTFROM;
+  final uspartfrom_ = RxCommand.createSync((int v) => v);
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
   String get uspartfromstr => selectedTextbook?.partstr(uspartfrom) ?? "";
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
+  RxCommand<int, void> updatePartFrom;
+
   MUserSettingInfo INFO_USUNITTO;
+  final usunitto_ = RxCommand.createSync((int v) => v);
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
   String get usunittostr => selectedTextbook?.unitstr(usunitto) ?? "";
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
+  RxCommand<int, void> updateUnitTo;
+
   MUserSettingInfo INFO_USPARTTO;
+  final uspartto_ = RxCommand.createSync((int v) => v);
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
   String get usparttostr => selectedTextbook?.partstr(uspartto) ?? "";
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
+  RxCommand<int, void> updatePartTo;
+
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
   int get usunitpartto => usunitto * 10 + uspartto;
   bool get isSingleUnitPart => usunitpartfrom == usunitpartto;
@@ -141,12 +154,16 @@ class SettingsViewModel {
   bool get isSingleUnit =>
       usunitfrom == usunitto && uspartfrom == 1 && uspartto == partCount;
   bool get isSinglePart => partCount == 1;
+
   static final List<MSelectItem> lstToTypes = [
     MSelectItem(0, "Unit"),
     MSelectItem(1, "Part"),
     MSelectItem(2, "To")
   ];
+  final toType_ = RxCommand.createSync((UnitPartToType v) => v);
   UnitPartToType toType = UnitPartToType.To;
+  RxCommand<UnitPartToType, void> setToType;
+
   bool unitToIsEnabled = true;
   bool partToIsEnabled = true;
   bool previousIsEnabled = true;
@@ -219,10 +236,14 @@ class SettingsViewModel {
     setSelectedTextbook = RxCommand.createAsyncNoResult((v) async {
       ustextbook = v.id;
       INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
+      usunitfrom_(usunitfrom);
       INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
+      uspartfrom_(uspartfrom);
       INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
+      usunitto_(usunitto);
       INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
-      setToType(isSingleUnit
+      uspartto_(uspartto);
+      toType_(isSingleUnit
           ? UnitPartToType.Unit
           : isSingleUnitPart
               ? UnitPartToType.Part
@@ -250,6 +271,51 @@ class SettingsViewModel {
           INFO_USDICTTRANSLATION, usdicttranslation);
     });
     selectedDictTranslation_.listen(setSelectedDictTranslation);
+
+    updateUnitFrom = RxCommand.createAsyncNoResult((v) async {
+      await _doUpdateUnitFrom(v, check: false);
+      if (toType == UnitPartToType.Unit)
+        await _doUpdateSingleUnit();
+      else if (toType == UnitPartToType.Part || isInvaidUnitPart)
+        await _doUpdateUnitPartTo();
+    });
+    usunitfrom_.listen(updateUnitFrom);
+
+    updatePartFrom = RxCommand.createAsyncNoResult((v) async {
+      await _doUpdatePartFrom(v, check: false);
+      if (toType == UnitPartToType.Part || isInvaidUnitPart)
+        await _doUpdateUnitPartTo();
+    });
+    uspartfrom_.listen(updatePartFrom);
+
+    updateUnitTo = RxCommand.createAsyncNoResult((v) async {
+      await _doUpdateUnitTo(v, check: false);
+      if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
+    });
+    usunitto_.listen(updateUnitTo);
+
+    updatePartTo = RxCommand.createAsyncNoResult((v) async {
+      await _doUpdatePartTo(v, check: false);
+      if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
+    });
+    uspartto_.listen(updatePartTo);
+
+    setToType = RxCommand.createAsyncNoResult((v) async {
+      final b = v == UnitPartToType.To;
+      unitToIsEnabled = b;
+      partToIsEnabled = b && !isSinglePart;
+      previousIsEnabled = !b;
+      nextIsEnabled = !b;
+      final b2 = v != UnitPartToType.Unit;
+      final t = !b2 ? "Unit" : "Part";
+      previousText = "Previous " + t;
+      nextText = "Next " + t;
+      partFromIsEnabled = b2 && !isSinglePart;
+      if (v == UnitPartToType.Unit)
+        await _doUpdateSingleUnit();
+      else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();
+    });
+    toType_.listen(setToType);
   }
 
   Future getData() async {
@@ -259,47 +325,6 @@ class SettingsViewModel {
         await _userSettingService.getDataByUser(GlobalConstants.userid);
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     selectedLang_(lstLanguages.firstWhere((o) => o.id == uslang));
-  }
-
-  Future setToType(UnitPartToType v) async {
-    toType = v;
-    final b = v == UnitPartToType.To;
-    unitToIsEnabled = b;
-    partToIsEnabled = b && !isSinglePart;
-    previousIsEnabled = !b;
-    nextIsEnabled = !b;
-    final b2 = v != UnitPartToType.Unit;
-    final t = !b2 ? "Unit" : "Part";
-    previousText = "Previous " + t;
-    nextText = "Next " + t;
-    partFromIsEnabled = b2 && !isSinglePart;
-    if (v == UnitPartToType.Unit)
-      await _doUpdateSingleUnit();
-    else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();
-  }
-
-  Future updateUnitFrom(int v) async {
-    await _doUpdateUnitFrom(v, check: false);
-    if (toType == UnitPartToType.Unit)
-      await _doUpdateSingleUnit();
-    else if (toType == UnitPartToType.Part || isInvaidUnitPart)
-      await _doUpdateUnitPartTo();
-  }
-
-  Future updatePartFrom(int v) async {
-    await _doUpdatePartFrom(v, check: false);
-    if (toType == UnitPartToType.Part || isInvaidUnitPart)
-      await _doUpdateUnitPartTo();
-  }
-
-  Future updateUnitTo(int v) async {
-    await _doUpdateUnitTo(v, check: false);
-    if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
-  }
-
-  Future updatePartTo(int v) async {
-    await _doUpdatePartTo(v, check: false);
-    if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
   }
 
   Future previousUnitPart() async {

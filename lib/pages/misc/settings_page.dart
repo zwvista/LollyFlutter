@@ -98,86 +98,95 @@ class SettingsPageState extends State<SettingsPage> {
                       labelText: "Textbook",
                     ),
                   )),
-          DropdownButtonFormField(
-            value: vm.usunitfrom,
-            items: vm.lstUnits
-                ?.map((e) =>
-                    DropdownMenuItem(value: e.value, child: Text(e.label)))
-                ?.toList(),
-            onChanged: (e) => vm.updateUnitFrom(e),
-            decoration: InputDecoration(
-              labelText: "Unit(From)",
-            ),
-          ),
-          DropdownButtonFormField(
-            disabledHint: Text(vm.uspartfromstr),
-            value: vm.uspartfrom,
-            items: vm.lstParts
-                ?.map((e) =>
-                    DropdownMenuItem(value: e.value, child: Text(e.label)))
-                ?.toList(),
-            onChanged:
-                !vm.partFromIsEnabled ? null : (e) => vm.updatePartFrom(e),
-            decoration: InputDecoration(
-              labelText: "Part(From)",
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: DropdownButtonFormField(
-                  value: vm.toType,
-                  items: SettingsViewModel.lstToTypes
-                      .map((e) => DropdownMenuItem(
-                          value: UnitPartToType.values[e.value],
-                          child: Text(e.label)))
-                      .toList(),
-                  onChanged: (e) => vm.setToType(e),
-                ),
-              ),
-              Expanded(
-                  flex: 2,
-                  child: ButtonBar(
+          StreamBuilder(
+              stream: vm.usunitfrom_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    value: vm.usunitfrom,
+                    items: vm.lstUnits
+                        ?.map((e) => DropdownMenuItem(
+                            value: e.value, child: Text(e.label)))
+                        ?.toList(),
+                    onChanged: vm.usunitfrom_,
+                    decoration: InputDecoration(
+                      labelText: "Unit(From)",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.uspartfrom_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    disabledHint: Text(vm.uspartfromstr),
+                    value: vm.uspartfrom,
+                    items: vm.lstParts
+                        ?.map((e) => DropdownMenuItem(
+                            value: e.value, child: Text(e.label)))
+                        ?.toList(),
+                    onChanged: !vm.partFromIsEnabled ? null : vm.uspartfrom_,
+                    decoration: InputDecoration(
+                      labelText: "Part(From)",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.toType_,
+              builder: (context, snapshot) => Row(
                     children: [
-                      TextButton(
-                          onPressed: !vm.previousIsEnabled
-                              ? null
-                              : () => vm.previousUnitPart(),
-                          child: Text(vm.previousText)),
-                      TextButton(
-                          onPressed: !vm.nextIsEnabled
-                              ? null
-                              : () => vm.nextUnitPart(),
-                          child: Text(vm.nextText))
+                      Expanded(
+                        flex: 1,
+                        child: DropdownButtonFormField(
+                          value: vm.toType,
+                          items: SettingsViewModel.lstToTypes
+                              .map((e) => DropdownMenuItem(
+                                  value: UnitPartToType.values[e.value],
+                                  child: Text(e.label)))
+                              .toList(),
+                          onChanged: vm.toType_,
+                        ),
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: ButtonBar(
+                            children: [
+                              TextButton(
+                                  onPressed: !vm.previousIsEnabled
+                                      ? null
+                                      : () => vm.previousUnitPart(),
+                                  child: Text(vm.previousText)),
+                              TextButton(
+                                  onPressed: !vm.nextIsEnabled
+                                      ? null
+                                      : () => vm.nextUnitPart(),
+                                  child: Text(vm.nextText))
+                            ],
+                          )),
                     ],
                   )),
-            ],
-          ),
-          DropdownButtonFormField(
-            disabledHint: Text(vm.usunittostr),
-            value: vm.usunitto,
-            items: vm.lstUnits
-                ?.map((e) =>
-                    DropdownMenuItem(value: e.value, child: Text(e.label)))
-                ?.toList(),
-            onChanged: !vm.unitToIsEnabled ? null : (e) => vm.updateUnitTo(e),
-            decoration: InputDecoration(
-              labelText: "Unit(To)",
-            ),
-          ),
-          DropdownButtonFormField(
-            disabledHint: Text(vm.usparttostr),
-            value: vm.uspartto,
-            items: vm.lstParts
-                ?.map((e) =>
-                    DropdownMenuItem(value: e.value, child: Text(e.label)))
-                ?.toList(),
-            onChanged: !vm.partToIsEnabled ? null : (e) => vm.updatePartTo(e),
-            decoration: InputDecoration(
-              labelText: "Part(To)",
-            ),
-          ),
+          StreamBuilder(
+              stream: vm.usunitto_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    disabledHint: Text(vm.usunittostr),
+                    value: vm.usunitto,
+                    items: vm.lstUnits
+                        ?.map((e) => DropdownMenuItem(
+                            value: e.value, child: Text(e.label)))
+                        ?.toList(),
+                    onChanged: !vm.unitToIsEnabled ? null : vm.usunitto_,
+                    decoration: InputDecoration(
+                      labelText: "Unit(To)",
+                    ),
+                  )),
+          StreamBuilder(
+              stream: vm.uspartto_,
+              builder: (context, snapshot) => DropdownButtonFormField(
+                    disabledHint: Text(vm.usparttostr),
+                    value: vm.uspartto,
+                    items: vm.lstParts
+                        ?.map((e) => DropdownMenuItem(
+                            value: e.value, child: Text(e.label)))
+                        ?.toList(),
+                    onChanged: !vm.partToIsEnabled ? null : vm.uspartto_,
+                    decoration: InputDecoration(
+                      labelText: "Part(To)",
+                    ),
+                  )),
         ]));
   }
 }
