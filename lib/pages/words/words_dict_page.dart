@@ -22,6 +22,7 @@ class WordsDictPageState extends State<WordsDictPage> {
 
   WordsDictPageState(this.vm) {
     onlineDict = OnlineDict(vm);
+    vm.selectedWord_.listen((v) => onlineDict.searchDict());
     vmSettings.setSelectedDictReference.listen((v) => onlineDict.searchDict());
   }
 
@@ -32,17 +33,17 @@ class WordsDictPageState extends State<WordsDictPage> {
         children: [
           Row(children: [
             Expanded(
-                child: DropdownButton(
-              value: vm.currentWord,
-              items: vm.lstWords
-                  .map((e) => DropdownMenuItem(value: e, child: Text(e.label)))
-                  .toList(),
-              isExpanded: true,
-              onChanged: (value) => setState(() {
-                vm.setIndex(value.value);
-                onlineDict.searchDict();
-              }),
-            )),
+                child: StreamBuilder(
+                    stream: vm.selectedWord_,
+                    builder: (context, snapshot) => DropdownButton(
+                          value: vm.selectedWord,
+                          items: vm.lstWords
+                              .map((e) => DropdownMenuItem(
+                                  value: e, child: Text(e.label)))
+                              .toList(),
+                          isExpanded: true,
+                          onChanged: vm.selectedWord_,
+                        ))),
             Expanded(
                 child: StreamBuilder(
                     stream: vmSettings.selectedDictReference_,
@@ -61,14 +62,8 @@ class WordsDictPageState extends State<WordsDictPage> {
                 initialUrl: vm.getUrl,
                 onWebViewCreated: (c) => onlineDict.controller = c,
                 onPageFinished: (s) => onlineDict.onPageFinished()),
-            onSwipeLeft: () => setState(() {
-              vm.next(-1);
-              onlineDict.loadUrl();
-            }),
-            onSwipeRight: () => setState(() {
-              vm.next(1);
-              onlineDict.loadUrl();
-            }),
+            onSwipeLeft: () => vm.next(-1),
+            onSwipeRight: () => vm.next(1),
           ))
         ],
       ),

@@ -1,14 +1,15 @@
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/search_viewmodel.dart';
+import 'package:rx_command/rx_command.dart';
 
 class WordsDictViewModel implements IOnlineDict {
   List<MSelectItem> lstWords;
-  var currentWordIndex = 0;
-  MSelectItem get currentWord => lstWords[currentWordIndex];
-  String get getWord => currentWord.label;
+  final selectedWord_ = RxCommand.createSync((MSelectItem v) => v);
+  MSelectItem get selectedWord => selectedWord_.lastResult;
+  String get getWord => selectedWord.label;
   String get getUrl => vmSettings.selectedDictReference
-      .urlString(currentWord.label, vmSettings.lstAutoCorrect);
+      .urlString(selectedWord.label, vmSettings.lstAutoCorrect);
 
   WordsDictViewModel(List<String> lstWords, int index) {
     this.lstWords = lstWords
@@ -16,12 +17,9 @@ class WordsDictViewModel implements IOnlineDict {
         .map((k, v) => MapEntry(k, MSelectItem(k, v)))
         .values
         .toList();
-    currentWordIndex = index;
-  }
-  void setIndex(int index) {
-    currentWordIndex = index;
+    selectedWord_(this.lstWords[index]);
   }
 
-  void next(int delta) => currentWordIndex =
-      (currentWordIndex + delta + lstWords.length) % lstWords.length;
+  void next(int delta) => selectedWord_(lstWords[
+      (selectedWord.value + delta + lstWords.length) % lstWords.length]);
 }
