@@ -350,10 +350,10 @@ class SettingsViewModel {
         await _doUpdateUnitFrom(usunitfrom + 1);
         await _doUpdateUnitTo(usunitfrom);
       }
-    } else if (uspartfrom > 1) {
+    } else if (uspartfrom < partCount) {
       await _doUpdatePartFrom(uspartfrom + 1);
       await _doUpdateUnitPartTo();
-    } else if (usunitfrom > 1) {
+    } else if (usunitfrom < unitCount) {
       await _doUpdateUnitFrom(usunitfrom + 1);
       await _doUpdatePartFrom(1);
       await _doUpdateUnitPartTo();
@@ -378,21 +378,25 @@ class SettingsViewModel {
 
   Future _doUpdateUnitFrom(int v, {bool check = true}) async {
     if (check && usunitfrom == v) return;
+    usunitfrom_(v);
     await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = v);
   }
 
   Future _doUpdatePartFrom(int v, {bool check = true}) async {
     if (check && uspartfrom == v) return;
+    uspartfrom_(v);
     await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = v);
   }
 
   Future _doUpdateUnitTo(int v, {bool check = true}) async {
     if (check && usunitto == v) return;
+    usunitto_(v);
     await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = v);
   }
 
   Future _doUpdatePartTo(int v, {bool check = true}) async {
     if (check && uspartto == v) return;
+    uspartto_(v);
     await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = v);
   }
 }
