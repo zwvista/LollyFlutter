@@ -160,8 +160,9 @@ class SettingsViewModel {
     MSelectItem(1, "Part"),
     MSelectItem(2, "To")
   ];
-  final toType_ = RxCommand.createSync((UnitPartToType v) => v);
-  UnitPartToType toType = UnitPartToType.To;
+  final toType_ = RxCommand.createSync((UnitPartToType v) => v,
+      initialLastResult: UnitPartToType.To);
+  UnitPartToType get toType => toType_.lastResult;
   RxCommand<UnitPartToType, void> setToType;
 
   bool unitToIsEnabled = true;
