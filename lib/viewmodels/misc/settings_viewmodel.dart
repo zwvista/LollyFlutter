@@ -7,7 +7,9 @@ import 'package:lolly_flutter/models/misc/musersetting.dart';
 import 'package:lolly_flutter/models/misc/musmapping.dart';
 import 'package:lolly_flutter/models/misc/mvoice.dart';
 import 'package:lolly_flutter/services/misc/autocorrect_service.dart';
+import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/services/misc/dictionary_service.dart';
+import 'package:lolly_flutter/services/misc/html_transform_service.dart';
 import 'package:lolly_flutter/services/misc/language_service.dart';
 import 'package:lolly_flutter/services/misc/textbook_service.dart';
 import 'package:lolly_flutter/services/misc/usersetting_service.dart';
@@ -398,5 +400,37 @@ class SettingsViewModel {
     if (check && uspartto == v) return;
     uspartto_(v);
     await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = v);
+  }
+
+  static const ZeroNote = "O";
+
+  Future<String> retrieveNote(String word) async {
+    if (selectedDictNote == null) return "";
+    var url = selectedDictNote.urlString(word, lstAutoCorrect);
+    var html = await BaseService.getHtmlByUrl(url);
+    return HtmlTransformService.extractTextFromHtml(
+        html, selectedDictNote.transform, "", (text, _) => text);
+  }
+
+  Future retrieveNotes(int wordCount, bool Function(int) isNoteEmpty,
+      Future Function(int) getOne) async {
+    if (selectedDictNote == null) return;
+    for (int i = 0;;) {
+      await Future.delayed(Duration(milliseconds: selectedDictNote.wait));
+      while (i < wordCount && !isNoteEmpty(i)) i++;
+      if (i > wordCount) break;
+      if (i < wordCount) await getOne(i);
+      i++;
+    }
+  }
+
+  Future clearNotes(int wordCount, bool Function(int) isNoteEmpty,
+      Future Function(int) getOne) async {
+    if (selectedDictNote == null) return;
+    for (int i = 0; i < wordCount;) {
+      while (i < wordCount && !isNoteEmpty(i)) i++;
+      if (i < wordCount) await getOne(i);
+      i++;
+    }
   }
 }
