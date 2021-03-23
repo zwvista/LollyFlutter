@@ -23,6 +23,7 @@ MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) {
   return MWordFami()
     ..id = json['ID'] as int
     ..userid = json['USERID'] as int
+    ..wordid = json['WORDID'] as int
     ..correct = json['CORRECT'] as int
     ..total = json['TOTAL'] as int;
 }
@@ -30,6 +31,7 @@ MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$MWordFamiToJson(MWordFami instance) => <String, dynamic>{
       'ID': instance.id,
       'USERID': instance.userid,
+      'WORDID': instance.wordid,
       'CORRECT': instance.correct,
       'TOTAL': instance.total,
     };
