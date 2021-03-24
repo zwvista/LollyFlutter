@@ -330,6 +330,9 @@ class SettingsViewModel {
     selectedLang_(lstLanguages.firstWhere((o) => o.id == uslang));
   }
 
+  String autoCorrectInput(String text) => _autoCorrectService.autoCorrect(
+      text, lstAutoCorrect, (o) => o.input, (o) => o.extended);
+
   Future previousUnitPart() async {
     if (toType == UnitPartToType.Unit) {
       if (usunitfrom > 1) {

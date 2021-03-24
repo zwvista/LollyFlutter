@@ -7,4 +7,6 @@ class MReviewOptions {
   var interval = 5;
   var groupSelected = 1;
   var groupCount = 1;
+  var speakingEnabled = true;
+  var reviewCount = 10;
 }
