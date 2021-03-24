@@ -110,7 +110,7 @@ class WordsReviewViewModel {
     if (!isTestMode) {
       var b = true;
       if (options.mode == ReviewMode.ReviewManual &&
-          !wordInputString.isEmpty &&
+          wordInputString.isNotEmpty &&
           wordInputString != currentWord) {
         b = false;
         incorrectIsVisible = true;
