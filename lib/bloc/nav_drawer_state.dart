@@ -9,6 +9,8 @@ enum NavItem {
   settingsPage,
   wordsUnitPage,
   phrasesUnitPage,
+  wordsReviewPage,
+  phrasesReviewPage,
   wordsTextbookPage,
   phrasesTextbookPage,
   wordsLangPage,

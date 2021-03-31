@@ -15,6 +15,10 @@ class NavDrawerWidget extends StatelessWidget {
         false, NavItem.wordsUnitPage, "Words in Unit", Icons.directions_bus),
     _NavigationItem(
         false, NavItem.phrasesUnitPage, "Phrases in Unit", Icons.train),
+    _NavigationItem(
+        false, NavItem.wordsReviewPage, "Words Review", Icons.wb_incandescent),
+    _NavigationItem(
+        false, NavItem.phrasesReviewPage, "Phrases Review", Icons.wb_cloudy),
     _NavigationItem(false, NavItem.wordsTextbookPage, "Words in Textbook",
         Icons.directions_car),
     _NavigationItem(false, NavItem.phrasesTextbookPage, "Phrases in Textbook",

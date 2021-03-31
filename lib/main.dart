@@ -8,9 +8,11 @@ import 'package:lolly_flutter/pages/misc/search_page.dart';
 import 'package:lolly_flutter/pages/misc/settings_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_lang_page.dart';
+import 'package:lolly_flutter/pages/phrases/phrases_review_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_textbook_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_page.dart';
 import 'package:lolly_flutter/pages/words/words_lang_page.dart';
+import 'package:lolly_flutter/pages/words/words_review_page.dart';
 import 'package:lolly_flutter/pages/words/words_textbook_page.dart';
 import 'package:lolly_flutter/pages/words/words_unit_page.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
@@ -97,6 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
         return 'Words in Unit';
       case NavItem.phrasesUnitPage:
         return 'Phrases in Unit';
+      case NavItem.wordsReviewPage:
+        return 'Words Review';
+      case NavItem.phrasesReviewPage:
+        return 'Phrases Review';
       case NavItem.wordsTextbookPage:
         return 'Words in Textbook';
       case NavItem.phrasesTextbookPage:
@@ -122,6 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
         return WordsUnitPage();
       case NavItem.phrasesUnitPage:
         return PhrasesUnitPage();
+      case NavItem.wordsReviewPage:
+        return WordsReviewPage();
+      case NavItem.phrasesReviewPage:
+        return PhrasesReviewPage();
       case NavItem.wordsTextbookPage:
         return WordsTextbookPage();
       case NavItem.phrasesTextbookPage:
@@ -158,6 +168,10 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => (_content as PhrasesUnitPage).state.more(),
           )
         ];
+      case NavItem.wordsReviewPage:
+        return [];
+      case NavItem.phrasesReviewPage:
+        return [];
       case NavItem.wordsTextbookPage:
         return [];
       case NavItem.phrasesTextbookPage:

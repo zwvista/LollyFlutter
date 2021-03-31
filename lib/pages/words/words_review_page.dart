@@ -7,7 +7,22 @@ class WordsReviewPage extends StatefulWidget {
 
 class _WordsReviewPageState extends State<WordsReviewPage> {
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  Widget build(BuildContext context) => Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(children: [
+        Row(
+          children: [
+            Text("data"),
+            Expanded(child: Text("data", textAlign: TextAlign.center)),
+            Text("data")
+          ],
+        ),
+        Row(
+          children: [],
+        ),
+        Expanded(
+            child: Column(
+          children: [],
+        ))
+      ]));
 }
