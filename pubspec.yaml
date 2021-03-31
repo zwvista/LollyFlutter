@@ -43,6 +43,7 @@ dependencies:
   drag_and_drop_lists: ^0.2.10
   url_launcher: ^5.7.10
   flutter_tts: ^3.0.0
+  checkbox_formfield: ^0.1.0+3
 
 dev_dependencies:
   flutter_test:

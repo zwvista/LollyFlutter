@@ -178,6 +178,12 @@ class SettingsViewModel {
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
   static final scopePatternFilters = ["Pattern", "Note", "Tags"];
+  static final reviewModes = [
+    MSelectItem(0, "Review(Auto)"),
+    MSelectItem(1, "Review(Manual)"),
+    MSelectItem(2, "Test"),
+    MSelectItem(3, "Textbook"),
+  ];
 
   MUserSettingInfo _getUSInfo(String name) {
     var o = lstUSMappings.firstWhere((v) => v.name == name);
