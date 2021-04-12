@@ -58,8 +58,19 @@ class _LoginPageState extends State<LoginPage> {
                                       return;
                                     _formKey.currentState.save();
                                     Global.userid = await vm.login();
-                                    if (Global.userid.isEmpty) {
-                                    } else {
+                                    if (Global.userid.isEmpty)
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                                title: Text("Login"),
+                                                children: [
+                                                  SimpleDialogOption(
+                                                    child: Text(
+                                                        "Wrong username or password!"),
+                                                  )
+                                                ],
+                                              ));
+                                    else {
                                       final prefs =
                                           await SharedPreferences.getInstance();
                                       await prefs.setString(
