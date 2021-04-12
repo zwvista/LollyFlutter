@@ -18,7 +18,7 @@ class MWordFami {
   @JsonKey(name: 'ID')
   var id = 0;
   @JsonKey(name: 'USERID')
-  var userid = 0;
+  var userid = "";
   @JsonKey(name: 'WORDID')
   var wordid = 0;
   @JsonKey(name: 'CORRECT')

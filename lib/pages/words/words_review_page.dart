@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class WordsReviewPage extends StatefulWidget {
   @override
@@ -14,15 +15,31 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
           children: [
             Text("data"),
             Expanded(child: Text("data", textAlign: TextAlign.center)),
-            Text("data")
+            Stack(
+              children: [
+                Text("Correct", style: TextStyle(color: Colors.green)),
+                Text("Incorrect", style: TextStyle(color: Colors.pink))
+              ],
+            )
           ],
         ),
         Row(
-          children: [],
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [TextButton(child: Text("Check"))],
         ),
         Expanded(
-            child: Column(
-          children: [],
-        ))
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text("Word",
+                  style: TextStyle(color: Colors.orange, fontSize: 50)),
+              Text("Note",
+                  style: TextStyle(color: Colors.purpleAccent, fontSize: 40)),
+              Text("data"),
+              TextField(style: TextStyle(fontSize: 60))
+            ],
+          ),
+        )
       ]));
 }

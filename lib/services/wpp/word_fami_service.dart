@@ -1,10 +1,11 @@
+import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/wpp/mwordfami.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 
 class WordFamiService extends BaseService<MWordFami> {
-  Future<List<MWordFami>> getDataByUserWord(int userid, int wordid) async =>
+  Future<List<MWordFami>> getDataByUserWord(int wordid) async =>
       MWordsFami.fromJson(await getDataByUrl(
-              "WORDSFAMI?filter=USERID,eq,$userid&filter=WORDID,eq,$wordid"))
+              "WORDSFAMI?filter=USERID,eq,${Global.userid}&filter=WORDID,eq,$wordid"))
           .lst;
 
   Future<int> _create(MWordFami item) async =>
@@ -16,9 +17,9 @@ class WordFamiService extends BaseService<MWordFami> {
   Future delete(int id) async => print(await deleteByUrl("WORDSFAMI/$id"));
 
   Future<MWordFami> update(int wordid, bool isCorrect) async {
-    var lst = await getDataByUserWord(userid, wordid);
+    var lst = await getDataByUserWord(wordid);
     var item = MWordFami()
-      ..userid = userid
+      ..userid = Global.userid
       ..wordid = wordid;
     if (lst.isEmpty) {
       item.correct = isCorrect ? 1 : 0;

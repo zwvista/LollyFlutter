@@ -20,7 +20,7 @@ class MUserSetting {
   @JsonKey(name: 'ID')
   var id = 0;
   @JsonKey(name: 'USERID')
-  var userid = 0;
+  var userid = "";
   @JsonKey(name: 'KIND')
   var kind = 0;
   @JsonKey(name: 'ENTITYID')

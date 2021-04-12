@@ -1,24 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/main.dart';
+import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/search_viewmodel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'login_page.dart';
 import 'online_dict.dart';
 
 class SearchPage extends StatefulWidget {
+  final state = SearchPageState();
   @override
-  SearchPageState createState() => SearchPageState();
+  SearchPageState createState() => state;
 }
 
 class SearchPageState extends State<SearchPage> {
   final vm = SearchViewModel();
   OnlineDict onlineDict;
 
-  SearchPageState() {
-    onlineDict = OnlineDict(vm);
+  Future setup() async {
+    final prefs = await SharedPreferences.getInstance();
+    for (;;) {
+      Global.userid = prefs.getString("userid") ?? "";
+      if (Global.userid.isNotEmpty) break;
+      // https://stackoverflow.com/questions/59423954/detect-when-we-moved-back-to-previous-page-in-flutter
+      await Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+    }
+    vmSettings.getData();
     vmSettings.setSelectedLang.listen((v) => onlineDict.searchDict());
     vmSettings.setSelectedDictReference.listen((v) => onlineDict.searchDict());
+  }
+
+  SearchPageState() {
+    onlineDict = OnlineDict(vm);
+    setup();
   }
 
   Widget build(BuildContext context) {
@@ -67,4 +84,12 @@ class SearchPageState extends State<SearchPage> {
       )
     ]);
   }
+
+  Future login() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("userid");
+    await setup();
+  }
+
+  void more() {}
 }

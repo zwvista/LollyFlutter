@@ -330,8 +330,7 @@ class SettingsViewModel {
   Future getData() async {
     lstLanguages = await _languageService.getData();
     lstUSMappings = await _usMappingService.getData();
-    lstUserSettings =
-        await _userSettingService.getDataByUser(GlobalConstants.userid);
+    lstUserSettings = await _userSettingService.getDataByUser();
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     selectedLang_(lstLanguages.firstWhere((o) => o.id == uslang));
   }

@@ -22,7 +22,7 @@ Map<String, dynamic> _$MWordsFamiToJson(MWordsFami instance) =>
 MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) {
   return MWordFami()
     ..id = json['ID'] as int
-    ..userid = json['USERID'] as int
+    ..userid = json['USERID'] as String
     ..wordid = json['WORDID'] as int
     ..correct = json['CORRECT'] as int
     ..total = json['TOTAL'] as int;

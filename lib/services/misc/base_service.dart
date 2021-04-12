@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 class BaseService<T> {
   final urlAPI = "https://zwvista.tk/lolly/api.php/records/";
   final urlSP = "https://zwvista.tk/lolly/sp.php/";
-  final userid = 1;
 
   // https://stackoverflow.com/questions/51368663/flutter-fetched-japanese-character-from-server-decoded-wrong
   Future<Map<String, dynamic>> getDataByUrl(String url) async {

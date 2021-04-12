@@ -2,8 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'mcommon.g.dart';
 
-class GlobalConstants {
-  static final userid = 1;
+class Global {
+  static var userid = "";
 }
 
 enum DictWebBrowserStatus { Ready, Navigating, Automating }

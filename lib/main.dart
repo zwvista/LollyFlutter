@@ -20,9 +20,8 @@ import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 final vmSettings = SettingsViewModel();
 final flutterTts = FlutterTts();
 
-void main() async {
+void main() {
   runApp(MyApp());
-  await vmSettings.getData();
 }
 
 // https://github.com/askNilesh/flutter_drawer_with_bloc
@@ -154,6 +153,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<IconButton> _getActionsForState(NavItem state) {
     switch (state) {
+      case NavItem.searchPage:
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as SearchPage).state.more(),
+          )
+        ];
       case NavItem.wordsUnitPage:
         return [
           IconButton(
