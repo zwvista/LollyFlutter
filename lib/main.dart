@@ -175,9 +175,19 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ];
       case NavItem.wordsReviewPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as WordsReviewPage).state.more(),
+          )
+        ];
       case NavItem.phrasesReviewPage:
-        return [];
+        return [
+          IconButton(
+            icon: Icon(Icons.arrow_circle_down),
+            onPressed: () => (_content as PhrasesReviewPage).state.more(),
+          )
+        ];
       case NavItem.wordsTextbookPage:
         return [];
       case NavItem.phrasesTextbookPage:

@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WordsReviewPage extends StatefulWidget {
+  final state = _WordsReviewPageState();
   @override
-  _WordsReviewPageState createState() => _WordsReviewPageState();
+  _WordsReviewPageState createState() => state;
 }
 
 class _WordsReviewPageState extends State<WordsReviewPage> {
@@ -42,4 +43,6 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
           ),
         )
       ]));
+
+  void more() {}
 }

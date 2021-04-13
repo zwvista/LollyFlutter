@@ -3,7 +3,7 @@ import 'package:lolly_flutter/models/wpp/mwordfami.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 
 class WordFamiService extends BaseService<MWordFami> {
-  Future<List<MWordFami>> getDataByUserWord(int wordid) async =>
+  Future<List<MWordFami>> getDataByWord(int wordid) async =>
       MWordsFami.fromJson(await getDataByUrl(
               "WORDSFAMI?filter=USERID,eq,${Global.userid}&filter=WORDID,eq,$wordid"))
           .lst;
@@ -17,7 +17,7 @@ class WordFamiService extends BaseService<MWordFami> {
   Future delete(int id) async => print(await deleteByUrl("WORDSFAMI/$id"));
 
   Future<MWordFami> update(int wordid, bool isCorrect) async {
-    var lst = await getDataByUserWord(wordid);
+    var lst = await getDataByWord(wordid);
     var item = MWordFami()
       ..userid = Global.userid
       ..wordid = wordid;

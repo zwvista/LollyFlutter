@@ -4,7 +4,7 @@ import 'package:lolly_flutter/models/misc/musersetting.dart';
 import '../misc/base_service.dart';
 
 class UserSettingService extends BaseService<MUserSetting> {
-  Future<List<MUserSetting>> getDataByUser() async => MUserSettings.fromJson(
+  Future<List<MUserSetting>> getData() async => MUserSettings.fromJson(
           await getDataByUrl("USERSETTINGS?filter=USERID,eq,${Global.userid}"))
       .lst;
 
