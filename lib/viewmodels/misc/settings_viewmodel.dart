@@ -296,7 +296,7 @@ class SettingsViewModel {
     selectedDictTranslation_.listen(updateDictTranslation);
 
     updateUnitFrom = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdateUnitFrom(v, check: false);
+      await _doUpdateUnitFrom(v);
       if (toType == UnitPartToType.Unit)
         await _doUpdateSingleUnit();
       else if (toType == UnitPartToType.Part || isInvaidUnitPart)
@@ -305,20 +305,20 @@ class SettingsViewModel {
     usunitfrom_.listen(updateUnitFrom);
 
     updatePartFrom = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdatePartFrom(v, check: false);
+      await _doUpdatePartFrom(v);
       if (toType == UnitPartToType.Part || isInvaidUnitPart)
         await _doUpdateUnitPartTo();
     });
     uspartfrom_.listen(updatePartFrom);
 
     updateUnitTo = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdateUnitTo(v, check: false);
+      await _doUpdateUnitTo(v);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
     usunitto_.listen(updateUnitTo);
 
     updatePartTo = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdatePartTo(v, check: false);
+      await _doUpdatePartTo(v);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
     uspartto_.listen(updatePartTo);
@@ -400,28 +400,28 @@ class SettingsViewModel {
     await _doUpdatePartTo(partCount);
   }
 
-  Future _doUpdateUnitFrom(int v, {bool check = true}) async {
-    if (check && usunitfrom == v) return;
-    usunitfrom_(v);
-    await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = v);
+  Future _doUpdateUnitFrom(int newVal) async {
+    if (usunitfrom == newVal) return;
+    usunitfrom_(newVal);
+    await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = newVal);
   }
 
-  Future _doUpdatePartFrom(int v, {bool check = true}) async {
-    if (check && uspartfrom == v) return;
-    uspartfrom_(v);
-    await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = v);
+  Future _doUpdatePartFrom(int newVal) async {
+    if (uspartfrom == newVal) return;
+    uspartfrom_(newVal);
+    await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = newVal);
   }
 
-  Future _doUpdateUnitTo(int v, {bool check = true}) async {
-    if (check && usunitto == v) return;
-    usunitto_(v);
-    await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = v);
+  Future _doUpdateUnitTo(int newVal) async {
+    if (usunitto == newVal) return;
+    usunitto_(newVal);
+    await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = newVal);
   }
 
-  Future _doUpdatePartTo(int v, {bool check = true}) async {
-    if (check && uspartto == v) return;
-    uspartto_(v);
-    await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = v);
+  Future _doUpdatePartTo(int newVal) async {
+    if (uspartto == newVal) return;
+    uspartto_(newVal);
+    await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = newVal);
   }
 
   static const ZeroNote = "O";
