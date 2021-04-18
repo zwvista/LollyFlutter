@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 
@@ -9,7 +10,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class SettingsPageState extends State<SettingsPage> {
-  final vm = SettingsViewModel();
+  final vm = vmSettings;
 
   SettingsPageState() {
     vm.getData();

@@ -36,7 +36,7 @@ class WordsUnitViewModel {
       }
       _applyFilters();
       return lstUnitWords;
-    }, emitsLastValueToNewSubscriptions: true);
+    });
     textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
     scopeFilter_.listen(reloadCommand);
     textbookFilter_.listen(reloadCommand);
