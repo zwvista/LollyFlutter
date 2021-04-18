@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:lolly_flutter/models/misc/mreviewoptions.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
 import 'package:lolly_flutter/services/wpp/unit_phrase_service.dart';
+import 'package:rx_command/rx_command.dart';
 
 import '../../main.dart';
 
@@ -23,16 +24,46 @@ class PhrasesReviewViewModel {
   Timer subscriptionTimer;
   void Function() doTestAction;
   var isSpeaking = false;
-  var indexString = "";
-  var indexIsVisible = true;
-  var correctIsVisible = false;
-  var incorrectIsVisible = false;
-  var checkEnabled = false;
-  var phraseTargetString = "";
-  var phraseTargetIsVisible = true;
-  var translationString = "";
-  var phraseInputString = "";
-  var checkString = "Check";
+  final indexString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  String get indexString => indexString_.lastResult;
+  set indexString(String value) => indexString_(value);
+  final indexIsVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get indexIsVisible => indexIsVisible_.lastResult;
+  set indexIsVisible(bool value) => indexIsVisible_(value);
+  final correctIsVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: false);
+  bool get correctIsVisible => correctIsVisible_.lastResult;
+  set correctIsVisible(bool value) => correctIsVisible_(value);
+  final incorrectIsVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: false);
+  bool get incorrectIsVisible => incorrectIsVisible_.lastResult;
+  set incorrectIsVisible(bool value) => incorrectIsVisible_(value);
+  final checkEnabled_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: false);
+  bool get checkEnabled => checkEnabled_.lastResult;
+  set checkEnabled(bool value) => checkEnabled_(value);
+  final phraseTargetString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  String get phraseTargetString => phraseTargetString_.lastResult;
+  set phraseTargetString(String value) => phraseTargetString_(value);
+  final phraseTargetIsVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get phraseTargetIsVisible => phraseTargetIsVisible_.lastResult;
+  set phraseTargetIsVisible(bool value) => phraseTargetIsVisible_(value);
+  final translationString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  String get translationString => translationString_.lastResult;
+  set translationString(String value) => translationString_(value);
+  final phraseInputString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "");
+  String get phraseInputString => phraseInputString_.lastResult;
+  set phraseInputString(String value) => phraseInputString_(value);
+  final checkString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "Check");
+  String get checkString => checkString_.lastResult;
+  set checkString(String value) => checkString_(value);
 
   PhrasesReviewViewModel(this.doTestAction);
 

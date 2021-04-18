@@ -43,7 +43,8 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                       value: options.mode,
                       items: SettingsViewModel.reviewModes
                           .map((o) => DropdownMenuItem(
-                              value: o.value, child: Text(o.label)))
+                              value: ReviewMode.values[o.value],
+                              child: Text(o.label)))
                           .toList(),
                       decoration: InputDecoration(
                         labelText: "Mode",
