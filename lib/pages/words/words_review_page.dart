@@ -12,9 +12,7 @@ class WordsReviewPage extends StatefulWidget {
 class _WordsReviewPageState extends State<WordsReviewPage> {
   final vm = WordsReviewViewModel(() {});
 
-  @override
-  void initState() {
-    super.initState();
+  _WordsReviewPageState() {
     more();
   }
 
@@ -111,9 +109,10 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
         )
       ]));
 
-  void more() {
-    Navigator.of(context).push(MaterialPageRoute(
+  void more() async {
+    final result = await Navigator.of(context).push<bool>(MaterialPageRoute(
         builder: (context) => ReviewOptionsPage(vm.options),
         fullscreenDialog: true));
+    if (result == true) vm.newTest();
   }
 }

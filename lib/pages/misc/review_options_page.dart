@@ -30,7 +30,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
             onPressed: () async {
               if (!_formKey.currentState.validate()) return;
               _formKey.currentState.save();
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
           )
         ]),
