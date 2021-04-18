@@ -29,8 +29,8 @@ class SearchPageState extends State<SearchPage> {
           .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
     await vmSettings.getData();
-    vmSettings.setSelectedLang.listen((v) => onlineDict.searchDict());
-    vmSettings.setSelectedDictReference.listen((v) => onlineDict.searchDict());
+    vmSettings.updateLang.listen((v) => onlineDict.searchDict());
+    vmSettings.updateDictReference.listen((v) => onlineDict.searchDict());
   }
 
   SearchPageState() {

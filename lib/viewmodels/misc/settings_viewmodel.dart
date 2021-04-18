@@ -115,30 +115,30 @@ class SettingsViewModel {
   List<MLanguage> lstLanguages = [];
   final selectedLang_ = RxCommand.createSync((MLanguage v) => v);
   MLanguage get selectedLang => selectedLang_.lastResult;
-  RxCommand<MLanguage, void> setSelectedLang;
+  RxCommand<MLanguage, void> updateLang;
   List<MVoice> lstVoices = [];
   final selectedVoice_ = RxCommand.createSync((MVoice v) => v);
   MVoice get selectedVoice => selectedVoice_.lastResult;
-  RxCommand<MVoice, void> setSelectedVoice;
+  RxCommand<MVoice, void> updateVoice;
   dynamic ttsVoices;
   List<MTextbook> lstTextbooks = [];
   List<MSelectItem> lstTextbookFilters = [];
   final selectedTextbook_ = RxCommand.createSync((MTextbook v) => v);
   MTextbook get selectedTextbook => selectedTextbook_.lastResult;
-  RxCommand<MTextbook, void> setSelectedTextbook;
+  RxCommand<MTextbook, void> updateTextbook;
   List<MDictionary> lstDictsReference = [];
   final selectedDictReference_ = RxCommand.createSync((MDictionary v) => v);
   MDictionary get selectedDictReference => selectedDictReference_.lastResult;
-  RxCommand<MDictionary, void> setSelectedDictReference;
+  RxCommand<MDictionary, void> updateDictReference;
   List<MDictionary> lstDictsNote = [];
   final selectedDictNote_ = RxCommand.createSync((MDictionary v) => v);
   MDictionary get selectedDictNote => selectedDictNote_.lastResult;
-  RxCommand<MDictionary, void> setSelectedDictNote;
+  RxCommand<MDictionary, void> updateDictNote;
   List<MDictionary> lstDictsTranslation = [];
   final selectedDictTranslation_ = RxCommand.createSync((MDictionary v) => v);
   MDictionary get selectedDictTranslation =>
       selectedDictTranslation_.lastResult;
-  RxCommand<MDictionary, void> setSelectedDictTranslation;
+  RxCommand<MDictionary, void> updateDictTranslation;
   List<MAutoCorrect> lstAutoCorrect = [];
 
   final _languageService = LanguageService();
@@ -200,7 +200,7 @@ class SettingsViewModel {
   }
 
   SettingsViewModel() {
-    setSelectedLang = RxCommand.createAsyncNoResult((v) async {
+    updateLang = RxCommand.createAsyncNoResult((v) async {
       final isinit = uslang == v.id;
       uslang = v.id;
       INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
@@ -234,15 +234,15 @@ class SettingsViewModel {
       selectedVoice_(lstVoices.first);
       if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
     });
-    selectedLang_.listen(setSelectedLang);
+    selectedLang_.listen(updateLang);
 
-    setSelectedVoice = RxCommand.createAsyncNoResult((v) async {
+    updateVoice = RxCommand.createAsyncNoResult((v) async {
       usvoice = v.id;
       await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
     });
-    selectedVoice_.listen(setSelectedVoice);
+    selectedVoice_.listen(updateVoice);
 
-    setSelectedTextbook = RxCommand.createAsyncNoResult((v) async {
+    updateTextbook = RxCommand.createAsyncNoResult((v) async {
       ustextbook = v.id;
       INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
       usunitfrom_(usunitfrom);
@@ -259,27 +259,27 @@ class SettingsViewModel {
               : UnitPartToType.To);
       await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
     });
-    selectedTextbook_.listen(setSelectedTextbook);
+    selectedTextbook_.listen(updateTextbook);
 
-    setSelectedDictReference = RxCommand.createAsyncNoResult((v) async {
+    updateDictReference = RxCommand.createAsyncNoResult((v) async {
       usdictreference = v.dictid.toString();
       await _userSettingService.updateByString(
           INFO_USDICTREFERENCE, usdictreference);
     });
-    selectedDictReference_.listen(setSelectedDictReference);
+    selectedDictReference_.listen(updateDictReference);
 
-    setSelectedDictNote = RxCommand.createAsyncNoResult((v) async {
+    updateDictNote = RxCommand.createAsyncNoResult((v) async {
       usdictnote = v.dictid;
       await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
     });
-    selectedDictNote_.listen(setSelectedDictNote);
+    selectedDictNote_.listen(updateDictNote);
 
-    setSelectedDictTranslation = RxCommand.createAsyncNoResult((v) async {
+    updateDictTranslation = RxCommand.createAsyncNoResult((v) async {
       usdicttranslation = v.dictid;
       await _userSettingService.updateByInt(
           INFO_USDICTTRANSLATION, usdicttranslation);
     });
-    selectedDictTranslation_.listen(setSelectedDictTranslation);
+    selectedDictTranslation_.listen(updateDictTranslation);
 
     updateUnitFrom = RxCommand.createAsyncNoResult((v) async {
       await _doUpdateUnitFrom(v, check: false);
