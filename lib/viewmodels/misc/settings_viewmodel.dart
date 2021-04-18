@@ -201,7 +201,7 @@ class SettingsViewModel {
 
   SettingsViewModel() {
     updateLang = RxCommand.createAsyncNoResult((v) async {
-      final isinit = uslang == v.id;
+      final dirty = uslang != v.id;
       uslang = v.id;
       INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
       INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
@@ -232,18 +232,22 @@ class SettingsViewModel {
           lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation));
       selectedTextbook_(lstTextbooks.firstWhere((o) => o.id == ustextbook));
       selectedVoice_(lstVoices.first);
-      if (!isinit) await _userSettingService.updateByInt(INFO_USLANG, uslang);
+      if (dirty) await _userSettingService.updateByInt(INFO_USLANG, uslang);
     });
     selectedLang_.listen(updateLang);
 
     updateVoice = RxCommand.createAsyncNoResult((v) async {
-      usvoice = v.id;
-      await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
+      final newVal = v.id;
+      final dirty = usvoice != newVal;
+      usvoice = newVal;
+      if (dirty) await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
     });
     selectedVoice_.listen(updateVoice);
 
     updateTextbook = RxCommand.createAsyncNoResult((v) async {
-      ustextbook = v.id;
+      final newVal = v.id;
+      final dirty = ustextbook != newVal;
+      ustextbook = newVal;
       INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
       usunitfrom_(usunitfrom);
       INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
@@ -257,27 +261,37 @@ class SettingsViewModel {
           : isSingleUnitPart
               ? UnitPartToType.Part
               : UnitPartToType.To);
-      await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
+      if (dirty)
+        await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
     });
     selectedTextbook_.listen(updateTextbook);
 
     updateDictReference = RxCommand.createAsyncNoResult((v) async {
-      usdictreference = v.dictid.toString();
-      await _userSettingService.updateByString(
-          INFO_USDICTREFERENCE, usdictreference);
+      final newVal = v.dictid.toString();
+      final dirty = usdictreference != newVal;
+      usdictreference = newVal;
+      if (dirty)
+        await _userSettingService.updateByString(
+            INFO_USDICTREFERENCE, usdictreference);
     });
     selectedDictReference_.listen(updateDictReference);
 
     updateDictNote = RxCommand.createAsyncNoResult((v) async {
-      usdictnote = v.dictid;
-      await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
+      final newVal = v.dictid;
+      final dirty = usdictnote != newVal;
+      usdictnote = newVal;
+      if (dirty)
+        await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
     });
     selectedDictNote_.listen(updateDictNote);
 
     updateDictTranslation = RxCommand.createAsyncNoResult((v) async {
-      usdicttranslation = v.dictid;
-      await _userSettingService.updateByInt(
-          INFO_USDICTTRANSLATION, usdicttranslation);
+      final newVal = v.dictid;
+      final dirty = usdicttranslation != newVal;
+      usdicttranslation = newVal;
+      if (dirty)
+        await _userSettingService.updateByInt(
+            INFO_USDICTTRANSLATION, usdicttranslation);
     });
     selectedDictTranslation_.listen(updateDictTranslation);
 
