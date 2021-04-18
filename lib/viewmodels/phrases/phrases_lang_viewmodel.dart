@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 class PhrasesLangViewModel {
   List<MLangPhrase> lstLangPhrasesAll, lstLangPhrases;
   final langPhraseService = LangPhraseService();
-  var _reloaded = false;
+  var reloaded = false;
   RxCommand<void, List<MLangPhrase>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
@@ -19,17 +19,16 @@ class PhrasesLangViewModel {
 
   PhrasesLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
-      if (!_reloaded) {
+      if (!reloaded) {
         lstLangPhrasesAll =
             await langPhraseService.getDataByLang(vmSettings.selectedLang.id);
-        _reloaded = true;
+        reloaded = true;
       }
       _applyFilters();
       return lstLangPhrases;
     });
     textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
     scopeFilter_.listen(reloadCommand);
-    reloadCommand();
   }
 
   void _applyFilters() => lstLangPhrases = textFilter.isEmpty

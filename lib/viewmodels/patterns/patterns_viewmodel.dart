@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 class PatternsViewModel {
   List<MPattern> lstPatternsAll, lstPatterns;
   final patternService = PatternService();
-  var _reloaded = false;
+  var reloaded = false;
   RxCommand<void, List<MPattern>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
@@ -19,10 +19,10 @@ class PatternsViewModel {
 
   PatternsViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
-      if (!_reloaded) {
+      if (!reloaded) {
         lstPatternsAll =
             await patternService.getDataByLang(vmSettings.selectedLang.id);
-        _reloaded = true;
+        reloaded = true;
       }
       lstPatterns = textFilter.isEmpty
           ? lstPatternsAll
@@ -39,7 +39,6 @@ class PatternsViewModel {
     });
     textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
     scopeFilter_.listen(reloadCommand);
-    reloadCommand();
   }
 
   MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang.id;

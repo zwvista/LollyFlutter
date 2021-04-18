@@ -18,7 +18,12 @@ class PhrasesUnitPage extends StatefulWidget {
 class PhrasesUnitPageState extends State<PhrasesUnitPage> {
   final vm = PhrasesUnitViewModel(true);
 
-  PhrasesUnitPageState();
+  @override
+  void initState() {
+    super.initState();
+    vm.reloaded = false;
+    vm.reloadCommand();
+  }
 
   @override
   Widget build(BuildContext context) => Column(

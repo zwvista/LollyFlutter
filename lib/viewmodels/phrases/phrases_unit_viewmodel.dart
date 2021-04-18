@@ -9,7 +9,7 @@ class PhrasesUnitViewModel {
   bool inbook;
   List<MUnitPhrase> lstUnitPhrasesAll, lstUnitPhrases;
   final unitPhraseService = UnitPhraseService();
-  var _reloaded = false;
+  var reloaded = false;
   RxCommand<void, List<MUnitPhrase>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
@@ -23,7 +23,7 @@ class PhrasesUnitViewModel {
 
   PhrasesUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
-      if (!_reloaded) {
+      if (!reloaded) {
         inbook
             ? await unitPhraseService.getDataByTextbookUnitPart(
                 vmSettings.selectedTextbook,
@@ -31,7 +31,7 @@ class PhrasesUnitViewModel {
                 vmSettings.usunitpartto)
             : await unitPhraseService.getDataByLang(
                 vmSettings.selectedLang.id, vmSettings.lstTextbooks);
-        _reloaded = true;
+        reloaded = true;
       }
       _applyFilters();
       return lstUnitPhrases;
@@ -39,7 +39,6 @@ class PhrasesUnitViewModel {
     textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
     scopeFilter_.listen(reloadCommand);
     textbookFilter_.listen(reloadCommand);
-    reloadCommand();
   }
 
   void _applyFilters() => lstUnitPhrases = textFilter.isEmpty &&

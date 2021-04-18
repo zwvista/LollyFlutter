@@ -9,7 +9,7 @@ import '../misc/settings_viewmodel.dart';
 class WordsLangViewModel {
   List<MLangWord> lstLangWordsAll, lstLangWords;
   final langWordService = LangWordService();
-  var _reloaded = false;
+  var reloaded = false;
   RxCommand<void, List<MLangWord>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
@@ -20,17 +20,16 @@ class WordsLangViewModel {
 
   WordsLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam<List<MLangWord>>(() async {
-      if (!_reloaded) {
+      if (!reloaded) {
         lstLangWordsAll =
             await langWordService.getDataByLang(vmSettings.selectedLang.id);
-        _reloaded = true;
+        reloaded = true;
       }
       _applyFilters();
       return lstLangWords;
     });
     textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
     scopeFilter_.listen(reloadCommand);
-    reloadCommand();
   }
 
   void _applyFilters() => lstLangWords = textFilter.isEmpty

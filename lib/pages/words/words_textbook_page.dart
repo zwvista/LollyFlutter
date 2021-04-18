@@ -21,7 +21,12 @@ class WordsTextbookPage extends StatefulWidget {
 class WordsTextbookPageState extends State<WordsTextbookPage> {
   final vm = WordsUnitViewModel(false);
 
-  WordsTextbookPageState();
+  @override
+  void initState() {
+    super.initState();
+    vm.reloaded = false;
+    vm.reloadCommand();
+  }
 
   @override
   Widget build(BuildContext context) => Column(

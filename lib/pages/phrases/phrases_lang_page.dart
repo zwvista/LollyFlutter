@@ -18,7 +18,12 @@ class PhrasesLangPage extends StatefulWidget {
 class PhrasesLangPageState extends State<PhrasesLangPage> {
   final vm = PhrasesLangViewModel();
 
-  PhrasesLangPageState();
+  @override
+  void initState() {
+    super.initState();
+    vm.reloaded = false;
+    vm.reloadCommand();
+  }
 
   @override
   Widget build(BuildContext context) => Column(

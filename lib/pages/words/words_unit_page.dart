@@ -24,6 +24,13 @@ class WordsUnitPageState extends State<WordsUnitPage> {
   final vm = WordsUnitViewModel(true);
 
   @override
+  void initState() {
+    super.initState();
+    vm.reloaded = false;
+    vm.reloadCommand();
+  }
+
+  @override
   Widget build(BuildContext context) => Column(
         children: [
           Padding(
