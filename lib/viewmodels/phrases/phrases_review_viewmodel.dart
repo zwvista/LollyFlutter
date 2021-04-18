@@ -28,18 +28,18 @@ class PhrasesReviewViewModel {
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get indexString => indexString_.lastResult;
   set indexString(String value) => indexString_(value);
-  final indexIsVisible_ =
+  final indexVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get indexIsVisible => indexIsVisible_.lastResult;
-  set indexIsVisible(bool value) => indexIsVisible_(value);
-  final correctIsVisible_ =
+  bool get indexVisible => indexVisible_.lastResult;
+  set indexVisible(bool value) => indexVisible_(value);
+  final correctVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get correctIsVisible => correctIsVisible_.lastResult;
-  set correctIsVisible(bool value) => correctIsVisible_(value);
-  final incorrectIsVisible_ =
+  bool get correctVisible => correctVisible_.lastResult;
+  set correctVisible(bool value) => correctVisible_(value);
+  final incorrectVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get incorrectIsVisible => incorrectIsVisible_.lastResult;
-  set incorrectIsVisible(bool value) => incorrectIsVisible_(value);
+  bool get incorrectVisible => incorrectVisible_.lastResult;
+  set incorrectVisible(bool value) => incorrectVisible_(value);
   final checkEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
   bool get checkEnabled => checkEnabled_.lastResult;
@@ -48,10 +48,10 @@ class PhrasesReviewViewModel {
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get phraseTargetString => phraseTargetString_.lastResult;
   set phraseTargetString(String value) => phraseTargetString_(value);
-  final phraseTargetIsVisible_ =
+  final phraseTargetVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get phraseTargetIsVisible => phraseTargetIsVisible_.lastResult;
-  set phraseTargetIsVisible(bool value) => phraseTargetIsVisible_(value);
+  bool get phraseTargetVisible => phraseTargetVisible_.lastResult;
+  set phraseTargetVisible(bool value) => phraseTargetVisible_(value);
   final translationString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get translationString => translationString_.lastResult;
@@ -110,19 +110,19 @@ class PhrasesReviewViewModel {
           phraseInputString.isNotEmpty &&
           phraseInputString != currentPhrase) {
         b = false;
-        incorrectIsVisible = true;
+        incorrectVisible = true;
       }
       if (b) {
         next();
         doTest();
       }
-    } else if (!correctIsVisible && !incorrectIsVisible) {
+    } else if (!correctVisible && !incorrectVisible) {
       phraseInputString = vmSettings.autoCorrectInput(phraseInputString);
-      phraseTargetIsVisible = true;
+      phraseTargetVisible = true;
       if (phraseInputString == currentPhrase)
-        correctIsVisible = true;
+        correctVisible = true;
       else
-        incorrectIsVisible = true;
+        incorrectVisible = true;
       checkString = "Next";
       if (!hasNext) return;
       var o = currentItem;
@@ -136,12 +136,12 @@ class PhrasesReviewViewModel {
   }
 
   void doTest() {
-    indexIsVisible = hasNext;
-    correctIsVisible = false;
-    incorrectIsVisible = false;
+    indexVisible = hasNext;
+    correctVisible = false;
+    incorrectVisible = false;
     checkEnabled = hasNext;
     phraseTargetString = currentPhrase;
-    phraseTargetIsVisible = !isTestMode;
+    phraseTargetVisible = !isTestMode;
     translationString = currentItem?.translation;
     phraseInputString = "";
     doTestAction?.call();

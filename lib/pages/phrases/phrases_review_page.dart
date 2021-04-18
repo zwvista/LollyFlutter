@@ -18,9 +18,9 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
         Row(
           children: [
             StreamBuilder(
-                stream: vm.indexIsVisible_,
+                stream: vm.indexVisible_,
                 builder: (context, snapshot) => Visibility(
-                    visible: vm.indexIsVisible,
+                    visible: vm.indexVisible,
                     child: StreamBuilder(
                         stream: vm.indexString_,
                         builder: (context, snapshot) => Text(vm.indexString)))),
@@ -28,15 +28,15 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
             Stack(
               children: [
                 StreamBuilder(
-                    stream: vm.correctIsVisible_,
+                    stream: vm.correctVisible_,
                     builder: (context, snapshot) => Visibility(
-                        visible: vm.correctIsVisible,
+                        visible: vm.correctVisible,
                         child: Text("Correct",
                             style: TextStyle(color: Colors.green)))),
                 StreamBuilder(
-                    stream: vm.incorrectIsVisible_,
+                    stream: vm.incorrectVisible_,
                     builder: (context, snapshot) => Visibility(
-                        visible: vm.incorrectIsVisible,
+                        visible: vm.incorrectVisible,
                         child: Text("Incorrect",
                             style: TextStyle(color: Colors.pink))))
               ],
@@ -62,9 +62,9 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               StreamBuilder(
-                  stream: vm.phraseTargetIsVisible_,
+                  stream: vm.phraseTargetVisible_,
                   builder: (context, snapshot) => Visibility(
-                      visible: vm.phraseTargetIsVisible,
+                      visible: vm.phraseTargetVisible,
                       child: StreamBuilder(
                           stream: vm.phraseTargetString_,
                           builder: (context, snapshot) => Text(

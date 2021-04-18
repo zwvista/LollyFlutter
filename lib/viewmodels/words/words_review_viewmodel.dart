@@ -34,26 +34,26 @@ class WordsReviewViewModel {
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get indexString => indexString_.lastResult;
   set indexString(String value) => indexString_(value);
-  final indexIsVisible_ =
+  final indexVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get indexIsVisible => indexIsVisible_.lastResult;
-  set indexIsVisible(bool value) => indexIsVisible_(value);
-  final correctIsVisible_ =
+  bool get indexVisible => indexVisible_.lastResult;
+  set indexVisible(bool value) => indexVisible_(value);
+  final correctVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get correctIsVisible => correctIsVisible_.lastResult;
-  set correctIsVisible(bool value) => correctIsVisible_(value);
-  final incorrectIsVisible_ =
+  bool get correctVisible => correctVisible_.lastResult;
+  set correctVisible(bool value) => correctVisible_(value);
+  final incorrectVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get incorrectIsVisible => incorrectIsVisible_.lastResult;
-  set incorrectIsVisible(bool value) => incorrectIsVisible_(value);
+  bool get incorrectVisible => incorrectVisible_.lastResult;
+  set incorrectVisible(bool value) => incorrectVisible_(value);
   final accuracyString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get accuracyString => accuracyString_.lastResult;
   set accuracyString(String value) => accuracyString_(value);
-  final accuracyIsVisible_ =
+  final accuracyVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get accuracyIsVisible => accuracyIsVisible_.lastResult;
-  set accuracyIsVisible(bool value) => accuracyIsVisible_(value);
+  bool get accuracyVisible => accuracyVisible_.lastResult;
+  set accuracyVisible(bool value) => accuracyVisible_(value);
   final checkEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
   bool get checkEnabled => checkEnabled_.lastResult;
@@ -70,18 +70,18 @@ class WordsReviewViewModel {
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get wordHintString => wordHintString_.lastResult;
   set wordHintString(String value) => wordHintString_(value);
-  final wordHintIsVisible_ =
+  final wordHintVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get wordHintIsVisible => wordHintIsVisible_.lastResult;
-  set wordHintIsVisible(bool value) => wordHintIsVisible_(value);
-  final wordTargetIsVisible_ =
+  bool get wordHintVisible => wordHintVisible_.lastResult;
+  set wordHintVisible(bool value) => wordHintVisible_(value);
+  final wordTargetVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get wordTargetIsVisible => wordTargetIsVisible_.lastResult;
-  set wordTargetIsVisible(bool value) => wordTargetIsVisible_(value);
-  final noteTargetIsVisible_ =
+  bool get wordTargetVisible => wordTargetVisible_.lastResult;
+  set wordTargetVisible(bool value) => wordTargetVisible_(value);
+  final noteTargetVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get noteTargetIsVisible => noteTargetIsVisible_.lastResult;
-  set noteTargetIsVisible(bool value) => noteTargetIsVisible_(value);
+  bool get noteTargetVisible => noteTargetVisible_.lastResult;
+  set noteTargetVisible(bool value) => noteTargetVisible_(value);
   final translationString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get translationString => translationString_.lastResult;
@@ -168,21 +168,21 @@ class WordsReviewViewModel {
           wordInputString.isNotEmpty &&
           wordInputString != currentWord) {
         b = false;
-        incorrectIsVisible = true;
+        incorrectVisible = true;
       }
       if (b) {
         next();
         await doTest();
       }
-    } else if (!correctIsVisible && !incorrectIsVisible) {
+    } else if (!correctVisible && !incorrectVisible) {
       wordInputString = vmSettings.autoCorrectInput(wordInputString);
-      wordTargetIsVisible = true;
-      noteTargetIsVisible = true;
+      wordTargetVisible = true;
+      noteTargetVisible = true;
       if (wordInputString == currentWord)
-        correctIsVisible = true;
+        correctVisible = true;
       else
-        incorrectIsVisible = true;
-      wordHintIsVisible = false;
+        incorrectVisible = true;
+      wordHintVisible = false;
       googleEnabled = searchEnabled = true;
       checkString = "Next";
       if (!hasNext) return;
@@ -201,17 +201,17 @@ class WordsReviewViewModel {
   }
 
   Future doTest() async {
-    indexIsVisible = hasNext;
-    correctIsVisible = false;
-    incorrectIsVisible = false;
-    accuracyIsVisible = isTestMode && hasNext;
+    indexVisible = hasNext;
+    correctVisible = false;
+    incorrectVisible = false;
+    accuracyVisible = isTestMode && hasNext;
     checkEnabled = hasNext;
     wordTargetString = currentWord;
     noteTargetString = currentItem?.note;
     wordHintString = currentItem?.word.length.toString() ?? "";
-    wordTargetIsVisible = !isTestMode;
-    noteTargetIsVisible = !isTestMode;
-    wordHintIsVisible = isTestMode;
+    wordTargetVisible = !isTestMode;
+    noteTargetVisible = !isTestMode;
+    wordHintVisible = isTestMode;
     translationString = "";
     wordInputString = "";
     googleEnabled = searchEnabled = false;

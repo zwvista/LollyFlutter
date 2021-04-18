@@ -23,17 +23,17 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
         Row(
           children: [
             StreamBuilder(
-                stream: vm.indexIsVisible_,
+                stream: vm.indexVisible_,
                 builder: (context, snapshot) => Visibility(
-                    visible: vm.indexIsVisible,
+                    visible: vm.indexVisible,
                     child: StreamBuilder(
                         stream: vm.indexString_,
                         builder: (context, snapshot) => Text(vm.indexString)))),
             Expanded(
                 child: StreamBuilder(
-                    stream: vm.accuracyIsVisible_,
+                    stream: vm.accuracyVisible_,
                     builder: (context, snapshot) => Visibility(
-                        visible: vm.accuracyIsVisible,
+                        visible: vm.accuracyVisible,
                         child: StreamBuilder(
                             stream: vm.accuracyString_,
                             builder: (context, snapshot) => Text(
@@ -42,15 +42,15 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
             Stack(
               children: [
                 StreamBuilder(
-                    stream: vm.correctIsVisible_,
+                    stream: vm.correctVisible_,
                     builder: (context, snapshot) => Visibility(
-                        visible: vm.correctIsVisible,
+                        visible: vm.correctVisible,
                         child: Text("Correct",
                             style: TextStyle(color: Colors.green)))),
                 StreamBuilder(
-                    stream: vm.incorrectIsVisible_,
+                    stream: vm.incorrectVisible_,
                     builder: (context, snapshot) => Visibility(
-                        visible: vm.incorrectIsVisible,
+                        visible: vm.incorrectVisible,
                         child: Text("Incorrect",
                             style: TextStyle(color: Colors.pink))))
               ],
@@ -76,9 +76,9 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               StreamBuilder(
-                  stream: vm.wordTargetIsVisible_,
+                  stream: vm.wordTargetVisible_,
                   builder: (context, snapshot) => Visibility(
-                      visible: vm.wordTargetIsVisible,
+                      visible: vm.wordTargetVisible,
                       child: StreamBuilder(
                           stream: vm.wordTargetString_,
                           builder: (context, snapshot) => Text(
@@ -86,9 +86,9 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
                               style: TextStyle(
                                   color: Colors.orange, fontSize: 50))))),
               StreamBuilder(
-                  stream: vm.noteTargetIsVisible_,
+                  stream: vm.noteTargetVisible_,
                   builder: (context, snapshot) => Visibility(
-                      visible: vm.noteTargetIsVisible,
+                      visible: vm.noteTargetVisible,
                       child: StreamBuilder(
                           stream: vm.noteTargetString_,
                           builder: (context, snapshot) => Text(
