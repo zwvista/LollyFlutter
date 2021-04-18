@@ -39,14 +39,14 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
             child: Column(
               children: [
                 StreamBuilder(
-                    stream: vmBatch.unitIsChecked,
+                    stream: vmBatch.unitChecked,
                     builder: (context, snapshot) => Row(children: [
                           SizedBox(
                               height: 24.0,
                               width: 30.0,
                               child: Checkbox(
-                                  value: vmBatch.unitIsChecked.lastResult,
-                                  onChanged: vmBatch.unitIsChecked)),
+                                  value: vmBatch.unitChecked.lastResult,
+                                  onChanged: vmBatch.unitChecked)),
                           Expanded(
                               child: DropdownButtonFormField(
                                   value: vmBatch.unit.lastResult,
@@ -57,19 +57,19 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                       .map((o) => DropdownMenuItem(
                                           value: o.value, child: Text(o.label)))
                                       .toList(),
-                                  onChanged: vmBatch.unitIsChecked.lastResult
+                                  onChanged: vmBatch.unitChecked.lastResult
                                       ? vmBatch.unit
                                       : null))
                         ])),
                 StreamBuilder(
-                    stream: vmBatch.partIsChecked,
+                    stream: vmBatch.partChecked,
                     builder: (context, snapshot) => Row(children: [
                           SizedBox(
                               height: 24.0,
                               width: 30.0,
                               child: Checkbox(
-                                  value: vmBatch.partIsChecked.lastResult,
-                                  onChanged: vmBatch.partIsChecked)),
+                                  value: vmBatch.partChecked.lastResult,
+                                  onChanged: vmBatch.partChecked)),
                           Expanded(
                               child: DropdownButtonFormField(
                                   value: vmBatch.part.lastResult,
@@ -80,19 +80,19 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                       .map((o) => DropdownMenuItem(
                                           value: o.value, child: Text(o.label)))
                                       .toList(),
-                                  onChanged: vmBatch.partIsChecked.lastResult
+                                  onChanged: vmBatch.partChecked.lastResult
                                       ? vmBatch.part
                                       : null))
                         ])),
                 StreamBuilder(
-                    stream: vmBatch.seqnumIsChecked,
+                    stream: vmBatch.seqnumChecked,
                     builder: (context, snapshot) => Row(children: [
                           SizedBox(
                               height: 24.0,
                               width: 30.0,
                               child: Checkbox(
-                                  value: vmBatch.seqnumIsChecked.lastResult,
-                                  onChanged: vmBatch.seqnumIsChecked)),
+                                  value: vmBatch.seqnumChecked.lastResult,
+                                  onChanged: vmBatch.seqnumChecked)),
                           Expanded(
                               child: TextFormField(
                                   initialValue: vmBatch.seqnum.lastResult,
@@ -102,7 +102,7 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly
                                   ],
-                                  readOnly: !vmBatch.seqnumIsChecked.lastResult,
+                                  readOnly: !vmBatch.seqnumChecked.lastResult,
                                   onChanged: vmBatch.seqnum))
                         ])),
                 StreamBuilder(

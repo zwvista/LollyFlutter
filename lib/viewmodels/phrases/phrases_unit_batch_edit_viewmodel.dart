@@ -6,11 +6,11 @@ import 'package:rx_command/rx_command.dart';
 class PhrasesUnitBatchEditViewModel {
   PhrasesUnitViewModel vm;
 
-  final unitIsChecked =
+  final unitChecked =
       RxCommand.createSync((bool v) => v, initialLastResult: false);
-  final partIsChecked =
+  final partChecked =
       RxCommand.createSync((bool v) => v, initialLastResult: false);
-  final seqnumIsChecked =
+  final seqnumChecked =
       RxCommand.createSync((bool v) => v, initialLastResult: false);
   final unit = RxCommand.createSync((int v) => v,
       initialLastResult: vmSettings.lstUnits[0].value);

@@ -167,13 +167,13 @@ class SettingsViewModel {
   UnitPartToType get toType => toType_.lastResult;
   RxCommand<UnitPartToType, void> setToType;
 
-  bool unitToIsEnabled = true;
-  bool partToIsEnabled = true;
-  bool previousIsEnabled = true;
-  bool nextIsEnabled = true;
+  bool unitToEnabled = true;
+  bool partToEnabled = true;
+  bool previousEnabled = true;
+  bool nextEnabled = true;
   String previousText = "Previous";
   String nextText = "Next";
-  bool partFromIsEnabled = true;
+  bool partFromEnabled = true;
 
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
@@ -311,15 +311,15 @@ class SettingsViewModel {
 
     setToType = RxCommand.createAsyncNoResult((v) async {
       final b = v == UnitPartToType.To;
-      unitToIsEnabled = b;
-      partToIsEnabled = b && !isSinglePart;
-      previousIsEnabled = !b;
-      nextIsEnabled = !b;
+      unitToEnabled = b;
+      partToEnabled = b && !isSinglePart;
+      previousEnabled = !b;
+      nextEnabled = !b;
       final b2 = v != UnitPartToType.Unit;
       final t = !b2 ? "Unit" : "Part";
       previousText = "Previous " + t;
       nextText = "Next " + t;
-      partFromIsEnabled = b2 && !isSinglePart;
+      partFromEnabled = b2 && !isSinglePart;
       if (v == UnitPartToType.Unit)
         await _doUpdateSingleUnit();
       else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();

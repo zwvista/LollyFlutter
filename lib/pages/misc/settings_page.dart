@@ -122,8 +122,7 @@ class SettingsPageState extends State<SettingsPage> {
                             ?.map((e) => DropdownMenuItem(
                                 value: e.value, child: Text(e.label)))
                             ?.toList(),
-                        onChanged:
-                            !vm.partFromIsEnabled ? null : vm.uspartfrom_,
+                        onChanged: !vm.partFromEnabled ? null : vm.uspartfrom_,
                         decoration: InputDecoration(
                           labelText: "Part(From)",
                         ),
@@ -149,12 +148,12 @@ class SettingsPageState extends State<SettingsPage> {
                           child: ButtonBar(
                             children: [
                               TextButton(
-                                  onPressed: !vm.previousIsEnabled
+                                  onPressed: !vm.previousEnabled
                                       ? null
                                       : () => vm.previousUnitPart(),
                                   child: Text(vm.previousText)),
                               TextButton(
-                                  onPressed: !vm.nextIsEnabled
+                                  onPressed: !vm.nextEnabled
                                       ? null
                                       : () => vm.nextUnitPart(),
                                   child: Text(vm.nextText))
@@ -173,7 +172,7 @@ class SettingsPageState extends State<SettingsPage> {
                             ?.map((e) => DropdownMenuItem(
                                 value: e.value, child: Text(e.label)))
                             ?.toList(),
-                        onChanged: !vm.unitToIsEnabled ? null : vm.usunitto_,
+                        onChanged: !vm.unitToEnabled ? null : vm.usunitto_,
                         decoration: InputDecoration(
                           labelText: "Unit(To)",
                         ),
@@ -189,7 +188,7 @@ class SettingsPageState extends State<SettingsPage> {
                             ?.map((e) => DropdownMenuItem(
                                 value: e.value, child: Text(e.label)))
                             ?.toList(),
-                        onChanged: !vm.partToIsEnabled ? null : vm.uspartto_,
+                        onChanged: !vm.partToEnabled ? null : vm.uspartto_,
                         decoration: InputDecoration(
                           labelText: "Part(To)",
                         ),
