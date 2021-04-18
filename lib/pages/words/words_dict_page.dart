@@ -26,47 +26,45 @@ class WordsDictPageState extends State<WordsDictPage> {
     vmSettings.setSelectedDictReference.listen((v) => onlineDict.searchDict());
   }
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Dictionary')),
-      body: Column(
-        children: [
-          Row(children: [
-            Expanded(
-                child: StreamBuilder(
-                    stream: vm.selectedWord_,
-                    builder: (context, snapshot) => DropdownButton(
-                          value: vm.selectedWord,
-                          items: vm.lstWords
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: Text('Dictionary')),
+        body: Column(
+          children: [
+            Row(children: [
+              Expanded(
+                  child: StreamBuilder(
+                      stream: vm.selectedWord_,
+                      builder: (context, snapshot) => DropdownButton(
+                            value: vm.selectedWord,
+                            items: vm.lstWords
+                                .map((e) => DropdownMenuItem(
+                                    value: e, child: Text(e.label)))
+                                .toList(),
+                            isExpanded: true,
+                            onChanged: vm.selectedWord_,
+                          ))),
+              Expanded(
+                  child: StreamBuilder(
+                      stream: vmSettings.selectedDictReference_,
+                      builder: (context, snapshot) => DropdownButton(
+                          value: vmSettings.selectedDictReference,
+                          items: vmSettings.lstDictsReference
                               .map((e) => DropdownMenuItem(
-                                  value: e, child: Text(e.label)))
+                                  value: e, child: Text(e.dictname)))
                               .toList(),
                           isExpanded: true,
-                          onChanged: vm.selectedWord_,
-                        ))),
+                          onChanged: vmSettings.selectedDictReference_)))
+            ]),
             Expanded(
-                child: StreamBuilder(
-                    stream: vmSettings.selectedDictReference_,
-                    builder: (context, snapshot) => DropdownButton(
-                        value: vmSettings.selectedDictReference,
-                        items: vmSettings.lstDictsReference
-                            .map((e) => DropdownMenuItem(
-                                value: e, child: Text(e.dictname)))
-                            .toList(),
-                        isExpanded: true,
-                        onChanged: vmSettings.selectedDictReference_)))
-          ]),
-          Expanded(
-              child: SwipeDetector(
-            child: WebView(
-                initialUrl: vm.getUrl,
-                onWebViewCreated: (c) => onlineDict.controller = c,
-                onPageFinished: (s) => onlineDict.onPageFinished()),
-            onSwipeLeft: () => vm.next(-1),
-            onSwipeRight: () => vm.next(1),
-          ))
-        ],
-      ),
-    );
-  }
+                child: SwipeDetector(
+              child: WebView(
+                  initialUrl: vm.getUrl,
+                  onWebViewCreated: (c) => onlineDict.controller = c,
+                  onPageFinished: (s) => onlineDict.onPageFinished()),
+              onSwipeLeft: () => vm.next(-1),
+              onSwipeRight: () => vm.next(1),
+            ))
+          ],
+        ),
+      );
 }

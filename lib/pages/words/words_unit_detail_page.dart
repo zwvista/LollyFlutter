@@ -20,99 +20,97 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
   MUnitWord get item => widget.vmDetail.item;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Words in Unit(Detail)'), actions: [
-          TextButton(
-            child: Text("Save"),
-            style: TextButton.styleFrom(
-              primary: Colors.white,
-            ),
-            onPressed: () async {
-              if (!_formKey.currentState.validate()) return;
-              _formKey.currentState.save();
-              await widget.vmDetail.save();
-              Navigator.pop(context);
-            },
-          )
-        ]),
-        body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-                key: _formKey,
-                child: ListView(children: [
-                  TextFormField(
-                    initialValue: item.id.toString(),
-                    decoration: InputDecoration(
-                      labelText: "ID",
-                    ),
-                    enabled: false,
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(title: Text('Words in Unit(Detail)'), actions: [
+        TextButton(
+          child: Text("Save"),
+          style: TextButton.styleFrom(
+            primary: Colors.white,
+          ),
+          onPressed: () async {
+            if (!_formKey.currentState.validate()) return;
+            _formKey.currentState.save();
+            await widget.vmDetail.save();
+            Navigator.pop(context);
+          },
+        )
+      ]),
+      body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+              key: _formKey,
+              child: ListView(children: [
+                TextFormField(
+                  initialValue: item.id.toString(),
+                  decoration: InputDecoration(
+                    labelText: "ID",
                   ),
-                  DropdownButtonFormField(
-                      value: item.unit,
-                      items: item.textbook.lstUnits
-                          .map((o) => DropdownMenuItem(
-                              value: o.value, child: Text(o.label)))
-                          .toList(),
-                      decoration: InputDecoration(
-                        labelText: "UNIT",
-                      ),
-                      onChanged: (v) => v,
-                      onSaved: (v) => item.unit = v),
-                  DropdownButtonFormField(
-                      value: item.part,
-                      items: item.textbook.lstParts
-                          .map((o) => DropdownMenuItem(
-                              value: o.value, child: Text(o.label)))
-                          .toList(),
-                      decoration: InputDecoration(
-                        labelText: "PART",
-                      ),
-                      onChanged: (v) => v,
-                      onSaved: (v) => item.part = v),
-                  TextFormField(
-                    initialValue: item.seqnum.toString(),
+                  enabled: false,
+                ),
+                DropdownButtonFormField(
+                    value: item.unit,
+                    items: item.textbook.lstUnits
+                        .map((o) => DropdownMenuItem(
+                            value: o.value, child: Text(o.label)))
+                        .toList(),
                     decoration: InputDecoration(
-                      labelText: "SEQNUM",
+                      labelText: "UNIT",
                     ),
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    onSaved: (s) => item.seqnum = int.parse(s),
+                    onChanged: (v) => v,
+                    onSaved: (v) => item.unit = v),
+                DropdownButtonFormField(
+                    value: item.part,
+                    items: item.textbook.lstParts
+                        .map((o) => DropdownMenuItem(
+                            value: o.value, child: Text(o.label)))
+                        .toList(),
+                    decoration: InputDecoration(
+                      labelText: "PART",
+                    ),
+                    onChanged: (v) => v,
+                    onSaved: (v) => item.part = v),
+                TextFormField(
+                  initialValue: item.seqnum.toString(),
+                  decoration: InputDecoration(
+                    labelText: "SEQNUM",
                   ),
-                  TextFormField(
-                    initialValue: item.wordid.toString(),
-                    decoration: InputDecoration(
-                      labelText: "WORDID",
-                    ),
-                    enabled: false,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  onSaved: (s) => item.seqnum = int.parse(s),
+                ),
+                TextFormField(
+                  initialValue: item.wordid.toString(),
+                  decoration: InputDecoration(
+                    labelText: "WORDID",
                   ),
-                  TextFormField(
-                      initialValue: item.word,
-                      decoration: InputDecoration(
-                        labelText: "WORD",
-                      ),
-                      validator: (v) =>
-                          v.isEmpty ? "WORD must not be empty" : null,
-                      onSaved: (s) => item.word = s),
-                  TextFormField(
-                      initialValue: item.note,
-                      decoration: InputDecoration(
-                        labelText: "NOTE",
-                      ),
-                      onSaved: (s) => item.note = s),
-                  TextFormField(
-                    initialValue: item.famiid.toString(),
+                  enabled: false,
+                ),
+                TextFormField(
+                    initialValue: item.word,
                     decoration: InputDecoration(
-                      labelText: "FAMIID",
+                      labelText: "WORD",
                     ),
-                    enabled: false,
+                    validator: (v) =>
+                        v.isEmpty ? "WORD must not be empty" : null,
+                    onSaved: (s) => item.word = s),
+                TextFormField(
+                    initialValue: item.note,
+                    decoration: InputDecoration(
+                      labelText: "NOTE",
+                    ),
+                    onSaved: (s) => item.note = s),
+                TextFormField(
+                  initialValue: item.famiid.toString(),
+                  decoration: InputDecoration(
+                    labelText: "FAMIID",
                   ),
-                  TextFormField(
-                    initialValue: item.accuracy,
-                    decoration: InputDecoration(
-                      labelText: "ACCURACY",
-                    ),
-                    enabled: false,
-                  )
-                ]))));
-  }
+                  enabled: false,
+                ),
+                TextFormField(
+                  initialValue: item.accuracy,
+                  decoration: InputDecoration(
+                    labelText: "ACCURACY",
+                  ),
+                  enabled: false,
+                )
+              ]))));
 }

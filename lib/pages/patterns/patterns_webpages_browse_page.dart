@@ -26,25 +26,23 @@ class PatternsWebPagesBrowsePageState
     vm.selectionChangedCommand.listen((_) => loadPage());
   }
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Patterns Web Pages(Browse)')),
-        body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(children: [
-              StreamBuilder(
-                  stream: vm.reloadCommand,
-                  builder: (context, snapshot) => DropdownButton(
-                      value: vm.selectedWebPage,
-                      items: vm.lstPatternsWebPages
-                          .map((e) =>
-                              DropdownMenuItem(value: e, child: Text(e.title)))
-                          .toList(),
-                      isExpanded: true,
-                      onChanged: vm.selectionChangedCommand)),
-              Expanded(
-                child: WebView(onWebViewCreated: (c) => controller = c),
-              )
-            ])));
-  }
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(title: Text('Patterns Web Pages(Browse)')),
+      body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(children: [
+            StreamBuilder(
+                stream: vm.reloadCommand,
+                builder: (context, snapshot) => DropdownButton(
+                    value: vm.selectedWebPage,
+                    items: vm.lstPatternsWebPages
+                        .map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.title)))
+                        .toList(),
+                    isExpanded: true,
+                    onChanged: vm.selectionChangedCommand)),
+            Expanded(
+              child: WebView(onWebViewCreated: (c) => controller = c),
+            )
+          ])));
 }

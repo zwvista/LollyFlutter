@@ -19,8 +19,8 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
   MLangPhrase get item => widget.vmDetail.item;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>
+     Scaffold(
         appBar: AppBar(title: Text('Phrases in Language(Detail)'), actions: [
           TextButton(
             child: Text("Save"),
@@ -62,5 +62,4 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
                       ),
                       onSaved: (s) => item.translation = s),
                 ]))));
-  }
 }

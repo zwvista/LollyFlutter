@@ -38,52 +38,50 @@ class SearchPageState extends State<SearchPage> {
     setup();
   }
 
-  Widget build(BuildContext context) {
-    return Column(children: [
-      TextField(
-          autocorrect: false,
-          decoration: InputDecoration(
-            hintText: "Enter a word here",
-          ),
-          onChanged: (s) {
-            setState(() {
-              vm.word = s;
-              onlineDict.searchDict();
-            });
-            return s;
-          }),
-      Row(children: [
+  Widget build(BuildContext context) => Column(children: [
+        TextField(
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: "Enter a word here",
+            ),
+            onChanged: (s) {
+              setState(() {
+                vm.word = s;
+                onlineDict.searchDict();
+              });
+              return s;
+            }),
+        Row(children: [
+          Expanded(
+              child: StreamBuilder(
+                  stream: vmSettings.selectedLang_,
+                  builder: (context, snapshot) => DropdownButton(
+                      value: vmSettings.selectedLang,
+                      items: vmSettings.lstLanguages
+                          .map((e) => DropdownMenuItem(
+                              value: e, child: Text(e.langname)))
+                          .toList(),
+                      isExpanded: true,
+                      onChanged: vmSettings.selectedLang_))),
+          Expanded(
+              child: StreamBuilder(
+                  stream: vmSettings.selectedDictReference_,
+                  builder: (context, snapshot) => DropdownButton(
+                      value: vmSettings.selectedDictReference,
+                      items: vmSettings.lstDictsReference
+                          .map((e) => DropdownMenuItem(
+                              value: e, child: Text(e.dictname)))
+                          .toList(),
+                      isExpanded: true,
+                      onChanged: vmSettings.selectedDictReference_))),
+        ]),
         Expanded(
-            child: StreamBuilder(
-                stream: vmSettings.selectedLang_,
-                builder: (context, snapshot) => DropdownButton(
-                    value: vmSettings.selectedLang,
-                    items: vmSettings.lstLanguages
-                        .map((e) =>
-                            DropdownMenuItem(value: e, child: Text(e.langname)))
-                        .toList(),
-                    isExpanded: true,
-                    onChanged: vmSettings.selectedLang_))),
-        Expanded(
-            child: StreamBuilder(
-                stream: vmSettings.selectedDictReference_,
-                builder: (context, snapshot) => DropdownButton(
-                    value: vmSettings.selectedDictReference,
-                    items: vmSettings.lstDictsReference
-                        .map((e) =>
-                            DropdownMenuItem(value: e, child: Text(e.dictname)))
-                        .toList(),
-                    isExpanded: true,
-                    onChanged: vmSettings.selectedDictReference_))),
-      ]),
-      Expanded(
-        child: WebView(
-            initialUrl: vm.getUrl,
-            onWebViewCreated: (c) => onlineDict.controller = c,
-            onPageFinished: (s) => onlineDict.onPageFinished()),
-      )
-    ]);
-  }
+          child: WebView(
+              initialUrl: vm.getUrl,
+              onWebViewCreated: (c) => onlineDict.controller = c,
+              onPageFinished: (s) => onlineDict.onPageFinished()),
+        )
+      ]);
 
   Future login() async {
     final prefs = await SharedPreferences.getInstance();
