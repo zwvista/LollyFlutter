@@ -201,8 +201,10 @@ class SettingsViewModel {
 
   SettingsViewModel() {
     updateLang = RxCommand.createAsyncNoResult((v) async {
-      final dirty = uslang != v.id;
-      uslang = v.id;
+      if (v == null) return;
+      final newVal = v.id;
+      final dirty = uslang != newVal;
+      uslang = newVal;
       INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
       INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
       INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
@@ -237,6 +239,7 @@ class SettingsViewModel {
     selectedLang_.listen(updateLang);
 
     updateVoice = RxCommand.createAsyncNoResult((v) async {
+      if (v == null) return;
       final newVal = v.id;
       final dirty = usvoice != newVal;
       usvoice = newVal;
@@ -245,6 +248,7 @@ class SettingsViewModel {
     selectedVoice_.listen(updateVoice);
 
     updateTextbook = RxCommand.createAsyncNoResult((v) async {
+      if (v == null) return;
       final newVal = v.id;
       final dirty = ustextbook != newVal;
       ustextbook = newVal;
@@ -267,6 +271,7 @@ class SettingsViewModel {
     selectedTextbook_.listen(updateTextbook);
 
     updateDictReference = RxCommand.createAsyncNoResult((v) async {
+      if (v == null) return;
       final newVal = v.dictid.toString();
       final dirty = usdictreference != newVal;
       usdictreference = newVal;
@@ -277,6 +282,7 @@ class SettingsViewModel {
     selectedDictReference_.listen(updateDictReference);
 
     updateDictNote = RxCommand.createAsyncNoResult((v) async {
+      if (v == null) return;
       final newVal = v.dictid;
       final dirty = usdictnote != newVal;
       usdictnote = newVal;
@@ -286,6 +292,7 @@ class SettingsViewModel {
     selectedDictNote_.listen(updateDictNote);
 
     updateDictTranslation = RxCommand.createAsyncNoResult((v) async {
+      if (v == null) return;
       final newVal = v.dictid;
       final dirty = usdicttranslation != newVal;
       usdicttranslation = newVal;
