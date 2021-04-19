@@ -19,9 +19,7 @@ class PhrasesTextbookPage extends StatefulWidget {
 class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
   final vm = PhrasesUnitViewModel(false);
 
-  @override
-  void initState() {
-    super.initState();
+  PhrasesTextbookPageState() {
     vm.reloaded = false;
     vm.reloadCommand();
   }

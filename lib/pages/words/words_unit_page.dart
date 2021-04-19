@@ -23,9 +23,7 @@ class WordsUnitPage extends StatefulWidget {
 class WordsUnitPageState extends State<WordsUnitPage> {
   final vm = WordsUnitViewModel(true);
 
-  @override
-  void initState() {
-    super.initState();
+  WordsUnitPageState() {
     vm.reloaded = false;
     vm.reloadCommand();
   }

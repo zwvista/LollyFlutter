@@ -20,9 +20,7 @@ class PatternsPage extends StatefulWidget {
 class PatternsPageState extends State<PatternsPage> {
   final vm = PatternsViewModel();
 
-  @override
-  void initState() {
-    super.initState();
+  PatternsPageState() {
     vm.reloaded = false;
     vm.reloadCommand();
   }
