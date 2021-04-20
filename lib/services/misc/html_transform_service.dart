@@ -26,7 +26,7 @@ class HtmlTransformService {
   }
 
   static String doTransform(String text, MTransformItem item) {
-    var reg = RegExp(item.extractor);
+    final reg = RegExp(item.extractor);
     var replacement = item.replacement;
     var s = text;
     if (replacement.startsWith("<extract>")) {
@@ -34,7 +34,24 @@ class HtmlTransformService {
       s = reg.allMatches(s).map((m) => m.group(0)).join();
     }
     replacement = replacement.replaceWithMap(escapes);
-    s = s.replaceAll(reg, replacement);
+    s = s.replaceAllMapped(reg, (m) {
+      var indexes = RegExp(r"\$\d")
+          .allMatches(replacement)
+          .map((m2) => m2.start)
+          .toList();
+      var t = "";
+      for (var i = 0; i < indexes.length; i++) {
+        var n1 = i == 0 ? 0 : indexes[i - 1];
+        var n2 = indexes[i];
+        t += replacement.substring(n1, n2);
+        t += m.group(int.parse(replacement[n2 + 1]));
+      }
+      if (indexes.isEmpty)
+        t = replacement;
+      else
+        t += replacement.substring(indexes.last + 2);
+      return t;
+    });
     return s;
   }
 
