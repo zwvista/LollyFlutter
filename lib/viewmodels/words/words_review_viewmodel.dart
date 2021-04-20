@@ -142,7 +142,7 @@ class WordsReviewViewModel {
     checkString = isTestMode ? "Check" : "Next";
     if (options.mode == ReviewMode.ReviewAuto)
       subscriptionTimer = Timer.periodic(
-          Duration(milliseconds: options.interval), (_) async => await check());
+          Duration(seconds: options.interval), (_) async => await check());
   }
 
   void next() {

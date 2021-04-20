@@ -91,8 +91,8 @@ class PhrasesReviewViewModel {
     await doTest();
     checkString = isTestMode ? "Check" : "Next";
     if (options.mode == ReviewMode.ReviewAuto)
-      subscriptionTimer = Timer.periodic(
-          Duration(milliseconds: options.interval), (_) => check());
+      subscriptionTimer =
+          Timer.periodic(Duration(seconds: options.interval), (_) => check());
   }
 
   void next() {

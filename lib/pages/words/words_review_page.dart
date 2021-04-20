@@ -13,7 +13,13 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
   final vm = WordsReviewViewModel(() {});
 
   _WordsReviewPageState() {
-    more();
+    Future.delayed(Duration(seconds: 1), () => more());
+  }
+
+  @override
+  void dispose() {
+    vm.subscriptionTimer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -58,9 +64,13 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(child: Text("Speak"), onPressed: () {}),
+            Expanded(
+                child: CheckboxListTile(
+              title: Text("Speak"),
+              value: vm.isSpeaking,
+            )),
             StreamBuilder(
                 stream: vm.checkEnabled_,
                 builder: (context, snapshot) => StreamBuilder(
@@ -81,20 +91,23 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
                       visible: vm.wordTargetVisible,
                       child: StreamBuilder(
                           stream: vm.wordTargetString_,
-                          builder: (context, snapshot) => Text(
-                              vm.wordTargetString,
-                              style: TextStyle(
-                                  color: Colors.orange, fontSize: 50))))),
+                          builder: (context, snapshot) => Center(
+                                child: Text(vm.wordTargetString,
+                                    style: TextStyle(
+                                        color: Colors.orange, fontSize: 50)),
+                              )))),
               StreamBuilder(
                   stream: vm.noteTargetVisible_,
                   builder: (context, snapshot) => Visibility(
                       visible: vm.noteTargetVisible,
                       child: StreamBuilder(
                           stream: vm.noteTargetString_,
-                          builder: (context, snapshot) => Text(
-                              vm.noteTargetString,
-                              style: TextStyle(
-                                  color: Colors.purpleAccent, fontSize: 40))))),
+                          builder: (context, snapshot) => Center(
+                                child: Text(vm.noteTargetString,
+                                    style: TextStyle(
+                                        color: Colors.purpleAccent,
+                                        fontSize: 40)),
+                              )))),
               StreamBuilder(
                   stream: vm.translationString_,
                   builder: (context, snapshot) => Text(vm.translationString)),

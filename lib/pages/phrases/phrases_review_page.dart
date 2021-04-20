@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lolly_flutter/pages/misc/review_options_page.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_review_viewmodel.dart';
 
 class PhrasesReviewPage extends StatefulWidget {
@@ -10,6 +11,16 @@ class PhrasesReviewPage extends StatefulWidget {
 
 class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
   final vm = PhrasesReviewViewModel(() {});
+
+  _PhrasesReviewPageState() {
+    Future.delayed(Duration(seconds: 1), () => more());
+  }
+
+  @override
+  void dispose() {
+    vm.subscriptionTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -87,5 +98,10 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
         )
       ]));
 
-  void more() {}
+  void more() async {
+    final result = await Navigator.of(context).push<bool>(MaterialPageRoute(
+        builder: (context) => ReviewOptionsPage(vm.options),
+        fullscreenDialog: true));
+    if (result == true) vm.newTest();
+  }
 }
