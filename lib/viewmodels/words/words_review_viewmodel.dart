@@ -207,8 +207,8 @@ class WordsReviewViewModel {
     accuracyVisible = isTestMode && hasNext;
     checkEnabled = hasNext;
     wordTargetString = currentWord;
-    noteTargetString = currentItem?.note;
-    wordHintString = currentItem?.word.length.toString() ?? "";
+    noteTargetString = currentItem?.note ?? "";
+    wordHintString = currentItem?.word?.length?.toString() ?? "";
     wordTargetVisible = !isTestMode;
     noteTargetVisible = !isTestMode;
     wordHintVisible = isTestMode;

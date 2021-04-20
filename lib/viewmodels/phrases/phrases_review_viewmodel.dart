@@ -142,7 +142,7 @@ class PhrasesReviewViewModel {
     checkEnabled = hasNext;
     phraseTargetString = currentPhrase;
     phraseTargetVisible = !isTestMode;
-    translationString = currentItem?.translation;
+    translationString = currentItem?.translation ?? "";
     phraseInputString = "";
     doTestAction?.call();
     if (hasNext)
