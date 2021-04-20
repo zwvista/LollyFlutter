@@ -34,24 +34,12 @@ class HtmlTransformService {
       s = reg.allMatches(s).map((m) => m.group(0)).join();
     }
     replacement = replacement.replaceWithMap(escapes);
-    s = s.replaceAllMapped(reg, (m) {
-      var indexes = RegExp(r"\$\d")
-          .allMatches(replacement)
-          .map((m2) => m2.start)
-          .toList();
-      var t = "";
-      for (var i = 0; i < indexes.length; i++) {
-        var n1 = i == 0 ? 0 : indexes[i - 1];
-        var n2 = indexes[i];
-        t += replacement.substring(n1, n2);
-        t += m.group(int.parse(replacement[n2 + 1]));
-      }
-      if (indexes.isEmpty)
-        t = replacement;
-      else
-        t += replacement.substring(indexes.last + 2);
-      return t;
-    });
+    // replace $1,$2 with m.group(1),m.group(2)
+    final reg2 = RegExp(r"\$\d");
+    s = s.replaceAllMapped(
+        reg,
+        (m) => replacement.replaceAllMapped(
+            reg2, (m2) => m.group(int.parse(m2.group(0)[1]))));
     return s;
   }
 
