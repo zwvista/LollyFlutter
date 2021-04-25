@@ -35,11 +35,11 @@ class HtmlTransformService {
     }
     replacement = replacement.replaceWithMap(escapes);
     // replace $1,$2 with m.group(1),m.group(2)
-    final reg2 = RegExp(r"\$\d");
+    final reg2 = RegExp(r"\$(\d)");
     s = s.replaceAllMapped(
         reg,
         (m) => replacement.replaceAllMapped(
-            reg2, (m2) => m.group(int.parse(m2.group(0)[1]))));
+            reg2, (m2) => m.group(int.parse(m2.group(1)))));
     return s;
   }
 

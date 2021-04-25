@@ -1,4 +1,4 @@
-enum ReviewMode { ReviewAuto, Test, ReviewManual, Textbook }
+enum ReviewMode { ReviewAuto, ReviewManual, Test, Textbook }
 
 class MReviewOptions {
   final isEmbedded = false;
