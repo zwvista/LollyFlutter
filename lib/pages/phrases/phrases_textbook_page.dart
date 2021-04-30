@@ -105,6 +105,9 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
+                          onTap: () {
+                            speak(entry.phrase);
+                          },
                         )),
                     actions: [
                       IconSlideAction(

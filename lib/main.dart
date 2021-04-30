@@ -218,3 +218,5 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 }
+
+void speak(String text) => flutterTts.speak(text);

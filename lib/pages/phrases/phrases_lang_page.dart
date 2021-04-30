@@ -8,6 +8,7 @@ import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
 class PhrasesLangPage extends StatefulWidget {
   final state = PhrasesLangPageState();
@@ -80,6 +81,9 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
+                          onTap: () {
+                            speak(entry.phrase);
+                          },
                         )),
                     actions: [
                       IconSlideAction(

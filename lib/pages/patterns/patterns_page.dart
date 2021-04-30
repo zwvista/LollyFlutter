@@ -10,6 +10,7 @@ import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
+import '../../main.dart';
 
 class PatternsPage extends StatefulWidget {
   final state = PatternsPageState();
@@ -82,6 +83,9 @@ class PatternsPageState extends State<PatternsPage> {
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
+                          onTap: () {
+                            speak(entry.pattern);
+                          },
                         )),
                     actions: [
                       IconSlideAction(

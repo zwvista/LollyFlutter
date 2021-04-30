@@ -267,6 +267,7 @@ class SettingsViewModel {
       final newVal = v.id;
       final dirty = usvoice != newVal;
       usvoice = newVal;
+      flutterTts.setVoice({"name": v.voicename, "locale": v.voicelang});
       if (dirty) await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
     });
     selectedVoice_.listen(updateVoice);
