@@ -61,12 +61,11 @@ class WordsLangPageState extends State<WordsLangPage> {
                 itemCount: vm.lstLangWords.length,
                 separatorBuilder: (context, index) => Divider(),
                 itemBuilder: (BuildContext context, int index) {
+                  final entry = vm.lstLangWords[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          WordsLangDetailPage(vm, vm.lstLangWords[index]),
+                      builder: (context) => WordsLangDetailPage(vm, entry),
                       fullscreenDialog: true));
 
-                  final entry = vm.lstLangWords[index];
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,

@@ -38,13 +38,13 @@ class PatternsWebPagesPageState extends State<PatternsWebPagesPage> {
                     itemCount: vm.lstPatternsWebPages.length,
                     separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (BuildContext context, int index) {
+                      final entry = vm.lstPatternsWebPages[index];
                       void edit() =>
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PatternsWebPagesDetailPage(
-                                  vm, vm.lstPatternsWebPages[index]),
+                              builder: (context) =>
+                                  PatternsWebPagesDetailPage(vm, entry),
                               fullscreenDialog: true));
 
-                      final entry = vm.lstPatternsWebPages[index];
                       return Slidable(
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,

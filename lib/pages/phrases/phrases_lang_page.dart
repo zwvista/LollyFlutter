@@ -61,8 +61,7 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstLangPhrases[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          PhrasesLangDetailPage(vm, vm.lstLangPhrases[index]),
+                      builder: (context) => PhrasesLangDetailPage(vm, entry),
                       fullscreenDialog: true));
 
                   return Slidable(

@@ -77,12 +77,11 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                 itemCount: vm.lstUnitWords.length,
                 separatorBuilder: (context, index) => Divider(),
                 itemBuilder: (BuildContext context, int index) {
+                  final entry = vm.lstUnitWords[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          WordsTextbookDetailPage(vm, vm.lstUnitWords[index]),
+                      builder: (context) => WordsTextbookDetailPage(vm, entry),
                       fullscreenDialog: true));
 
-                  final entry = vm.lstUnitWords[index];
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,

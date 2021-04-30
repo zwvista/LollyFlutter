@@ -61,12 +61,11 @@ class PatternsPageState extends State<PatternsPage> {
                 itemCount: vm.lstPatterns.length,
                 separatorBuilder: (context, index) => Divider(),
                 itemBuilder: (BuildContext context, int index) {
+                  final entry = vm.lstPatterns[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          PatternsDetailPage(vm, vm.lstPatterns[index]),
+                      builder: (context) => PatternsDetailPage(vm, entry),
                       fullscreenDialog: true));
 
-                  final entry = vm.lstPatterns[index];
                   return Slidable(
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
