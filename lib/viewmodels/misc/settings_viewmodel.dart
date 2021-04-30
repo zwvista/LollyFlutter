@@ -120,7 +120,6 @@ class SettingsViewModel {
   final selectedVoice_ = RxCommand.createSync((MVoice v) => v);
   MVoice get selectedVoice => selectedVoice_.lastResult;
   RxCommand<MVoice, void> updateVoice;
-  dynamic ttsVoices;
   List<MTextbook> lstTextbooks = [];
   List<MSelectItem> lstTextbookFilters = [];
   final selectedTextbook_ = RxCommand.createSync((MTextbook v) => v);
@@ -209,7 +208,7 @@ class SettingsViewModel {
       INFO_USDICTREFERENCE = _getUSInfo(MUSMapping.NAME_USDICTREFERENCE);
       INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
       INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
-      INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USWINDOWSVOICE);
+      INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USVOICE);
       selectedDictReference_(null);
       lstDictsReference =
           await _dictionaryService.getDictsReferenceByLang(uslang);
@@ -226,14 +225,38 @@ class SettingsViewModel {
       lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
       selectedVoice_(null);
       lstVoices = await _voiceService.getDataByLang(uslang);
-      ttsVoices = await flutterTts.getVoices;
+      if (lstVoices.isNotEmpty) {
+        final v0 = lstVoices[0];
+        var ttsVoices = (await flutterTts.getVoices) as List;
+        ttsVoices = ttsVoices
+            .where((o) => lstVoices.any((o2) => o["locale"] == o2.voicelang))
+            .toList();
+        lstVoices = ttsVoices
+            .asMap()
+            .map((k, v) => MapEntry(
+                k,
+                MVoice()
+                  ..id = k
+                  ..langid = v0.langid
+                  ..voicetypeid = v0.voicetypeid
+                  ..voicelang = v0.voicelang
+                  ..voicename = v["name"]))
+            .values
+            .toList();
+      }
       selectedDictReference_(lstDictsReference
-          .firstWhere((o) => o.dictid.toString() == usdictreference));
-      selectedDictNote_(lstDictsNote.firstWhere((o) => o.dictid == usdictnote));
-      selectedDictTranslation_(
-          lstDictsTranslation.firstWhere((o) => o.dictid == usdicttranslation));
-      selectedTextbook_(lstTextbooks.firstWhere((o) => o.id == ustextbook));
-      selectedVoice_(lstVoices.first);
+              .firstWhere((o) => o.dictid.toString() == usdictreference) ??
+          lstDictsReference.firstWhere((_) => true));
+      selectedDictNote_(
+          lstDictsNote.firstWhere((o) => o.dictid == usdictnote) ??
+              lstDictsNote.firstWhere((_) => true));
+      selectedDictTranslation_(lstDictsTranslation
+              .firstWhere((o) => o.dictid == usdicttranslation) ??
+          lstDictsTranslation.firstWhere((_) => true));
+      selectedTextbook_(lstTextbooks.firstWhere((o) => o.id == ustextbook) ??
+          lstTextbooks.firstWhere((_) => true));
+      selectedVoice_(lstVoices.firstWhere((o) => o.id == usvoice) ??
+          lstVoices.firstWhere((_) => true));
       if (dirty) await _userSettingService.updateByInt(INFO_USLANG, uslang);
     });
     selectedLang_.listen(updateLang);
