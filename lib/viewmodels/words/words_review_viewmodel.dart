@@ -29,7 +29,9 @@ class WordsReviewViewModel {
   var options = MReviewOptions();
   Timer subscriptionTimer;
   void Function() doTestAction;
-  var isSpeaking = false;
+  final isSpeaking_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: false);
+  bool get isSpeaking => isSpeaking_.lastResult;
   final indexString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get indexString => indexString_.lastResult;
@@ -107,6 +109,7 @@ class WordsReviewViewModel {
 
   Future newTest() async {
     subscriptionTimer?.cancel();
+    isSpeaking_(options.speakingEnabled);
     if (options.mode == ReviewMode.Textbook) {
       var rand = Random();
       var lst =

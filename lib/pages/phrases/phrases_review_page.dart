@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lolly_flutter/pages/misc/review_options_page.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_review_viewmodel.dart';
 
+import '../../main.dart';
+
 class PhrasesReviewPage extends StatefulWidget {
   final state = _PhrasesReviewPageState();
   @override
@@ -10,9 +12,12 @@ class PhrasesReviewPage extends StatefulWidget {
 }
 
 class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
-  final vm = PhrasesReviewViewModel(() {});
+  PhrasesReviewViewModel vm;
 
   _PhrasesReviewPageState() {
+    vm = PhrasesReviewViewModel(() {
+      if (vm.hasNext && vm.isSpeaking) speak(vm.currentPhrase);
+    });
     Future.delayed(Duration(seconds: 1), () => more());
   }
 
@@ -55,9 +60,16 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(child: Text("Speak"), onPressed: () {}),
+            StreamBuilder(
+                stream: vm.isSpeaking_,
+                builder: (context, snapshot) => Expanded(
+                        child: CheckboxListTile(
+                      title: Text("Speak"),
+                      value: vm.isSpeaking,
+                      onChanged: vm.isSpeaking_,
+                    ))),
             StreamBuilder(
                 stream: vm.checkEnabled_,
                 builder: (context, snapshot) => StreamBuilder(
