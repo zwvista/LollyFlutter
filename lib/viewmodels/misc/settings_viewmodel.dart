@@ -63,19 +63,20 @@ class SettingsViewModel {
   int get uslang => int.parse(getUSValue(INFO_USLANG));
   set uslang(int value) => setUSValue(INFO_USLANG, value.toString());
   MUserSettingInfo INFO_USVOICE;
-  int get usvoice => int.parse(getUSValue(INFO_USVOICE));
+  int get usvoice => int.parse(getUSValue(INFO_USVOICE) ?? "0");
   set usvoice(int value) => setUSValue(INFO_USVOICE, value.toString());
   MUserSettingInfo INFO_USTEXTBOOK;
-  int get ustextbook => int.parse(getUSValue(INFO_USTEXTBOOK));
+  int get ustextbook => int.parse(getUSValue(INFO_USTEXTBOOK) ?? "0");
   set ustextbook(int value) => setUSValue(INFO_USTEXTBOOK, value.toString());
   MUserSettingInfo INFO_USDICTREFERENCE;
   String get usdictreference => getUSValue(INFO_USDICTREFERENCE);
   set usdictreference(String value) => setUSValue(INFO_USDICTREFERENCE, value);
   MUserSettingInfo INFO_USDICTNOTE;
-  int get usdictnote => int.parse(getUSValue(INFO_USDICTNOTE));
+  int get usdictnote => int.parse(getUSValue(INFO_USDICTNOTE) ?? "0");
   set usdictnote(int value) => setUSValue(INFO_USDICTNOTE, value.toString());
   MUserSettingInfo INFO_USDICTTRANSLATION;
-  int get usdicttranslation => int.parse(getUSValue(INFO_USDICTTRANSLATION));
+  int get usdicttranslation =>
+      int.parse(getUSValue(INFO_USDICTTRANSLATION) ?? "0");
   set usdicttranslation(int value) =>
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
 
