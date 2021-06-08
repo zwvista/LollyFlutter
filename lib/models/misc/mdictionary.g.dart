@@ -27,7 +27,7 @@ MDictionary _$MDictionaryFromJson(Map<String, dynamic> json) {
     ..langidto = json['LANGIDTO'] as int
     ..langnameto = json['LANGNAMETO'] as String
     ..seqnum = json['SEQNUM'] as int
-    ..dicttypeid = json['DICTTYPEID'] as int
+    ..dicttypecode = json['DICTTYPECODE'] as int
     ..dicttypename = json['DICTTYPENAME'] as String
     ..dictname = json['NAME'] as String
     ..url = json['URL'] as String
@@ -48,7 +48,7 @@ Map<String, dynamic> _$MDictionaryToJson(MDictionary instance) =>
       'LANGIDTO': instance.langidto,
       'LANGNAMETO': instance.langnameto,
       'SEQNUM': instance.seqnum,
-      'DICTTYPEID': instance.dicttypeid,
+      'DICTTYPECODE': instance.dicttypecode,
       'DICTTYPENAME': instance.dicttypename,
       'NAME': instance.dictname,
       'URL': instance.url,

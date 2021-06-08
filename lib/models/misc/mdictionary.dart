@@ -34,8 +34,8 @@ class MDictionary {
   var langnameto = "";
   @JsonKey(name: 'SEQNUM')
   var seqnum = 0;
-  @JsonKey(name: 'DICTTYPEID')
-  var dicttypeid = 0;
+  @JsonKey(name: 'DICTTYPECODE')
+  var dicttypecode = 0;
   @JsonKey(name: 'DICTTYPENAME')
   var dicttypename = "";
   @JsonKey(name: 'NAME')

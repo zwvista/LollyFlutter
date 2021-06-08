@@ -22,8 +22,8 @@ class WordsDictPageState extends State<WordsDictPage> {
 
   WordsDictPageState(this.vm) {
     onlineDict = OnlineDict(vm);
-    vm.selectedWord_.listen((v) => onlineDict.searchDict());
-    vmSettings.updateDictReference.listen((v) => onlineDict.searchDict());
+    vm.selectedWord_.listen((_) => onlineDict.searchDict());
+    vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
   }
 
   Widget build(BuildContext context) => Scaffold(
