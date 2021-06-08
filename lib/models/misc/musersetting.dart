@@ -26,13 +26,13 @@ class MUserSetting {
   @JsonKey(name: 'ENTITYID')
   var entityid = 0;
   @JsonKey(name: 'VALUE1')
-  var value1 = "";
+  String? value1;
   @JsonKey(name: 'VALUE2')
-  var value2 = "";
+  String? value2;
   @JsonKey(name: 'VALUE3')
-  var value3 = "";
+  String? value3;
   @JsonKey(name: 'VALUE4')
-  var value4 = "";
+  String? value4;
 
   MUserSetting();
 

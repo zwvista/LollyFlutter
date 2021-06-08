@@ -77,28 +77,28 @@ class SettingsViewModel {
   set usdicttranslation(int value) =>
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
 
-  late MUserSettingInfo INFO_USUNITFROM;
+  MUserSettingInfo? INFO_USUNITFROM;
   late RxCommand<int?, void> usunitfrom_;
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
   String get usunitfromstr => selectedTextbook?.unitstr(usunitfrom) ?? "";
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
   late RxCommand<void, void> updateUnitFrom;
 
-  late MUserSettingInfo INFO_USPARTFROM;
+  MUserSettingInfo? INFO_USPARTFROM;
   late RxCommand<int?, void> uspartfrom_;
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
   String get uspartfromstr => selectedTextbook?.partstr(uspartfrom) ?? "";
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
   late RxCommand<void, void> updatePartFrom;
 
-  late MUserSettingInfo INFO_USUNITTO;
+  MUserSettingInfo? INFO_USUNITTO;
   late RxCommand<int?, void> usunitto_;
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
   String get usunittostr => selectedTextbook?.unitstr(usunitto) ?? "";
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
   late RxCommand<void, void> updateUnitTo;
 
-  late MUserSettingInfo INFO_USPARTTO;
+  MUserSettingInfo? INFO_USPARTTO;
   late RxCommand<int?, void> uspartto_;
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
   String get usparttostr => selectedTextbook?.partstr(uspartto) ?? "";
@@ -441,25 +441,25 @@ class SettingsViewModel {
   Future _doUpdateUnitFrom(int newVal) async {
     if (usunitfrom == newVal) return;
     usunitfrom_(newVal);
-    await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = newVal);
+    await _userSettingService.updateByInt(INFO_USUNITFROM!, usunitfrom = newVal);
   }
 
   Future _doUpdatePartFrom(int newVal) async {
     if (uspartfrom == newVal) return;
     uspartfrom_(newVal);
-    await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = newVal);
+    await _userSettingService.updateByInt(INFO_USPARTFROM!, uspartfrom = newVal);
   }
 
   Future _doUpdateUnitTo(int newVal) async {
     if (usunitto == newVal) return;
     usunitto_(newVal);
-    await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = newVal);
+    await _userSettingService.updateByInt(INFO_USUNITTO!, usunitto = newVal);
   }
 
   Future _doUpdatePartTo(int newVal) async {
     if (uspartto == newVal) return;
     uspartto_(newVal);
-    await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = newVal);
+    await _userSettingService.updateByInt(INFO_USPARTTO!, uspartto = newVal);
   }
 
   static const ZeroNote = "O";

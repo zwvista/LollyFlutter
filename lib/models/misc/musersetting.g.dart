@@ -24,10 +24,10 @@ MUserSetting _$MUserSettingFromJson(Map<String, dynamic> json) {
     ..userid = json['USERID'] as String
     ..kind = json['KIND'] as int
     ..entityid = json['ENTITYID'] as int
-    ..value1 = json['VALUE1'] as String
-    ..value2 = json['VALUE2'] as String
-    ..value3 = json['VALUE3'] as String
-    ..value4 = json['VALUE4'] as String;
+    ..value1 = json['VALUE1'] as String?
+    ..value2 = json['VALUE2'] as String?
+    ..value3 = json['VALUE3'] as String?
+    ..value4 = json['VALUE4'] as String?;
 }
 
 Map<String, dynamic> _$MUserSettingToJson(MUserSetting instance) =>

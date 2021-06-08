@@ -21,8 +21,6 @@ class MLanguage {
   int id = 0;
   @JsonKey(name: 'NAME')
   var langname = "";
-  @JsonKey(name: 'VOICE')
-  var voice = "";
 
   MLanguage();
 
