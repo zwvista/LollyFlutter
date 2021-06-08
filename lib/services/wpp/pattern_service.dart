@@ -1,16 +1,17 @@
 import 'package:lolly_flutter/models/wpp/mpattern.dart';
 
 import '../misc/base_service.dart';
+import '../../main.dart';
 
 class PatternService extends BaseService<MPattern> {
   Future<List<MPattern>> getDataByLang(int langid) async => MPatterns.fromJson(
           await getDataByUrl("PATTERNS?filter=LANGID,eq,$langid&order=PATTERN"))
       .lst;
 
-  Future<MPattern> getDataById(int id) async =>
+  Future<MPattern?> getDataById(int id) async =>
       MPatterns.fromJson(await getDataByUrl("PATTERNS?filter=ID,eq,$id"))
           .lst
-          .firstWhere((_) => true, orElse: () => null);
+          .firstWhereOrNull((_) => true);
 
   Future<int> create(MPattern item) async =>
       await createByUrl("PATTERNS", item);

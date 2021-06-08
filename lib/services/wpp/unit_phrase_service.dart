@@ -36,7 +36,7 @@ class UnitPhraseService extends BaseService<MUnitPhrase> {
     return _setTextbook(lst, lstTextbooks);
   }
 
-  Future<MUnitPhrase> getDataById(int id, List<MTextbook> lstTextbooks) async {
+  Future<MUnitPhrase?> getDataById(int id, List<MTextbook> lstTextbooks) async {
     var lst = MUnitPhrases.fromJson(
             await getDataByUrl("VUNITPHRASES?filter=ID,eq,$id"))
         .lst;

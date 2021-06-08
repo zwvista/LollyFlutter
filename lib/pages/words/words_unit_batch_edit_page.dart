@@ -51,13 +51,13 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                 decoration: InputDecoration(
                                   labelText: "UNIT",
                                 ),
-                                items: vmSettings.selectedTextbook.lstUnits
+                                items: vmSettings.selectedTextbook!.lstUnits
                                     .map((o) => DropdownMenuItem(
                                         value: o.value, child: Text(o.label)))
                                     .toList(),
-                                onChanged: vmBatch.unitChecked.lastResult
+                                onChanged: (vmBatch.unitChecked.lastResult!
                                     ? vmBatch.unit
-                                    : null))
+                                    : null) as void Function(int?)?))
                       ])),
               StreamBuilder(
                   stream: vmBatch.partChecked,
@@ -74,13 +74,13 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                 decoration: InputDecoration(
                                   labelText: "PART",
                                 ),
-                                items: vmSettings.selectedTextbook.lstParts
+                                items: vmSettings.selectedTextbook!.lstParts
                                     .map((o) => DropdownMenuItem(
                                         value: o.value, child: Text(o.label)))
                                     .toList(),
-                                onChanged: vmBatch.partChecked.lastResult
+                                onChanged: (vmBatch.partChecked.lastResult!
                                     ? vmBatch.part
-                                    : null))
+                                    : null) as void Function(int?)?))
                       ])),
               StreamBuilder(
                   stream: vmBatch.seqnumChecked,
@@ -100,7 +100,7 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
-                                readOnly: !vmBatch.seqnumChecked.lastResult,
+                                readOnly: !vmBatch.seqnumChecked.lastResult!,
                                 onChanged: vmBatch.seqnum))
                       ])),
               StreamBuilder(

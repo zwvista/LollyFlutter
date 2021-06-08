@@ -8,10 +8,9 @@ part of 'munitphrase.dart';
 
 MUnitPhrases _$MUnitPhrasesFromJson(Map<String, dynamic> json) {
   return MUnitPhrases()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MUnitPhrase.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MUnitPhrase.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MUnitPhrasesToJson(MUnitPhrases instance) =>

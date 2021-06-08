@@ -5,7 +5,7 @@ part 'mlangphrase.g.dart';
 @JsonSerializable()
 class MLangPhrases {
   @JsonKey(name: 'records')
-  List<MLangPhrase> lst;
+  List<MLangPhrase> lst = [];
 
   MLangPhrases();
   factory MLangPhrases.fromJson(Map<String, dynamic> json) =>
@@ -22,7 +22,7 @@ class MLangPhrase {
   @JsonKey(name: 'PHRASE')
   var phrase = "";
   @JsonKey(name: 'TRANSLATION')
-  String translation;
+  var translation = "";
 
   MLangPhrase();
   factory MLangPhrase.fromJson(Map<String, dynamic> json) =>

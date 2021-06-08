@@ -5,7 +5,7 @@ part 'mwebpage.g.dart';
 @JsonSerializable()
 class MWebPages {
   @JsonKey(name: 'records')
-  List<MWebPage> lst;
+  List<MWebPage> lst = [];
 
   MWebPages();
   factory MWebPages.fromJson(Map<String, dynamic> json) =>

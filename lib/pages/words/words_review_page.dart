@@ -12,7 +12,7 @@ class WordsReviewPage extends StatefulWidget {
 }
 
 class _WordsReviewPageState extends State<WordsReviewPage> {
-  WordsReviewViewModel vm;
+  late WordsReviewViewModel vm;
 
   _WordsReviewPageState() {
     vm = WordsReviewViewModel(() {

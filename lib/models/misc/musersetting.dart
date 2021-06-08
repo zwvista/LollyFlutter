@@ -5,7 +5,7 @@ part 'musersetting.g.dart';
 @JsonSerializable()
 class MUserSettings {
   @JsonKey(name: 'records')
-  List<MUserSetting> lst;
+  List<MUserSetting> lst = [];
 
   MUserSettings();
 
@@ -26,13 +26,13 @@ class MUserSetting {
   @JsonKey(name: 'ENTITYID')
   var entityid = 0;
   @JsonKey(name: 'VALUE1')
-  String value1;
+  var value1 = "";
   @JsonKey(name: 'VALUE2')
-  String value2;
+  var value2 = "";
   @JsonKey(name: 'VALUE3')
-  String value3;
+  var value3 = "";
   @JsonKey(name: 'VALUE4')
-  String value4;
+  var value4 = "";
 
   MUserSetting();
 

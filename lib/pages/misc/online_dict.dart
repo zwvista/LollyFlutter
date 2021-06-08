@@ -9,7 +9,7 @@ import '../../main.dart';
 
 class OnlineDict {
   var dictStatus = DictWebBrowserStatus.Ready;
-  WebViewController controller;
+  late WebViewController controller;
   IOnlineDict iOnlineDict;
 
   OnlineDict(this.iOnlineDict);
@@ -36,7 +36,7 @@ class OnlineDict {
 
   void onPageFinished() async {
     if (dictStatus == DictWebBrowserStatus.Ready) return;
-    final item = vmSettings.selectedDictReference;
+    final item = vmSettings.selectedDictReference!;
     if (dictStatus == DictWebBrowserStatus.Automating) {
       final s = item.automation.replaceAll("{0}", iOnlineDict.getWord);
       await controller.evaluateJavascript(s);

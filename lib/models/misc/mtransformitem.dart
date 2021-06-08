@@ -1,5 +1,5 @@
 class MTransformItem {
-  int index = 0;
-  String extractor = "";
-  String replacement = "";
+  var index = 0;
+  var extractor = "";
+  var replacement = "";
 }

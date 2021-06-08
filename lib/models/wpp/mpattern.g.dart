@@ -8,10 +8,9 @@ part of 'mpattern.dart';
 
 MPatterns _$MPatternsFromJson(Map<String, dynamic> json) {
   return MPatterns()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MPattern.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MPattern.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MPatternsToJson(MPatterns instance) => <String, dynamic>{

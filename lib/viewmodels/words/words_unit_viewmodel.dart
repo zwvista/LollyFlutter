@@ -8,30 +8,30 @@ import '../misc/settings_viewmodel.dart';
 
 class WordsUnitViewModel {
   bool inbook;
-  List<MUnitWord> lstUnitWordsAll, lstUnitWords;
+  List<MUnitWord> lstUnitWordsAll = [], lstUnitWords = [];
   final unitWordService = UnitWordService();
   var reloaded = false;
-  RxCommand<void, List<MUnitWord>> reloadCommand;
+  late RxCommand<void, List<MUnitWord>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult;
+  String get textFilter => textFilter_.lastResult!;
   final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopeWordFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult;
+  String get scopeFilter => scopeFilter_.lastResult!;
   final textbookFilter_ =
       RxCommand.createSync((int v) => v, initialLastResult: 0);
-  int get textbookFilter => textbookFilter_.lastResult;
+  int get textbookFilter => textbookFilter_.lastResult!;
 
   WordsUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
       if (!reloaded) {
         lstUnitWordsAll = inbook
             ? await unitWordService.getDataByTextbookUnitPart(
-                vmSettings.selectedTextbook,
+                vmSettings.selectedTextbook!,
                 vmSettings.usunitpartfrom,
                 vmSettings.usunitpartto)
             : await unitWordService.getDataByLang(
-                vmSettings.selectedLang.id, vmSettings.lstTextbooks);
+                vmSettings.selectedLang!.id, vmSettings.lstTextbooks);
         reloaded = true;
       }
       _applyFilters();
@@ -54,9 +54,9 @@ class WordsUnitViewModel {
 
   MUnitWord newUnitWord() {
     int f(MUnitWord o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
-    final maxElem = lstUnitWords.reduce((acc, v) => f(acc) < f(v) ? v : acc);
+    final maxElem = lstUnitWords.isEmpty ? null : lstUnitWords.reduce((acc, v) => f(acc) < f(v) ? v : acc);
     return MUnitWord()
-      ..langid = vmSettings.selectedLang.id
+      ..langid = vmSettings.selectedLang!.id
       ..textbookid = vmSettings.ustextbook
       ..unit = maxElem?.unit ?? vmSettings.usunitto
       ..part = maxElem?.part ?? vmSettings.uspartto
@@ -67,13 +67,13 @@ class WordsUnitViewModel {
   Future update(MUnitWord item) async {
     await unitWordService.update(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
-    item.copyFrom(o);
+    if (o != null) item.copyFrom(o);
   }
 
   Future create(MUnitWord item) async {
     await unitWordService.create(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
-    item.copyFrom(o);
+    if (o != null) item.copyFrom(o);
     lstUnitWordsAll.add(item);
     _applyFilters();
   }

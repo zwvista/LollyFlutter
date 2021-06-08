@@ -8,10 +8,9 @@ part of 'mlangword.dart';
 
 MLangWords _$MLangWordsFromJson(Map<String, dynamic> json) {
   return MLangWords()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MLangWord.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MLangWord.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MLangWordsToJson(MLangWords instance) =>

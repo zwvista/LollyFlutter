@@ -2,6 +2,7 @@ import 'package:lolly_flutter/models/wpp/mpatternwebpage.dart';
 import 'package:lolly_flutter/models/wpp/mwebPage.dart';
 
 import '../misc/base_service.dart';
+import '../../main.dart';
 
 class WebPageService extends BaseService<MWebPage> {
   Future<List<MWebPage>> getDataBySearch(String title, String url) async {
@@ -14,10 +15,10 @@ class WebPageService extends BaseService<MWebPage> {
     return MWebPages.fromJson(await getDataByUrl("WEBPAGES$filter")).lst;
   }
 
-  Future<MWebPage> getDataById(int id) async =>
+  Future<MWebPage?> getDataById(int id) async =>
       MWebPages.fromJson(await getDataByUrl("PATTERNS?filter=ID,eq,$id"))
           .lst
-          .firstWhere((_) => true, orElse: () => null);
+          .firstWhereOrNull((_) => true);
 
   Future<int> createByPattern(MPatternWebPage item) async {
     final item2 = MWebPage()

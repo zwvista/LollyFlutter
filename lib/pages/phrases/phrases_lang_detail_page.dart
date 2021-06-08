@@ -28,8 +28,8 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
               primary: Colors.white,
             ),
             onPressed: () async {
-              if (!_formKey.currentState.validate()) return;
-              _formKey.currentState.save();
+              if (!_formKey.currentState!.validate()) return;
+              _formKey.currentState!.save();
               await widget.vmDetail.save();
               Navigator.pop(context);
             },
@@ -53,13 +53,13 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
                         labelText: "PHRASE",
                       ),
                       validator: (v) =>
-                          v.isEmpty ? "PHRASE must not be empty" : null,
-                      onSaved: (s) => item.phrase = s),
+                          v!.isEmpty ? "PHRASE must not be empty" : null,
+                      onSaved: (s) => item.phrase = s!),
                   TextFormField(
                       initialValue: item.translation,
                       decoration: InputDecoration(
                         labelText: "NOTE",
                       ),
-                      onSaved: (s) => item.translation = s),
+                      onSaved: (s) => item.translation = s!),
                 ]))));
 }

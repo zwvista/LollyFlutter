@@ -5,7 +5,7 @@ part 'mautocorrect.g.dart';
 @JsonSerializable()
 class MAutoCorrects {
   @JsonKey(name: 'records')
-  List<MAutoCorrect> lst;
+  List<MAutoCorrect> lst = [];
 
   MAutoCorrects();
 

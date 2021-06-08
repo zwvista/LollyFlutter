@@ -8,7 +8,7 @@ part 'mdictionary.g.dart';
 @JsonSerializable()
 class MDictionaries {
   @JsonKey(name: 'records')
-  List<MDictionary> lst;
+  List<MDictionary> lst = [];
 
   MDictionaries();
 
@@ -41,19 +41,19 @@ class MDictionary {
   @JsonKey(name: 'NAME')
   var dictname = "";
   @JsonKey(name: 'URL')
-  String url = "";
+  var url = "";
   @JsonKey(name: 'CHCONV')
-  String chconv = "";
+  var chconv = "";
   @JsonKey(name: 'AUTOMATION')
-  String automation = "";
+  var automation = "";
   @JsonKey(name: 'TRANSFORM')
-  String transform = "";
+  var transform = "";
   @JsonKey(name: 'WAIT')
   var wait = 0;
   @JsonKey(name: 'TEMPLATE')
-  String template = "";
+  var template = "";
   @JsonKey(name: 'TEMPLATE2')
-  String template2 = "";
+  var template2 = "";
 
   MDictionary();
 

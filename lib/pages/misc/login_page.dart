@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: "USERNAME",
                       ),
                       style: TextStyle(fontSize: 30),
-                      onSaved: (s) => item.username = s,
+                      onSaved: (s) => item.username = s ?? "",
                     ),
                     TextFormField(
                       obscureText: true,
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: "PASSWORD",
                       ),
                       style: TextStyle(fontSize: 30),
-                      onSaved: (s) => item.password = s,
+                      onSaved: (s) => item.password = s ?? "",
                     ),
                     Row(
                       children: [
@@ -54,9 +54,9 @@ class _LoginPageState extends State<LoginPage> {
                               padding: EdgeInsets.only(top: 16),
                               child: ElevatedButton(
                                   onPressed: () async {
-                                    if (!_formKey.currentState.validate())
+                                    if (!_formKey.currentState!.validate())
                                       return;
-                                    _formKey.currentState.save();
+                                    _formKey.currentState!.save();
                                     Global.userid = await vm.login();
                                     if (Global.userid.isEmpty)
                                       showDialog(

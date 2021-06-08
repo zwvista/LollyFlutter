@@ -1,5 +1,5 @@
 class NavDrawerState {
-  final NavItem selectedItem;
+  final NavItem? selectedItem;
 
   const NavDrawerState(this.selectedItem);
 }

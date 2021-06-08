@@ -5,7 +5,7 @@ part 'mvoice.g.dart';
 @JsonSerializable()
 class MVoices {
   @JsonKey(name: 'records')
-  List<MVoice> lst;
+  List<MVoice> lst = [];
 
   MVoices();
 
@@ -24,7 +24,7 @@ class MVoice {
   @JsonKey(name: 'VOICETYPEID')
   var voicetypeid = 0;
   @JsonKey(name: 'VOICELANG')
-  String voicelang;
+  var voicelang = "";
   @JsonKey(name: 'VOICENAME')
   var voicename = "";
 

@@ -155,7 +155,7 @@ class WordsLangPageState extends State<WordsLangPage> {
                                           onPressed: () async {
                                             Navigator.pop(context);
                                             final url = vmSettings
-                                                .selectedDictReference
+                                                .selectedDictReference!
                                                 .urlString(
                                                     vm.lstLangWords[index].word,
                                                     vmSettings.lstAutoCorrect);

@@ -8,10 +8,9 @@ part of 'mlanguage.dart';
 
 MLanguages _$MLanguagesFromJson(Map<String, dynamic> json) {
   return MLanguages()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MLanguage.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MLanguage.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MLanguagesToJson(MLanguages instance) =>

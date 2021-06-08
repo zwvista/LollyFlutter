@@ -28,8 +28,8 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
             primary: Colors.white,
           ),
           onPressed: () async {
-            if (!_formKey.currentState.validate()) return;
-            _formKey.currentState.save();
+            if (!_formKey.currentState!.validate()) return;
+            _formKey.currentState!.save();
             await widget.vmDetail.save();
             Navigator.pop(context);
           },
@@ -49,7 +49,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                 ),
                 DropdownButtonFormField(
                     value: item.unit,
-                    items: item.textbook.lstUnits
+                    items: item.textbook!.lstUnits
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
@@ -57,10 +57,10 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                       labelText: "UNIT",
                     ),
                     onChanged: (v) => v,
-                    onSaved: (v) => item.unit = v),
+                    onSaved: (v) => item.unit = v as int),
                 DropdownButtonFormField(
                     value: item.part,
-                    items: item.textbook.lstParts
+                    items: item.textbook!.lstParts
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
@@ -68,14 +68,14 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                       labelText: "PART",
                     ),
                     onChanged: (v) => v,
-                    onSaved: (v) => item.part = v),
+                    onSaved: (v) => item.part = v as int),
                 TextFormField(
                   initialValue: item.seqnum.toString(),
                   decoration: InputDecoration(
                     labelText: "SEQNUM",
                   ),
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onSaved: (s) => item.seqnum = int.parse(s),
+                  onSaved: (s) => item.seqnum = int.parse(s!),
                 ),
                 TextFormField(
                   initialValue: item.wordid.toString(),
@@ -90,14 +90,14 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                       labelText: "WORD",
                     ),
                     validator: (v) =>
-                        v.isEmpty ? "WORD must not be empty" : null,
-                    onSaved: (s) => item.word = s),
+                        v!.isEmpty ? "WORD must not be empty" : null,
+                    onSaved: (s) => item.word = s!),
                 TextFormField(
                     initialValue: item.note,
                     decoration: InputDecoration(
                       labelText: "NOTE",
                     ),
-                    onSaved: (s) => item.note = s),
+                    onSaved: (s) => item.note = s!),
                 TextFormField(
                   initialValue: item.famiid.toString(),
                   decoration: InputDecoration(

@@ -8,10 +8,9 @@ part of 'mwebpage.dart';
 
 MWebPages _$MWebPagesFromJson(Map<String, dynamic> json) {
   return MWebPages()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MWebPage.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MWebPage.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MWebPagesToJson(MWebPages instance) => <String, dynamic>{

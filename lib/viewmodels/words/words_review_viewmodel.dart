@@ -15,94 +15,94 @@ import '../../main.dart';
 class WordsReviewViewModel {
   final unitWordService = UnitWordService();
   final wordFamiService = WordFamiService();
-  MDictionary get dictTranslation => vmSettings.selectedDictTranslation;
+  MDictionary? get dictTranslation => vmSettings.selectedDictTranslation;
 
   var items = <MUnitWord>[];
   int get count => items.length;
   var correctIDs = <int>[];
-  int index;
+  int index = 0;
   bool get hasNext => index < count;
-  MUnitWord get currentItem => hasNext ? items[index] : null;
+  MUnitWord? get currentItem => hasNext ? items[index] : null;
   String get currentWord => hasNext ? items[index].word : "";
   bool get isTestMode =>
       options.mode == ReviewMode.Test || options.mode == ReviewMode.Textbook;
   var options = MReviewOptions();
-  Timer subscriptionTimer;
+  Timer? subscriptionTimer;
   void Function() doTestAction;
   final isSpeaking_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get isSpeaking => isSpeaking_.lastResult;
+  bool get isSpeaking => isSpeaking_.lastResult!;
   final indexString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get indexString => indexString_.lastResult;
+  String get indexString => indexString_.lastResult!;
   set indexString(String value) => indexString_(value);
   final indexVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get indexVisible => indexVisible_.lastResult;
+  bool get indexVisible => indexVisible_.lastResult!;
   set indexVisible(bool value) => indexVisible_(value);
   final correctVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get correctVisible => correctVisible_.lastResult;
+  bool get correctVisible => correctVisible_.lastResult!;
   set correctVisible(bool value) => correctVisible_(value);
   final incorrectVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get incorrectVisible => incorrectVisible_.lastResult;
+  bool get incorrectVisible => incorrectVisible_.lastResult!;
   set incorrectVisible(bool value) => incorrectVisible_(value);
   final accuracyString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get accuracyString => accuracyString_.lastResult;
+  String get accuracyString => accuracyString_.lastResult!;
   set accuracyString(String value) => accuracyString_(value);
   final accuracyVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get accuracyVisible => accuracyVisible_.lastResult;
+  bool get accuracyVisible => accuracyVisible_.lastResult!;
   set accuracyVisible(bool value) => accuracyVisible_(value);
   final checkEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get checkEnabled => checkEnabled_.lastResult;
+  bool get checkEnabled => checkEnabled_.lastResult!;
   set checkEnabled(bool value) => checkEnabled_(value);
   final wordTargetString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get wordTargetString => wordTargetString_.lastResult;
+  String get wordTargetString => wordTargetString_.lastResult!;
   set wordTargetString(String value) => wordTargetString_(value);
   final noteTargetString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get noteTargetString => noteTargetString_.lastResult;
+  String get noteTargetString => noteTargetString_.lastResult!;
   set noteTargetString(String value) => noteTargetString_(value);
   final wordHintString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get wordHintString => wordHintString_.lastResult;
+  String get wordHintString => wordHintString_.lastResult!;
   set wordHintString(String value) => wordHintString_(value);
   final wordHintVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get wordHintVisible => wordHintVisible_.lastResult;
+  bool get wordHintVisible => wordHintVisible_.lastResult!;
   set wordHintVisible(bool value) => wordHintVisible_(value);
   final wordTargetVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get wordTargetVisible => wordTargetVisible_.lastResult;
+  bool get wordTargetVisible => wordTargetVisible_.lastResult!;
   set wordTargetVisible(bool value) => wordTargetVisible_(value);
   final noteTargetVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get noteTargetVisible => noteTargetVisible_.lastResult;
+  bool get noteTargetVisible => noteTargetVisible_.lastResult!;
   set noteTargetVisible(bool value) => noteTargetVisible_(value);
   final translationString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get translationString => translationString_.lastResult;
+  String get translationString => translationString_.lastResult!;
   set translationString(String value) => translationString_(value);
   final wordInputString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get wordInputString => wordInputString_.lastResult;
+  String get wordInputString => wordInputString_.lastResult!;
   set wordInputString(String value) => wordInputString_(value);
   final checkString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "Check");
-  String get checkString => checkString_.lastResult;
+  String get checkString => checkString_.lastResult!;
   set checkString(String value) => checkString_(value);
   final searchEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get searchEnabled => searchEnabled_.lastResult;
+  bool get searchEnabled => searchEnabled_.lastResult!;
   set searchEnabled(bool value) => searchEnabled_(value);
   final googleEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get googleEnabled => googleEnabled_.lastResult;
+  bool get googleEnabled => googleEnabled_.lastResult!;
   set googleEnabled(bool value) => googleEnabled_(value);
 
   WordsReviewViewModel(this.doTestAction);
@@ -113,7 +113,7 @@ class WordsReviewViewModel {
     if (options.mode == ReviewMode.Textbook) {
       var rand = Random();
       var lst =
-          await unitWordService.getDataByTextbook(vmSettings.selectedTextbook);
+          await unitWordService.getDataByTextbook(vmSettings.selectedTextbook!);
       var lst2 = <MUnitWord>[];
       for (var o in lst) {
         var s = o.accuracy;
@@ -131,7 +131,7 @@ class WordsReviewViewModel {
       }
     } else {
       items = await unitWordService.getDataByTextbookUnitPart(
-          vmSettings.selectedTextbook,
+          vmSettings.selectedTextbook!,
           vmSettings.usunitpartfrom,
           vmSettings.usunitpartto);
       int nFrom = count * (options.groupSelected - 1) ~/ options.groupCount;
@@ -158,10 +158,10 @@ class WordsReviewViewModel {
 
   Future<String> getTranslation() async {
     if (dictTranslation == null) return "";
-    var url = dictTranslation.urlString(currentWord, vmSettings.lstAutoCorrect);
+    var url = dictTranslation!.urlString(currentWord, vmSettings.lstAutoCorrect);
     var html = await BaseService.getHtmlByUrl(url);
     return HtmlTransformService.extractTextFromHtml(
-        html, dictTranslation.transform, "", (text, _) => text);
+        html, dictTranslation!.transform, "", (text, _) => text);
   }
 
   Future check() async {
@@ -189,7 +189,7 @@ class WordsReviewViewModel {
       googleEnabled = searchEnabled = true;
       checkString = "Next";
       if (!hasNext) return;
-      var o = currentItem;
+      var o = currentItem!;
       var isCorrect = o.word == wordInputString;
       if (isCorrect) correctIDs.add(o.id);
       var o2 = await wordFamiService.update(o.wordid, isCorrect);
@@ -211,17 +211,17 @@ class WordsReviewViewModel {
     checkEnabled = hasNext;
     wordTargetString = currentWord;
     noteTargetString = currentItem?.note ?? "";
-    wordHintString = currentItem?.word?.length?.toString() ?? "";
+    wordHintString = currentItem?.word.length.toString() ?? "";
     wordTargetVisible = !isTestMode;
     noteTargetVisible = !isTestMode;
     wordHintVisible = isTestMode;
     translationString = "";
     wordInputString = "";
     googleEnabled = searchEnabled = false;
-    doTestAction?.call();
+    doTestAction.call();
     if (hasNext) {
       indexString = "${index + 1}/$count";
-      accuracyString = currentItem.accuracy;
+      accuracyString = currentItem!.accuracy;
       translationString = await getTranslation();
       if (translationString.isEmpty && !options.speakingEnabled)
         wordInputString = currentWord;

@@ -7,22 +7,22 @@ import 'package:rxdart/rxdart.dart';
 import '../misc/settings_viewmodel.dart';
 
 class WordsLangViewModel {
-  List<MLangWord> lstLangWordsAll, lstLangWords;
+  List<MLangWord> lstLangWordsAll = [], lstLangWords = [];
   final langWordService = LangWordService();
   var reloaded = false;
-  RxCommand<void, List<MLangWord>> reloadCommand;
+  late RxCommand<void, List<MLangWord>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult;
+  String get textFilter => textFilter_.lastResult!;
   final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopeWordFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult;
+  String get scopeFilter => scopeFilter_.lastResult!;
 
   WordsLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam<List<MLangWord>>(() async {
       if (!reloaded) {
         lstLangWordsAll =
-            await langWordService.getDataByLang(vmSettings.selectedLang.id);
+            await langWordService.getDataByLang(vmSettings.selectedLang!.id);
         reloaded = true;
       }
       _applyFilters();
@@ -40,7 +40,7 @@ class WordsLangViewModel {
               .contains(textFilter.toLowerCase()))
           .toList();
 
-  MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang.id;
+  MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang!.id;
 
   Future update(MLangWord item) async {
     await langWordService.update(item);

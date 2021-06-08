@@ -8,10 +8,9 @@ part of 'mlangphrase.dart';
 
 MLangPhrases _$MLangPhrasesFromJson(Map<String, dynamic> json) {
   return MLangPhrases()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MLangPhrase.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MLangPhrase.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MLangPhrasesToJson(MLangPhrases instance) =>

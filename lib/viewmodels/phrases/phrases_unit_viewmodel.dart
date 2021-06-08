@@ -7,30 +7,30 @@ import 'package:rxdart/rxdart.dart';
 
 class PhrasesUnitViewModel {
   bool inbook;
-  List<MUnitPhrase> lstUnitPhrasesAll, lstUnitPhrases;
+  List<MUnitPhrase> lstUnitPhrasesAll = [], lstUnitPhrases = [];
   final unitPhraseService = UnitPhraseService();
   var reloaded = false;
-  RxCommand<void, List<MUnitPhrase>> reloadCommand;
+  late RxCommand<void, List<MUnitPhrase>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult;
+  String get textFilter => textFilter_.lastResult!;
   final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult;
+  String get scopeFilter => scopeFilter_.lastResult!;
   final textbookFilter_ =
       RxCommand.createSync((int v) => v, initialLastResult: 0);
-  int get textbookFilter => textbookFilter_.lastResult;
+  int get textbookFilter => textbookFilter_.lastResult!;
 
   PhrasesUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
       if (!reloaded) {
         inbook
             ? await unitPhraseService.getDataByTextbookUnitPart(
-                vmSettings.selectedTextbook,
+                vmSettings.selectedTextbook!,
                 vmSettings.usunitpartfrom,
                 vmSettings.usunitpartto)
             : await unitPhraseService.getDataByLang(
-                vmSettings.selectedLang.id, vmSettings.lstTextbooks);
+                vmSettings.selectedLang!.id, vmSettings.lstTextbooks);
         reloaded = true;
       }
       _applyFilters();
@@ -53,9 +53,9 @@ class PhrasesUnitViewModel {
 
   MUnitPhrase newUnitPhrase() {
     int f(MUnitPhrase o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
-    final maxElem = lstUnitPhrases.reduce((acc, v) => f(acc) < f(v) ? v : acc);
+    final maxElem = lstUnitPhrases.isEmpty ? null : lstUnitPhrases.reduce((acc, v) => f(acc) < f(v) ? v : acc);
     return MUnitPhrase()
-      ..langid = vmSettings.selectedLang.id
+      ..langid = vmSettings.selectedLang!.id
       ..textbookid = vmSettings.ustextbook
       ..unit = maxElem?.unit ?? vmSettings.usunitto
       ..part = maxElem?.part ?? vmSettings.uspartto
@@ -67,14 +67,14 @@ class PhrasesUnitViewModel {
     await unitPhraseService.update(item);
     var o =
         await unitPhraseService.getDataById(item.id, vmSettings.lstTextbooks);
-    item.copyFrom(o);
+    if (o != null) item.copyFrom(o);
   }
 
   Future create(MUnitPhrase item) async {
     await unitPhraseService.create(item);
     var o =
         await unitPhraseService.getDataById(item.id, vmSettings.lstTextbooks);
-    item.copyFrom(o);
+    if (o != null) item.copyFrom(o);
     lstUnitPhrasesAll.add(item);
     _applyFilters();
   }

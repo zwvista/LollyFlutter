@@ -14,57 +14,57 @@ class PhrasesReviewViewModel {
   var items = <MUnitPhrase>[];
   int get count => items.length;
   var correctIDs = <int>[];
-  int index;
+  int index = 0;
   bool get hasNext => index < count;
-  MUnitPhrase get currentItem => hasNext ? items[index] : null;
+  MUnitPhrase? get currentItem => hasNext ? items[index] : null;
   String get currentPhrase => hasNext ? items[index].phrase : "";
   bool get isTestMode =>
       options.mode == ReviewMode.Test || options.mode == ReviewMode.Textbook;
   var options = MReviewOptions();
-  Timer subscriptionTimer;
+  Timer? subscriptionTimer;
   void Function() doTestAction;
   final isSpeaking_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get isSpeaking => isSpeaking_.lastResult;
+  bool get isSpeaking => isSpeaking_.lastResult!;
   final indexString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get indexString => indexString_.lastResult;
+  String get indexString => indexString_.lastResult!;
   set indexString(String value) => indexString_(value);
   final indexVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get indexVisible => indexVisible_.lastResult;
+  bool get indexVisible => indexVisible_.lastResult!;
   set indexVisible(bool value) => indexVisible_(value);
   final correctVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get correctVisible => correctVisible_.lastResult;
+  bool get correctVisible => correctVisible_.lastResult!;
   set correctVisible(bool value) => correctVisible_(value);
   final incorrectVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get incorrectVisible => incorrectVisible_.lastResult;
+  bool get incorrectVisible => incorrectVisible_.lastResult!;
   set incorrectVisible(bool value) => incorrectVisible_(value);
   final checkEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get checkEnabled => checkEnabled_.lastResult;
+  bool get checkEnabled => checkEnabled_.lastResult!;
   set checkEnabled(bool value) => checkEnabled_(value);
   final phraseTargetString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get phraseTargetString => phraseTargetString_.lastResult;
+  String get phraseTargetString => phraseTargetString_.lastResult!;
   set phraseTargetString(String value) => phraseTargetString_(value);
   final phraseTargetVisible_ =
       RxCommand.createSync((bool b) => b, initialLastResult: true);
-  bool get phraseTargetVisible => phraseTargetVisible_.lastResult;
+  bool get phraseTargetVisible => phraseTargetVisible_.lastResult!;
   set phraseTargetVisible(bool value) => phraseTargetVisible_(value);
   final translationString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get translationString => translationString_.lastResult;
+  String get translationString => translationString_.lastResult!;
   set translationString(String value) => translationString_(value);
   final phraseInputString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get phraseInputString => phraseInputString_.lastResult;
+  String get phraseInputString => phraseInputString_.lastResult!;
   set phraseInputString(String value) => phraseInputString_(value);
   final checkString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "Check");
-  String get checkString => checkString_.lastResult;
+  String get checkString => checkString_.lastResult!;
   set checkString(String value) => checkString_(value);
 
   PhrasesReviewViewModel(this.doTestAction);
@@ -73,15 +73,14 @@ class PhrasesReviewViewModel {
     subscriptionTimer?.cancel();
     isSpeaking_(options.speakingEnabled);
     if (options.mode == ReviewMode.Textbook) {
-      var rand = Random();
       var lst = await unitPhraseService
-          .getDataByTextbook(vmSettings.selectedTextbook);
+          .getDataByTextbook(vmSettings.selectedTextbook!);
       int cnt = min(options.reviewCount, lst.length);
       lst.shuffle();
       items = lst.sublist(0, cnt);
     } else {
       items = await unitPhraseService.getDataByTextbookUnitPart(
-          vmSettings.selectedTextbook,
+          vmSettings.selectedTextbook!,
           vmSettings.usunitpartfrom,
           vmSettings.usunitpartto);
       int nFrom = count * (options.groupSelected - 1) ~/ options.groupCount;
@@ -91,7 +90,7 @@ class PhrasesReviewViewModel {
     }
     correctIDs = [];
     index = 0;
-    await doTest();
+    doTest();
     checkString = isTestMode ? "Check" : "Next";
     if (options.mode == ReviewMode.ReviewAuto)
       subscriptionTimer =
@@ -128,7 +127,7 @@ class PhrasesReviewViewModel {
         incorrectVisible = true;
       checkString = "Next";
       if (!hasNext) return;
-      var o = currentItem;
+      var o = currentItem!;
       var isCorrect = o.phrase == phraseInputString;
       if (isCorrect) correctIDs.add(o.id);
     } else {
@@ -147,7 +146,7 @@ class PhrasesReviewViewModel {
     phraseTargetVisible = !isTestMode;
     translationString = currentItem?.translation ?? "";
     phraseInputString = "";
-    doTestAction?.call();
+    doTestAction.call();
     if (hasNext)
       indexString = "${index + 1}/$count";
     else if (options.mode == ReviewMode.ReviewAuto) subscriptionTimer?.cancel();

@@ -1,6 +1,7 @@
 import 'package:lolly_flutter/models/wpp/mpatternwebpage.dart';
 
 import '../misc/base_service.dart';
+import '../../main.dart';
 
 class PatternWebPageService extends BaseService<MPatternWebPage> {
   Future<List<MPatternWebPage>> getDataByPattern(int patternid) async =>
@@ -8,11 +9,11 @@ class PatternWebPageService extends BaseService<MPatternWebPage> {
               "VPATTERNSWEBPAGES?filter=PATTERNID,eq,$patternid&order=SEQNUM"))
           .lst;
 
-  Future<MPatternWebPage> getDataById(int id) async =>
+  Future<MPatternWebPage?> getDataById(int id) async =>
       MPatternWebPages.fromJson(
               await getDataByUrl("VPATTERNSWEBPAGES?filter=ID,eq,$id"))
           .lst
-          .firstWhere((_) => true, orElse: () => null);
+          .firstWhereOrNull((_) => true);
 
   Future<int> create(MPatternWebPage item) async =>
       await createByUrl("PATTERNSWEBPAGES", item);

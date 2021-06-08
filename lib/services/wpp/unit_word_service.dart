@@ -36,7 +36,7 @@ class UnitWordService extends BaseService<MUnitWord> {
     return _setTextbook(lst, lstTextbooks);
   }
 
-  Future<MUnitWord> getDataById(int id, List<MTextbook> lstTextbooks) async {
+  Future<MUnitWord?> getDataById(int id, List<MTextbook> lstTextbooks) async {
     var lst =
         MUnitWords.fromJson(await getDataByUrl("VUNITWORDS?filter=ID,eq,$id"))
             .lst;

@@ -8,10 +8,9 @@ part of 'musersetting.dart';
 
 MUserSettings _$MUserSettingsFromJson(Map<String, dynamic> json) {
   return MUserSettings()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MUserSetting.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MUserSetting.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MUserSettingsToJson(MUserSettings instance) =>

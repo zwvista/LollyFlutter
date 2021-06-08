@@ -25,9 +25,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.selectedLang,
                   items: vm.lstLanguages
-                      ?.map((e) =>
+                      .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.langname)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.selectedLang_,
                   decoration: InputDecoration(
                     labelText: "Language",
@@ -38,9 +38,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.selectedVoice,
                   items: vm.lstVoices
-                      ?.map((e) =>
+                      .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.voicename)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.selectedVoice_,
                   decoration: InputDecoration(
                     labelText: "Voice",
@@ -51,9 +51,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.selectedDictReference,
                   items: vm.lstDictsReference
-                      ?.map((e) =>
+                      .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.dictname)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.selectedDictReference_,
                   decoration: InputDecoration(
                     labelText: "Dictionary(Reference)",
@@ -64,9 +64,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.selectedDictNote,
                   items: vm.lstDictsNote
-                      ?.map((e) =>
+                      .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.dictname)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.selectedDictNote_,
                   decoration: InputDecoration(
                     labelText: "Dictionary(Note)",
@@ -77,9 +77,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.selectedDictTranslation,
                   items: vm.lstDictsTranslation
-                      ?.map((e) =>
+                      .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.dictname)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.selectedDictTranslation_,
                   decoration: InputDecoration(
                     labelText: "Dictionary(Translation)",
@@ -90,9 +90,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.selectedTextbook,
                   items: vm.lstTextbooks
-                      ?.map((e) => DropdownMenuItem(
+                      .map((e) => DropdownMenuItem(
                           value: e, child: Text(e.textbookname)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.selectedTextbook_,
                   decoration: InputDecoration(
                     labelText: "Textbook",
@@ -103,9 +103,9 @@ class SettingsPageState extends State<SettingsPage> {
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.usunitfrom,
                   items: vm.lstUnits
-                      ?.map((e) => DropdownMenuItem(
+                      .map((e) => DropdownMenuItem(
                           value: e.value, child: Text(e.label)))
-                      ?.toList(),
+                      .toList(),
                   onChanged: vm.usunitfrom_,
                   decoration: InputDecoration(
                     labelText: "Unit(From)",
@@ -119,10 +119,10 @@ class SettingsPageState extends State<SettingsPage> {
                       disabledHint: Text(vm.uspartfromstr),
                       value: vm.uspartfrom,
                       items: vm.lstParts
-                          ?.map((e) => DropdownMenuItem(
+                          .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
-                          ?.toList(),
-                      onChanged: !vm.partFromEnabled ? null : vm.uspartfrom_,
+                          .toList(),
+                      onChanged: (!vm.partFromEnabled ? null : vm.uspartfrom) as void Function(int?)?,
                       decoration: InputDecoration(
                         labelText: "Part(From)",
                       ),
@@ -169,10 +169,10 @@ class SettingsPageState extends State<SettingsPage> {
                       disabledHint: Text(vm.usunittostr),
                       value: vm.usunitto,
                       items: vm.lstUnits
-                          ?.map((e) => DropdownMenuItem(
+                          .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
-                          ?.toList(),
-                      onChanged: !vm.unitToEnabled ? null : vm.usunitto_,
+                          .toList(),
+                      onChanged: (!vm.unitToEnabled ? null : vm.usunitto_) as void Function(int?)?,
                       decoration: InputDecoration(
                         labelText: "Unit(To)",
                       ),
@@ -185,10 +185,10 @@ class SettingsPageState extends State<SettingsPage> {
                       disabledHint: Text(vm.usparttostr),
                       value: vm.uspartto,
                       items: vm.lstParts
-                          ?.map((e) => DropdownMenuItem(
+                          .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
-                          ?.toList(),
-                      onChanged: !vm.partToEnabled ? null : vm.uspartto_,
+                          .toList(),
+                      onChanged: (!vm.partToEnabled ? null : vm.uspartto_) as void Function(int?)?,
                       decoration: InputDecoration(
                         labelText: "Part(To)",
                       ),

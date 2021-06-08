@@ -12,7 +12,7 @@ class PhrasesReviewPage extends StatefulWidget {
 }
 
 class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
-  PhrasesReviewViewModel vm;
+  late PhrasesReviewViewModel vm;
 
   _PhrasesReviewPageState() {
     vm = PhrasesReviewViewModel(() {

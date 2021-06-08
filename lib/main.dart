@@ -44,8 +44,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  NavDrawerBloc _bloc;
-  Widget _content;
+  late NavDrawerBloc _bloc;
+  late Widget _content;
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ));
 
-  _getAppbarTitle(NavItem state) {
+  _getAppbarTitle(NavItem? state) {
     switch (state) {
       case NavItem.searchPage:
         return 'Search';
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  _getContentForState(NavItem state) {
+  _getContentForState(NavItem? state) {
     switch (state) {
       case NavItem.searchPage:
         return SearchPage();
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  List<IconButton> _getActionsForState(NavItem state) {
+  List<IconButton> _getActionsForState(NavItem? state) {
     switch (state) {
       case NavItem.searchPage:
         return [
@@ -220,3 +220,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 void speak(String text) => flutterTts.speak(text);
+extension FirstWhereOrNullExtension<E> on Iterable<E> {
+  E? firstWhereOrNull(bool Function(E) test) {
+    for (E element in this) {
+      if (test(element)) return element;
+    }
+    return null;
+  }
+}

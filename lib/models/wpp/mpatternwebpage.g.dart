@@ -8,11 +8,9 @@ part of 'mpatternwebpage.dart';
 
 MPatternWebPages _$MPatternWebPagesFromJson(Map<String, dynamic> json) {
   return MPatternWebPages()
-    ..lst = (json['records'] as List)
-        ?.map((e) => e == null
-            ? null
-            : MPatternWebPage.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MPatternWebPage.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MPatternWebPagesToJson(MPatternWebPages instance) =>

@@ -16,97 +16,94 @@ import 'package:lolly_flutter/services/misc/usersetting_service.dart';
 import 'package:lolly_flutter/services/misc/usmapping_service.dart';
 import 'package:lolly_flutter/services/misc/voice_service.dart';
 import 'package:rx_command/rx_command.dart';
-
 import '../../main.dart';
 
 class SettingsViewModel {
   List<MUSMapping> lstUSMappings = [];
   List<MUserSetting> lstUserSettings = [];
 
-  String getUSValue(MUserSettingInfo info) {
-    final o = lstUserSettings.firstWhere((o2) => o2.id == info?.usersettingid,
-        orElse: () => null);
+  String? getUSValue(MUserSettingInfo? info) {
+    final o = lstUserSettings.firstWhereOrNull((o2) => o2.id == info?.usersettingid);
     switch (info?.valueid) {
       case 1:
-        return o.value1;
+        return o?.value1;
       case 2:
-        return o.value2;
+        return o?.value2;
       case 3:
-        return o.value3;
+        return o?.value3;
       case 4:
-        return o.value4;
+        return o?.value4;
       default:
         return null;
     }
   }
 
-  void setUSValue(MUserSettingInfo info, String value) {
-    final o = lstUserSettings.firstWhere((o2) => o2.id == info?.usersettingid,
-        orElse: () => null);
+  void setUSValue(MUserSettingInfo? info, String value) {
+    final o = lstUserSettings.firstWhereOrNull((o2) => o2.id == info?.usersettingid);
     switch (info?.valueid) {
       case 1:
-        o.value1 = value;
+        o?.value1 = value;
         break;
       case 2:
-        o.value2 = value;
+        o?.value2 = value;
         break;
       case 3:
-        o.value3 = value;
+        o?.value3 = value;
         break;
       case 4:
-        o.value4 = value;
+        o?.value4 = value;
         break;
     }
   }
 
-  MUserSettingInfo INFO_USLANG;
-  int get uslang => int.parse(getUSValue(INFO_USLANG));
+  late MUserSettingInfo INFO_USLANG;
+  int get uslang => int.parse(getUSValue(INFO_USLANG) ?? "0");
   set uslang(int value) => setUSValue(INFO_USLANG, value.toString());
-  MUserSettingInfo INFO_USVOICE;
+  late MUserSettingInfo INFO_USVOICE;
   int get usvoice => int.parse(getUSValue(INFO_USVOICE) ?? "0");
   set usvoice(int value) => setUSValue(INFO_USVOICE, value.toString());
-  MUserSettingInfo INFO_USTEXTBOOK;
+  late MUserSettingInfo INFO_USTEXTBOOK;
   int get ustextbook => int.parse(getUSValue(INFO_USTEXTBOOK) ?? "0");
   set ustextbook(int value) => setUSValue(INFO_USTEXTBOOK, value.toString());
-  MUserSettingInfo INFO_USDICTREFERENCE;
-  String get usdictreference => getUSValue(INFO_USDICTREFERENCE);
+  late MUserSettingInfo INFO_USDICTREFERENCE;
+  String get usdictreference => getUSValue(INFO_USDICTREFERENCE) ?? "";
   set usdictreference(String value) => setUSValue(INFO_USDICTREFERENCE, value);
-  MUserSettingInfo INFO_USDICTNOTE;
+  late MUserSettingInfo INFO_USDICTNOTE;
   int get usdictnote => int.parse(getUSValue(INFO_USDICTNOTE) ?? "0");
   set usdictnote(int value) => setUSValue(INFO_USDICTNOTE, value.toString());
-  MUserSettingInfo INFO_USDICTTRANSLATION;
+  late MUserSettingInfo INFO_USDICTTRANSLATION;
   int get usdicttranslation =>
       int.parse(getUSValue(INFO_USDICTTRANSLATION) ?? "0");
   set usdicttranslation(int value) =>
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
 
-  MUserSettingInfo INFO_USUNITFROM;
-  final usunitfrom_ = RxCommand.createSync((int v) => v);
+  late MUserSettingInfo INFO_USUNITFROM;
+  late RxCommand<int?, void> usunitfrom_;
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
   String get usunitfromstr => selectedTextbook?.unitstr(usunitfrom) ?? "";
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
-  RxCommand<int, void> updateUnitFrom;
+  late RxCommand<void, void> updateUnitFrom;
 
-  MUserSettingInfo INFO_USPARTFROM;
-  final uspartfrom_ = RxCommand.createSync((int v) => v);
+  late MUserSettingInfo INFO_USPARTFROM;
+  late RxCommand<int?, void> uspartfrom_;
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
   String get uspartfromstr => selectedTextbook?.partstr(uspartfrom) ?? "";
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
-  RxCommand<int, void> updatePartFrom;
+  late RxCommand<void, void> updatePartFrom;
 
-  MUserSettingInfo INFO_USUNITTO;
-  final usunitto_ = RxCommand.createSync((int v) => v);
+  late MUserSettingInfo INFO_USUNITTO;
+  late RxCommand<int?, void> usunitto_;
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
   String get usunittostr => selectedTextbook?.unitstr(usunitto) ?? "";
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
-  RxCommand<int, void> updateUnitTo;
+  late RxCommand<void, void> updateUnitTo;
 
-  MUserSettingInfo INFO_USPARTTO;
-  final uspartto_ = RxCommand.createSync((int v) => v);
+  late MUserSettingInfo INFO_USPARTTO;
+  late RxCommand<int?, void> uspartto_;
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
   String get usparttostr => selectedTextbook?.partstr(uspartto) ?? "";
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
-  RxCommand<int, void> updatePartTo;
+  late RxCommand<void, void> updatePartTo;
 
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
   int get usunitpartto => usunitto * 10 + uspartto;
@@ -114,31 +111,30 @@ class SettingsViewModel {
   bool get isInvaidUnitPart => usunitpartfrom > usunitpartto;
 
   List<MLanguage> lstLanguages = [];
-  final selectedLang_ = RxCommand.createSync((MLanguage v) => v);
-  MLanguage get selectedLang => selectedLang_.lastResult;
-  RxCommand<MLanguage, void> updateLang;
+  late RxCommand<MLanguage, void> selectedLang_;
+  MLanguage? selectedLang;
+  late RxCommand<void, void> updateLang;
   List<MVoice> lstVoices = [];
-  final selectedVoice_ = RxCommand.createSync((MVoice v) => v);
-  MVoice get selectedVoice => selectedVoice_.lastResult;
-  RxCommand<MVoice, void> updateVoice;
+  late RxCommand<MVoice, void> selectedVoice_;
+  MVoice? selectedVoice;
+  late RxCommand<void, void> updateVoice;
   List<MTextbook> lstTextbooks = [];
   List<MSelectItem> lstTextbookFilters = [];
-  final selectedTextbook_ = RxCommand.createSync((MTextbook v) => v);
-  MTextbook get selectedTextbook => selectedTextbook_.lastResult;
-  RxCommand<MTextbook, void> updateTextbook;
+  late RxCommand<MTextbook, void> selectedTextbook_;
+  MTextbook? selectedTextbook;
+  late RxCommand<void, void> updateTextbook;
   List<MDictionary> lstDictsReference = [];
-  final selectedDictReference_ = RxCommand.createSync((MDictionary v) => v);
-  MDictionary get selectedDictReference => selectedDictReference_.lastResult;
-  RxCommand<MDictionary, void> updateDictReference;
+  late RxCommand<MDictionary, void> selectedDictReference_;
+  MDictionary? selectedDictReference;
+  late RxCommand<void, void> updateDictReference;
   List<MDictionary> lstDictsNote = [];
-  final selectedDictNote_ = RxCommand.createSync((MDictionary v) => v);
-  MDictionary get selectedDictNote => selectedDictNote_.lastResult;
-  RxCommand<MDictionary, void> updateDictNote;
+  late RxCommand<MDictionary, void> selectedDictNote_;
+  MDictionary? selectedDictNote;
+  late RxCommand<void, void> updateDictNote;
   List<MDictionary> lstDictsTranslation = [];
-  final selectedDictTranslation_ = RxCommand.createSync((MDictionary v) => v);
-  MDictionary get selectedDictTranslation =>
-      selectedDictTranslation_.lastResult;
-  RxCommand<MDictionary, void> updateDictTranslation;
+  late RxCommand<MDictionary, void> selectedDictTranslation_;
+  MDictionary? selectedDictTranslation;
+  late RxCommand<void, void> updateDictTranslation;
   List<MAutoCorrect> lstAutoCorrect = [];
 
   final _languageService = LanguageService();
@@ -149,10 +145,10 @@ class SettingsViewModel {
   final _autoCorrectService = AutoCorrectService();
   final _voiceService = VoiceService();
 
-  List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits;
-  List<MSelectItem> get lstParts => selectedTextbook?.lstParts;
-  int get unitCount => lstUnits?.length ?? 0;
-  int get partCount => lstParts?.length ?? 0;
+  List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits ?? [];
+  List<MSelectItem> get lstParts => selectedTextbook?.lstParts ?? [];
+  int get unitCount => lstUnits.length;
+  int get partCount => lstParts.length;
   bool get isSingleUnit =>
       usunitfrom == usunitto && uspartfrom == 1 && uspartto == partCount;
   bool get isSinglePart => partCount == 1;
@@ -162,10 +158,9 @@ class SettingsViewModel {
     MSelectItem(1, "Part"),
     MSelectItem(2, "To")
   ];
-  final toType_ = RxCommand.createSync((UnitPartToType v) => v,
-      initialLastResult: UnitPartToType.To);
-  UnitPartToType get toType => toType_.lastResult;
-  RxCommand<UnitPartToType, void> setToType;
+  late RxCommand<UnitPartToType, void> toType_;
+  UnitPartToType toType = UnitPartToType.To;
+  late RxCommand<void, void> setToType;
 
   bool unitToEnabled = true;
   bool partToEnabled = true;
@@ -190,9 +185,9 @@ class SettingsViewModel {
     var entityid = o.entityid != -1
         ? o.entityid
         : o.level == 1
-            ? selectedLang.id
+            ? selectedLang!.id
             : o.level == 2
-                ? selectedTextbook.id
+                ? selectedTextbook!.id
                 : 0;
     var o2 = lstUserSettings
         .firstWhere((v) => v.kind == o.kind && v.entityid == entityid);
@@ -200,9 +195,9 @@ class SettingsViewModel {
   }
 
   SettingsViewModel() {
-    updateLang = RxCommand.createAsyncNoResult((v) async {
-      if (v == null) return;
-      final newVal = v.id;
+    updateLang = RxCommand.createAsyncNoParamNoResult(() async {
+      if (selectedLang == null) return;
+      final newVal = selectedLang!.id;
       final dirty = uslang != newVal;
       uslang = newVal;
       INFO_USTEXTBOOK = _getUSInfo(MUSMapping.NAME_USTEXTBOOK);
@@ -246,35 +241,37 @@ class SettingsViewModel {
             .toList();
       }
       selectedDictReference_(lstDictsReference
-              .firstWhere((o) => o.dictid.toString() == usdictreference) ??
-          lstDictsReference.firstWhere((_) => true));
+              .firstWhereOrNull((o) => o.dictid.toString() == usdictreference) ??
+          lstDictsReference.firstWhereOrNull((_) => true));
       selectedDictNote_(
-          lstDictsNote.firstWhere((o) => o.dictid == usdictnote) ??
-              lstDictsNote.firstWhere((_) => true));
+          lstDictsNote.firstWhereOrNull((o) => o.dictid == usdictnote) ??
+              lstDictsNote.firstWhereOrNull((_) => true));
       selectedDictTranslation_(lstDictsTranslation
-              .firstWhere((o) => o.dictid == usdicttranslation) ??
-          lstDictsTranslation.firstWhere((_) => true));
-      selectedTextbook_(lstTextbooks.firstWhere((o) => o.id == ustextbook) ??
-          lstTextbooks.firstWhere((_) => true));
-      selectedVoice_(lstVoices.firstWhere((o) => o.id == usvoice) ??
-          lstVoices.firstWhere((_) => true));
+              .firstWhereOrNull((o) => o.dictid == usdicttranslation) ??
+          lstDictsTranslation.firstWhereOrNull((_) => true));
+      selectedTextbook_(lstTextbooks.firstWhereOrNull((o) => o.id == ustextbook) ??
+          lstTextbooks.firstWhereOrNull((_) => true));
+      selectedVoice_(lstVoices.firstWhereOrNull((o) => o.id == usvoice) ??
+          lstVoices.firstWhereOrNull((_) => true));
       if (dirty) await _userSettingService.updateByInt(INFO_USLANG, uslang);
     });
+    selectedLang_ = RxCommand.createSync((MLanguage v) { selectedLang = v; });
     selectedLang_.listen(updateLang);
 
-    updateVoice = RxCommand.createAsyncNoResult((v) async {
-      if (v == null) return;
-      final newVal = v.id;
+    updateVoice = RxCommand.createAsyncNoParamNoResult(() async {
+      if (selectedVoice == null) return;
+      final newVal = selectedVoice!.id;
       final dirty = usvoice != newVal;
       usvoice = newVal;
-      flutterTts.setVoice({"name": v.voicename, "locale": v.voicelang});
+      flutterTts.setVoice({"name": selectedVoice!.voicename, "locale": selectedVoice!.voicelang});
       if (dirty) await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
     });
+    selectedVoice_ = RxCommand.createSync((MVoice v) { selectedVoice = v; });
     selectedVoice_.listen(updateVoice);
 
-    updateTextbook = RxCommand.createAsyncNoResult((v) async {
-      if (v == null) return;
-      final newVal = v.id;
+    updateTextbook = RxCommand.createAsyncNoParamNoResult(() async {
+      if (selectedTextbook == null) return;
+      final newVal = selectedTextbook!.id;
       final dirty = ustextbook != newVal;
       ustextbook = newVal;
       INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
@@ -293,82 +290,90 @@ class SettingsViewModel {
       if (dirty)
         await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
     });
+    selectedTextbook_ = RxCommand.createSync((MTextbook v) { selectedTextbook = v; });
     selectedTextbook_.listen(updateTextbook);
 
-    updateDictReference = RxCommand.createAsyncNoResult((v) async {
-      if (v == null) return;
-      final newVal = v.dictid.toString();
+    updateDictReference = RxCommand.createAsyncNoParamNoResult(() async {
+      if (selectedDictReference == null) return;
+      final newVal = selectedDictReference!.dictid.toString();
       final dirty = usdictreference != newVal;
       usdictreference = newVal;
       if (dirty)
         await _userSettingService.updateByString(
             INFO_USDICTREFERENCE, usdictreference);
     });
+    selectedDictReference_ = RxCommand.createSync((MDictionary v) { selectedDictReference = v; });
     selectedDictReference_.listen(updateDictReference);
 
-    updateDictNote = RxCommand.createAsyncNoResult((v) async {
-      if (v == null) return;
-      final newVal = v.dictid;
+    updateDictNote = RxCommand.createAsyncNoParamNoResult(() async {
+      if (selectedDictNote == null) return;
+      final newVal = selectedDictNote!.dictid;
       final dirty = usdictnote != newVal;
       usdictnote = newVal;
       if (dirty)
         await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
     });
+    selectedDictNote_ = RxCommand.createSync((MDictionary v) { selectedDictNote = v; });
     selectedDictNote_.listen(updateDictNote);
 
-    updateDictTranslation = RxCommand.createAsyncNoResult((v) async {
-      if (v == null) return;
-      final newVal = v.dictid;
+    updateDictTranslation = RxCommand.createAsyncNoParamNoResult(() async {
+      if (selectedDictTranslation == null) return;
+      final newVal = selectedDictTranslation!.dictid;
       final dirty = usdicttranslation != newVal;
       usdicttranslation = newVal;
       if (dirty)
         await _userSettingService.updateByInt(
             INFO_USDICTTRANSLATION, usdicttranslation);
     });
+    selectedDictTranslation_ = RxCommand.createSync((MDictionary v) { selectedDictTranslation = v; });
     selectedDictTranslation_.listen(updateDictTranslation);
 
-    updateUnitFrom = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdateUnitFrom(v);
+    updateUnitFrom = RxCommand.createAsyncNoParamNoResult(() async {
+      await _doUpdateUnitFrom(usunitfrom);
       if (toType == UnitPartToType.Unit)
         await _doUpdateSingleUnit();
       else if (toType == UnitPartToType.Part || isInvaidUnitPart)
         await _doUpdateUnitPartTo();
     });
+    usunitfrom_ = RxCommand.createSync((int? v) { usunitfrom = v!; });
     usunitfrom_.listen(updateUnitFrom);
 
-    updatePartFrom = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdatePartFrom(v);
+    updatePartFrom = RxCommand.createAsyncNoParamNoResult(() async {
+      await _doUpdatePartFrom(uspartfrom);
       if (toType == UnitPartToType.Part || isInvaidUnitPart)
         await _doUpdateUnitPartTo();
     });
+    uspartfrom_ = RxCommand.createSync((int? v) { uspartfrom = v!; });
     uspartfrom_.listen(updatePartFrom);
 
-    updateUnitTo = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdateUnitTo(v);
+    updateUnitTo = RxCommand.createAsyncNoParamNoResult(() async {
+      await _doUpdateUnitTo(usunitto);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
+    usunitto_ = RxCommand.createSync((int? v) { usunitto = v!; });
     usunitto_.listen(updateUnitTo);
 
-    updatePartTo = RxCommand.createAsyncNoResult((v) async {
-      await _doUpdatePartTo(v);
+    updatePartTo = RxCommand.createAsyncNoParamNoResult(() async {
+      await _doUpdatePartTo(uspartto);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
+    uspartto_ = RxCommand.createSync((int? v) { uspartto = v!; });
     uspartto_.listen(updatePartTo);
 
-    setToType = RxCommand.createAsyncNoResult((v) async {
-      final b = v == UnitPartToType.To;
+    setToType = RxCommand.createAsyncNoParamNoResult(() async {
+      final b = toType == UnitPartToType.To;
       unitToEnabled = b;
       partToEnabled = b && !isSinglePart;
       previousEnabled = !b;
       nextEnabled = !b;
-      final b2 = v != UnitPartToType.Unit;
+      final b2 = toType != UnitPartToType.Unit;
       final t = !b2 ? "Unit" : "Part";
       previousText = "Previous " + t;
       nextText = "Next " + t;
       partFromEnabled = b2 && !isSinglePart;
-      if (v == UnitPartToType.Unit)
+      if (toType == UnitPartToType.Unit)
         await _doUpdateSingleUnit();
-      else if (v == UnitPartToType.Part) await _doUpdateUnitPartTo();
+      else if (toType == UnitPartToType.Part) await _doUpdateUnitPartTo();
     });
     toType_.listen(setToType);
   }
@@ -460,17 +465,17 @@ class SettingsViewModel {
 
   Future<String> retrieveNote(String word) async {
     if (selectedDictNote == null) return "";
-    var url = selectedDictNote.urlString(word, lstAutoCorrect);
+    var url = selectedDictNote!.urlString(word, lstAutoCorrect);
     var html = await BaseService.getHtmlByUrl(url);
     return HtmlTransformService.extractTextFromHtml(
-        html, selectedDictNote.transform, "", (text, _) => text);
+        html, selectedDictNote!.transform, "", (text, _) => text);
   }
 
   Future retrieveNotes(int wordCount, bool Function(int) isNoteEmpty,
       Future Function(int) getOne) async {
     if (selectedDictNote == null) return;
     for (int i = 0;;) {
-      await Future.delayed(Duration(milliseconds: selectedDictNote.wait));
+      await Future.delayed(Duration(milliseconds: selectedDictNote!.wait));
       while (i < wordCount && !isNoteEmpty(i)) i++;
       if (i > wordCount) break;
       if (i < wordCount) await getOne(i);

@@ -6,7 +6,7 @@ part 'munitphrase.g.dart';
 @JsonSerializable()
 class MUnitPhrases {
   @JsonKey(name: 'records')
-  List<MUnitPhrase> lst;
+  List<MUnitPhrase> lst = [];
 
   MUnitPhrases();
   factory MUnitPhrases.fromJson(Map<String, dynamic> json) =>
@@ -37,9 +37,9 @@ class MUnitPhrase {
   @JsonKey(name: 'TRANSLATION')
   var translation = "";
 
-  MTextbook textbook;
-  String get unitstr => textbook.unitstr(unit);
-  String get partstr => textbook.partstr(part);
+  MTextbook? textbook;
+  String get unitstr => textbook?.unitstr(unit) ?? "";
+  String get partstr => textbook?.partstr(part) ?? "";
 
   MUnitPhrase();
   factory MUnitPhrase.fromJson(Map<String, dynamic> json) =>

@@ -8,10 +8,9 @@ part of 'muser.dart';
 
 MUsers _$MUsersFromJson(Map<String, dynamic> json) {
   return MUsers()
-    ..lst = (json['records'] as List)
-        ?.map(
-            (e) => e == null ? null : MUser.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MUser.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MUsersToJson(MUsers instance) => <String, dynamic>{

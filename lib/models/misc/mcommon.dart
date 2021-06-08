@@ -11,7 +11,7 @@ enum DictWebBrowserStatus { Ready, Navigating, Automating }
 enum UnitPartToType { Unit, Part, To }
 
 class MSelectItem {
-  var value = 0;
+  int value = 0;
   var label = "";
 
   MSelectItem(this.value, this.label);
@@ -20,7 +20,7 @@ class MSelectItem {
 @JsonSerializable()
 class MCodes {
   @JsonKey(name: 'records')
-  List<MCode> lst;
+  List<MCode> lst = [];
 
   MCodes();
 

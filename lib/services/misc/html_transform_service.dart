@@ -14,7 +14,7 @@ class HtmlTransformService {
 
   static List<MTransformItem> toTransformItems(String transform) {
     var arr = transform.split("\r\n");
-    var lst = groupBy(arr.take(arr.length ~/ 2 * 2).toList().asMap().entries,
+    var lst = groupBy<MapEntry<int, String>, int>(arr.take(arr.length ~/ 2 * 2).toList().asMap().entries,
             (kv) => kv.key ~/ 2)
         .values
         .map((g) => MTransformItem()
@@ -39,7 +39,7 @@ class HtmlTransformService {
     s = s.replaceAllMapped(
         reg,
         (m) => replacement.replaceAllMapped(
-            reg2, (m2) => m.group(int.parse(m2.group(1)))));
+            reg2, (m2) => m.group(int.parse(m2.group(1)!))!));
     return s;
   }
 

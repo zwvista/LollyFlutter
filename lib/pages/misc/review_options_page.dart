@@ -27,8 +27,8 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
             primary: Colors.white,
           ),
           onPressed: () async {
-            if (!_formKey.currentState.validate()) return;
-            _formKey.currentState.save();
+            if (!_formKey.currentState!.validate()) return;
+            _formKey.currentState!.save();
             Navigator.pop(context, true);
           },
         )
@@ -49,7 +49,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                       labelText: "Mode",
                     ),
                     onChanged: (v) => v,
-                    onSaved: (v) => options.mode = v),
+                    onSaved: (v) => options.mode = v as ReviewMode),
                 CheckboxListTileFormField(
                   initialValue: options.shuffled,
                   title: Text('Order(Shuffled)'),
@@ -67,8 +67,8 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
-                        v.isEmpty ? "Interval must not be empty" : null,
-                    onSaved: (s) => options.groupSelected = int.parse(s)),
+                        v!.isEmpty ? "Interval must not be empty" : null,
+                    onSaved: (s) => options.groupSelected = int.parse(s!)),
                 TextFormField(
                     initialValue: options.groupSelected.toString(),
                     decoration: InputDecoration(
@@ -76,8 +76,8 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
-                        v.isEmpty ? "Group must not be empty" : null,
-                    onSaved: (s) => options.groupSelected = int.parse(s)),
+                        v!.isEmpty ? "Group must not be empty" : null,
+                    onSaved: (s) => options.groupSelected = int.parse(s!)),
                 TextFormField(
                     initialValue: options.groupCount.toString(),
                     decoration: InputDecoration(
@@ -85,8 +85,8 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
-                        v.isEmpty ? "Groups must not be empty" : null,
-                    onSaved: (s) => options.groupCount = int.parse(s)),
+                        v!.isEmpty ? "Groups must not be empty" : null,
+                    onSaved: (s) => options.groupCount = int.parse(s!)),
                 TextFormField(
                     initialValue: options.reviewCount.toString(),
                     decoration: InputDecoration(
@@ -94,7 +94,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
-                        v.isEmpty ? "Review must not be empty" : null,
-                    onSaved: (s) => options.reviewCount = int.parse(s)),
+                        v!.isEmpty ? "Review must not be empty" : null,
+                    onSaved: (s) => options.reviewCount = int.parse(s!)),
               ]))));
 }

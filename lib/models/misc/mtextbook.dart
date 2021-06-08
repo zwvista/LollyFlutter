@@ -1,13 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'mcommon.dart';
+import '../../main.dart';
 
 part 'mtextbook.g.dart';
 
 @JsonSerializable()
 class MTextbooks {
   @JsonKey(name: 'records')
-  List<MTextbook> lst;
+  List<MTextbook> lst = [];
 
   MTextbooks();
 
@@ -24,22 +25,22 @@ class MTextbook {
   @JsonKey(name: 'LANGID')
   var langid = 0;
   @JsonKey(name: 'NAME')
-  String textbookname;
+  var textbookname = "";
   @JsonKey(name: 'UNITS')
   var units = "";
   @JsonKey(name: 'PARTS')
   var parts = "";
 
   @JsonKey(ignore: true)
-  List<MSelectItem> lstUnits;
+  List<MSelectItem> lstUnits = [];
 
   String unitstr(int unit) =>
-      lstUnits.firstWhere((o) => o.value == unit, orElse: () => null)?.label;
+      lstUnits.firstWhereOrNull((o) => o.value == unit)?.label ?? "";
   @JsonKey(ignore: true)
-  List<MSelectItem> lstParts;
+  List<MSelectItem> lstParts = [];
 
   String partstr(int part) =>
-      lstParts.firstWhere((o) => o.value == part, orElse: () => null)?.label;
+      lstParts.firstWhereOrNull((o) => o.value == part)?.label ?? "";
 
   MTextbook();
 

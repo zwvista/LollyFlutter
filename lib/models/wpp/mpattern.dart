@@ -5,7 +5,7 @@ part 'mpattern.g.dart';
 @JsonSerializable()
 class MPatterns {
   @JsonKey(name: 'records')
-  List<MPattern> lst;
+  List<MPattern> lst = [];
 
   MPatterns();
   factory MPatterns.fromJson(Map<String, dynamic> json) =>

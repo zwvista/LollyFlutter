@@ -11,18 +11,18 @@ class TextbookService extends BaseService<MTextbook> {
     List<String> f(String units) {
       var m = RegExp(r"UNITS,(\d+)").firstMatch(units);
       if (m != null) {
-        final n = int.parse(m.group(1));
+        final n = int.parse(m.group(1)!);
         return [for (var i = 1; i <= n; i++) i.toString()];
       }
       m = RegExp(r"PAGES,(\d+),(\d+)").firstMatch(units);
       if (m != null) {
-        final n1 = int.parse(m.group(1));
-        final n2 = int.parse(m.group(2));
+        final n1 = int.parse(m.group(1)!);
+        final n2 = int.parse(m.group(2)!);
         final n = (n1 + n2 - 1) / n2;
         return [for (var i = 1; i <= n; i++) "${i * n2 - n2 + 1}~${i * n2}"];
       }
       m = RegExp(r"CUSTOM,(.+)").firstMatch(units);
-      if (m != null) return m.group(1).split(',');
+      if (m != null) return m.group(1)!.split(',');
       return [];
     }
 

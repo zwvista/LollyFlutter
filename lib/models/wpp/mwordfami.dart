@@ -5,7 +5,7 @@ part 'mwordfami.g.dart';
 @JsonSerializable()
 class MWordsFami {
   @JsonKey(name: 'records')
-  List<MWordFami> lst;
+  List<MWordFami> lst = [];
 
   MWordsFami();
   factory MWordsFami.fromJson(Map<String, dynamic> json) =>

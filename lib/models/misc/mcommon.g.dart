@@ -8,10 +8,9 @@ part of 'mcommon.dart';
 
 MCodes _$MCodesFromJson(Map<String, dynamic> json) {
   return MCodes()
-    ..lst = (json['records'] as List)
-        ?.map(
-            (e) => e == null ? null : MCode.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MCode.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MCodesToJson(MCodes instance) => <String, dynamic>{

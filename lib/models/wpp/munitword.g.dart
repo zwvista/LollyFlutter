@@ -8,10 +8,9 @@ part of 'munitword.dart';
 
 MUnitWords _$MUnitWordsFromJson(Map<String, dynamic> json) {
   return MUnitWords()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MUnitWord.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MUnitWord.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MUnitWordsToJson(MUnitWords instance) =>

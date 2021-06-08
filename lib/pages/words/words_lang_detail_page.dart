@@ -27,8 +27,8 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
             primary: Colors.white,
           ),
           onPressed: () async {
-            if (!_formKey.currentState.validate()) return;
-            _formKey.currentState.save();
+            if (!_formKey.currentState!.validate()) return;
+            _formKey.currentState!.save();
             await widget.vmDetail.save();
             Navigator.pop(context);
           },
@@ -52,14 +52,14 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
                       labelText: "WORD",
                     ),
                     validator: (v) =>
-                        v.isEmpty ? "WORD must not be empty" : null,
-                    onSaved: (s) => item.word = s),
+                        v!.isEmpty ? "WORD must not be empty" : null,
+                    onSaved: (s) => item.word = s!),
                 TextFormField(
                     initialValue: item.note,
                     decoration: InputDecoration(
                       labelText: "NOTE",
                     ),
-                    onSaved: (s) => item.note = s),
+                    onSaved: (s) => item.note = s!),
                 TextFormField(
                   initialValue: item.famiid.toString(),
                   decoration: InputDecoration(

@@ -18,7 +18,7 @@ class PhrasesUnitBatchEditViewModel {
       initialLastResult: vmSettings.lstParts[0].value);
   final seqnum = RxCommand.createSync((String s) => s, initialLastResult: "0");
   final selectedItems = Set<MUnitPhrase>();
-  RxCommand<MUnitPhrase, void> selectedItemsCmd;
+  late RxCommand<MUnitPhrase, void> selectedItemsCmd;
 
   PhrasesUnitBatchEditViewModel(this.vm) {
     selectedItemsCmd = RxCommand.createSyncNoResult((entry) =>

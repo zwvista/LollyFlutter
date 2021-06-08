@@ -8,10 +8,9 @@ part of 'musmapping.dart';
 
 MUSMappings _$MUSMappingsFromJson(Map<String, dynamic> json) {
   return MUSMappings()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MUSMapping.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MUSMapping.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MUSMappingsToJson(MUSMappings instance) =>

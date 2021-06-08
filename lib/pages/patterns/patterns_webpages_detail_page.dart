@@ -29,8 +29,8 @@ class PatternsWebPagesDetailPageState
             primary: Colors.white,
           ),
           onPressed: () {
-            if (!_formKey.currentState.validate()) return;
-            _formKey.currentState.save();
+            if (!_formKey.currentState!.validate()) return;
+            _formKey.currentState!.save();
             Navigator.pop(context);
           },
         )
@@ -66,29 +66,29 @@ class PatternsWebPagesDetailPageState
                     decoration: InputDecoration(
                       labelText: "SEQNUM",
                     ),
-                    onSaved: (s) => item.seqnum = int.parse(s)),
+                    onSaved: (s) => item.seqnum = int.parse(s!)),
                 TextFormField(
                     initialValue: item.webpageid.toString(),
                     decoration: InputDecoration(
                       labelText: "WEBPAGEID",
                     ),
                     enabled: false,
-                    onSaved: (s) => item.webpageid = int.parse(s)),
+                    onSaved: (s) => item.webpageid = int.parse(s!)),
                 TextFormField(
                     initialValue: item.title.toString(),
                     decoration: InputDecoration(
                       labelText: "TITLE",
                     ),
                     validator: (v) =>
-                        v.isEmpty ? "TITLE must not be empty" : null,
-                    onSaved: (s) => item.title = s),
+                        v!.isEmpty ? "TITLE must not be empty" : null,
+                    onSaved: (s) => item.title = s!),
                 TextFormField(
                     initialValue: item.url.toString(),
                     decoration: InputDecoration(
                       labelText: "URL",
                     ),
                     validator: (v) =>
-                        v.isEmpty ? "URL must not be empty" : null,
-                    onSaved: (s) => item.url = s),
+                        v!.isEmpty ? "URL must not be empty" : null,
+                    onSaved: (s) => item.url = s!),
               ]))));
 }

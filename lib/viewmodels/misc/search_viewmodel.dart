@@ -8,8 +8,8 @@ class IOnlineDict {
 class SearchViewModel implements IOnlineDict {
   var word = "";
   String get getWord => word;
-  String get getUrl => vmSettings?.selectedDictReference
-      ?.urlString(word, vmSettings.lstAutoCorrect);
+  String get getUrl => vmSettings.selectedDictReference
+      ?.urlString(word, vmSettings.lstAutoCorrect) ?? "";
 
   SearchViewModel();
 }

@@ -8,10 +8,9 @@ part of 'mwordfami.dart';
 
 MWordsFami _$MWordsFamiFromJson(Map<String, dynamic> json) {
   return MWordsFami()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MWordFami.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MWordFami.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MWordsFamiToJson(MWordsFami instance) =>

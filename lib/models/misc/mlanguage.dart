@@ -5,7 +5,7 @@ part 'mlanguage.g.dart';
 @JsonSerializable()
 class MLanguages {
   @JsonKey(name: 'records')
-  List<MLanguage> lst;
+  List<MLanguage> lst = [];
 
   MLanguages();
 
@@ -18,11 +18,11 @@ class MLanguages {
 @JsonSerializable()
 class MLanguage {
   @JsonKey(name: 'ID')
-  var id = 0;
+  int id = 0;
   @JsonKey(name: 'NAME')
-  String langname;
+  var langname = "";
   @JsonKey(name: 'VOICE')
-  String voice;
+  var voice = "";
 
   MLanguage();
 

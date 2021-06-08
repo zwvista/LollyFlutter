@@ -17,7 +17,7 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   final vm = SearchViewModel();
-  OnlineDict onlineDict;
+  late OnlineDict onlineDict;
 
   Future setup() async {
     final prefs = await SharedPreferences.getInstance();
@@ -49,7 +49,6 @@ class SearchPageState extends State<SearchPage> {
                 vm.word = s;
                 onlineDict.searchDict();
               });
-              return s;
             }),
         Row(children: [
           Expanded(

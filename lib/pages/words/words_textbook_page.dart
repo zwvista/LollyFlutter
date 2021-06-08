@@ -180,7 +180,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                                           onPressed: () async {
                                             Navigator.pop(context);
                                             final url = vmSettings
-                                                .selectedDictReference
+                                                .selectedDictReference!
                                                 .urlString(
                                                     vm.lstUnitWords[index].word,
                                                     vmSettings.lstAutoCorrect);

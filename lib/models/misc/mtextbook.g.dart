@@ -8,10 +8,9 @@ part of 'mtextbook.dart';
 
 MTextbooks _$MTextbooksFromJson(Map<String, dynamic> json) {
   return MTextbooks()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MTextbook.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MTextbook.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MTextbooksToJson(MTextbooks instance) =>

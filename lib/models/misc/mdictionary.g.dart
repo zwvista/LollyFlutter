@@ -8,10 +8,9 @@ part of 'mdictionary.dart';
 
 MDictionaries _$MDictionariesFromJson(Map<String, dynamic> json) {
   return MDictionaries()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MDictionary.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MDictionary.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MDictionariesToJson(MDictionaries instance) =>

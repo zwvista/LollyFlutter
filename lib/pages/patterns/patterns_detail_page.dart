@@ -27,8 +27,8 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
             primary: Colors.white,
           ),
           onPressed: () {
-            if (!_formKey.currentState.validate()) return;
-            _formKey.currentState.save();
+            if (!_formKey.currentState!.validate()) return;
+            _formKey.currentState!.save();
             Navigator.pop(context);
           },
         )
@@ -51,19 +51,19 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
                       labelText: "PATTERN",
                     ),
                     validator: (v) =>
-                        v.isEmpty ? "PATTERN must not be empty" : null,
-                    onSaved: (s) => item.pattern = s),
+                        v!.isEmpty ? "PATTERN must not be empty" : null,
+                    onSaved: (s) => item.pattern = s!),
                 TextFormField(
                     initialValue: item.note,
                     decoration: InputDecoration(
                       labelText: "NOTE",
                     ),
-                    onSaved: (s) => item.note = s),
+                    onSaved: (s) => item.note = s!),
                 TextFormField(
                     initialValue: item.tags,
                     decoration: InputDecoration(
                       labelText: "TAGS",
                     ),
-                    onSaved: (s) => item.tags = s),
+                    onSaved: (s) => item.tags = s!),
               ]))));
 }

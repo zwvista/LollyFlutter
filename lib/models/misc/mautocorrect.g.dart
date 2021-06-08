@@ -8,10 +8,9 @@ part of 'mautocorrect.dart';
 
 MAutoCorrects _$MAutoCorrectsFromJson(Map<String, dynamic> json) {
   return MAutoCorrects()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MAutoCorrect.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MAutoCorrect.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MAutoCorrectsToJson(MAutoCorrects instance) =>

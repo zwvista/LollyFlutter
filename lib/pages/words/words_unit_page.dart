@@ -166,7 +166,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                           onPressed: () async {
                                             Navigator.pop(context);
                                             final url = vmSettings
-                                                .selectedDictReference
+                                                .selectedDictReference!
                                                 .urlString(
                                                     vm.lstUnitWords[index].word,
                                                     vmSettings.lstAutoCorrect);

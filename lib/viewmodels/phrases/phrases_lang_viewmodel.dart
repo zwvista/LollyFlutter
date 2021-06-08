@@ -6,22 +6,22 @@ import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PhrasesLangViewModel {
-  List<MLangPhrase> lstLangPhrasesAll, lstLangPhrases;
+  List<MLangPhrase> lstLangPhrasesAll = [], lstLangPhrases = [];
   final langPhraseService = LangPhraseService();
   var reloaded = false;
-  RxCommand<void, List<MLangPhrase>> reloadCommand;
+  late RxCommand<void, List<MLangPhrase>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult;
+  String get textFilter => textFilter_.lastResult!;
   final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult;
+  String get scopeFilter => scopeFilter_.lastResult!;
 
   PhrasesLangViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
       if (!reloaded) {
         lstLangPhrasesAll =
-            await langPhraseService.getDataByLang(vmSettings.selectedLang.id);
+            await langPhraseService.getDataByLang(vmSettings.selectedLang!.id);
         reloaded = true;
       }
       _applyFilters();
@@ -40,7 +40,7 @@ class PhrasesLangViewModel {
           .toList();
 
   MLangPhrase newLangPhrase() =>
-      MLangPhrase()..langid = vmSettings.selectedLang.id;
+      MLangPhrase()..langid = vmSettings.selectedLang!.id;
 
   Future update(MLangPhrase item) async {
     await langPhraseService.update(item);

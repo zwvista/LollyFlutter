@@ -5,7 +5,7 @@ part 'muser.g.dart';
 @JsonSerializable()
 class MUsers {
   @JsonKey(name: 'records')
-  List<MUser> lst;
+  List<MUser> lst = [];
 
   MUsers();
 
@@ -19,11 +19,11 @@ class MUser {
   @JsonKey(name: 'ID')
   var id = 0;
   @JsonKey(name: 'USERID')
-  String userid = "";
+  var userid = "";
   @JsonKey(name: 'USERNAME')
-  String username = "";
+  var username = "";
   @JsonKey(name: 'PASSWORD')
-  String password = "";
+  var password = "";
 
   MUser();
 

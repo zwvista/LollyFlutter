@@ -6,22 +6,22 @@ import 'package:rx_command/rx_command.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PatternsViewModel {
-  List<MPattern> lstPatternsAll, lstPatterns;
+  List<MPattern> lstPatternsAll = [], lstPatterns = [];
   final patternService = PatternService();
   var reloaded = false;
-  RxCommand<void, List<MPattern>> reloadCommand;
+  late RxCommand<void, List<MPattern>> reloadCommand;
   final textFilter_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult;
+  String get textFilter => textFilter_.lastResult!;
   final scopeFilter_ = RxCommand.createSync((String s) => s,
       initialLastResult: SettingsViewModel.scopePatternFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult;
+  String get scopeFilter => scopeFilter_.lastResult!;
 
   PatternsViewModel() {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
       if (!reloaded) {
         lstPatternsAll =
-            await patternService.getDataByLang(vmSettings.selectedLang.id);
+            await patternService.getDataByLang(vmSettings.selectedLang!.id);
         reloaded = true;
       }
       lstPatterns = textFilter.isEmpty
@@ -41,5 +41,5 @@ class PatternsViewModel {
     scopeFilter_.listen(reloadCommand);
   }
 
-  MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang.id;
+  MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang!.id;
 }

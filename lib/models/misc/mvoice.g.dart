@@ -8,10 +8,9 @@ part of 'mvoice.dart';
 
 MVoices _$MVoicesFromJson(Map<String, dynamic> json) {
   return MVoices()
-    ..lst = (json['records'] as List)
-        ?.map((e) =>
-            e == null ? null : MVoice.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..lst = (json['records'] as List<dynamic>)
+        .map((e) => MVoice.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$MVoicesToJson(MVoices instance) => <String, dynamic>{

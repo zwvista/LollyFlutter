@@ -18,7 +18,7 @@ class WordsDictPage extends StatefulWidget {
 
 class WordsDictPageState extends State<WordsDictPage> {
   final WordsDictViewModel vm;
-  OnlineDict onlineDict;
+  late OnlineDict onlineDict;
 
   WordsDictPageState(this.vm) {
     onlineDict = OnlineDict(vm);

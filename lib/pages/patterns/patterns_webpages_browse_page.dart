@@ -18,10 +18,10 @@ class PatternsWebPagesBrowsePage extends StatefulWidget {
 class PatternsWebPagesBrowsePageState
     extends State<PatternsWebPagesBrowsePage> {
   final PatternsWebPagesViewModel vm;
-  WebViewController controller;
+  late WebViewController controller;
 
   PatternsWebPagesBrowsePageState(this.vm) {
-    void loadPage() => controller.loadUrl(vm.selectedWebPage.url);
+    void loadPage() => controller.loadUrl(vm.selectedWebPage?.url ?? "");
     vm.reloadCommand.listen((_) => loadPage());
     vm.selectionChangedCommand.listen((_) => loadPage());
   }

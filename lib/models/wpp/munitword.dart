@@ -6,7 +6,7 @@ part 'munitword.g.dart';
 @JsonSerializable()
 class MUnitWords {
   @JsonKey(name: 'records')
-  List<MUnitWord> lst;
+  List<MUnitWord> lst = [];
 
   MUnitWords();
   factory MUnitWords.fromJson(Map<String, dynamic> json) =>
@@ -43,9 +43,9 @@ class MUnitWord {
   @JsonKey(name: 'TOTAL')
   var total = 0;
 
-  MTextbook textbook;
-  String get unitstr => textbook.unitstr(unit);
-  String get partstr => textbook.partstr(part);
+  MTextbook? textbook;
+  String get unitstr => textbook?.unitstr(unit) ?? "";
+  String get partstr => textbook?.partstr(part) ?? "";
   String get accuracy =>
       total == 0 ? "N/A" : "${(correct / total * 1000).floor() / 10}%";
 

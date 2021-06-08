@@ -5,7 +5,7 @@ part 'musmapping.g.dart';
 @JsonSerializable()
 class MUSMappings {
   @JsonKey(name: 'records')
-  List<MUSMapping> lst;
+  List<MUSMapping> lst = [];
 
   MUSMappings();
 

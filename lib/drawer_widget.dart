@@ -71,7 +71,7 @@ class NavDrawerWidget extends StatelessWidget {
         child: Builder(
           builder: (BuildContext context) => ListTile(
             title: Text(
-              data.title,
+              data.title ?? "",
               style: TextStyle(
                 color: data.item == state.selectedItem
                     ? Colors.green
@@ -89,7 +89,7 @@ class NavDrawerWidget extends StatelessWidget {
         ),
       );
 
-  void _handleItemClick(BuildContext context, NavItem item) {
+  void _handleItemClick(BuildContext context, NavItem? item) {
     BlocProvider.of<NavDrawerBloc>(context).add(NavigateTo(item));
     Navigator.pop(context);
   }
@@ -97,9 +97,9 @@ class NavDrawerWidget extends StatelessWidget {
 
 class _NavigationItem {
   final bool header;
-  final NavItem item;
-  final String title;
-  final IconData icon;
+  final NavItem? item;
+  final String? title;
+  final IconData? icon;
 
   _NavigationItem(this.header, this.item, this.title, this.icon);
 }
