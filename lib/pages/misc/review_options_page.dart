@@ -1,7 +1,7 @@
-import 'package:checkbox_formfield/checkbox_list_tile_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lolly_flutter/packages/checkbox_formfield-0.1.0+3/checkbox_list_tile_formfield.dart';
 import 'package:lolly_flutter/models/misc/mreviewoptions.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 
@@ -53,12 +53,12 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                 CheckboxListTileFormField(
                   initialValue: options.shuffled,
                   title: Text('Order(Shuffled)'),
-                  onSaved: (v) => options.shuffled = v,
+                  onSaved: (v) => options.shuffled = v!,
                 ),
                 CheckboxListTileFormField(
                   initialValue: options.speakingEnabled,
                   title: Text('Speak(Enabled)'),
-                  onSaved: (v) => options.speakingEnabled = v,
+                  onSaved: (v) => options.speakingEnabled = v!,
                 ),
                 TextFormField(
                     initialValue: options.interval.toString(),

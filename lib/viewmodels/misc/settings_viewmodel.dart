@@ -375,6 +375,7 @@ class SettingsViewModel {
         await _doUpdateSingleUnit();
       else if (toType == UnitPartToType.Part) await _doUpdateUnitPartTo();
     });
+    toType_ = RxCommand.createSync((UnitPartToType v) { toType = v; });
     toType_.listen(setToType);
   }
 

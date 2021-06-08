@@ -113,13 +113,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  checkbox_formfield:
-    dependency: "direct main"
-    description:
-      name: checkbox_formfield
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0+3"
   checked_yaml:
     dependency: transitive
     description:
@@ -581,13 +574,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  swipedetector:
-    dependency: "direct main"
-    description:
-      name: swipedetector
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
   term_glyph:
     dependency: transitive
     description:

@@ -39,11 +39,9 @@ dependencies:
   rx_command: ^6.0.0
   rx_widgets: ^4.0.1
   webview_flutter: ^2.0.8
-  swipedetector: ^1.2.0
   drag_and_drop_lists: ^0.3.2
   url_launcher: ^6.0.6
   flutter_tts: ^3.1.0
-  checkbox_formfield: ^0.1.0+3
   shared_preferences: ^2.0.6
 
 dev_dependencies:
