@@ -46,5 +46,5 @@ class MUserSettingInfo {
   final int usersettingid;
   final int valueid;
 
-  MUserSettingInfo(this.usersettingid, this.valueid);
+  MUserSettingInfo({this.usersettingid = 0, this.valueid = 0});
 }
