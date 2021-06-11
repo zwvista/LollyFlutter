@@ -99,14 +99,14 @@ class SettingsPageState extends State<SettingsPage> {
                   ),
                 )),
         StreamBuilder(
-            stream: vm.usunitfrom_,
+            stream: vm.selectedUnitFrom,
             builder: (context, snapshot) => DropdownButtonFormField(
                   value: vm.usunitfrom,
                   items: vm.lstUnits
                       .map((e) => DropdownMenuItem(
                           value: e.value, child: Text(e.label)))
                       .toList(),
-                  onChanged: vm.usunitfrom_,
+                  onChanged: vm.selectedUnitFrom,
                   decoration: InputDecoration(
                     labelText: "Unit(From)",
                   ),
@@ -114,7 +114,7 @@ class SettingsPageState extends State<SettingsPage> {
         StreamBuilder(
             stream: vm.toType_,
             builder: (context, snapshot) => StreamBuilder(
-                stream: vm.uspartfrom_,
+                stream: vm.selectedPartFrom,
                 builder: (context, snapshot) => DropdownButtonFormField(
                       disabledHint: Text(vm.uspartfromstr),
                       value: vm.uspartfrom,
@@ -122,7 +122,9 @@ class SettingsPageState extends State<SettingsPage> {
                           .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
                           .toList(),
-                      onChanged: (!vm.partFromEnabled ? null : vm.uspartfrom) as void Function(int?)?,
+                      onChanged: !vm.partFromEnabled
+                          ? null
+                          : (int? v) => vm.selectedPartFrom(v),
                       decoration: InputDecoration(
                         labelText: "Part(From)",
                       ),
@@ -164,7 +166,7 @@ class SettingsPageState extends State<SettingsPage> {
         StreamBuilder(
             stream: vm.toType_,
             builder: (context, snapshot) => StreamBuilder(
-                stream: vm.usunitto_,
+                stream: vm.selectedUnitTo,
                 builder: (context, snapshot) => DropdownButtonFormField(
                       disabledHint: Text(vm.usunittostr),
                       value: vm.usunitto,
@@ -172,7 +174,9 @@ class SettingsPageState extends State<SettingsPage> {
                           .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
                           .toList(),
-                      onChanged: (!vm.unitToEnabled ? null : vm.usunitto_) as void Function(int?)?,
+                      onChanged: !vm.unitToEnabled
+                          ? null
+                          : (int? v) => vm.selectedUnitTo(v),
                       decoration: InputDecoration(
                         labelText: "Unit(To)",
                       ),
@@ -180,7 +184,7 @@ class SettingsPageState extends State<SettingsPage> {
         StreamBuilder(
             stream: vm.toType_,
             builder: (context, snapshot) => StreamBuilder(
-                stream: vm.uspartto_,
+                stream: vm.selectedPartTo,
                 builder: (context, snapshot) => DropdownButtonFormField(
                       disabledHint: Text(vm.usparttostr),
                       value: vm.uspartto,
@@ -188,7 +192,9 @@ class SettingsPageState extends State<SettingsPage> {
                           .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
                           .toList(),
-                      onChanged: (!vm.partToEnabled ? null : vm.uspartto_) as void Function(int?)?,
+                      onChanged: !vm.partToEnabled
+                          ? null
+                          : (int? v) => vm.selectedPartTo(v),
                       decoration: InputDecoration(
                         labelText: "Part(To)",
                       ),

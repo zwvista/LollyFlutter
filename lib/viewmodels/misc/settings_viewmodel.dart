@@ -81,31 +81,31 @@ class SettingsViewModel {
       setUSValue(INFO_USDICTTRANSLATION, value.toString());
 
   var INFO_USUNITFROM = MUserSettingInfo();
-  late RxCommand<int?, void> usunitfrom_;
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
   String get usunitfromstr => selectedTextbook?.unitstr(usunitfrom) ?? "";
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
+  late RxCommand<int?, void> selectedUnitFrom;
   late RxCommand<void, void> updateUnitFrom;
 
   var INFO_USPARTFROM = MUserSettingInfo();
-  late RxCommand<int?, void> uspartfrom_;
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
   String get uspartfromstr => selectedTextbook?.partstr(uspartfrom) ?? "";
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
+  late RxCommand<int?, void> selectedPartFrom;
   late RxCommand<void, void> updatePartFrom;
 
   var INFO_USUNITTO = MUserSettingInfo();
-  late RxCommand<int?, void> usunitto_;
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
   String get usunittostr => selectedTextbook?.unitstr(usunitto) ?? "";
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
+  late RxCommand<int?, void> selectedUnitTo;
   late RxCommand<void, void> updateUnitTo;
 
   var INFO_USPARTTO = MUserSettingInfo();
-  late RxCommand<int?, void> uspartto_;
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
   String get usparttostr => selectedTextbook?.partstr(uspartto) ?? "";
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
+  late RxCommand<int?, void> selectedPartTo;
   late RxCommand<void, void> updatePartTo;
 
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
@@ -286,13 +286,13 @@ class SettingsViewModel {
       final dirty = ustextbook != newVal;
       ustextbook = newVal;
       INFO_USUNITFROM = _getUSInfo(MUSMapping.NAME_USUNITFROM);
-      usunitfrom_(usunitfrom);
       INFO_USPARTFROM = _getUSInfo(MUSMapping.NAME_USPARTFROM);
-      uspartfrom_(uspartfrom);
       INFO_USUNITTO = _getUSInfo(MUSMapping.NAME_USUNITTO);
-      usunitto_(usunitto);
       INFO_USPARTTO = _getUSInfo(MUSMapping.NAME_USPARTTO);
-      uspartto_(uspartto);
+      selectedUnitFrom(usunitfrom);
+      selectedPartFrom(uspartfrom);
+      selectedUnitTo(usunitto);
+      selectedPartTo(uspartto);
       toType_(isSingleUnit
           ? UnitPartToType.Unit
           : isSingleUnitPart
@@ -354,38 +354,38 @@ class SettingsViewModel {
       else if (toType == UnitPartToType.Part || isInvaidUnitPart)
         await _doUpdateUnitPartTo();
     });
-    usunitfrom_ = RxCommand.createSync((int? v) {
+    selectedUnitFrom = RxCommand.createSync((int? v) {
       usunitfrom = v!;
     });
-    usunitfrom_.listen(updateUnitFrom);
+    selectedUnitFrom.listen(updateUnitFrom);
 
     updatePartFrom = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdatePartFrom(uspartfrom);
       if (toType == UnitPartToType.Part || isInvaidUnitPart)
         await _doUpdateUnitPartTo();
     });
-    uspartfrom_ = RxCommand.createSync((int? v) {
+    selectedPartFrom = RxCommand.createSync((int? v) {
       uspartfrom = v!;
     });
-    uspartfrom_.listen(updatePartFrom);
+    selectedPartFrom.listen(updatePartFrom);
 
     updateUnitTo = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdateUnitTo(usunitto);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
-    usunitto_ = RxCommand.createSync((int? v) {
+    selectedUnitTo = RxCommand.createSync((int? v) {
       usunitto = v!;
     });
-    usunitto_.listen(updateUnitTo);
+    selectedUnitTo.listen(updateUnitTo);
 
     updatePartTo = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdatePartTo(uspartto);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
-    uspartto_ = RxCommand.createSync((int? v) {
+    selectedPartTo = RxCommand.createSync((int? v) {
       uspartto = v!;
     });
-    uspartto_.listen(updatePartTo);
+    selectedPartTo.listen(updatePartTo);
 
     setToType = RxCommand.createAsyncNoParamNoResult(() async {
       final b = toType == UnitPartToType.To;
@@ -469,25 +469,25 @@ class SettingsViewModel {
 
   Future _doUpdateUnitFrom(int newVal) async {
     if (usunitfrom == newVal) return;
-    usunitfrom_(newVal);
+    selectedUnitFrom(newVal);
     await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = newVal);
   }
 
   Future _doUpdatePartFrom(int newVal) async {
     if (uspartfrom == newVal) return;
-    uspartfrom_(newVal);
+    selectedPartFrom(newVal);
     await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = newVal);
   }
 
   Future _doUpdateUnitTo(int newVal) async {
     if (usunitto == newVal) return;
-    usunitto_(newVal);
+    selectedUnitTo(newVal);
     await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = newVal);
   }
 
   Future _doUpdatePartTo(int newVal) async {
     if (uspartto == newVal) return;
-    uspartto_(newVal);
+    selectedPartTo(newVal);
     await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = newVal);
   }
 
