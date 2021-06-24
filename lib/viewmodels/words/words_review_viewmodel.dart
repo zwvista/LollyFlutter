@@ -21,9 +21,10 @@ class WordsReviewViewModel {
   int get count => items.length;
   var correctIDs = <int>[];
   int index = 0;
-  bool get hasNext => index < count;
-  MUnitWord? get currentItem => hasNext ? items[index] : null;
-  String get currentWord => hasNext ? items[index].word : "";
+  bool get hasCurrent =>
+      items.isNotEmpty && (onRepeat || (index >= 0 && index < count));
+  MUnitWord? get currentItem => hasCurrent ? items[index] : null;
+  String get currentWord => hasCurrent ? items[index].word : "";
   bool get isTestMode =>
       options.mode == ReviewMode.Test || options.mode == ReviewMode.Textbook;
   var options = MReviewOptions();
@@ -56,10 +57,22 @@ class WordsReviewViewModel {
       RxCommand.createSync((bool b) => b, initialLastResult: true);
   bool get accuracyVisible => accuracyVisible_.lastResult!;
   set accuracyVisible(bool value) => accuracyVisible_(value);
-  final checkEnabled_ =
+  final checkNextEnabled_ =
       RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get checkEnabled => checkEnabled_.lastResult!;
-  set checkEnabled(bool value) => checkEnabled_(value);
+  bool get checkNextEnabled => checkNextEnabled_.lastResult!;
+  set checkNextEnabled(bool value) => checkNextEnabled_(value);
+  final checkNextString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "Check");
+  String get checkNextString => checkNextString_.lastResult!;
+  set checkNextString(String value) => checkNextString_(value);
+  final checkPrevEnabled_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: false);
+  bool get checkPrevEnabled => checkPrevEnabled_.lastResult!;
+  set checkPrevEnabled(bool value) => checkPrevEnabled_(value);
+  final checkPrevString_ =
+      RxCommand.createSync((String s) => s, initialLastResult: "Check");
+  String get checkPrevString => checkPrevString_.lastResult!;
+  set checkPrevString(String value) => checkPrevString_(value);
   final wordTargetString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get wordTargetString => wordTargetString_.lastResult!;
@@ -92,18 +105,14 @@ class WordsReviewViewModel {
       RxCommand.createSync((String s) => s, initialLastResult: "");
   String get wordInputString => wordInputString_.lastResult!;
   set wordInputString(String value) => wordInputString_(value);
-  final checkString_ =
-      RxCommand.createSync((String s) => s, initialLastResult: "Check");
-  String get checkString => checkString_.lastResult!;
-  set checkString(String value) => checkString_(value);
-  final searchEnabled_ =
-      RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get searchEnabled => searchEnabled_.lastResult!;
-  set searchEnabled(bool value) => searchEnabled_(value);
-  final googleEnabled_ =
-      RxCommand.createSync((bool b) => b, initialLastResult: false);
-  bool get googleEnabled => googleEnabled_.lastResult!;
-  set googleEnabled(bool value) => googleEnabled_(value);
+  final moveForward_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get moveForward => moveForward_.lastResult!;
+  set moveForward(bool value) => moveForward_(value);
+  final onRepeat_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get onRepeat => onRepeat_.lastResult!;
+  set onRepeat(bool value) => onRepeat_(value);
 
   WordsReviewViewModel(this.doTestAction);
 
@@ -142,29 +151,41 @@ class WordsReviewViewModel {
     correctIDs = [];
     index = 0;
     await doTest();
-    checkString = isTestMode ? "Check" : "Next";
+    checkNextString = isTestMode ? "Check" : "Next";
+    checkPrevString = isTestMode ? "Check" : "Prev";
     if (options.mode == ReviewMode.ReviewAuto)
       subscriptionTimer = Timer.periodic(
-          Duration(seconds: options.interval), (_) async => await check());
+          Duration(seconds: options.interval), (_) async => await check(true));
   }
 
-  void next() {
-    index++;
-    if (isTestMode && !hasNext) {
-      index = 0;
-      items = items.where((o) => !correctIDs.contains(o.id)).toList();
+  void move(bool toNext) {
+    void checkOnRepeat() {
+      if (onRepeat) index = (index + count) % count;
+    }
+
+    if (moveForward == toNext) {
+      index++;
+      checkOnRepeat();
+      if (isTestMode && !hasCurrent) {
+        index = 0;
+        items = items.where((o) => !correctIDs.contains(o.id)).toList();
+      }
+    } else {
+      index--;
+      checkOnRepeat();
     }
   }
 
   Future<String> getTranslation() async {
     if (dictTranslation == null) return "";
-    var url = dictTranslation!.urlString(currentWord, vmSettings.lstAutoCorrect);
+    var url =
+        dictTranslation!.urlString(currentWord, vmSettings.lstAutoCorrect);
     var html = await BaseService.getHtmlByUrl(url);
     return HtmlTransformService.extractTextFromHtml(
         html, dictTranslation!.transform, "", (text, _) => text);
   }
 
-  Future check() async {
+  Future check(bool toNext) async {
     if (!isTestMode) {
       var b = true;
       if (options.mode == ReviewMode.ReviewManual &&
@@ -174,7 +195,7 @@ class WordsReviewViewModel {
         incorrectVisible = true;
       }
       if (b) {
-        next();
+        move(toNext);
         await doTest();
       }
     } else if (!correctVisible && !incorrectVisible) {
@@ -186,9 +207,9 @@ class WordsReviewViewModel {
       else
         incorrectVisible = true;
       wordHintVisible = false;
-      googleEnabled = searchEnabled = true;
-      checkString = "Next";
-      if (!hasNext) return;
+      checkNextString = "Next";
+      checkPrevString = "Prev";
+      if (!hasCurrent) return;
       var o = currentItem!;
       var isCorrect = o.word == wordInputString;
       if (isCorrect) correctIDs.add(o.id);
@@ -197,18 +218,20 @@ class WordsReviewViewModel {
       o.total = o2.total;
       accuracyString = o.accuracy;
     } else {
-      next();
+      move(toNext);
       await doTest();
-      checkString = "Check";
+      checkNextString = "Check";
+      checkPrevString = "Check";
     }
   }
 
   Future doTest() async {
-    indexVisible = hasNext;
+    indexVisible = hasCurrent;
     correctVisible = false;
     incorrectVisible = false;
-    accuracyVisible = isTestMode && hasNext;
-    checkEnabled = hasNext;
+    accuracyVisible = isTestMode && hasCurrent;
+    checkNextEnabled = hasCurrent;
+    checkPrevEnabled = hasCurrent;
     wordTargetString = currentWord;
     noteTargetString = currentItem?.note ?? "";
     wordHintString = currentItem?.word.length.toString() ?? "";
@@ -217,9 +240,8 @@ class WordsReviewViewModel {
     wordHintVisible = isTestMode;
     translationString = "";
     wordInputString = "";
-    googleEnabled = searchEnabled = false;
     doTestAction.call();
-    if (hasNext) {
+    if (hasCurrent) {
       indexString = "${index + 1}/$count";
       accuracyString = currentItem!.accuracy;
       translationString = await getTranslation();

@@ -16,7 +16,7 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
 
   _PhrasesReviewPageState() {
     vm = PhrasesReviewViewModel(() {
-      if (vm.hasNext && vm.isSpeaking) speak(vm.currentPhrase);
+      if (vm.hasCurrent && vm.isSpeaking) speak(vm.currentPhrase);
     });
     Future.delayed(Duration(seconds: 1), () => more());
   }
@@ -71,12 +71,43 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
                       onChanged: vm.isSpeaking_,
                     ))),
             StreamBuilder(
-                stream: vm.checkEnabled_,
+                stream: vm.checkNextEnabled_,
                 builder: (context, snapshot) => StreamBuilder(
-                    stream: vm.checkString_,
+                    stream: vm.checkNextString_,
                     builder: (context, snapshot) => TextButton(
-                        child: Text(vm.checkString),
-                        onPressed: !vm.checkEnabled ? null : () => vm.check())))
+                        child: Text(vm.checkNextString),
+                        onPressed: !vm.checkNextEnabled
+                            ? null
+                            : () => vm.check(true))))
+          ],
+        ),
+        Row(
+          children: [
+            StreamBuilder(
+                stream: vm.onRepeat_,
+                builder: (context, snapshot) => Expanded(
+                        child: CheckboxListTile(
+                      title: Text("On Repeat"),
+                      value: vm.onRepeat,
+                      onChanged: vm.onRepeat_,
+                    ))),
+            StreamBuilder(
+                stream: vm.moveForward_,
+                builder: (context, snapshot) => Expanded(
+                        child: CheckboxListTile(
+                      title: Text("Forward"),
+                      value: vm.moveForward,
+                      onChanged: vm.moveForward_,
+                    ))),
+            StreamBuilder(
+                stream: vm.checkPrevEnabled_,
+                builder: (context, snapshot) => StreamBuilder(
+                    stream: vm.checkPrevString_,
+                    builder: (context, snapshot) => TextButton(
+                        child: Text(vm.checkPrevString),
+                        onPressed: !vm.checkPrevEnabled
+                            ? null
+                            : () => vm.check(false))))
           ],
         ),
         Expanded(
