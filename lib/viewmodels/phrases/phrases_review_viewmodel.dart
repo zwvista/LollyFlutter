@@ -87,6 +87,9 @@ class PhrasesReviewViewModel {
   PhrasesReviewViewModel(this.doTestAction);
 
   Future newTest() async {
+    index = 0;
+    items.clear();
+    correctIDs.clear();
     subscriptionTimer?.cancel();
     isSpeaking_(options.speakingEnabled);
     if (options.mode == ReviewMode.Textbook) {
@@ -105,8 +108,7 @@ class PhrasesReviewViewModel {
       items = items.sublist(nFrom, nTo);
       if (options.shuffled) items.shuffle();
     }
-    correctIDs = [];
-    index = 0;
+    index = options.moveForward ? 0 : count - 1;
     doTest();
     checkNextString = isTestMode ? "Check" : "Next";
     checkPrevString = isTestMode ? "Check" : "Prev";
