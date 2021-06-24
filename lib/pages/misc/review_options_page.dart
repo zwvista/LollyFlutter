@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lolly_flutter/packages/checkbox_formfield-0.1.0+3/checkbox_list_tile_formfield.dart';
 import 'package:lolly_flutter/models/misc/mreviewoptions.dart';
+import 'package:lolly_flutter/packages/checkbox_formfield-0.1.0+3/checkbox_list_tile_formfield.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 
 class ReviewOptionsPage extends StatefulWidget {
@@ -59,6 +59,16 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                   initialValue: options.speakingEnabled,
                   title: Text('Speak(Enabled)'),
                   onSaved: (v) => options.speakingEnabled = v!,
+                ),
+                CheckboxListTileFormField(
+                  initialValue: options.onRepeat,
+                  title: Text('On Repeat'),
+                  onSaved: (v) => options.onRepeat = v!,
+                ),
+                CheckboxListTileFormField(
+                  initialValue: options.moveForward,
+                  title: Text('Forward'),
+                  onSaved: (v) => options.moveForward = v!,
                 ),
                 TextFormField(
                     initialValue: options.interval.toString(),
