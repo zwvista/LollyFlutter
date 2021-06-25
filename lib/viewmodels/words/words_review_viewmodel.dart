@@ -69,6 +69,10 @@ class WordsReviewViewModel {
       RxCommand.createSync((bool b) => b, initialLastResult: false);
   bool get checkPrevEnabled => checkPrevEnabled_.lastResult!;
   set checkPrevEnabled(bool value) => checkPrevEnabled_(value);
+  final checkPrevVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get checkPrevVisible => checkPrevVisible_.lastResult!;
+  set checkPrevVisible(bool value) => checkPrevVisible_(value);
   final checkPrevString_ =
       RxCommand.createSync((String s) => s, initialLastResult: "Check");
   String get checkPrevString => checkPrevString_.lastResult!;
@@ -113,6 +117,14 @@ class WordsReviewViewModel {
       RxCommand.createSync((bool b) => b, initialLastResult: true);
   bool get onRepeat => onRepeat_.lastResult!;
   set onRepeat(bool value) => onRepeat_(value);
+  final moveForwardVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get moveForwardVisible => moveForwardVisible_.lastResult!;
+  set moveForwardVisible(bool value) => moveForwardVisible_(value);
+  final onRepeatVisible_ =
+      RxCommand.createSync((bool b) => b, initialLastResult: true);
+  bool get onRepeatVisible => onRepeatVisible_.lastResult!;
+  set onRepeatVisible(bool value) => onRepeatVisible_(value);
 
   WordsReviewViewModel(this.doTestAction);
 
@@ -122,6 +134,11 @@ class WordsReviewViewModel {
     correctIDs.clear();
     subscriptionTimer?.cancel();
     isSpeaking_(options.speakingEnabled);
+    moveForward_(options.moveForward);
+    moveForwardVisible_(!isTestMode);
+    onRepeat_(!isTestMode && options.onRepeat);
+    onRepeatVisible_(!isTestMode);
+    checkPrevVisible_(!isTestMode);
     if (options.mode == ReviewMode.Textbook) {
       var rand = Random();
       var lst =

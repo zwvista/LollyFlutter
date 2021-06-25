@@ -93,30 +93,42 @@ class _WordsReviewPageState extends State<WordsReviewPage> {
         Row(
           children: [
             StreamBuilder(
-                stream: vm.onRepeat_,
-                builder: (context, snapshot) => Expanded(
-                        child: CheckboxListTile(
-                      title: Text("On Repeat"),
-                      value: vm.onRepeat,
-                      onChanged: vm.onRepeat_,
-                    ))),
+                stream: vm.onRepeatVisible_,
+                builder: (context, snapshot) => Visibility(
+                    visible: vm.onRepeatVisible,
+                    child: StreamBuilder(
+                        stream: vm.onRepeat_,
+                        builder: (context, snapshot) => Expanded(
+                                child: CheckboxListTile(
+                              title: Text("On Repeat"),
+                              value: vm.onRepeat,
+                              onChanged: vm.onRepeat_,
+                            ))))),
             StreamBuilder(
-                stream: vm.moveForward_,
-                builder: (context, snapshot) => Expanded(
-                        child: CheckboxListTile(
-                      title: Text("Forward"),
-                      value: vm.moveForward,
-                      onChanged: vm.moveForward_,
-                    ))),
+                stream: vm.moveForwardVisible_,
+                builder: (context, snapshot) => Visibility(
+                    visible: vm.moveForwardVisible,
+                    child: StreamBuilder(
+                        stream: vm.moveForward_,
+                        builder: (context, snapshot) => Expanded(
+                                child: CheckboxListTile(
+                              title: Text("Forward"),
+                              value: vm.moveForward,
+                              onChanged: vm.moveForward_,
+                            ))))),
             StreamBuilder(
-                stream: vm.checkPrevEnabled_,
-                builder: (context, snapshot) => StreamBuilder(
-                    stream: vm.checkPrevString_,
-                    builder: (context, snapshot) => TextButton(
-                        child: Text(vm.checkPrevString),
-                        onPressed: !vm.checkPrevEnabled
-                            ? null
-                            : () => vm.check(false))))
+                stream: vm.checkPrevVisible_,
+                builder: (context, snapshot) => Visibility(
+                    visible: vm.checkPrevVisible,
+                    child: StreamBuilder(
+                        stream: vm.checkPrevEnabled_,
+                        builder: (context, snapshot) => StreamBuilder(
+                            stream: vm.checkPrevString_,
+                            builder: (context, snapshot) => TextButton(
+                                child: Text(vm.checkPrevString),
+                                onPressed: !vm.checkPrevEnabled
+                                    ? null
+                                    : () => vm.check(false))))))
           ],
         ),
         Expanded(
