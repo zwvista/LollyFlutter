@@ -6,8 +6,8 @@ import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BaseService<T> {
-  final urlAPI = "https://zwvista.tk/lolly/api.php/records/";
-  final urlSP = "https://zwvista.tk/lolly/sp.php/";
+  final urlAPI = "https://zwvista2.tk/lolly/api.php/records/";
+  final urlSP = "https://zwvista2.tk/lolly/sp.php/";
 
   // https://stackoverflow.com/questions/51368663/flutter-fetched-japanese-character-from-server-decoded-wrong
   Future<Map<String, dynamic>> getDataByUrl(String url) async {
@@ -57,7 +57,7 @@ class BaseService<T> {
   }
 }
 
-final cssFolder = "https://zwvista.tk/lolly/css/";
+final cssFolder = "https://zwvista2.tk/lolly/css/";
 
 extension StringExtensions on String {
   String replaceWithMap(Map<String, String> replacements) {
