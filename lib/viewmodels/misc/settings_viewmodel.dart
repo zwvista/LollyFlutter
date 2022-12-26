@@ -208,22 +208,26 @@ class SettingsViewModel {
       INFO_USDICTNOTE = _getUSInfo(MUSMapping.NAME_USDICTNOTE);
       INFO_USDICTTRANSLATION = _getUSInfo(MUSMapping.NAME_USDICTTRANSLATION);
       INFO_USVOICE = _getUSInfo(MUSMapping.NAME_USVOICE);
+      final res1 = _dictionaryService.getDictsReferenceByLang(uslang);
+      final res2 = _dictionaryService.getDictsNoteByLang(uslang);
+      final res3 = _dictionaryService.getDictsTranslationByLang(uslang);
+      final res4 = _textbookService.getDataByLang(uslang);
+      final res5 = _autoCorrectService.getDataByLang(uslang);
+      final res6 = _voiceService.getDataByLang(uslang);
       selectedDictReference_(null);
-      lstDictsReference =
-          await _dictionaryService.getDictsReferenceByLang(uslang);
+      lstDictsReference = await res1;
       selectedDictNote_(null);
-      lstDictsNote = await _dictionaryService.getDictsNoteByLang(uslang);
+      lstDictsNote = await res2;
       selectedDictTranslation_(null);
-      lstDictsTranslation =
-          await _dictionaryService.getDictsTranslationByLang(uslang);
+      lstDictsTranslation = await res3;
       selectedTextbook_(null);
-      lstTextbooks = await _textbookService.getDataByLang(uslang);
+      lstTextbooks = await res4;
       lstTextbookFilters =
           lstTextbooks.map((o) => MSelectItem(o.id, o.textbookname)).toList();
       lstTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
-      lstAutoCorrect = await _autoCorrectService.getDataByLang(uslang);
+      lstAutoCorrect = await res5;
       selectedVoice_(null);
-      lstVoices = await _voiceService.getDataByLang(uslang);
+      lstVoices = await res6;
       if (lstVoices.isNotEmpty) {
         final v0 = lstVoices[0];
         var ttsVoices = (await flutterTts.getVoices) as List;
@@ -409,9 +413,12 @@ class SettingsViewModel {
   }
 
   Future getData() async {
-    lstLanguages = await _languageService.getData();
-    lstUSMappings = await _usMappingService.getData();
-    lstUserSettings = await _userSettingService.getData();
+    final res1 = _languageService.getData();
+    final res2 = _usMappingService.getData();
+    final res3 = _userSettingService.getData();
+    lstLanguages = await res1;
+    lstUSMappings = await res2;
+    lstUserSettings = await res3;
     INFO_USLANG = _getUSInfo(MUSMapping.NAME_USLANG);
     selectedLang_(lstLanguages.firstWhere((o) => o.id == uslang));
   }
@@ -422,49 +429,70 @@ class SettingsViewModel {
   Future previousUnitPart() async {
     if (toType == UnitPartToType.Unit) {
       if (usunitfrom > 1) {
-        await _doUpdateUnitFrom(usunitfrom - 1);
-        await _doUpdateUnitTo(usunitfrom);
+        final res1 = _doUpdateUnitFrom(usunitfrom - 1);
+        final res2 = _doUpdateUnitTo(usunitfrom);
+        await res1;
+        await res2;
       }
     } else if (uspartfrom > 1) {
-      await _doUpdatePartFrom(uspartfrom - 1);
-      await _doUpdateUnitPartTo();
+      final res1 = _doUpdatePartFrom(uspartfrom - 1);
+      final res2 = _doUpdateUnitPartTo();
+      await res1;
+      await res2;
     } else if (usunitfrom > 1) {
-      await _doUpdateUnitFrom(usunitfrom - 1);
-      await _doUpdatePartFrom(partCount);
-      await _doUpdateUnitPartTo();
+      final res1 = _doUpdateUnitFrom(usunitfrom - 1);
+      final res2 = _doUpdatePartFrom(partCount);
+      final res3 = _doUpdateUnitPartTo();
+      await res1;
+      await res2;
+      await res3;
     }
   }
 
   Future nextUnitPart() async {
     if (toType == UnitPartToType.Unit) {
       if (usunitfrom < unitCount) {
-        await _doUpdateUnitFrom(usunitfrom + 1);
-        await _doUpdateUnitTo(usunitfrom);
+        final res1 = _doUpdateUnitFrom(usunitfrom + 1);
+        final res2 = _doUpdateUnitTo(usunitfrom);
+        await res1;
+        await res2;
       }
     } else if (uspartfrom < partCount) {
-      await _doUpdatePartFrom(uspartfrom + 1);
-      await _doUpdateUnitPartTo();
+      final res1 = _doUpdatePartFrom(uspartfrom + 1);
+      final res2 = _doUpdateUnitPartTo();
+      await res1;
+      await res2;
     } else if (usunitfrom < unitCount) {
-      await _doUpdateUnitFrom(usunitfrom + 1);
-      await _doUpdatePartFrom(1);
-      await _doUpdateUnitPartTo();
+      final res1 = _doUpdateUnitFrom(usunitfrom + 1);
+      final res2 = _doUpdatePartFrom(1);
+      final res3 = _doUpdateUnitPartTo();
+      await res1;
+      await res2;
+      await res3;
     }
   }
 
   Future _doUpdateUnitPartFrom() async {
-    await _doUpdateUnitFrom(usunitto);
-    await _doUpdatePartFrom(uspartto);
+    final res1 = _doUpdateUnitFrom(usunitto);
+    final res2 = _doUpdatePartFrom(uspartto);
+    await res1;
+    await res2;
   }
 
   Future _doUpdateUnitPartTo() async {
-    await _doUpdateUnitTo(usunitfrom);
-    await _doUpdatePartTo(uspartfrom);
+    final res1 = _doUpdateUnitTo(usunitfrom);
+    final res2 = _doUpdatePartTo(uspartfrom);
+    await res1;
+    await res2;
   }
 
   Future _doUpdateSingleUnit() async {
-    await _doUpdateUnitTo(usunitfrom);
-    await _doUpdatePartFrom(1);
-    await _doUpdatePartTo(partCount);
+    final res1 = _doUpdateUnitTo(usunitfrom);
+    final res2 = _doUpdatePartFrom(1);
+    final res3 = _doUpdatePartTo(partCount);
+    await res1;
+    await res2;
+    await res3;
   }
 
   Future _doUpdateUnitFrom(int newVal) async {
