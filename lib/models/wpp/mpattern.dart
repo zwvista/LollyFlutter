@@ -26,9 +26,9 @@ class MPattern {
   @JsonKey(name: 'TAGS')
   var tags = "";
   @JsonKey(name: 'IDS_MERGE')
-  var idsMerge = "";
+  String? idsMerge = "";
   @JsonKey(name: 'PATTERNS_SPLIT')
-  var patternsSplit = "";
+  String? patternsSplit = "";
 
   MPattern();
   factory MPattern.fromJson(Map<String, dynamic> json) =>

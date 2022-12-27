@@ -6,29 +6,26 @@ part of 'musersetting.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MUserSettings _$MUserSettingsFromJson(Map<String, dynamic> json) {
-  return MUserSettings()
-    ..lst = (json['records'] as List<dynamic>)
-        .map((e) => MUserSetting.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+MUserSettings _$MUserSettingsFromJson(Map<String, dynamic> json) =>
+    MUserSettings()
+      ..lst = (json['records'] as List<dynamic>)
+          .map((e) => MUserSetting.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$MUserSettingsToJson(MUserSettings instance) =>
     <String, dynamic>{
       'records': instance.lst,
     };
 
-MUserSetting _$MUserSettingFromJson(Map<String, dynamic> json) {
-  return MUserSetting()
-    ..id = json['ID'] as int
-    ..userid = json['USERID'] as String
-    ..kind = json['KIND'] as int
-    ..entityid = json['ENTITYID'] as int
-    ..value1 = json['VALUE1'] as String?
-    ..value2 = json['VALUE2'] as String?
-    ..value3 = json['VALUE3'] as String?
-    ..value4 = json['VALUE4'] as String?;
-}
+MUserSetting _$MUserSettingFromJson(Map<String, dynamic> json) => MUserSetting()
+  ..id = json['ID'] as int
+  ..userid = json['USERID'] as String
+  ..kind = json['KIND'] as int
+  ..entityid = json['ENTITYID'] as int
+  ..value1 = json['VALUE1'] as String?
+  ..value2 = json['VALUE2'] as String?
+  ..value3 = json['VALUE3'] as String?
+  ..value4 = json['VALUE4'] as String?;
 
 Map<String, dynamic> _$MUserSettingToJson(MUserSetting instance) =>
     <String, dynamic>{

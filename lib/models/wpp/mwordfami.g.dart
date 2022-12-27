@@ -6,26 +6,22 @@ part of 'mwordfami.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MWordsFami _$MWordsFamiFromJson(Map<String, dynamic> json) {
-  return MWordsFami()
-    ..lst = (json['records'] as List<dynamic>)
-        .map((e) => MWordFami.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+MWordsFami _$MWordsFamiFromJson(Map<String, dynamic> json) => MWordsFami()
+  ..lst = (json['records'] as List<dynamic>)
+      .map((e) => MWordFami.fromJson(e as Map<String, dynamic>))
+      .toList();
 
 Map<String, dynamic> _$MWordsFamiToJson(MWordsFami instance) =>
     <String, dynamic>{
       'records': instance.lst,
     };
 
-MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) {
-  return MWordFami()
-    ..id = json['ID'] as int
-    ..userid = json['USERID'] as String
-    ..wordid = json['WORDID'] as int
-    ..correct = json['CORRECT'] as int
-    ..total = json['TOTAL'] as int;
-}
+MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) => MWordFami()
+  ..id = json['ID'] as int
+  ..userid = json['USERID'] as String
+  ..wordid = json['WORDID'] as int
+  ..correct = json['CORRECT'] as int
+  ..total = json['TOTAL'] as int;
 
 Map<String, dynamic> _$MWordFamiToJson(MWordFami instance) => <String, dynamic>{
       'ID': instance.id,

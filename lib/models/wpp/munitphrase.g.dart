@@ -6,34 +6,30 @@ part of 'munitphrase.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MUnitPhrases _$MUnitPhrasesFromJson(Map<String, dynamic> json) {
-  return MUnitPhrases()
-    ..lst = (json['records'] as List<dynamic>)
-        .map((e) => MUnitPhrase.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+MUnitPhrases _$MUnitPhrasesFromJson(Map<String, dynamic> json) => MUnitPhrases()
+  ..lst = (json['records'] as List<dynamic>)
+      .map((e) => MUnitPhrase.fromJson(e as Map<String, dynamic>))
+      .toList();
 
 Map<String, dynamic> _$MUnitPhrasesToJson(MUnitPhrases instance) =>
     <String, dynamic>{
       'records': instance.lst,
     };
 
-MUnitPhrase _$MUnitPhraseFromJson(Map<String, dynamic> json) {
-  return MUnitPhrase()
-    ..id = json['ID'] as int
-    ..langid = json['LANGID'] as int
-    ..textbookid = json['TEXTBOOKID'] as int
-    ..textbookname = json['TEXTBOOKNAME'] as String
-    ..unit = json['UNIT'] as int
-    ..part = json['PART'] as int
-    ..seqnum = json['SEQNUM'] as int
-    ..phraseid = json['PHRASEID'] as int
-    ..phrase = json['PHRASE'] as String
-    ..translation = json['TRANSLATION'] as String
-    ..textbook = json['textbook'] == null
-        ? null
-        : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);
-}
+MUnitPhrase _$MUnitPhraseFromJson(Map<String, dynamic> json) => MUnitPhrase()
+  ..id = json['ID'] as int
+  ..langid = json['LANGID'] as int
+  ..textbookid = json['TEXTBOOKID'] as int
+  ..textbookname = json['TEXTBOOKNAME'] as String
+  ..unit = json['UNIT'] as int
+  ..part = json['PART'] as int
+  ..seqnum = json['SEQNUM'] as int
+  ..phraseid = json['PHRASEID'] as int
+  ..phrase = json['PHRASE'] as String
+  ..translation = json['TRANSLATION'] as String
+  ..textbook = json['textbook'] == null
+      ? null
+      : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$MUnitPhraseToJson(MUnitPhrase instance) =>
     <String, dynamic>{

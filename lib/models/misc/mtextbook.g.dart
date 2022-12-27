@@ -6,26 +6,22 @@ part of 'mtextbook.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MTextbooks _$MTextbooksFromJson(Map<String, dynamic> json) {
-  return MTextbooks()
-    ..lst = (json['records'] as List<dynamic>)
-        .map((e) => MTextbook.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+MTextbooks _$MTextbooksFromJson(Map<String, dynamic> json) => MTextbooks()
+  ..lst = (json['records'] as List<dynamic>)
+      .map((e) => MTextbook.fromJson(e as Map<String, dynamic>))
+      .toList();
 
 Map<String, dynamic> _$MTextbooksToJson(MTextbooks instance) =>
     <String, dynamic>{
       'records': instance.lst,
     };
 
-MTextbook _$MTextbookFromJson(Map<String, dynamic> json) {
-  return MTextbook()
-    ..id = json['ID'] as int
-    ..langid = json['LANGID'] as int
-    ..textbookname = json['NAME'] as String
-    ..units = json['UNITS'] as String
-    ..parts = json['PARTS'] as String;
-}
+MTextbook _$MTextbookFromJson(Map<String, dynamic> json) => MTextbook()
+  ..id = json['ID'] as int
+  ..langid = json['LANGID'] as int
+  ..textbookname = json['NAME'] as String
+  ..units = json['UNITS'] as String
+  ..parts = json['PARTS'] as String;
 
 Map<String, dynamic> _$MTextbookToJson(MTextbook instance) => <String, dynamic>{
       'ID': instance.id,
