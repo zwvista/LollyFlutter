@@ -24,7 +24,7 @@ class PhrasesUnitViewModel {
   PhrasesUnitViewModel(this.inbook) {
     reloadCommand = RxCommand.createAsyncNoParam(() async {
       if (!reloaded) {
-        inbook
+        lstUnitPhrasesAll = inbook
             ? await unitPhraseService.getDataByTextbookUnitPart(
                 vmSettings.selectedTextbook!,
                 vmSettings.usunitpartfrom,
@@ -53,7 +53,9 @@ class PhrasesUnitViewModel {
 
   MUnitPhrase newUnitPhrase() {
     int f(MUnitPhrase o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
-    final maxElem = lstUnitPhrases.isEmpty ? null : lstUnitPhrases.reduce((acc, v) => f(acc) < f(v) ? v : acc);
+    final maxElem = lstUnitPhrases.isEmpty
+        ? null
+        : lstUnitPhrases.reduce((acc, v) => f(acc) < f(v) ? v : acc);
     return MUnitPhrase()
       ..langid = vmSettings.selectedLang!.id
       ..textbookid = vmSettings.ustextbook
