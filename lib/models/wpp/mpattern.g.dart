@@ -19,17 +19,15 @@ MPattern _$MPatternFromJson(Map<String, dynamic> json) => MPattern()
   ..id = json['ID'] as int
   ..langid = json['LANGID'] as int
   ..pattern = json['PATTERN'] as String
-  ..note = json['NOTE'] as String
   ..tags = json['TAGS'] as String
-  ..idsMerge = json['IDS_MERGE'] as String?
-  ..patternsSplit = json['PATTERNS_SPLIT'] as String?;
+  ..title = json['TITLE'] as String
+  ..url = json['URL'] as String;
 
 Map<String, dynamic> _$MPatternToJson(MPattern instance) => <String, dynamic>{
       'ID': instance.id,
       'LANGID': instance.langid,
       'PATTERN': instance.pattern,
-      'NOTE': instance.note,
       'TAGS': instance.tags,
-      'IDS_MERGE': instance.idsMerge,
-      'PATTERNS_SPLIT': instance.patternsSplit,
+      'TITLE': instance.title,
+      'URL': instance.url,
     };

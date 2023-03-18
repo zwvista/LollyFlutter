@@ -21,14 +21,12 @@ class MPattern {
   var langid = 0;
   @JsonKey(name: 'PATTERN')
   var pattern = "";
-  @JsonKey(name: 'NOTE')
-  var note = "";
   @JsonKey(name: 'TAGS')
   var tags = "";
-  @JsonKey(name: 'IDS_MERGE')
-  String? idsMerge = "";
-  @JsonKey(name: 'PATTERNS_SPLIT')
-  String? patternsSplit = "";
+  @JsonKey(name: 'TITLE')
+  var title = "";
+  @JsonKey(name: 'URL')
+  var url = "";
 
   MPattern();
   factory MPattern.fromJson(Map<String, dynamic> json) =>

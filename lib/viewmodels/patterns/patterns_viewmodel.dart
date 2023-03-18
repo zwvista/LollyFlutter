@@ -27,17 +27,15 @@ class PatternsViewModel {
       lstPatterns = textFilter.isEmpty
           ? lstPatternsAll
           : lstPatternsAll
-              .where((o) => (scopeFilter == "Pattern"
-                      ? o.pattern
-                      : scopeFilter == "Note"
-                          ? o.note
-                          : o.tags)
+              .where((o) => (scopeFilter == "Pattern" ? o.pattern : o.tags)
                   .toLowerCase()
                   .contains(textFilter.toLowerCase()))
               .toList();
       return lstPatterns;
     });
-    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
+    textFilter_
+        .debounceTime(const Duration(milliseconds: 500))
+        .listen(reloadCommand);
     scopeFilter_.listen(reloadCommand);
   }
 

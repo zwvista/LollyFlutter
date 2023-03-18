@@ -8,7 +8,7 @@ class PatternsDetailPage extends StatefulWidget {
   final PatternsDetailViewModel vmDetail;
 
   PatternsDetailPage(PatternsViewModel vm, MPattern item)
-      : vmDetail = PatternsDetailViewModel(vm, item);
+      : vmDetail = PatternsDetailViewModel(item);
 
   @override
   PatternsDetailPageState createState() => PatternsDetailPageState();
@@ -49,21 +49,21 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
                     initialValue: item.pattern,
                     decoration: InputDecoration(
                       labelText: "PATTERN",
-                    ),
-                    validator: (v) =>
-                        v!.isEmpty ? "PATTERN must not be empty" : null,
-                    onSaved: (s) => item.pattern = s!),
-                TextFormField(
-                    initialValue: item.note,
-                    decoration: InputDecoration(
-                      labelText: "NOTE",
-                    ),
-                    onSaved: (s) => item.note = s!),
+                    )),
                 TextFormField(
                     initialValue: item.tags,
                     decoration: InputDecoration(
                       labelText: "TAGS",
-                    ),
-                    onSaved: (s) => item.tags = s!),
+                    )),
+                TextFormField(
+                    initialValue: item.title,
+                    decoration: InputDecoration(
+                      labelText: "TITLE",
+                    )),
+                TextFormField(
+                    initialValue: item.url,
+                    decoration: InputDecoration(
+                      labelText: "URL",
+                    )),
               ]))));
 }
