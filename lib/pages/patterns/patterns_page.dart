@@ -81,6 +81,13 @@ class PatternsPageState extends State<PatternsPage> {
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
+                          trailing: IconButton(
+                              icon: Icon(Icons.keyboard_arrow_right,
+                                  color: Colors.blue, size: 30.0),
+                              onPressed: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => PatternsWebPagePage(
+                                          vm.lstPatterns[index])))),
                           onTap: () {
                             speak(entry.pattern);
                           },
@@ -136,11 +143,6 @@ class PatternsPageState extends State<PatternsPage> {
                                           }),
                                     ]),
                               )),
-                      IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.red,
-                        icon: Icons.delete,
-                      ),
                     ],
                   );
                 },

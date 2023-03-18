@@ -175,7 +175,7 @@ class SettingsViewModel {
 
   static final scopeWordFilters = ["Word", "Note"];
   static final scopePhraseFilters = ["Phrase", "Translation"];
-  static final scopePatternFilters = ["Pattern", "Note", "Tags"];
+  static final scopePatternFilters = ["Pattern", "Tags"];
   static final reviewModes = [
     MSelectItem(0, "Review(Auto)"),
     MSelectItem(1, "Review(Manual)"),
