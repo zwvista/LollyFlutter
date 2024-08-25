@@ -74,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
             appBar: AppBar(
               title: Text(_getAppbarTitle(state.selectedItem)),
               centerTitle: false,
-              brightness: Brightness.light,
               backgroundColor: Colors.indigo,
               actions: _getActionsForState(state.selectedItem),
             ),
@@ -220,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 void speak(String text) => flutterTts.speak(text);
+
 extension FirstWhereOrNullExtension<E> on Iterable<E> {
   E? firstWhereOrNull(bool Function(E) test) {
     for (E element in this) {

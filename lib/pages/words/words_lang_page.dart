@@ -66,8 +66,90 @@ class WordsLangPageState extends State<WordsLangPage> {
                       fullscreenDialog: true));
 
                   return Slidable(
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
+                    startActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                            label: 'Edit',
+                            backgroundColor: Colors.blue,
+                            icon: Icons.mode_edit,
+                            onPressed: (context) => edit())
+                      ],
+                    ),
+                    endActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                            label: 'More',
+                            backgroundColor: Colors.black45,
+                            icon: Icons.more_horiz,
+                            onPressed: (context) => showDialog(
+                                  context: context,
+                                  builder: (context) => SimpleDialog(
+                                      title: Text("More"),
+                                      children: [
+                                        SimpleDialogOption(
+                                            child: Text("Delete"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Edit"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Retrieve Note"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Clear Note"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Copy Word"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              vm.lstLangWords[index].word
+                                                  .copyToClipboard();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Google Word"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              vm.lstLangWords[index].word
+                                                  .google();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Online Dictionary"),
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                              final url = vmSettings
+                                                  .selectedDictReference!
+                                                  .urlString(
+                                                      vm.lstLangWords[index]
+                                                          .word,
+                                                      vmSettings
+                                                          .lstAutoCorrect);
+                                              await launch(url);
+                                            }),
+                                      ]),
+                                )),
+                        SlidableAction(
+                          label: 'Delete',
+                          backgroundColor: Colors.red,
+                          icon: Icons.delete,
+                          onPressed: (context) {},
+                        ),
+                      ],
+                    ),
                     child: Container(
                         color: Colors.white,
                         child: ListTile(
@@ -95,79 +177,6 @@ class WordsLangPageState extends State<WordsLangPage> {
                             speak(entry.word);
                           },
                         )),
-                    actions: [
-                      IconSlideAction(
-                          caption: 'Edit',
-                          color: Colors.blue,
-                          icon: Icons.mode_edit,
-                          onTap: () => edit())
-                    ],
-                    secondaryActions: [
-                      IconSlideAction(
-                          caption: 'More',
-                          color: Colors.black45,
-                          icon: Icons.more_horiz,
-                          onTap: () => showDialog(
-                                context: context,
-                                builder: (context) => SimpleDialog(
-                                    title: Text("More"),
-                                    children: [
-                                      SimpleDialogOption(
-                                          child: Text("Delete"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Edit"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            edit();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Retrieve Note"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            edit();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Clear Note"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            edit();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Copy Word"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            vm.lstLangWords[index].word
-                                                .copyToClipboard();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Google Word"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            vm.lstLangWords[index].word
-                                                .google();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Online Dictionary"),
-                                          onPressed: () async {
-                                            Navigator.pop(context);
-                                            final url = vmSettings
-                                                .selectedDictReference!
-                                                .urlString(
-                                                    vm.lstLangWords[index].word,
-                                                    vmSettings.lstAutoCorrect);
-                                            await launch(url);
-                                          }),
-                                    ]),
-                              )),
-                      IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.red,
-                        icon: Icons.delete,
-                      ),
-                    ],
                   );
                 },
               ),

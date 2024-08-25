@@ -35,17 +35,17 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.3
-  bloc: ^7.1.0
-  flutter_bloc: ^7.1.0
-  json_annotation: ^4.1.0
+  cupertino_icons: ^1.0.8
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
+  json_annotation: ^4.9.0
   # https://github.com/flutter/flutter/issues/63556
-  analyzer: ^2.1.0
-  http: ^0.13.3
-  tuple: ^2.0.0
-  rxdart: ^0.27.1
+  analyzer: ^5.13.0
+  http: ^1.2.2
+  tuple: ^2.0.2
+  rxdart: ^0.27.7
   rx_command: ^6.0.1
-  rx_widgets: ^4.0.1
+  rx_widgets: ^4.2.1
   webview_flutter: ^2.0.12
   drag_and_drop_lists: ^0.3.2
   url_launcher: ^6.0.6
@@ -55,9 +55,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.1.1
-  json_serializable: ^5.0.0
-  flutter_slidable: ^0.6.0
+  build_runner: ^2.4.12
+  json_serializable: ^6.8.0
+  flutter_slidable: ^3.1.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -23,7 +23,7 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
         TextButton(
           child: Text("Save"),
           style: TextButton.styleFrom(
-            primary: Colors.white,
+            backgroundColor: Colors.white,
           ),
           onPressed: () {
             if (!_formKey.currentState!.validate()) return;

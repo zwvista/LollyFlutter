@@ -65,8 +65,66 @@ class PatternsPageState extends State<PatternsPage> {
                       fullscreenDialog: true));
 
                   return Slidable(
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
+                    startActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                          label: 'Edit',
+                          backgroundColor: Colors.blue,
+                          icon: Icons.mode_edit,
+                          onPressed: (context) => edit(),
+                        ),
+                      ],
+                    ),
+                    endActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                            label: 'More',
+                            backgroundColor: Colors.black45,
+                            icon: Icons.more_horiz,
+                            onPressed: (context) => showDialog(
+                                  context: context,
+                                  builder: (context) => SimpleDialog(
+                                      title: Text("More"),
+                                      children: [
+                                        SimpleDialogOption(
+                                            child: Text("Edit"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Browse Web Page"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PatternsWebPagePage(
+                                                              vm.lstPatterns[
+                                                                  index])));
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Copy Pattern"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              vm.lstPatterns[index].pattern
+                                                  .copyToClipboard();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: Text("Google Pattern"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              vm.lstPatterns[index].pattern
+                                                  .google();
+                                            }),
+                                      ]),
+                                )),
+                      ],
+                    ),
                     child: Container(
                         color: Colors.white,
                         child: ListTile(
@@ -91,58 +149,6 @@ class PatternsPageState extends State<PatternsPage> {
                             speak(entry.pattern);
                           },
                         )),
-                    actions: [
-                      IconSlideAction(
-                        caption: 'Edit',
-                        color: Colors.blue,
-                        icon: Icons.mode_edit,
-                        onTap: () => edit(),
-                      ),
-                    ],
-                    secondaryActions: [
-                      IconSlideAction(
-                          caption: 'More',
-                          color: Colors.black45,
-                          icon: Icons.more_horiz,
-                          onTap: () => showDialog(
-                                context: context,
-                                builder: (context) => SimpleDialog(
-                                    title: Text("More"),
-                                    children: [
-                                      SimpleDialogOption(
-                                          child: Text("Edit"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            edit();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Browse Web Page"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PatternsWebPagePage(
-                                                            vm.lstPatterns[
-                                                                index])));
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Copy Pattern"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            vm.lstPatterns[index].pattern
-                                                .copyToClipboard();
-                                          }),
-                                      SimpleDialogOption(
-                                          child: Text("Google Pattern"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            vm.lstPatterns[index].pattern
-                                                .google();
-                                          }),
-                                    ]),
-                              )),
-                    ],
                   );
                 },
               ),

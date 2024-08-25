@@ -24,7 +24,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
         TextButton(
           child: Text("Save"),
           style: TextButton.styleFrom(
-            primary: Colors.white,
+            backgroundColor: Colors.white,
           ),
           onPressed: () async {
             if (!_formKey.currentState!.validate()) return;

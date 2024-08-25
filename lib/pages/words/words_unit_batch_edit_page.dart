@@ -24,7 +24,7 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
         TextButton(
           child: Text("Save"),
           style: TextButton.styleFrom(
-            primary: Colors.white,
+            backgroundColor: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
