@@ -44,7 +44,7 @@ class BaseService<T> {
 
   Future<MSPResult> callSPByUrl(String url, T item) async {
     final body = (json.decode(json.encode(item)) as Map<String, dynamic>)
-        .map((k, v) => MapEntry("P_" + k, v.toString()));
+        .map((k, v) => MapEntry("P_$k", v.toString()));
     final uri = "$urlSP$url";
     print("[RestApi]SP:$uri");
     final response = await http.post(Uri.parse(uri), body: body);
@@ -57,7 +57,7 @@ class BaseService<T> {
   }
 }
 
-final cssFolder = "https://zwvista.com/lolly/css/";
+const cssFolder = "https://zwvista.com/lolly/css/";
 
 extension StringExtensions on String {
   String replaceWithMap(Map<String, String> replacements) {
@@ -70,7 +70,7 @@ extension StringExtensions on String {
       await Clipboard.setData(ClipboardData(text: this));
 
   void google() async {
-    final url = "https://www.google.com/search?q=" + Uri.encodeFull(this);
-    await launch(url);
+    final url = "https://www.google.com/search?q=${Uri.encodeFull(this)}";
+    await launchUrl(Uri.parse(url));
   }
 }

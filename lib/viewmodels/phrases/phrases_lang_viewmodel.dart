@@ -27,8 +27,10 @@ class PhrasesLangViewModel {
       _applyFilters();
       return lstLangPhrases;
     });
-    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter_.listen(reloadCommand);
+    textFilter_
+        .debounceTime(const Duration(milliseconds: 500))
+        .listen(reloadCommand.call);
+    scopeFilter_.listen(reloadCommand.call);
   }
 
   void _applyFilters() => lstLangPhrases = textFilter.isEmpty

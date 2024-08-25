@@ -8,9 +8,10 @@ class PhrasesLangDetailViewModel {
   PhrasesLangDetailViewModel(this.vm, this.item);
 
   Future save() async {
-    if (item.id == 0)
+    if (item.id == 0) {
       await vm.create(item);
-    else
+    } else {
       await vm.update(item);
+    }
   }
 }

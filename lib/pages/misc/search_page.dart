@@ -9,9 +9,11 @@ import 'login_page.dart';
 import 'online_dict.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final state = SearchPageState();
+  SearchPage({super.key});
+
   @override
-  SearchPageState createState() => SearchPageState();
+  SearchPageState createState() => state;
 }
 
 class SearchPageState extends State<SearchPage> {

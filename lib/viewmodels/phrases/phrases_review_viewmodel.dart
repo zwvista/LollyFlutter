@@ -129,9 +129,10 @@ class PhrasesReviewViewModel {
     doTest();
     checkNextString = isTestMode ? "Check" : "Next";
     checkPrevString = isTestMode ? "Check" : "Prev";
-    if (options.mode == ReviewMode.ReviewAuto)
+    if (options.mode == ReviewMode.ReviewAuto) {
       subscriptionTimer = Timer.periodic(
           Duration(seconds: options.interval), (_) => check(true));
+    }
   }
 
   void move(bool toNext) {
@@ -167,10 +168,11 @@ class PhrasesReviewViewModel {
     } else if (!correctVisible && !incorrectVisible) {
       phraseInputString = vmSettings.autoCorrectInput(phraseInputString);
       phraseTargetVisible = true;
-      if (phraseInputString == currentPhrase)
+      if (phraseInputString == currentPhrase) {
         correctVisible = true;
-      else
+      } else {
         incorrectVisible = true;
+      }
       checkNextString = "Next";
       checkPrevString = "Prev";
       if (!hasCurrent) return;
@@ -196,8 +198,10 @@ class PhrasesReviewViewModel {
     translationString = currentItem?.translation ?? "";
     phraseInputString = "";
     doTestAction.call();
-    if (hasCurrent)
+    if (hasCurrent) {
       indexString = "${index + 1}/$count";
-    else if (options.mode == ReviewMode.ReviewAuto) subscriptionTimer?.cancel();
+    } else if (options.mode == ReviewMode.ReviewAuto) {
+      subscriptionTimer?.cancel();
+    }
   }
 }

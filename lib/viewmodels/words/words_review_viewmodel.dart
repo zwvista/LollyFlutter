@@ -150,7 +150,9 @@ class WordsReviewViewModel {
             ? 0
             : double.parse(s.replaceFirst(RegExp(r"%$"), ""));
         int t = 6 - ((percentage / 20) as int);
-        for (int i = 0; i < t; i++) lst2.add(o);
+        for (int i = 0; i < t; i++) {
+          lst2.add(o);
+        }
       }
       items = [];
       int cnt = min(options.reviewCount, lst.length);
@@ -172,9 +174,10 @@ class WordsReviewViewModel {
     await doTest();
     checkNextString = isTestMode ? "Check" : "Next";
     checkPrevString = isTestMode ? "Check" : "Prev";
-    if (options.mode == ReviewMode.ReviewAuto)
+    if (options.mode == ReviewMode.ReviewAuto) {
       subscriptionTimer = Timer.periodic(
           Duration(seconds: options.interval), (_) async => await check(true));
+    }
   }
 
   void move(bool toNext) {
@@ -221,10 +224,11 @@ class WordsReviewViewModel {
       wordInputString = vmSettings.autoCorrectInput(wordInputString);
       wordTargetVisible = true;
       noteTargetVisible = true;
-      if (wordInputString == currentWord)
+      if (wordInputString == currentWord) {
         correctVisible = true;
-      else
+      } else {
         incorrectVisible = true;
+      }
       wordHintVisible = false;
       checkNextString = "Next";
       checkPrevString = "Prev";
@@ -264,9 +268,11 @@ class WordsReviewViewModel {
       indexString = "${index + 1}/$count";
       accuracyString = currentItem!.accuracy;
       translationString = await getTranslation();
-      if (translationString.isEmpty && !options.speakingEnabled)
+      if (translationString.isEmpty && !options.speakingEnabled) {
         wordInputString = currentWord;
-    } else if (options.mode == ReviewMode.ReviewAuto)
+      }
+    } else if (options.mode == ReviewMode.ReviewAuto) {
       subscriptionTimer?.cancel();
+    }
   }
 }

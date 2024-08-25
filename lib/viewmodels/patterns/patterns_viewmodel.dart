@@ -35,8 +35,8 @@ class PatternsViewModel {
     });
     textFilter_
         .debounceTime(const Duration(milliseconds: 500))
-        .listen(reloadCommand);
-    scopeFilter_.listen(reloadCommand);
+        .listen(reloadCommand.call);
+    scopeFilter_.listen(reloadCommand.call);
   }
 
   MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang!.id;

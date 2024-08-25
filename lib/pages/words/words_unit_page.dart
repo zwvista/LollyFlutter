@@ -13,11 +13,12 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WordsUnitPage extends StatefulWidget {
-  const WordsUnitPage({super.key});
-
   // https://stackoverflow.com/questions/50557842/flutter-call-a-function-on-a-child-widgets-state/50558628
+  final state = WordsUnitPageState();
+  WordsUnitPage({super.key});
+
   @override
-  WordsUnitPageState createState() => WordsUnitPageState();
+  WordsUnitPageState createState() => state;
 }
 
 class WordsUnitPageState extends State<WordsUnitPage> {
@@ -193,8 +194,8 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
+              placeHolderBuilder: (context) => const Center(
+                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

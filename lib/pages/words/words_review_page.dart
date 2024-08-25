@@ -5,10 +5,11 @@ import 'package:lolly_flutter/viewmodels/words/words_review_viewmodel.dart';
 import '../../main.dart';
 
 class WordsReviewPage extends StatefulWidget {
-  const WordsReviewPage({super.key});
+  final state = WordsReviewPageState();
+  WordsReviewPage({super.key});
 
   @override
-  WordsReviewPageState createState() => WordsReviewPageState();
+  WordsReviewPageState createState() => state;
 }
 
 class WordsReviewPageState extends State<WordsReviewPage> {

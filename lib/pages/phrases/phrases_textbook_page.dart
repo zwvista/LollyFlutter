@@ -170,8 +170,8 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
+              placeHolderBuilder: (context) => const Center(
+                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

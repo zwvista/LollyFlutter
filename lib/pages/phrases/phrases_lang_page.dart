@@ -10,10 +10,11 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PhrasesLangPage extends StatefulWidget {
-  const PhrasesLangPage({super.key});
+  final state = PhrasesLangPageState();
+  PhrasesLangPage({super.key});
 
   @override
-  PhrasesLangPageState createState() => PhrasesLangPageState();
+  PhrasesLangPageState createState() => state;
 }
 
 class PhrasesLangPageState extends State<PhrasesLangPage> {
@@ -145,8 +146,8 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
+              placeHolderBuilder: (context) => const Center(
+                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

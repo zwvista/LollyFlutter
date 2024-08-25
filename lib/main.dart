@@ -21,11 +21,13 @@ final vmSettings = SettingsViewModel();
 final flutterTts = FlutterTts();
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 // https://github.com/askNilesh/flutter_drawer_with_bloc
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,17 +35,19 @@ class MyApp extends StatelessWidget {
       title: 'Lolly Flutter',
       theme: ThemeData(
           primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   late NavDrawerBloc _bloc;
   late Widget _content;
 
@@ -80,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             body: AnimatedSwitcher(
               switchInCurve: Curves.easeInExpo,
               switchOutCurve: Curves.easeOutExpo,
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               child: _content,
             ),
           ),
@@ -121,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case NavItem.searchPage:
         return SearchPage();
       case NavItem.settingsPage:
-        return SettingsPage();
+        return const SettingsPage();
       case NavItem.wordsUnitPage:
         return WordsUnitPage();
       case NavItem.phrasesUnitPage:
@@ -131,9 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case NavItem.phrasesReviewPage:
         return PhrasesReviewPage();
       case NavItem.wordsTextbookPage:
-        return WordsTextbookPage();
+        return const WordsTextbookPage();
       case NavItem.phrasesTextbookPage:
-        return PhrasesTextbookPage();
+        return const PhrasesTextbookPage();
       case NavItem.wordsLangPage:
         return WordsLangPage();
       case NavItem.phrasesLangPage:
@@ -141,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case NavItem.patternPage:
         return PatternsPage();
       default:
-        return Center(
+        return const Center(
           child: Text(
             'Home Page',
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -155,35 +159,35 @@ class _MyHomePageState extends State<MyHomePage> {
       case NavItem.searchPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as SearchPage).state.more(),
           )
         ];
       case NavItem.wordsUnitPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as WordsUnitPage).state.more(),
           )
         ];
       case NavItem.phrasesUnitPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as PhrasesUnitPage).state.more(),
           )
         ];
       case NavItem.wordsReviewPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as WordsReviewPage).state.more(),
           )
         ];
       case NavItem.phrasesReviewPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as PhrasesReviewPage).state.more(),
           )
         ];
@@ -194,21 +198,21 @@ class _MyHomePageState extends State<MyHomePage> {
       case NavItem.wordsLangPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as WordsLangPage).state.more(),
           )
         ];
       case NavItem.phrasesLangPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as PhrasesLangPage).state.more(),
           )
         ];
       case NavItem.patternPage:
         return [
           IconButton(
-            icon: Icon(Icons.arrow_circle_down),
+            icon: const Icon(Icons.arrow_circle_down),
             onPressed: () => (_content as PatternsPage).state.more(),
           )
         ];

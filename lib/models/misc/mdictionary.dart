@@ -67,7 +67,7 @@ class MDictionary {
         ? autoCorrect(word, lstAutoCorrects, (o) => o.extended, (o) => o.basic)
         : word;
     final wordUrl = url.replaceAll("{0}", Uri.encodeFull(word2));
-    print("urlString: " + wordUrl);
+    print("urlString: $wordUrl");
     return wordUrl;
   }
 

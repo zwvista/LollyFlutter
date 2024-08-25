@@ -11,10 +11,11 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PatternsPage extends StatefulWidget {
-  const PatternsPage({super.key});
+  final state = PatternsPageState();
+  PatternsPage({super.key});
 
   @override
-  PatternsPageState createState() => PatternsPageState();
+  PatternsPageState createState() => state;
 }
 
 class PatternsPageState extends State<PatternsPage> {
@@ -154,8 +155,8 @@ class PatternsPageState extends State<PatternsPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
+              placeHolderBuilder: (context) => const Center(
+                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

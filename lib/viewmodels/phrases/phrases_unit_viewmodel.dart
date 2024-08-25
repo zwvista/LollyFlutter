@@ -36,9 +36,11 @@ class PhrasesUnitViewModel {
       _applyFilters();
       return lstUnitPhrases;
     });
-    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter_.listen(reloadCommand);
-    textbookFilter_.listen(reloadCommand);
+    textFilter_
+        .debounceTime(const Duration(milliseconds: 500))
+        .listen(reloadCommand.call);
+    scopeFilter_.listen(reloadCommand.call);
+    textbookFilter_.listen(reloadCommand.call);
   }
 
   void _applyFilters() => lstUnitPhrases = textFilter.isEmpty &&

@@ -10,10 +10,11 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PhrasesUnitPage extends StatefulWidget {
-  const PhrasesUnitPage({super.key});
+  final state = PhrasesUnitPageState();
+  PhrasesUnitPage({super.key});
 
   @override
-  PhrasesUnitPageState createState() => PhrasesUnitPageState();
+  PhrasesUnitPageState createState() => state;
 }
 
 class PhrasesUnitPageState extends State<PhrasesUnitPage> {
@@ -153,8 +154,8 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
+              placeHolderBuilder: (context) => const Center(
+                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

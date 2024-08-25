@@ -17,7 +17,7 @@ class WordsUnitBatchEditViewModel {
   final part = RxCommand.createSync((int v) => v,
       initialLastResult: vmSettings.lstParts[0].value);
   final seqnum = RxCommand.createSync((String s) => s, initialLastResult: "0");
-  final selectedItems = Set<MUnitWord>();
+  final selectedItems = <MUnitWord>{};
   late RxCommand<MUnitWord, void> selectedItemsCmd;
 
   WordsUnitBatchEditViewModel(this.vm) {

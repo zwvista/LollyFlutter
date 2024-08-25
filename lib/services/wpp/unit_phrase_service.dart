@@ -9,7 +9,9 @@ class UnitPhraseService extends BaseService<MUnitPhrase> {
     final lst = MUnitPhrases.fromJson(await getDataByUrl(
             "VUNITPHRASES?filter=TEXTBOOKID,eq,${textbook.id}&filter=UNITPART,bt,$unitPartFrom,$unitPartTo&order=UNITPART&order=SEQNUM"))
         .lst;
-    for (var o in lst) o.textbook = textbook;
+    for (var o in lst) {
+      o.textbook = textbook;
+    }
     return lst;
   }
 
@@ -17,14 +19,17 @@ class UnitPhraseService extends BaseService<MUnitPhrase> {
     final lst = MUnitPhrases.fromJson(await getDataByUrl(
             "VUNITPHRASES?filter=TEXTBOOKID,eq,${textbook.id}&order=PHRASEID"))
         .lst;
-    for (var o in lst) o.textbook = textbook;
+    for (var o in lst) {
+      o.textbook = textbook;
+    }
     return lst;
   }
 
   List<MUnitPhrase> _setTextbook(
       List<MUnitPhrase> lst, List<MTextbook> lstTextbooks) {
-    for (var o in lst)
+    for (var o in lst) {
       o.textbook = lstTextbooks.firstWhere((o3) => o3.id == o.textbookid);
+    }
     return lst;
   }
 

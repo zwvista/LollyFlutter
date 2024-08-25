@@ -32,29 +32,29 @@ class NavDrawerWidget extends StatelessWidget {
         Icons.directions_boat),
   ];
 
-  NavDrawerWidget(this.accountName, this.accountEmail);
+  NavDrawerWidget(this.accountName, this.accountEmail, {super.key});
 
   @override
   Widget build(BuildContext context) => Drawer(
-          child: Container(
-        child: ListView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: _listItems.length,
-            itemBuilder: (BuildContext context, int index) =>
-                BlocBuilder<NavDrawerBloc, NavDrawerState>(
-                  builder: (BuildContext context, NavDrawerState state) =>
-                      _buildItem(_listItems[index], state),
-                )),
-      ));
+      child: ListView.builder(
+          padding: EdgeInsets.zero,
+          itemCount: _listItems.length,
+          itemBuilder: (BuildContext context, int index) =>
+              BlocBuilder<NavDrawerBloc, NavDrawerState>(
+                builder: (BuildContext context, NavDrawerState state) =>
+                    _buildItem(_listItems[index], state),
+              )));
 
   Widget _buildItem(_NavigationItem data, NavDrawerState state) =>
       data.header ? _makeHeaderItem() : _makeListItem(data, state);
 
   Widget _makeHeaderItem() => UserAccountsDrawerHeader(
-        accountName: Text(accountName, style: TextStyle(color: Colors.white)),
-        accountEmail: Text(accountEmail, style: TextStyle(color: Colors.white)),
-        decoration: BoxDecoration(color: Colors.indigo),
-        currentAccountPicture: CircleAvatar(
+        accountName:
+            Text(accountName, style: const TextStyle(color: Colors.white)),
+        accountEmail:
+            Text(accountEmail, style: const TextStyle(color: Colors.white)),
+        decoration: const BoxDecoration(color: Colors.indigo),
+        currentAccountPicture: const CircleAvatar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.amber,
           child: Icon(
@@ -65,7 +65,7 @@ class NavDrawerWidget extends StatelessWidget {
       );
 
   Widget _makeListItem(_NavigationItem data, NavDrawerState state) => Card(
-        shape: ContinuousRectangleBorder(borderRadius: BorderRadius.zero),
+        shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.zero),
         borderOnForeground: true,
         elevation: 0,
         margin: EdgeInsets.zero,

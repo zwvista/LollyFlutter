@@ -37,9 +37,11 @@ class WordsUnitViewModel {
       _applyFilters();
       return lstUnitWords;
     });
-    textFilter_.debounceTime(Duration(milliseconds: 500)).listen(reloadCommand);
-    scopeFilter_.listen(reloadCommand);
-    textbookFilter_.listen(reloadCommand);
+    textFilter_
+        .debounceTime(const Duration(milliseconds: 500))
+        .listen(reloadCommand.call);
+    scopeFilter_.listen(reloadCommand.call);
+    textbookFilter_.listen(reloadCommand.call);
   }
 
   void _applyFilters() => lstUnitWords = textFilter.isEmpty &&
@@ -54,7 +56,9 @@ class WordsUnitViewModel {
 
   MUnitWord newUnitWord() {
     int f(MUnitWord o) => o.unit * 10000 + o.part * 1000 + o.seqnum;
-    final maxElem = lstUnitWords.isEmpty ? null : lstUnitWords.reduce((acc, v) => f(acc) < f(v) ? v : acc);
+    final maxElem = lstUnitWords.isEmpty
+        ? null
+        : lstUnitWords.reduce((acc, v) => f(acc) < f(v) ? v : acc);
     return MUnitWord()
       ..langid = vmSettings.selectedLang!.id
       ..textbookid = vmSettings.ustextbook

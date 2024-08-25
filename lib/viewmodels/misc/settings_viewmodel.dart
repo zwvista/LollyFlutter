@@ -266,7 +266,7 @@ class SettingsViewModel {
     selectedLang_ = RxCommand.createSync((MLanguage? v) {
       selectedLang = v;
     });
-    selectedLang_.listen(updateLang);
+    selectedLang_.listen(updateLang.call);
 
     updateVoice = RxCommand.createAsyncNoParamNoResult(() async {
       if (selectedVoice == null) return;
@@ -282,7 +282,7 @@ class SettingsViewModel {
     selectedVoice_ = RxCommand.createSync((MVoice? v) {
       selectedVoice = v;
     });
-    selectedVoice_.listen(updateVoice);
+    selectedVoice_.listen(updateVoice.call);
 
     updateTextbook = RxCommand.createAsyncNoParamNoResult(() async {
       if (selectedTextbook == null) return;
@@ -302,76 +302,82 @@ class SettingsViewModel {
           : isSingleUnitPart
               ? UnitPartToType.Part
               : UnitPartToType.To);
-      if (dirty)
+      if (dirty) {
         await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
+      }
     });
     selectedTextbook_ = RxCommand.createSync((MTextbook? v) {
       selectedTextbook = v;
     });
-    selectedTextbook_.listen(updateTextbook);
+    selectedTextbook_.listen(updateTextbook.call);
 
     updateDictReference = RxCommand.createAsyncNoParamNoResult(() async {
       if (selectedDictReference == null) return;
       final newVal = selectedDictReference!.dictid.toString();
       final dirty = usdictreference != newVal;
       usdictreference = newVal;
-      if (dirty)
+      if (dirty) {
         await _userSettingService.updateByString(
             INFO_USDICTREFERENCE, usdictreference);
+      }
     });
     selectedDictReference_ = RxCommand.createSync((MDictionary? v) {
       selectedDictReference = v;
     });
-    selectedDictReference_.listen(updateDictReference);
+    selectedDictReference_.listen(updateDictReference.call);
 
     updateDictNote = RxCommand.createAsyncNoParamNoResult(() async {
       if (selectedDictNote == null) return;
       final newVal = selectedDictNote!.dictid;
       final dirty = usdictnote != newVal;
       usdictnote = newVal;
-      if (dirty)
+      if (dirty) {
         await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
+      }
     });
     selectedDictNote_ = RxCommand.createSync((MDictionary? v) {
       selectedDictNote = v;
     });
-    selectedDictNote_.listen(updateDictNote);
+    selectedDictNote_.listen(updateDictNote.call);
 
     updateDictTranslation = RxCommand.createAsyncNoParamNoResult(() async {
       if (selectedDictTranslation == null) return;
       final newVal = selectedDictTranslation!.dictid;
       final dirty = usdicttranslation != newVal;
       usdicttranslation = newVal;
-      if (dirty)
+      if (dirty) {
         await _userSettingService.updateByInt(
             INFO_USDICTTRANSLATION, usdicttranslation);
+      }
     });
     selectedDictTranslation_ = RxCommand.createSync((MDictionary? v) {
       selectedDictTranslation = v;
     });
-    selectedDictTranslation_.listen(updateDictTranslation);
+    selectedDictTranslation_.listen(updateDictTranslation.call);
 
     updateUnitFrom = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdateUnitFrom(usunitfrom);
-      if (toType == UnitPartToType.Unit)
+      if (toType == UnitPartToType.Unit) {
         await _doUpdateSingleUnit();
-      else if (toType == UnitPartToType.Part || isInvaidUnitPart)
+      } else if (toType == UnitPartToType.Part || isInvaidUnitPart) {
         await _doUpdateUnitPartTo();
+      }
     });
     selectedUnitFrom = RxCommand.createSync((int? v) {
       usunitfrom = v!;
     });
-    selectedUnitFrom.listen(updateUnitFrom);
+    selectedUnitFrom.listen(updateUnitFrom.call);
 
     updatePartFrom = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdatePartFrom(uspartfrom);
-      if (toType == UnitPartToType.Part || isInvaidUnitPart)
+      if (toType == UnitPartToType.Part || isInvaidUnitPart) {
         await _doUpdateUnitPartTo();
+      }
     });
     selectedPartFrom = RxCommand.createSync((int? v) {
       uspartfrom = v!;
     });
-    selectedPartFrom.listen(updatePartFrom);
+    selectedPartFrom.listen(updatePartFrom.call);
 
     updateUnitTo = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdateUnitTo(usunitto);
@@ -380,7 +386,7 @@ class SettingsViewModel {
     selectedUnitTo = RxCommand.createSync((int? v) {
       usunitto = v!;
     });
-    selectedUnitTo.listen(updateUnitTo);
+    selectedUnitTo.listen(updateUnitTo.call);
 
     updatePartTo = RxCommand.createAsyncNoParamNoResult(() async {
       await _doUpdatePartTo(uspartto);
@@ -389,7 +395,7 @@ class SettingsViewModel {
     selectedPartTo = RxCommand.createSync((int? v) {
       uspartto = v!;
     });
-    selectedPartTo.listen(updatePartTo);
+    selectedPartTo.listen(updatePartTo.call);
 
     setToType = RxCommand.createAsyncNoParamNoResult(() async {
       final b = toType == UnitPartToType.To;
@@ -399,17 +405,19 @@ class SettingsViewModel {
       nextEnabled = !b;
       final b2 = toType != UnitPartToType.Unit;
       final t = !b2 ? "Unit" : "Part";
-      previousText = "Previous " + t;
-      nextText = "Next " + t;
+      previousText = "Previous $t";
+      nextText = "Next $t";
       partFromEnabled = b2 && !isSinglePart;
-      if (toType == UnitPartToType.Unit)
+      if (toType == UnitPartToType.Unit) {
         await _doUpdateSingleUnit();
-      else if (toType == UnitPartToType.Part) await _doUpdateUnitPartTo();
+      } else if (toType == UnitPartToType.Part) {
+        await _doUpdateUnitPartTo();
+      }
     });
     toType_ = RxCommand.createSync((UnitPartToType v) {
       toType = v;
     });
-    toType_.listen(setToType);
+    toType_.listen(setToType.call);
   }
 
   Future getData() async {
@@ -534,7 +542,9 @@ class SettingsViewModel {
     if (selectedDictNote == null) return;
     for (int i = 0;;) {
       await Future.delayed(Duration(milliseconds: selectedDictNote!.wait));
-      while (i < wordCount && !isNoteEmpty(i)) i++;
+      while (i < wordCount && !isNoteEmpty(i)) {
+        i++;
+      }
       if (i > wordCount) break;
       if (i < wordCount) await getOne(i);
       i++;
@@ -545,7 +555,9 @@ class SettingsViewModel {
       Future Function(int) getOne) async {
     if (selectedDictNote == null) return;
     for (int i = 0; i < wordCount;) {
-      while (i < wordCount && !isNoteEmpty(i)) i++;
+      while (i < wordCount && !isNoteEmpty(i)) {
+        i++;
+      }
       if (i < wordCount) await getOne(i);
       i++;
     }

@@ -7,9 +7,13 @@ class WordsDictViewModel implements IOnlineDict {
   List<MSelectItem> lstWords = [];
   final selectedWord_ = RxCommand.createSync((MSelectItem v) => v);
   MSelectItem get selectedWord => selectedWord_.lastResult!;
+  @override
   String get getWord => selectedWord.label;
-  String get getUrl => vmSettings.selectedDictReference
-      ?.urlString(selectedWord.label, vmSettings.lstAutoCorrect) ?? "";
+  @override
+  String get getUrl =>
+      vmSettings.selectedDictReference
+          ?.urlString(selectedWord.label, vmSettings.lstAutoCorrect) ??
+      "";
 
   WordsDictViewModel(List<String> lstWords, int index) {
     this.lstWords = lstWords

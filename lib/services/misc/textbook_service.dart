@@ -26,7 +26,7 @@ class TextbookService extends BaseService<MTextbook> {
       return [];
     }
 
-    lst.forEach((o) {
+    for (var o in lst) {
       o.lstUnits = f(o.units)
           .asMap()
           .map((i, s) => MapEntry(i, MSelectItem(i + 1, s)))
@@ -38,7 +38,7 @@ class TextbookService extends BaseService<MTextbook> {
           .map((i, s) => MapEntry(i, MSelectItem(i + 1, s)))
           .values
           .toList();
-    });
+    }
     return lst;
   }
 
