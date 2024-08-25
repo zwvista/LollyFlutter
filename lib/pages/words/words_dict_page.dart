@@ -21,7 +21,7 @@ class WordsDictPageState extends State<WordsDictPage> {
   late OnlineDict onlineDict;
 
   WordsDictPageState(this.vm) {
-    onlineDict = OnlineDict(vm);
+    onlineDict = OnlineDict(vm, vm.getUrl);
     vm.selectedWord_.listen((_) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
   }
@@ -57,10 +57,7 @@ class WordsDictPageState extends State<WordsDictPage> {
             ]),
             Expanded(
                 child: SwipeDetector(
-              child: WebView(
-                  initialUrl: vm.getUrl,
-                  onWebViewCreated: (c) => onlineDict.controller = c,
-                  onPageFinished: (s) => onlineDict.onPageFinished()),
+              child: WebViewWidget(controller: onlineDict.controller),
               onSwipeLeft: () => vm.next(-1),
               onSwipeRight: () => vm.next(1),
             ))

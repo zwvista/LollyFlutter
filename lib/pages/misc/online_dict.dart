@@ -12,7 +12,31 @@ class OnlineDict {
   late WebViewController controller;
   IOnlineDict iOnlineDict;
 
-  OnlineDict(this.iOnlineDict);
+  OnlineDict(this.iOnlineDict, String initialUrl) {
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageFinished: (String url) async {
+          if (dictStatus == DictWebBrowserStatus.Ready) return;
+          final item = vmSettings.selectedDictReference!;
+          if (dictStatus == DictWebBrowserStatus.Automating) {
+            final s = item.automation.replaceAll("{0}", iOnlineDict.getWord);
+            await controller.runJavaScript(s);
+            dictStatus = DictWebBrowserStatus.Ready;
+            if (item.dicttypename == "OFFLINE-ONLINE")
+              dictStatus = DictWebBrowserStatus.Navigating;
+          } else if (dictStatus == DictWebBrowserStatus.Navigating) {
+            final html = (await controller.runJavaScriptReturningResult(
+                "document.documentElement.outerHTML.toString()")) as String;
+            final str = item.htmlString(html, iOnlineDict.getWord, true);
+            controller.loadRequest(Uri.dataFromString(str,
+                mimeType: 'text/html', encoding: Encoding.getByName('utf-8')));
+            dictStatus = DictWebBrowserStatus.Ready;
+          }
+        },
+      ))
+      ..loadRequest(Uri.parse(initialUrl));
+  }
 
   void searchDict() async {
     final item = vmSettings.selectedDictReference;
@@ -22,11 +46,10 @@ class OnlineDict {
       final html = await BaseService.getHtmlByUrl(url);
       final str = item.htmlString(html, iOnlineDict.getWord, true);
       // https://stackoverflow.com/questions/53831312/how-to-render-a-local-html-file-with-flutter-dart-webview
-      controller.loadUrl(Uri.dataFromString(str,
-              mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-          .toString());
+      controller.loadRequest(Uri.dataFromString(str,
+          mimeType: 'text/html', encoding: Encoding.getByName('utf-8')));
     } else {
-      controller.loadUrl(url);
+      controller.loadRequest(Uri.parse(url));
       if (item.automation.isNotEmpty)
         dictStatus = DictWebBrowserStatus.Automating;
       else if (item.dicttypename == "OFFLINE-ONLINE")
@@ -34,25 +57,5 @@ class OnlineDict {
     }
   }
 
-  void onPageFinished() async {
-    if (dictStatus == DictWebBrowserStatus.Ready) return;
-    final item = vmSettings.selectedDictReference!;
-    if (dictStatus == DictWebBrowserStatus.Automating) {
-      final s = item.automation.replaceAll("{0}", iOnlineDict.getWord);
-      await controller.evaluateJavascript(s);
-      dictStatus = DictWebBrowserStatus.Ready;
-      if (item.dicttypename == "OFFLINE-ONLINE")
-        dictStatus = DictWebBrowserStatus.Navigating;
-    } else if (dictStatus == DictWebBrowserStatus.Navigating) {
-      final html = await controller
-          .evaluateJavascript("document.documentElement.outerHTML.toString()");
-      final str = item.htmlString(html, iOnlineDict.getWord, true);
-      controller.loadUrl(Uri.dataFromString(str,
-              mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-          .toString());
-      dictStatus = DictWebBrowserStatus.Ready;
-    }
-  }
-
-  void loadUrl() => controller.loadUrl(iOnlineDict.getUrl);
+  void loadRequest() => controller.loadRequest(Uri.parse(iOnlineDict.getUrl));
 }

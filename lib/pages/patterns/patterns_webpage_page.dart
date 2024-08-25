@@ -14,9 +14,14 @@ class PatternsWebPagePage extends StatefulWidget {
 
 class PatternsWebPagePageState extends State<PatternsWebPagePage> {
   final PatternsDetailViewModel vm;
+  final WebViewController controller;
 
-  PatternsWebPagePageState(this.vm) {}
+  PatternsWebPagePageState(this.vm)
+      : controller = WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..loadRequest(Uri.parse(vm.item.url));
 
+  @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text('Patterns Web Page')),
       body: Padding(
@@ -24,8 +29,7 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
           child: Column(children: [
             Center(child: Text(vm.item.title)),
             Expanded(
-              child: WebView(
-                  onWebViewCreated: (c) => c.loadUrl(vm.item.url ?? "")),
+              child: WebViewWidget(controller: controller),
             )
           ])));
 }

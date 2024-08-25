@@ -7,9 +7,13 @@ class IOnlineDict {
 
 class SearchViewModel implements IOnlineDict {
   var word = "";
+  @override
   String get getWord => word;
-  String get getUrl => vmSettings.selectedDictReference
-      ?.urlString(word, vmSettings.lstAutoCorrect) ?? "";
+  @override
+  String get getUrl =>
+      vmSettings.selectedDictReference
+          ?.urlString(word, vmSettings.lstAutoCorrect) ??
+      "";
 
   SearchViewModel();
 }

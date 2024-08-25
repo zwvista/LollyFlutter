@@ -33,7 +33,7 @@ class SearchPageState extends State<SearchPage> {
   }
 
   SearchPageState() {
-    onlineDict = OnlineDict(vm);
+    onlineDict = OnlineDict(vm, 'https://google.com');
     setup();
   }
 
@@ -74,10 +74,7 @@ class SearchPageState extends State<SearchPage> {
                       onChanged: vmSettings.selectedDictReference_))),
         ]),
         Expanded(
-          child: WebView(
-              initialUrl: vm.getUrl,
-              onWebViewCreated: (c) => onlineDict.controller = c,
-              onPageFinished: (s) => onlineDict.onPageFinished()),
+          child: WebViewWidget(controller: onlineDict.controller),
         )
       ]);
 
