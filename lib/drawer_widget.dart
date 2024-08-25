@@ -4,6 +4,7 @@ import 'package:lolly_flutter/bloc/drawer_event.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 
+// https://medium.com/capital-one-tech/flutter-a-better-navigation-using-bloc-733a73edc4da
 class NavDrawerWidget extends StatelessWidget {
   final String accountName;
   final String accountEmail;

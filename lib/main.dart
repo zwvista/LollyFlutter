@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _bloc = NavDrawerBloc(NavDrawerState(NavItem.searchPage));
+    _bloc = NavDrawerBloc();
     _content = _getContentForState(_bloc.state.selectedItem);
   }
 
