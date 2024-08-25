@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/mpattern.dart';
 import 'package:lolly_flutter/viewmodels/patterns/patterns_detail_viewmodel.dart';

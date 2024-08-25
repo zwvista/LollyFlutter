@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/mlangword.dart';
 import 'package:lolly_flutter/viewmodels/words/words_lang_detail_viewmodel.dart';

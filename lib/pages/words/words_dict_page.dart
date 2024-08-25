@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lolly_flutter/packages/swipedetector-1.2.0/swipedetector.dart';
 import 'package:lolly_flutter/main.dart';
-import 'package:lolly_flutter/pages/misc/online_dict.dart';
 import 'package:lolly_flutter/viewmodels/words/words_dict_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../packages/swipedetector-1.2.0/swipedetector.dart';
+import '../misc/online_dict.dart';
 
 class WordsDictPage extends StatefulWidget {
   final WordsDictViewModel vm;
