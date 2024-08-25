@@ -12,11 +12,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WordsTextbookPage extends StatefulWidget {
-  final state = WordsTextbookPageState();
+  const WordsTextbookPage({super.key});
 
-  WordsTextbookPage({super.key});
   @override
-  WordsTextbookPageState createState() => state;
+  WordsTextbookPageState createState() => WordsTextbookPageState();
 }
 
 class WordsTextbookPageState extends State<WordsTextbookPage> {

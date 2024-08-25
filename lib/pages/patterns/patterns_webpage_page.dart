@@ -10,17 +10,18 @@ class PatternsWebPagePage extends StatefulWidget {
       : vm = PatternsDetailViewModel(item);
 
   @override
-  PatternsWebPagePageState createState() => PatternsWebPagePageState(vm);
+  PatternsWebPagePageState createState() => PatternsWebPagePageState();
 }
 
 class PatternsWebPagePageState extends State<PatternsWebPagePage> {
-  final PatternsDetailViewModel vm;
-  final WebViewController controller;
+  MPattern get item => widget.vm.item;
+  late WebViewController controller;
 
-  PatternsWebPagePageState(this.vm)
-      : controller = WebViewController()
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..loadRequest(Uri.parse(vm.item.url));
+  PatternsWebPagePageState() {
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(item.url));
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -28,7 +29,7 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
-            Center(child: Text(vm.item.title)),
+            Center(child: Text(item.title)),
             Expanded(
               child: WebViewWidget(controller: controller),
             )

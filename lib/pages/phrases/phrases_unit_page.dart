@@ -10,11 +10,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PhrasesUnitPage extends StatefulWidget {
-  final state = PhrasesUnitPageState();
+  const PhrasesUnitPage({super.key});
 
-  PhrasesUnitPage({super.key});
   @override
-  PhrasesUnitPageState createState() => state;
+  PhrasesUnitPageState createState() => PhrasesUnitPageState();
 }
 
 class PhrasesUnitPageState extends State<PhrasesUnitPage> {

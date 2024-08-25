@@ -10,11 +10,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PhrasesTextbookPage extends StatefulWidget {
-  final state = PhrasesTextbookPageState();
+  const PhrasesTextbookPage({super.key});
 
-  PhrasesTextbookPage({super.key});
   @override
-  PhrasesTextbookPageState createState() => state;
+  PhrasesTextbookPageState createState() => PhrasesTextbookPageState();
 }
 
 class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {

@@ -12,11 +12,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WordsLangPage extends StatefulWidget {
-  final state = WordsLangPageState();
+  const WordsLangPage({super.key});
 
-  WordsLangPage({super.key});
   @override
-  WordsLangPageState createState() => state;
+  WordsLangPageState createState() => WordsLangPageState();
 }
 
 class WordsLangPageState extends State<WordsLangPage> {

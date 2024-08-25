@@ -13,14 +13,14 @@ class WordsDictPage extends StatefulWidget {
       : vm = WordsDictViewModel(lstWords, index);
 
   @override
-  WordsDictPageState createState() => WordsDictPageState(vm);
+  WordsDictPageState createState() => WordsDictPageState();
 }
 
 class WordsDictPageState extends State<WordsDictPage> {
-  final WordsDictViewModel vm;
+  WordsDictViewModel get vm => widget.vm;
   late OnlineDict onlineDict;
 
-  WordsDictPageState(this.vm) {
+  WordsDictPageState() {
     onlineDict = OnlineDict(vm, vm.getUrl);
     vm.selectedWord_.listen((_) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());

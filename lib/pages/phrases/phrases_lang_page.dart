@@ -10,11 +10,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PhrasesLangPage extends StatefulWidget {
-  final state = PhrasesLangPageState();
+  const PhrasesLangPage({super.key});
 
-  PhrasesLangPage({super.key});
   @override
-  PhrasesLangPageState createState() => state;
+  PhrasesLangPageState createState() => PhrasesLangPageState();
 }
 
 class PhrasesLangPageState extends State<PhrasesLangPage> {

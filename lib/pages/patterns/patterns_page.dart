@@ -11,11 +11,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PatternsPage extends StatefulWidget {
-  final state = PatternsPageState();
+  const PatternsPage({super.key});
 
-  PatternsPage({super.key});
   @override
-  PatternsPageState createState() => state;
+  PatternsPageState createState() => PatternsPageState();
 }
 
 class PatternsPageState extends State<PatternsPage> {

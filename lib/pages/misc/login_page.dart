@@ -8,10 +8,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final vm = LoginViewModel();
   MUser get item => vm.item;
@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                         labelText: "USERNAME",
                       ),
-                      style: TextStyle(fontSize: 30),
+                      style: const TextStyle(fontSize: 30),
                       onSaved: (s) => item.username = s ?? "",
                     ),
                     TextFormField(
@@ -45,18 +45,19 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                         labelText: "PASSWORD",
                       ),
-                      style: TextStyle(fontSize: 30),
+                      style: const TextStyle(fontSize: 30),
                       onSaved: (s) => item.password = s ?? "",
                     ),
                     Row(
                       children: [
                         Expanded(
                           child: Padding(
-                              padding: EdgeInsets.only(top: 16),
+                              padding: const EdgeInsets.only(top: 16),
                               child: ElevatedButton(
                                   onPressed: () async {
-                                    if (!_formKey.currentState!.validate())
+                                    if (!_formKey.currentState!.validate()) {
                                       return;
+                                    }
                                     _formKey.currentState!.save();
                                     Global.userid = await vm.login();
                                     if (Global.userid.isEmpty) {

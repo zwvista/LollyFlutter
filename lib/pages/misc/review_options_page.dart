@@ -10,10 +10,10 @@ class ReviewOptionsPage extends StatefulWidget {
   const ReviewOptionsPage(this.options, {super.key});
 
   @override
-  _ReviewOptionsPageState createState() => _ReviewOptionsPageState();
+  ReviewOptionsPageState createState() => ReviewOptionsPageState();
 }
 
-class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
+class ReviewOptionsPageState extends State<ReviewOptionsPage> {
   final _formKey = GlobalKey<FormState>();
   MReviewOptions get options => widget.options;
 

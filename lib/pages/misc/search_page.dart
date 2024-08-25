@@ -9,11 +9,9 @@ import 'login_page.dart';
 import 'online_dict.dart';
 
 class SearchPage extends StatefulWidget {
-  final state = SearchPageState();
-
-  SearchPage({super.key});
+  const SearchPage({super.key});
   @override
-  SearchPageState createState() => state;
+  SearchPageState createState() => SearchPageState();
 }
 
 class SearchPageState extends State<SearchPage> {
@@ -27,7 +25,7 @@ class SearchPageState extends State<SearchPage> {
       if (Global.userid.isNotEmpty) break;
       // https://stackoverflow.com/questions/59423954/detect-when-we-moved-back-to-previous-page-in-flutter
       await Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
     }
     await vmSettings.getData();
     vmSettings.updateLang.listen((_) => onlineDict.searchDict());

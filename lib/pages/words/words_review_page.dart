@@ -5,17 +5,16 @@ import 'package:lolly_flutter/viewmodels/words/words_review_viewmodel.dart';
 import '../../main.dart';
 
 class WordsReviewPage extends StatefulWidget {
-  final state = _WordsReviewPageState();
+  const WordsReviewPage({super.key});
 
-  WordsReviewPage({super.key});
   @override
-  _WordsReviewPageState createState() => state;
+  WordsReviewPageState createState() => WordsReviewPageState();
 }
 
-class _WordsReviewPageState extends State<WordsReviewPage> {
+class WordsReviewPageState extends State<WordsReviewPage> {
   late WordsReviewViewModel vm;
 
-  _WordsReviewPageState() {
+  WordsReviewPageState() {
     vm = WordsReviewViewModel(() {
       if (vm.hasCurrent && vm.isSpeaking) speak(vm.currentWord);
     });
