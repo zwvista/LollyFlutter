@@ -6,7 +6,7 @@ import 'package:lolly_flutter/viewmodels/words/words_lang_viewmodel.dart';
 class WordsLangDetailPage extends StatefulWidget {
   final WordsLangDetailViewModel vmDetail;
 
-  WordsLangDetailPage(WordsLangViewModel vm, MLangWord item)
+  WordsLangDetailPage(WordsLangViewModel vm, MLangWord item, {super.key})
       : vmDetail = WordsLangDetailViewModel(vm, item);
 
   @override
@@ -19,9 +19,8 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Words in Language(Detail)'), actions: [
+      appBar: AppBar(title: const Text('Words in Language(Detail)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -31,6 +30,7 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
             await widget.vmDetail.save();
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -40,14 +40,14 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
               child: ListView(children: [
                 TextFormField(
                   initialValue: item.id.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                     initialValue: item.word,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "WORD",
                     ),
                     validator: (v) =>
@@ -55,20 +55,20 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
                     onSaved: (s) => item.word = s!),
                 TextFormField(
                     initialValue: item.note,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "NOTE",
                     ),
                     onSaved: (s) => item.note = s!),
                 TextFormField(
                   initialValue: item.famiid.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "FAMIID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                   initialValue: item.accuracy,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ACCURACY",
                   ),
                   enabled: false,

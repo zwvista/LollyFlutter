@@ -13,6 +13,8 @@ import '../../main.dart';
 
 class WordsTextbookPage extends StatefulWidget {
   final state = WordsTextbookPageState();
+
+  WordsTextbookPage({super.key});
   @override
   WordsTextbookPageState createState() => state;
 }
@@ -35,10 +37,10 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                   Expanded(
                     child: TextField(
                       autocorrect: false,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Filter",
                       ),
-                      onChanged: vm.textFilter_,
+                      onChanged: vm.textFilter_.call,
                     ),
                   ),
                   StreamBuilder(
@@ -49,7 +51,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                                 .map((s) =>
                                     DropdownMenuItem(value: s, child: Text(s)))
                                 .toList(),
-                            onChanged: vm.scopeFilter_,
+                            onChanged: vm.scopeFilter_.call,
                           ))
                 ]),
                 Row(children: [
@@ -62,7 +64,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                                   .map((o) => DropdownMenuItem(
                                       value: o.value, child: Text(o.label)))
                                   .toList(),
-                              onChanged: vm.textbookFilter_,
+                              onChanged: vm.textbookFilter_.call,
                             )),
                   )
                 ])
@@ -74,7 +76,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstUnitWords.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstUnitWords[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
@@ -105,47 +107,48 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                             onPressed: (context) => showDialog(
                                   context: context,
                                   builder: (context) => SimpleDialog(
-                                      title: Text("More"),
+                                      title: const Text("More"),
                                       children: [
                                         SimpleDialogOption(
-                                            child: Text("Delete"),
+                                            child: const Text("Delete"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: Text("Retrieve Note"),
+                                            child: const Text("Edit"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Clear Note"),
+                                            child: const Text("Retrieve Note"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Copy Word"),
+                                            child: const Text("Clear Note"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: const Text("Copy Word"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitWords[index].word
                                                   .copyToClipboard();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Google Word"),
+                                            child: const Text("Google Word"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitWords[index].word
                                                   .google();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Online Dictionary"),
+                                            child:
+                                                const Text("Online Dictionary"),
                                             onPressed: () async {
                                               Navigator.pop(context);
                                               final url = vmSettings
@@ -155,7 +158,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                                                           .word,
                                                       vmSettings
                                                           .lstAutoCorrect);
-                                              await launch(url);
+                                              await launchUrl(Uri.parse(url));
                                             }),
                                       ]),
                                 )),
@@ -172,24 +175,24 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                         child: ListTile(
                           leading: Column(children: <Widget>[
                             Text(entry.unitstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.partstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.seqnum.toString(),
-                                style: TextStyle(color: Colors.blue))
+                                style: const TextStyle(color: Colors.blue))
                           ]),
                           title: Text(
                             entry.word,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
                           ),
                           subtitle: Text(entry.note,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
                           trailing: IconButton(
-                              icon: Icon(Icons.keyboard_arrow_right,
+                              icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
                               onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -206,7 +209,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                 },
               ),
               placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

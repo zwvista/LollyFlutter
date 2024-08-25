@@ -6,6 +6,8 @@ import '../../main.dart';
 
 class PhrasesReviewPage extends StatefulWidget {
   final state = _PhrasesReviewPageState();
+
+  PhrasesReviewPage({super.key});
   @override
   _PhrasesReviewPageState createState() => state;
 }
@@ -17,7 +19,7 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
     vm = PhrasesReviewViewModel(() {
       if (vm.hasCurrent && vm.isSpeaking) speak(vm.currentPhrase);
     });
-    Future.delayed(Duration(seconds: 1), () => more());
+    Future.delayed(const Duration(seconds: 1), () => more());
   }
 
   @override
@@ -39,20 +41,20 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
                     child: StreamBuilder(
                         stream: vm.indexString_,
                         builder: (context, snapshot) => Text(vm.indexString)))),
-            Expanded(child: Text("data", textAlign: TextAlign.center)),
+            const Expanded(child: Text("data", textAlign: TextAlign.center)),
             Stack(
               children: [
                 StreamBuilder(
                     stream: vm.correctVisible_,
                     builder: (context, snapshot) => Visibility(
                         visible: vm.correctVisible,
-                        child: Text("Correct",
+                        child: const Text("Correct",
                             style: TextStyle(color: Colors.green)))),
                 StreamBuilder(
                     stream: vm.incorrectVisible_,
                     builder: (context, snapshot) => Visibility(
                         visible: vm.incorrectVisible,
-                        child: Text("Incorrect",
+                        child: const Text("Incorrect",
                             style: TextStyle(color: Colors.pink))))
               ],
             )
@@ -60,24 +62,23 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
         ),
         Row(
           children: [
-            TextButton(child: Text("Speak"), onPressed: () {}),
+            TextButton(child: const Text("Speak"), onPressed: () {}),
             StreamBuilder(
                 stream: vm.isSpeaking_,
                 builder: (context, snapshot) => Expanded(
                         child: CheckboxListTile(
-                      title: Text("Speak"),
+                      title: const Text("Speak"),
                       value: vm.isSpeaking,
-                      onChanged: vm.isSpeaking_,
+                      onChanged: vm.isSpeaking_.call,
                     ))),
             StreamBuilder(
                 stream: vm.checkNextEnabled_,
                 builder: (context, snapshot) => StreamBuilder(
                     stream: vm.checkNextString_,
                     builder: (context, snapshot) => TextButton(
-                        child: Text(vm.checkNextString),
-                        onPressed: !vm.checkNextEnabled
-                            ? null
-                            : () => vm.check(true))))
+                        onPressed:
+                            !vm.checkNextEnabled ? null : () => vm.check(true),
+                        child: Text(vm.checkNextString))))
           ],
         ),
         Row(
@@ -90,9 +91,9 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
                         stream: vm.onRepeat_,
                         builder: (context, snapshot) => Expanded(
                                 child: CheckboxListTile(
-                              title: Text("On Repeat"),
+                              title: const Text("On Repeat"),
                               value: vm.onRepeat,
-                              onChanged: vm.onRepeat_,
+                              onChanged: vm.onRepeat_.call,
                             ))))),
             StreamBuilder(
                 stream: vm.moveForwardVisible_,
@@ -102,9 +103,9 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
                         stream: vm.moveForward_,
                         builder: (context, snapshot) => Expanded(
                                 child: CheckboxListTile(
-                              title: Text("Forward"),
+                              title: const Text("Forward"),
                               value: vm.moveForward,
-                              onChanged: vm.moveForward_,
+                              onChanged: vm.moveForward_.call,
                             ))))),
             StreamBuilder(
                 stream: vm.checkPrevVisible_,
@@ -115,10 +116,10 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
                         builder: (context, snapshot) => StreamBuilder(
                             stream: vm.checkPrevString_,
                             builder: (context, snapshot) => TextButton(
-                                child: Text(vm.checkPrevString),
                                 onPressed: !vm.checkPrevEnabled
                                     ? null
-                                    : () => vm.check(false))))))
+                                    : () => vm.check(false),
+                                child: Text(vm.checkPrevString))))))
           ],
         ),
         Expanded(
@@ -134,18 +135,18 @@ class _PhrasesReviewPageState extends State<PhrasesReviewPage> {
                           stream: vm.phraseTargetString_,
                           builder: (context, snapshot) => Text(
                               vm.phraseTargetString,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.orange, fontSize: 50))))),
               StreamBuilder(
                   stream: vm.translationString_,
                   builder: (context, snapshot) => Text(vm.translationString,
-                      style:
-                          TextStyle(color: Colors.purpleAccent, fontSize: 40))),
+                      style: const TextStyle(
+                          color: Colors.purpleAccent, fontSize: 40))),
               StreamBuilder(
                   stream: vm.phraseInputString_,
                   builder: (context, snapshot) => TextField(
-                        style: TextStyle(fontSize: 60),
-                        onChanged: vm.phraseInputString_,
+                        style: const TextStyle(fontSize: 60),
+                        onChanged: vm.phraseInputString_.call,
                       ))
             ],
           ),

@@ -6,7 +6,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PatternsWebPagePage extends StatefulWidget {
   final PatternsDetailViewModel vm;
 
-  PatternsWebPagePage(MPattern item) : vm = PatternsDetailViewModel(item);
+  PatternsWebPagePage(MPattern item, {super.key})
+      : vm = PatternsDetailViewModel(item);
 
   @override
   PatternsWebPagePageState createState() => PatternsWebPagePageState(vm);
@@ -23,7 +24,7 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Patterns Web Page')),
+      appBar: AppBar(title: const Text('Patterns Web Page')),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [

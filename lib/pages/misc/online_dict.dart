@@ -23,8 +23,9 @@ class OnlineDict {
             final s = item.automation.replaceAll("{0}", iOnlineDict.getWord);
             await controller.runJavaScript(s);
             dictStatus = DictWebBrowserStatus.Ready;
-            if (item.dicttypename == "OFFLINE-ONLINE")
+            if (item.dicttypename == "OFFLINE-ONLINE") {
               dictStatus = DictWebBrowserStatus.Navigating;
+            }
           } else if (dictStatus == DictWebBrowserStatus.Navigating) {
             final html = (await controller.runJavaScriptReturningResult(
                 "document.documentElement.outerHTML.toString()")) as String;
@@ -50,10 +51,11 @@ class OnlineDict {
           mimeType: 'text/html', encoding: Encoding.getByName('utf-8')));
     } else {
       controller.loadRequest(Uri.parse(url));
-      if (item.automation.isNotEmpty)
+      if (item.automation.isNotEmpty) {
         dictStatus = DictWebBrowserStatus.Automating;
-      else if (item.dicttypename == "OFFLINE-ONLINE")
+      } else if (item.dicttypename == "OFFLINE-ONLINE") {
         dictStatus = DictWebBrowserStatus.Navigating;
+      }
     }
   }
 

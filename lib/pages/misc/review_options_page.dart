@@ -7,7 +7,7 @@ import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 class ReviewOptionsPage extends StatefulWidget {
   final MReviewOptions options;
 
-  ReviewOptionsPage(this.options);
+  const ReviewOptionsPage(this.options, {super.key});
 
   @override
   _ReviewOptionsPageState createState() => _ReviewOptionsPageState();
@@ -19,9 +19,8 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Review Options'), actions: [
+      appBar: AppBar(title: const Text('Review Options'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -30,6 +29,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
             _formKey.currentState!.save();
             Navigator.pop(context, true);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -44,34 +44,34 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                             value: ReviewMode.values[o.value],
                             child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Mode",
                     ),
                     onChanged: (v) => v,
                     onSaved: (v) => options.mode = v as ReviewMode),
                 CheckboxListTileFormField(
                   initialValue: options.shuffled,
-                  title: Text('Order(Shuffled)'),
+                  title: const Text('Order(Shuffled)'),
                   onSaved: (v) => options.shuffled = v!,
                 ),
                 CheckboxListTileFormField(
                   initialValue: options.speakingEnabled,
-                  title: Text('Speak(Enabled)'),
+                  title: const Text('Speak(Enabled)'),
                   onSaved: (v) => options.speakingEnabled = v!,
                 ),
                 CheckboxListTileFormField(
                   initialValue: options.onRepeat,
-                  title: Text('On Repeat'),
+                  title: const Text('On Repeat'),
                   onSaved: (v) => options.onRepeat = v!,
                 ),
                 CheckboxListTileFormField(
                   initialValue: options.moveForward,
-                  title: Text('Forward'),
+                  title: const Text('Forward'),
                   onSaved: (v) => options.moveForward = v!,
                 ),
                 TextFormField(
                     initialValue: options.interval.toString(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Interval",
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -80,7 +80,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     onSaved: (s) => options.groupSelected = int.parse(s!)),
                 TextFormField(
                     initialValue: options.groupSelected.toString(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Group",
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -89,7 +89,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     onSaved: (s) => options.groupSelected = int.parse(s!)),
                 TextFormField(
                     initialValue: options.groupCount.toString(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Groups",
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -98,7 +98,7 @@ class _ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     onSaved: (s) => options.groupCount = int.parse(s!)),
                 TextFormField(
                     initialValue: options.reviewCount.toString(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Review",
                     ),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],

@@ -12,6 +12,8 @@ import '../../main.dart';
 
 class PatternsPage extends StatefulWidget {
   final state = PatternsPageState();
+
+  PatternsPage({super.key});
   @override
   PatternsPageState createState() => state;
 }
@@ -33,10 +35,10 @@ class PatternsPageState extends State<PatternsPage> {
                 Expanded(
                   child: TextField(
                     autocorrect: false,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Filter",
                     ),
-                    onChanged: vm.textFilter_,
+                    onChanged: vm.textFilter_.call,
                   ),
                 ),
                 StreamBuilder(
@@ -47,7 +49,7 @@ class PatternsPageState extends State<PatternsPage> {
                               .map((s) =>
                                   DropdownMenuItem(value: s, child: Text(s)))
                               .toList(),
-                          onChanged: vm.scopeFilter_,
+                          onChanged: vm.scopeFilter_.call,
                         ))
               ])),
           Expanded(
@@ -57,7 +59,7 @@ class PatternsPageState extends State<PatternsPage> {
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstPatterns.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstPatterns[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
@@ -88,16 +90,17 @@ class PatternsPageState extends State<PatternsPage> {
                             onPressed: (context) => showDialog(
                                   context: context,
                                   builder: (context) => SimpleDialog(
-                                      title: Text("More"),
+                                      title: const Text("More"),
                                       children: [
                                         SimpleDialogOption(
-                                            child: Text("Edit"),
+                                            child: const Text("Edit"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Browse Web Page"),
+                                            child:
+                                                const Text("Browse Web Page"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               Navigator.of(context).push(
@@ -108,14 +111,14 @@ class PatternsPageState extends State<PatternsPage> {
                                                                   index])));
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Copy Pattern"),
+                                            child: const Text("Copy Pattern"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstPatterns[index].pattern
                                                   .copyToClipboard();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Google Pattern"),
+                                            child: const Text("Google Pattern"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstPatterns[index].pattern
@@ -130,16 +133,16 @@ class PatternsPageState extends State<PatternsPage> {
                         child: ListTile(
                           title: Text(
                             entry.pattern,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
                           ),
                           subtitle: Text(entry.tags,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
                           trailing: IconButton(
-                              icon: Icon(Icons.keyboard_arrow_right,
+                              icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
                               onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -153,7 +156,7 @@ class PatternsPageState extends State<PatternsPage> {
                 },
               ),
               placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

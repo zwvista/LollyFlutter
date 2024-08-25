@@ -7,7 +7,7 @@ import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 class WordsTextbookDetailPage extends StatefulWidget {
   final WordsUnitDetailViewModel vmDetail;
 
-  WordsTextbookDetailPage(WordsUnitViewModel vm, MUnitWord item)
+  WordsTextbookDetailPage(WordsUnitViewModel vm, MUnitWord item, {super.key})
       : vmDetail = WordsUnitDetailViewModel(vm, item);
 
   @override
@@ -20,9 +20,8 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Words in Textbook(Detail)'), actions: [
+      appBar: AppBar(title: const Text('Words in Textbook(Detail)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -31,6 +30,7 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
             _formKey.currentState!.save();
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -40,14 +40,14 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
               child: ListView(children: [
                 TextFormField(
                   initialValue: item.id.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                   initialValue: item.textbookname,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "TEXTBOOK",
                   ),
                   enabled: false,
@@ -58,7 +58,7 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "UNIT",
                     ),
                     onChanged: (v) => v,
@@ -69,14 +69,14 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PART",
                     ),
                     onChanged: (v) => v,
                     onSaved: (v) => item.part = v as int),
                 TextFormField(
                   initialValue: item.seqnum.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "SEQNUM",
                   ),
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -84,14 +84,14 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                 ),
                 TextFormField(
                   initialValue: item.wordid.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "WORDID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                     initialValue: item.word,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "WORD",
                     ),
                     validator: (v) =>
@@ -99,20 +99,20 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                     onSaved: (s) => item.word = s!),
                 TextFormField(
                     initialValue: item.note,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "NOTE",
                     ),
                     onSaved: (s) => item.note = s!),
                 TextFormField(
                   initialValue: item.famiid.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "FAMIID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                   initialValue: item.accuracy,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ACCURACY",
                   ),
                   enabled: false,

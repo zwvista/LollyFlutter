@@ -9,7 +9,7 @@ import '../misc/online_dict.dart';
 class WordsDictPage extends StatefulWidget {
   final WordsDictViewModel vm;
 
-  WordsDictPage(List<String> lstWords, int index)
+  WordsDictPage(List<String> lstWords, int index, {super.key})
       : vm = WordsDictViewModel(lstWords, index);
 
   @override
@@ -26,8 +26,9 @@ class WordsDictPageState extends State<WordsDictPage> {
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
   }
 
+  @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text('Dictionary')),
+        appBar: AppBar(title: const Text('Dictionary')),
         body: Column(
           children: [
             Row(children: [
@@ -41,7 +42,7 @@ class WordsDictPageState extends State<WordsDictPage> {
                                     value: e, child: Text(e.label)))
                                 .toList(),
                             isExpanded: true,
-                            onChanged: vm.selectedWord_,
+                            onChanged: vm.selectedWord_.call,
                           ))),
               Expanded(
                   child: StreamBuilder(
@@ -53,7 +54,7 @@ class WordsDictPageState extends State<WordsDictPage> {
                                   value: e, child: Text(e.dictname)))
                               .toList(),
                           isExpanded: true,
-                          onChanged: vmSettings.selectedDictReference_)))
+                          onChanged: vmSettings.selectedDictReference_.call)))
             ]),
             Expanded(
                 child: SwipeDetector(

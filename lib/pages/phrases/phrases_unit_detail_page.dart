@@ -7,7 +7,7 @@ import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 class PhrasesUnitDetailPage extends StatefulWidget {
   final PhrasesUnitDetailViewModel vmDetail;
 
-  PhrasesUnitDetailPage(PhrasesUnitViewModel vm, MUnitPhrase item)
+  PhrasesUnitDetailPage(PhrasesUnitViewModel vm, MUnitPhrase item, {super.key})
       : vmDetail = PhrasesUnitDetailViewModel(vm, item);
 
   @override
@@ -20,9 +20,8 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Phrases in Unit(Detail)'), actions: [
+      appBar: AppBar(title: const Text('Phrases in Unit(Detail)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -32,6 +31,7 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
             await widget.vmDetail.save();
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -41,7 +41,7 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
               child: ListView(children: [
                 TextFormField(
                   initialValue: item.id.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ID",
                   ),
                   enabled: false,
@@ -52,7 +52,7 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "UNIT",
                     ),
                     onChanged: (v) => v,
@@ -63,14 +63,14 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PART",
                     ),
                     onChanged: (v) => v,
                     onSaved: (v) => item.part = v as int),
                 TextFormField(
                   initialValue: item.seqnum.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "SEQNUM",
                   ),
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -78,14 +78,14 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                 ),
                 TextFormField(
                   initialValue: item.phraseid.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "PHRASEID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                     initialValue: item.phrase,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PHRASE",
                     ),
                     validator: (v) =>
@@ -93,7 +93,7 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                     onSaved: (s) => item.phrase = s!),
                 TextFormField(
                     initialValue: item.translation,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "NOTE",
                     ),
                     onSaved: (s) => item.translation = s!),

@@ -10,6 +10,8 @@ import 'online_dict.dart';
 
 class SearchPage extends StatefulWidget {
   final state = SearchPageState();
+
+  SearchPage({super.key});
   @override
   SearchPageState createState() => state;
 }
@@ -37,10 +39,11 @@ class SearchPageState extends State<SearchPage> {
     setup();
   }
 
+  @override
   Widget build(BuildContext context) => Column(children: [
         TextField(
             autocorrect: false,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Enter a word here",
             ),
             onChanged: (s) {
@@ -60,7 +63,7 @@ class SearchPageState extends State<SearchPage> {
                               value: e, child: Text(e.langname)))
                           .toList(),
                       isExpanded: true,
-                      onChanged: vmSettings.selectedLang_))),
+                      onChanged: vmSettings.selectedLang_.call))),
           Expanded(
               child: StreamBuilder(
                   stream: vmSettings.selectedDictReference_,
@@ -71,7 +74,7 @@ class SearchPageState extends State<SearchPage> {
                               value: e, child: Text(e.dictname)))
                           .toList(),
                       isExpanded: true,
-                      onChanged: vmSettings.selectedDictReference_))),
+                      onChanged: vmSettings.selectedDictReference_.call))),
         ]),
         Expanded(
           child: WebViewWidget(controller: onlineDict.controller),

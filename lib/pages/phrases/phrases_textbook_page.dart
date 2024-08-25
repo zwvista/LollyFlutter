@@ -11,6 +11,8 @@ import '../../main.dart';
 
 class PhrasesTextbookPage extends StatefulWidget {
   final state = PhrasesTextbookPageState();
+
+  PhrasesTextbookPage({super.key});
   @override
   PhrasesTextbookPageState createState() => state;
 }
@@ -33,10 +35,10 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                   Expanded(
                     child: TextField(
                       autocorrect: false,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Filter",
                       ),
-                      onChanged: vm.textFilter_,
+                      onChanged: vm.textFilter_.call,
                     ),
                   ),
                   StreamBuilder(
@@ -47,7 +49,7 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                                 .map((s) =>
                                     DropdownMenuItem(value: s, child: Text(s)))
                                 .toList(),
-                            onChanged: vm.scopeFilter_,
+                            onChanged: vm.scopeFilter_.call,
                           ))
                 ]),
                 Row(children: [
@@ -60,7 +62,7 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                                   .map((o) => DropdownMenuItem(
                                       value: o.value, child: Text(o.label)))
                                   .toList(),
-                              onChanged: vm.textbookFilter_,
+                              onChanged: vm.textbookFilter_.call,
                             )),
                   )
                 ])
@@ -72,7 +74,7 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstUnitPhrases.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstUnitPhrases[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
@@ -104,28 +106,28 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                             onPressed: (context) => showDialog(
                                   context: context,
                                   builder: (context) => SimpleDialog(
-                                      title: Text("More"),
+                                      title: const Text("More"),
                                       children: [
                                         SimpleDialogOption(
-                                            child: Text("Edit"),
+                                            child: const Text("Edit"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Delete"),
+                                            child: const Text("Delete"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Copy Phrase"),
+                                            child: const Text("Copy Phrase"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitPhrases[index].phrase
                                                   .copyToClipboard();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Google Phrase"),
+                                            child: const Text("Google Phrase"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitPhrases[index].phrase
@@ -146,19 +148,19 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                         child: ListTile(
                           leading: Column(children: <Widget>[
                             Text(entry.unitstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.partstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.seqnum.toString(),
-                                style: TextStyle(color: Colors.blue))
+                                style: const TextStyle(color: Colors.blue))
                           ]),
                           title: Text(
                             entry.phrase,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
                           ),
                           subtitle: Text(entry.translation,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
@@ -170,7 +172,7 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                 },
               ),
               placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

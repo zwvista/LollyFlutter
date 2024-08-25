@@ -8,7 +8,7 @@ import '../../main.dart';
 class PhrasesUnitBatchEditPage extends StatefulWidget {
   final PhrasesUnitBatchEditViewModel vmBatch;
 
-  PhrasesUnitBatchEditPage(PhrasesUnitViewModel vm)
+  PhrasesUnitBatchEditPage(PhrasesUnitViewModel vm, {super.key})
       : vmBatch = PhrasesUnitBatchEditViewModel(vm);
 
   @override
@@ -21,15 +21,16 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Phrases in Unit(Batch Edit)'), actions: [
+      appBar:
+          AppBar(title: const Text('Phrases in Unit(Batch Edit)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -44,11 +45,11 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                             width: 30.0,
                             child: Checkbox(
                                 value: vmBatch.unitChecked.lastResult,
-                                onChanged: vmBatch.unitChecked)),
+                                onChanged: vmBatch.unitChecked.call)),
                         Expanded(
                             child: DropdownButtonFormField(
                                 value: vmBatch.unit.lastResult,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: "UNIT",
                                 ),
                                 items: vmSettings.selectedTextbook!.lstUnits
@@ -67,11 +68,11 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                             width: 30.0,
                             child: Checkbox(
                                 value: vmBatch.partChecked.lastResult,
-                                onChanged: vmBatch.partChecked)),
+                                onChanged: vmBatch.partChecked.call)),
                         Expanded(
                             child: DropdownButtonFormField(
                                 value: vmBatch.part.lastResult,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: "PART",
                                 ),
                                 items: vmSettings.selectedTextbook!.lstParts
@@ -90,51 +91,51 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                             width: 30.0,
                             child: Checkbox(
                                 value: vmBatch.seqnumChecked.lastResult,
-                                onChanged: vmBatch.seqnumChecked)),
+                                onChanged: vmBatch.seqnumChecked.call)),
                         Expanded(
                             child: TextFormField(
                                 initialValue: vmBatch.seqnum.lastResult,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: "SEQNUM(+)",
                                 ),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
                                 readOnly: !vmBatch.seqnumChecked.lastResult!,
-                                onChanged: vmBatch.seqnum))
+                                onChanged: vmBatch.seqnum.call))
                       ])),
               StreamBuilder(
                   stream: vmBatch.selectedItemsCmd,
                   builder: (context, snapshot) => Expanded(
                       child: ListView.separated(
                           itemCount: vmBatch.vm.lstUnitPhrases.length,
-                          separatorBuilder: (context, index) => Divider(),
+                          separatorBuilder: (context, index) => const Divider(),
                           itemBuilder: (BuildContext context, int index) {
                             final entry = vmBatch.vm.lstUnitPhrases[index];
                             return ListTile(
                               leading: Column(children: [
                                 Text(entry.unitstr,
-                                    style: TextStyle(color: Colors.blue)),
+                                    style: const TextStyle(color: Colors.blue)),
                                 Text(entry.partstr,
-                                    style: TextStyle(color: Colors.blue)),
+                                    style: const TextStyle(color: Colors.blue)),
                                 Text(entry.seqnum.toString(),
-                                    style: TextStyle(color: Colors.blue))
+                                    style: const TextStyle(color: Colors.blue))
                               ]),
                               title: Text(
                                 entry.phrase,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20, color: Colors.orange),
                               ),
                               subtitle: Text(entry.translation,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 255, 0, 255),
                                   )),
                               trailing: Visibility(
-                                  child: Icon(Icons.favorite,
-                                      color: Colors.red, size: 30.0),
                                   visible:
-                                      vmBatch.selectedItems.contains(entry)),
+                                      vmBatch.selectedItems.contains(entry),
+                                  child: const Icon(Icons.favorite,
+                                      color: Colors.red, size: 30.0)),
                               onTap: () => vmBatch.selectedItemsCmd(entry),
                             );
                           })))

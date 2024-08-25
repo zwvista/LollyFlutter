@@ -13,6 +13,8 @@ import '../../main.dart';
 
 class WordsLangPage extends StatefulWidget {
   final state = WordsLangPageState();
+
+  WordsLangPage({super.key});
   @override
   WordsLangPageState createState() => state;
 }
@@ -34,10 +36,10 @@ class WordsLangPageState extends State<WordsLangPage> {
                 Expanded(
                   child: TextField(
                     autocorrect: false,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Filter",
                     ),
-                    onChanged: vm.textFilter_,
+                    onChanged: vm.textFilter_.call,
                   ),
                 ),
                 StreamBuilder(
@@ -48,7 +50,7 @@ class WordsLangPageState extends State<WordsLangPage> {
                               .map((s) =>
                                   DropdownMenuItem(value: s, child: Text(s)))
                               .toList(),
-                          onChanged: vm.scopeFilter_,
+                          onChanged: vm.scopeFilter_.call,
                         ))
               ])),
           Expanded(
@@ -58,7 +60,7 @@ class WordsLangPageState extends State<WordsLangPage> {
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstLangWords.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstLangWords[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
@@ -88,47 +90,48 @@ class WordsLangPageState extends State<WordsLangPage> {
                             onPressed: (context) => showDialog(
                                   context: context,
                                   builder: (context) => SimpleDialog(
-                                      title: Text("More"),
+                                      title: const Text("More"),
                                       children: [
                                         SimpleDialogOption(
-                                            child: Text("Delete"),
+                                            child: const Text("Delete"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: Text("Retrieve Note"),
+                                            child: const Text("Edit"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Clear Note"),
+                                            child: const Text("Retrieve Note"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Copy Word"),
+                                            child: const Text("Clear Note"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: const Text("Copy Word"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstLangWords[index].word
                                                   .copyToClipboard();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Google Word"),
+                                            child: const Text("Google Word"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstLangWords[index].word
                                                   .google();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Online Dictionary"),
+                                            child:
+                                                const Text("Online Dictionary"),
                                             onPressed: () async {
                                               Navigator.pop(context);
                                               final url = vmSettings
@@ -138,7 +141,7 @@ class WordsLangPageState extends State<WordsLangPage> {
                                                           .word,
                                                       vmSettings
                                                           .lstAutoCorrect);
-                                              await launch(url);
+                                              await launchUrl(Uri.parse(url));
                                             }),
                                       ]),
                                 )),
@@ -155,16 +158,16 @@ class WordsLangPageState extends State<WordsLangPage> {
                         child: ListTile(
                           title: Text(
                             entry.word,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
                           ),
                           subtitle: Text(entry.note,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
                           trailing: IconButton(
-                              icon: Icon(Icons.keyboard_arrow_right,
+                              icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
                               onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -181,7 +184,7 @@ class WordsLangPageState extends State<WordsLangPage> {
                 },
               ),
               placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),

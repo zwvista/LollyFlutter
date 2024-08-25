@@ -4,6 +4,8 @@ import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
   SettingsPageState createState() => SettingsPageState();
 }
@@ -27,8 +29,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.langname)))
                       .toList(),
-                  onChanged: vm.selectedLang_,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedLang_.call,
+                  decoration: const InputDecoration(
                     labelText: "Language",
                   ),
                 )),
@@ -40,8 +42,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.voicename)))
                       .toList(),
-                  onChanged: vm.selectedVoice_,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedVoice_.call,
+                  decoration: const InputDecoration(
                     labelText: "Voice",
                   ),
                 )),
@@ -53,8 +55,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.dictname)))
                       .toList(),
-                  onChanged: vm.selectedDictReference_,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedDictReference_.call,
+                  decoration: const InputDecoration(
                     labelText: "Dictionary(Reference)",
                   ),
                 )),
@@ -66,8 +68,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.dictname)))
                       .toList(),
-                  onChanged: vm.selectedDictNote_,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedDictNote_.call,
+                  decoration: const InputDecoration(
                     labelText: "Dictionary(Note)",
                   ),
                 )),
@@ -79,8 +81,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) =>
                           DropdownMenuItem(value: e, child: Text(e.dictname)))
                       .toList(),
-                  onChanged: vm.selectedDictTranslation_,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedDictTranslation_.call,
+                  decoration: const InputDecoration(
                     labelText: "Dictionary(Translation)",
                   ),
                 )),
@@ -92,8 +94,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) => DropdownMenuItem(
                           value: e, child: Text(e.textbookname)))
                       .toList(),
-                  onChanged: vm.selectedTextbook_,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedTextbook_.call,
+                  decoration: const InputDecoration(
                     labelText: "Textbook",
                   ),
                 )),
@@ -105,8 +107,8 @@ class SettingsPageState extends State<SettingsPage> {
                       .map((e) => DropdownMenuItem(
                           value: e.value, child: Text(e.label)))
                       .toList(),
-                  onChanged: vm.selectedUnitFrom,
-                  decoration: InputDecoration(
+                  onChanged: vm.selectedUnitFrom.call,
+                  decoration: const InputDecoration(
                     labelText: "Unit(From)",
                   ),
                 )),
@@ -124,7 +126,7 @@ class SettingsPageState extends State<SettingsPage> {
                       onChanged: !vm.partFromEnabled
                           ? null
                           : (int? v) => vm.selectedPartFrom(v),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Part(From)",
                       ),
                     ))),
@@ -141,12 +143,12 @@ class SettingsPageState extends State<SettingsPage> {
                                 value: UnitPartToType.values[e.value],
                                 child: Text(e.label)))
                             .toList(),
-                        onChanged: vm.toType_,
+                        onChanged: vm.toType_.call,
                       ),
                     ),
                     Expanded(
                         flex: 2,
-                        child: ButtonBar(
+                        child: OverflowBar(
                           children: [
                             TextButton(
                                 onPressed: !vm.previousEnabled
@@ -176,7 +178,7 @@ class SettingsPageState extends State<SettingsPage> {
                       onChanged: !vm.unitToEnabled
                           ? null
                           : (int? v) => vm.selectedUnitTo(v),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Unit(To)",
                       ),
                     ))),
@@ -194,7 +196,7 @@ class SettingsPageState extends State<SettingsPage> {
                       onChanged: !vm.partToEnabled
                           ? null
                           : (int? v) => vm.selectedPartTo(v),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Part(To)",
                       ),
                     ))),

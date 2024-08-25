@@ -6,7 +6,7 @@ import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_viewmodel.dart';
 class PhrasesLangDetailPage extends StatefulWidget {
   final PhrasesLangDetailViewModel vmDetail;
 
-  PhrasesLangDetailPage(PhrasesLangViewModel vm, MLangPhrase item)
+  PhrasesLangDetailPage(PhrasesLangViewModel vm, MLangPhrase item, {super.key})
       : vmDetail = PhrasesLangDetailViewModel(vm, item);
 
   @override
@@ -19,9 +19,9 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Phrases in Language(Detail)'), actions: [
+      appBar:
+          AppBar(title: const Text('Phrases in Language(Detail)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -31,6 +31,7 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
             await widget.vmDetail.save();
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -40,14 +41,14 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
               child: ListView(children: [
                 TextFormField(
                   initialValue: item.id.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                     initialValue: item.phrase,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PHRASE",
                     ),
                     validator: (v) =>
@@ -55,7 +56,7 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
                     onSaved: (s) => item.phrase = s!),
                 TextFormField(
                     initialValue: item.translation,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "NOTE",
                     ),
                     onSaved: (s) => item.translation = s!),

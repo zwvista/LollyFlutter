@@ -7,7 +7,8 @@ import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
 class PhrasesTextbookDetailPage extends StatefulWidget {
   final PhrasesUnitDetailViewModel vmDetail;
 
-  PhrasesTextbookDetailPage(PhrasesUnitViewModel vm, MUnitPhrase item)
+  PhrasesTextbookDetailPage(PhrasesUnitViewModel vm, MUnitPhrase item,
+      {super.key})
       : vmDetail = PhrasesUnitDetailViewModel(vm, item);
 
   @override
@@ -21,9 +22,9 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Phrases in Textbook(Detail)'), actions: [
+      appBar:
+          AppBar(title: const Text('Phrases in Textbook(Detail)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -32,6 +33,7 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
             _formKey.currentState!.save();
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -41,14 +43,14 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
               child: ListView(children: [
                 TextFormField(
                   initialValue: item.id.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                   initialValue: item.textbookname,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "TEXTBOOK",
                   ),
                   enabled: false,
@@ -59,7 +61,7 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "UNIT",
                     ),
                     onChanged: (v) => v,
@@ -70,14 +72,14 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
                         .toList(),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PART",
                     ),
                     onChanged: (v) => v,
                     onSaved: (v) => item.part = v as int),
                 TextFormField(
                   initialValue: item.seqnum.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "SEQNUM",
                   ),
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -85,14 +87,14 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                 ),
                 TextFormField(
                   initialValue: item.phraseid.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "PHRASEID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                     initialValue: item.phrase,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PHRASE",
                     ),
                     validator: (v) =>
@@ -100,7 +102,7 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                     onSaved: (s) => item.phrase = s!),
                 TextFormField(
                     initialValue: item.translation,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "NOTE",
                     ),
                     onSaved: (s) => item.translation = s!),

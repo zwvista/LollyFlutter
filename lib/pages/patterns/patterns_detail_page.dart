@@ -6,7 +6,7 @@ import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 class PatternsDetailPage extends StatefulWidget {
   final PatternsDetailViewModel vmDetail;
 
-  PatternsDetailPage(PatternsViewModel vm, MPattern item)
+  PatternsDetailPage(PatternsViewModel vm, MPattern item, {super.key})
       : vmDetail = PatternsDetailViewModel(item);
 
   @override
@@ -19,9 +19,9 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text('Patterns in Language(Detail)'), actions: [
+      appBar:
+          AppBar(title: const Text('Patterns in Language(Detail)'), actions: [
         TextButton(
-          child: Text("Save"),
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
           ),
@@ -30,6 +30,7 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
             _formKey.currentState!.save();
             Navigator.pop(context);
           },
+          child: const Text("Save"),
         )
       ]),
       body: Padding(
@@ -39,29 +40,29 @@ class PatternsDetailPageState extends State<PatternsDetailPage> {
               child: ListView(children: [
                 TextFormField(
                   initialValue: item.id.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "ID",
                   ),
                   enabled: false,
                 ),
                 TextFormField(
                     initialValue: item.pattern,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "PATTERN",
                     )),
                 TextFormField(
                     initialValue: item.tags,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "TAGS",
                     )),
                 TextFormField(
                     initialValue: item.title,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "TITLE",
                     )),
                 TextFormField(
                     initialValue: item.url,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "URL",
                     )),
               ]))));

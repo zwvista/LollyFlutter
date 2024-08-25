@@ -15,6 +15,8 @@ import '../../main.dart';
 class WordsUnitPage extends StatefulWidget {
   // https://stackoverflow.com/questions/50557842/flutter-call-a-function-on-a-child-widgets-state/50558628
   final state = WordsUnitPageState();
+
+  WordsUnitPage({super.key});
   @override
   WordsUnitPageState createState() => state;
 }
@@ -36,10 +38,10 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                 Expanded(
                   child: TextField(
                     autocorrect: false,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Filter",
                     ),
-                    onChanged: vm.textFilter_,
+                    onChanged: vm.textFilter_.call,
                   ),
                 ),
                 StreamBuilder(
@@ -50,7 +52,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                               .map((s) =>
                                   DropdownMenuItem(value: s, child: Text(s)))
                               .toList(),
-                          onChanged: vm.scopeFilter_,
+                          onChanged: vm.scopeFilter_.call,
                         ))
               ])),
           Expanded(
@@ -60,7 +62,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstUnitWords.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstUnitWords[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
@@ -91,47 +93,48 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                             onPressed: (context) => showDialog(
                                   context: context,
                                   builder: (context) => SimpleDialog(
-                                      title: Text("More"),
+                                      title: const Text("More"),
                                       children: [
                                         SimpleDialogOption(
-                                            child: Text("Delete"),
+                                            child: const Text("Delete"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: Text("Retrieve Note"),
+                                            child: const Text("Edit"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Clear Note"),
+                                            child: const Text("Retrieve Note"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Copy Word"),
+                                            child: const Text("Clear Note"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child: const Text("Copy Word"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitWords[index].word
                                                   .copyToClipboard();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Google Word"),
+                                            child: const Text("Google Word"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitWords[index].word
                                                   .google();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Online Dictionary"),
+                                            child:
+                                                const Text("Online Dictionary"),
                                             onPressed: () async {
                                               Navigator.pop(context);
                                               final url = vmSettings
@@ -141,7 +144,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                                           .word,
                                                       vmSettings
                                                           .lstAutoCorrect);
-                                              await launch(url);
+                                              await launchUrl(Uri.parse(url));
                                             }),
                                       ]),
                                 )),
@@ -158,24 +161,24 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                         child: ListTile(
                           leading: Column(children: [
                             Text(entry.unitstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.partstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.seqnum.toString(),
-                                style: TextStyle(color: Colors.blue))
+                                style: const TextStyle(color: Colors.blue))
                           ]),
                           title: Text(
                             entry.word,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
                           ),
                           subtitle: Text(entry.note,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
                           trailing: IconButton(
-                              icon: Icon(Icons.keyboard_arrow_right,
+                              icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
                               onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -192,7 +195,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                 },
               ),
               placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),
@@ -204,9 +207,10 @@ class WordsUnitPageState extends State<WordsUnitPage> {
   void more() {
     showDialog(
         context: context,
-        builder: (context) => SimpleDialog(title: Text("More"), children: [
+        builder: (context) =>
+            SimpleDialog(title: const Text("More"), children: [
               SimpleDialogOption(
-                  child: Text("Add"),
+                  child: const Text("Add"),
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
@@ -214,27 +218,27 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                             WordsUnitDetailPage(vm, vm.newUnitWord())));
                   }),
               SimpleDialogOption(
-                  child: Text("Retrieve All Notes"),
+                  child: const Text("Retrieve All Notes"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               SimpleDialogOption(
-                  child: Text("Retrieve Notes If Empty"),
+                  child: const Text("Retrieve Notes If Empty"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               SimpleDialogOption(
-                  child: Text("Clear All Notes"),
+                  child: const Text("Clear All Notes"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               SimpleDialogOption(
-                  child: Text("Clear Notes If Empty"),
+                  child: const Text("Clear Notes If Empty"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               SimpleDialogOption(
-                  child: Text("Batch Edit"),
+                  child: const Text("Batch Edit"),
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(

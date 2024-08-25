@@ -5,6 +5,8 @@ import 'package:lolly_flutter/viewmodels/misc/login_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -26,13 +28,13 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Center(
+                    const Center(
                         child: Text(
                       "Lolly",
                       style: TextStyle(fontSize: 50),
                     )),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "USERNAME",
                       ),
                       style: TextStyle(fontSize: 30),
@@ -40,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "PASSWORD",
                       ),
                       style: TextStyle(fontSize: 30),
@@ -57,10 +59,11 @@ class _LoginPageState extends State<LoginPage> {
                                       return;
                                     _formKey.currentState!.save();
                                     Global.userid = await vm.login();
-                                    if (Global.userid.isEmpty)
+                                    if (Global.userid.isEmpty) {
                                       showDialog(
                                           context: context,
-                                          builder: (context) => SimpleDialog(
+                                          builder: (context) =>
+                                              const SimpleDialog(
                                                 title: Text("Login"),
                                                 children: [
                                                   SimpleDialogOption(
@@ -69,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   )
                                                 ],
                                               ));
-                                    else {
+                                    } else {
                                       final prefs =
                                           await SharedPreferences.getInstance();
                                       await prefs.setString(
@@ -77,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                                       Navigator.pop(context);
                                     }
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Login",
                                     style: TextStyle(fontSize: 30),
                                   ))),

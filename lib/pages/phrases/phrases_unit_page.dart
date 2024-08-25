@@ -11,6 +11,8 @@ import '../../main.dart';
 
 class PhrasesUnitPage extends StatefulWidget {
   final state = PhrasesUnitPageState();
+
+  PhrasesUnitPage({super.key});
   @override
   PhrasesUnitPageState createState() => state;
 }
@@ -32,10 +34,10 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                 Expanded(
                   child: TextField(
                     autocorrect: false,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Filter",
                     ),
-                    onChanged: vm.textFilter_,
+                    onChanged: vm.textFilter_.call,
                   ),
                 ),
                 StreamBuilder(
@@ -46,7 +48,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                               .map((s) =>
                                   DropdownMenuItem(value: s, child: Text(s)))
                               .toList(),
-                          onChanged: vm.scopeFilter_,
+                          onChanged: vm.scopeFilter_.call,
                         ))
               ])),
           Expanded(
@@ -56,7 +58,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
                 itemCount: vm.lstUnitPhrases.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstUnitPhrases[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
@@ -87,28 +89,28 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                             onPressed: (context) => showDialog(
                                   context: context,
                                   builder: (context) => SimpleDialog(
-                                      title: Text("More"),
+                                      title: const Text("More"),
                                       children: [
                                         SimpleDialogOption(
-                                            child: Text("Delete"),
+                                            child: const Text("Delete"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Edit"),
+                                            child: const Text("Edit"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Copy Phrase"),
+                                            child: const Text("Copy Phrase"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitPhrases[index].phrase
                                                   .copyToClipboard();
                                             }),
                                         SimpleDialogOption(
-                                            child: Text("Google Phrase"),
+                                            child: const Text("Google Phrase"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               vm.lstUnitPhrases[index].phrase
@@ -129,19 +131,19 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                         child: ListTile(
                           leading: Column(children: [
                             Text(entry.unitstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.partstr,
-                                style: TextStyle(color: Colors.blue)),
+                                style: const TextStyle(color: Colors.blue)),
                             Text(entry.seqnum.toString(),
-                                style: TextStyle(color: Colors.blue))
+                                style: const TextStyle(color: Colors.blue))
                           ]),
                           title: Text(
                             entry.phrase,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.orange),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
                           ),
                           subtitle: Text(entry.translation,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
                               )),
@@ -153,7 +155,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                 },
               ),
               placeHolderBuilder: (context) => Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
+                  key: AppKeys.loaderPlaceHolder, child: const Text("No Data")),
               errorBuilder: (context, ex) => Center(
                   key: AppKeys.loaderError,
                   child: Text("Error: ${ex.toString()}")),
@@ -165,9 +167,10 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
   void more() {
     showDialog(
         context: context,
-        builder: (context) => SimpleDialog(title: Text("More"), children: [
+        builder: (context) =>
+            SimpleDialog(title: const Text("More"), children: [
               SimpleDialogOption(
-                  child: Text("Add"),
+                  child: const Text("Add"),
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
@@ -175,7 +178,7 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                             PhrasesUnitDetailPage(vm, vm.newUnitPhrase())));
                   }),
               SimpleDialogOption(
-                  child: Text("Batch Edit"),
+                  child: const Text("Batch Edit"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
