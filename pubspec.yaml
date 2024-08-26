@@ -38,6 +38,7 @@ dependencies:
   # https://github.com/flutter/flutter/issues/63556
   analyzer: ^5.13.0
   bloc: ^8.1.4
+  collection: ^1.18.0
   cupertino_icons: ^1.0.8
   drag_and_drop_lists: ^0.4.1
   flutter_bloc: ^8.1.6
