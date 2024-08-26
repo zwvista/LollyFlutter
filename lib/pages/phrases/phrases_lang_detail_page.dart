@@ -29,6 +29,7 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
             if (!_formKey.currentState!.validate()) return;
             _formKey.currentState!.save();
             await widget.vmDetail.save();
+            if (!context.mounted) return;
             Navigator.pop(context);
           },
           child: const Text("Save"),

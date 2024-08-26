@@ -55,12 +55,12 @@ class LoginPageState extends State<LoginPage> {
                               padding: const EdgeInsets.only(top: 16),
                               child: ElevatedButton(
                                   onPressed: () async {
-                                    if (!_formKey.currentState!.validate()) {
+                                    if (!_formKey.currentState!.validate())
                                       return;
-                                    }
                                     _formKey.currentState!.save();
                                     Global.userid = await vm.login();
                                     if (Global.userid.isEmpty) {
+                                      if (!context.mounted) return;
                                       showDialog(
                                           context: context,
                                           builder: (context) =>
@@ -78,6 +78,7 @@ class LoginPageState extends State<LoginPage> {
                                           await SharedPreferences.getInstance();
                                       await prefs.setString(
                                           "userid", Global.userid);
+                                      if (!context.mounted) return;
                                       Navigator.pop(context);
                                     }
                                   },

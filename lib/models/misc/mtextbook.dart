@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'mcommon.dart';
 import '../../main.dart';
+import 'mcommon.dart';
 
 part 'mtextbook.g.dart';
 
@@ -31,12 +31,12 @@ class MTextbook {
   @JsonKey(name: 'PARTS')
   var parts = "";
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<MSelectItem> lstUnits = [];
 
   String unitstr(int unit) =>
       lstUnits.firstWhereOrNull((o) => o.value == unit)?.label ?? "";
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<MSelectItem> lstParts = [];
 
   String partstr(int part) =>
