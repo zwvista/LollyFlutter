@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/misc/mwebtextbook.dart';
-import 'package:lolly_flutter/viewmodels/webtextbooks/webTextbooks_detail_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/webtextbooks/webtextbooks_detail_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebTextbooksWebPagePage extends StatefulWidget {

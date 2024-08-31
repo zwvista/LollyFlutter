@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/wpp/munitphrase.dart';
 
@@ -63,14 +64,16 @@ class UnitPhraseService extends BaseService<MUnitPhrase> {
       (await callSPByUrl("UNITPHRASES_CREATE", item)).newid;
 
   Future updateSeqNum(int id, int seqnum) async =>
-      print(await updateByUrlString("UNITPHRASES/$id", "SEQNUM=$seqnum"));
+      debugPrint((await updateByUrlString("UNITPHRASES/$id", "SEQNUM=$seqnum"))
+          .toString());
 
-  Future updateTranslation(int id, String translation) async => print(
-      await updateByUrlString("UNITPHRASES/$id", "TRANSLATION=$translation"));
+  Future updateTranslation(int id, String translation) async => debugPrint(
+      (await updateByUrlString("UNITPHRASES/$id", "TRANSLATION=$translation"))
+          .toString());
 
   Future update(MUnitPhrase item) async =>
-      print(await callSPByUrl("UNITPHRASES_UPDATE", item));
+      debugPrint((await callSPByUrl("UNITPHRASES_UPDATE", item)).toString());
 
   Future delete(MUnitPhrase item) async =>
-      print(await callSPByUrl("UNITPHRASES_DELETE", item));
+      debugPrint((await callSPByUrl("UNITPHRASES_DELETE", item)).toString());
 }

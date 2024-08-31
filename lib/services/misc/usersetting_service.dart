@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/musersetting.dart';
 
@@ -12,6 +13,7 @@ class UserSettingService extends BaseService<MUserSetting> {
       updateByString(info, v.toString());
 
   Future updateByString(MUserSettingInfo info, String v) async =>
-      print(await updateByUrlString(
-          "USERSETTINGS/${info.usersettingid}", "VALUE${info.valueid}=$v"));
+      debugPrint((await updateByUrlString(
+              "USERSETTINGS/${info.usersettingid}", "VALUE${info.valueid}=$v"))
+          .toString());
 }

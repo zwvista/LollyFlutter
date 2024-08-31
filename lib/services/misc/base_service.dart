@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:lolly_flutter/models/misc/mcommon.dart';
@@ -13,14 +14,14 @@ class BaseService<T> {
   Future<Map<String, dynamic>> getDataByUrl(String url) async {
     final uri = "$urlAPI$url";
     final response = await http.get(Uri.parse(uri));
-    print("[RestApi]GET:$uri");
+    debugPrint("[RestApi]GET:$uri");
     return json.decode(utf8.decode(response.bodyBytes));
   }
 
   Future<int> createByUrl(String url, T item) async {
     final body = json.encode(item).replaceAll('"ID":0,', '');
     final uri = "$urlAPI$url";
-    print("[RestApi]POST:$uri BODY:$body");
+    debugPrint("[RestApi]POST:$uri BODY:$body");
     final response = await http.post(Uri.parse(uri), body: body);
     return int.parse(response.body);
   }
@@ -30,14 +31,14 @@ class BaseService<T> {
 
   Future<int> updateByUrlString(String url, String body) async {
     final uri = "$urlAPI$url";
-    print("[RestApi]PUT:$uri BODY:$body");
+    debugPrint("[RestApi]PUT:$uri BODY:$body");
     final response = await http.put(Uri.parse(uri), body: body);
     return int.parse(response.body);
   }
 
   Future<int> deleteByUrl(String url) async {
     final uri = "$urlAPI$url";
-    print("[RestApi]DELETE:$uri");
+    debugPrint("[RestApi]DELETE:$uri");
     final response = await http.delete(Uri.parse(uri));
     return int.parse(response.body);
   }
@@ -46,7 +47,7 @@ class BaseService<T> {
     final body = (json.decode(json.encode(item)) as Map<String, dynamic>)
         .map((k, v) => MapEntry("P_$k", v.toString()));
     final uri = "$urlSP$url";
-    print("[RestApi]SP:$uri");
+    debugPrint("[RestApi]SP:$uri");
     final response = await http.post(Uri.parse(uri), body: body);
     return MSPResult.fromJson(json.decode(response.body)[0][0]);
   }

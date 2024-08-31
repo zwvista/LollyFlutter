@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
 
 import '../misc/base_service.dart';
@@ -21,7 +22,8 @@ class DictionaryService extends BaseService<MDictionary> {
           .lst;
   Future<int> create(MDictionary item) async =>
       await createByUrl("DICTIONARIES", item);
-  Future update(MDictionary item) async =>
-      print(await updateByUrl("DICTIONARIES/${item.id}", item));
-  Future delete(int id) async => print(await deleteByUrl("DICTIONARIES/$id"));
+  Future update(MDictionary item) async => debugPrint(
+      (await updateByUrl("DICTIONARIES/${item.id}", item)).toString());
+  Future delete(int id) async =>
+      debugPrint((await deleteByUrl("DICTIONARIES/$id")).toString());
 }

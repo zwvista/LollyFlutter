@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 
 import '../misc/base_service.dart';
@@ -11,12 +12,13 @@ class LangPhraseService extends BaseService<MLangPhrase> {
   Future<int> create(MLangPhrase item) async =>
       await createByUrl("LANGPHRASES", item);
 
-  Future updateTranslation(int id, String translation) async => print(
-      await updateByUrlString("LANGPHRASES/$id", "TRANSLATION=$translation"));
+  Future updateTranslation(int id, String translation) async => debugPrint(
+      (await updateByUrlString("LANGPHRASES/$id", "TRANSLATION=$translation"))
+          .toString());
 
-  Future update(MLangPhrase item) async =>
-      print(await callSPByUrl("LANGPHRASES/${item.id}", item));
+  Future update(MLangPhrase item) async => debugPrint(
+      (await callSPByUrl("LANGPHRASES/${item.id}", item)).toString());
 
   Future delete(MLangPhrase item) async =>
-      print(await callSPByUrl("LANGPHRASES_DELETE", item));
+      debugPrint((await callSPByUrl("LANGPHRASES_DELETE", item)).toString());
 }

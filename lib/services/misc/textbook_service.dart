@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 
@@ -45,6 +46,7 @@ class TextbookService extends BaseService<MTextbook> {
   Future<int> create(MTextbook item) async =>
       await createByUrl("TEXTBOOKS", item);
   Future update(MTextbook item) async =>
-      print(await updateByUrl("TEXTBOOKS/${item.id}", item));
-  Future delete(int id) async => print(await deleteByUrl("TEXTBOOKS/$id"));
+      debugPrint((await updateByUrl("TEXTBOOKS/${item.id}", item)).toString());
+  Future delete(int id) async =>
+      debugPrint((await deleteByUrl("TEXTBOOKS/$id")).toString());
 }

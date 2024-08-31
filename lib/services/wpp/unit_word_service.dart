@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 
@@ -62,15 +63,15 @@ class UnitWordService extends BaseService<MUnitWord> {
   Future<int> create(MUnitWord item) async =>
       (await callSPByUrl("UNITWORDS_CREATE", item)).newid;
 
-  Future updateSeqNum(int id, int seqnum) async =>
-      print(await updateByUrlString("UNITWORDS/$id", "SEQNUM=$seqnum"));
+  Future updateSeqNum(int id, int seqnum) async => debugPrint(
+      (await updateByUrlString("UNITWORDS/$id", "SEQNUM=$seqnum")).toString());
 
-  Future updateNote(int id, String note) async =>
-      print(await updateByUrlString("UNITWORDS/$id", "NOTE=$note"));
+  Future updateNote(int id, String note) async => debugPrint(
+      (await updateByUrlString("UNITWORDS/$id", "NOTE=$note")).toString());
 
   Future update(MUnitWord item) async =>
-      print(await callSPByUrl("UNITWORDS_UPDATE", item));
+      debugPrint((await callSPByUrl("UNITWORDS_UPDATE", item)).toString());
 
   Future delete(MUnitWord item) async =>
-      print(await callSPByUrl("UNITWORDS_DELETE", item));
+      debugPrint((await callSPByUrl("UNITWORDS_DELETE", item)).toString());
 }

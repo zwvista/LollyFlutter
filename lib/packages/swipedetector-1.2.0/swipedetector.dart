@@ -34,7 +34,8 @@ class SwipeConfiguration {
     }
 
     if (horizontalSwipeMaxHeightThreshold != null) {
-      this.horizontalSwipeMaxHeightThreshold = horizontalSwipeMaxHeightThreshold;
+      this.horizontalSwipeMaxHeightThreshold =
+          horizontalSwipeMaxHeightThreshold;
     }
 
     if (horizontalSwipeMinDisplacement != null) {
@@ -130,7 +131,7 @@ class SwipeDetector extends StatelessWidget {
         if (dy < 0) dy = -dy;
         double positiveVelocity = velocity < 0 ? -velocity : velocity;
 
-        print("$dx $dy $velocity $positiveVelocity");
+        debugPrint("$dx $dy $velocity $positiveVelocity");
 
         if (dx < swipeConfiguration.horizontalSwipeMinDisplacement) return;
         if (dy > swipeConfiguration.horizontalSwipeMaxHeightThreshold) return;

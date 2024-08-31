@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/wpp/mwordfami.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
@@ -12,9 +13,10 @@ class WordFamiService extends BaseService<MWordFami> {
       await createByUrl("WORDSFAMI", item);
 
   Future _updateItem(MWordFami item) async =>
-      print(await updateByUrl("WORDSFAMI/${item.id}", item));
+      debugPrint((await updateByUrl("WORDSFAMI/${item.id}", item)).toString());
 
-  Future delete(int id) async => print(await deleteByUrl("WORDSFAMI/$id"));
+  Future delete(int id) async =>
+      debugPrint((await deleteByUrl("WORDSFAMI/$id")).toString());
 
   Future<MWordFami> update(int wordid, bool isCorrect) async {
     var lst = await getDataByWord(wordid);
