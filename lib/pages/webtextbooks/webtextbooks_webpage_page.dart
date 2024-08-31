@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lolly_flutter/models/wpp/mpattern.dart';
-import 'package:lolly_flutter/viewmodels/patterns/patterns_detail_viewmodel.dart';
+import 'package:lolly_flutter/models/misc/mwebtextbook.dart';
+import 'package:lolly_flutter/viewmodels/webtextbooks/webTextbooks_detail_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class PatternsWebPagePage extends StatefulWidget {
-  final PatternsDetailViewModel vm;
+class WebTextbooksWebPagePage extends StatefulWidget {
+  final WebTextbooksDetailViewModel vm;
 
-  PatternsWebPagePage(MPattern item, {super.key})
-      : vm = PatternsDetailViewModel(item);
+  WebTextbooksWebPagePage(MWebTextbook item, {super.key})
+      : vm = WebTextbooksDetailViewModel(item);
 
   @override
-  PatternsWebPagePageState createState() => PatternsWebPagePageState();
+  WebTextbooksWebPagePageState createState() => WebTextbooksWebPagePageState();
 }
 
-class PatternsWebPagePageState extends State<PatternsWebPagePage> {
-  MPattern get item => widget.vm.item;
+class WebTextbooksWebPagePageState extends State<WebTextbooksWebPagePage> {
+  MWebTextbook get item => widget.vm.item;
   late WebViewController controller;
 
   @override
@@ -27,7 +27,7 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: const Text('Patterns Web Page')),
+      appBar: AppBar(title: const Text('WebTextbooks Web Page')),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [

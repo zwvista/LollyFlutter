@@ -16,4 +16,5 @@ enum NavItem {
   wordsLangPage,
   phrasesLangPage,
   patternPage,
+  webTextbookPage,
 }

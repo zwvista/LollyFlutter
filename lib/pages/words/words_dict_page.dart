@@ -20,10 +20,12 @@ class WordsDictPageState extends State<WordsDictPage> {
   WordsDictViewModel get vm => widget.vm;
   late OnlineDict onlineDict;
 
-  WordsDictPageState() {
+  @override
+  void initState() {
     onlineDict = OnlineDict(vm, vm.getUrl);
     vm.selectedWord_.listen((_) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
+    super.initState();
   }
 
   @override

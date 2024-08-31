@@ -11,6 +11,7 @@ import 'package:lolly_flutter/pages/phrases/phrases_lang_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_review_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_textbook_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_page.dart';
+import 'package:lolly_flutter/pages/webtextbooks/webtextbooks_page.dart';
 import 'package:lolly_flutter/pages/words/words_lang_page.dart';
 import 'package:lolly_flutter/pages/words/words_review_page.dart';
 import 'package:lolly_flutter/pages/words/words_textbook_page.dart';
@@ -115,6 +116,8 @@ class MyHomePageState extends State<MyHomePage> {
         return 'Phrases in Language';
       case NavItem.patternPage:
         return 'Patterns in Language';
+      case NavItem.webTextbookPage:
+        return 'WebTextbook';
       default:
         return '';
     }
@@ -144,6 +147,8 @@ class MyHomePageState extends State<MyHomePage> {
         return PhrasesLangPage();
       case NavItem.patternPage:
         return PatternsPage();
+      case NavItem.webTextbookPage:
+        return WebTextbooksPage();
       default:
         return const Center(
           child: Text(
@@ -191,10 +196,6 @@ class MyHomePageState extends State<MyHomePage> {
             onPressed: () => (_content as PhrasesReviewPage).state.more(),
           )
         ];
-      case NavItem.wordsTextbookPage:
-        return [];
-      case NavItem.phrasesTextbookPage:
-        return [];
       case NavItem.wordsLangPage:
         return [
           IconButton(
