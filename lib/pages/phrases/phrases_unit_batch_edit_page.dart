@@ -98,6 +98,7 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                 decoration: const InputDecoration(
                                   labelText: "SEQNUM(+)",
                                 ),
+                                keyboardType: TextInputType.number,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],

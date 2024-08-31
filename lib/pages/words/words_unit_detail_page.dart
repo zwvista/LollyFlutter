@@ -74,6 +74,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "SEQNUM",
                   ),
+                  keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (s) => item.seqnum = int.parse(s!),
                 ),

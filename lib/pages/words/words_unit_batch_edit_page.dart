@@ -96,6 +96,7 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                 decoration: const InputDecoration(
                                   labelText: "SEQNUM(+)",
                                 ),
+                                keyboardType: TextInputType.number,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],

@@ -82,6 +82,7 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "SEQNUM",
                   ),
+                  keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (s) => item.seqnum = int.parse(s!),
                 ),

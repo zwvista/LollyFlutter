@@ -74,6 +74,7 @@ class ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     decoration: const InputDecoration(
                       labelText: "Interval",
                     ),
+                    keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
                         v!.isEmpty ? "Interval must not be empty" : null,
@@ -83,6 +84,7 @@ class ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     decoration: const InputDecoration(
                       labelText: "Group",
                     ),
+                    keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
                         v!.isEmpty ? "Group must not be empty" : null,
@@ -92,6 +94,7 @@ class ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     decoration: const InputDecoration(
                       labelText: "Groups",
                     ),
+                    keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
                         v!.isEmpty ? "Groups must not be empty" : null,
@@ -101,6 +104,7 @@ class ReviewOptionsPageState extends State<ReviewOptionsPage> {
                     decoration: const InputDecoration(
                       labelText: "Review",
                     ),
+                    keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (v) =>
                         v!.isEmpty ? "Review must not be empty" : null,
