@@ -81,7 +81,8 @@ class MyHomePageState extends State<MyHomePage> {
             appBar: AppBar(
               title: Text(_getAppbarTitle(state.selectedItem)),
               centerTitle: false,
-              backgroundColor: Colors.indigo,
+              backgroundColor: Colors.purple,
+              foregroundColor: Colors.white,
               actions: _getActionsForState(state.selectedItem),
             ),
             body: AnimatedSwitcher(
