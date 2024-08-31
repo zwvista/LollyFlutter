@@ -45,7 +45,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 DropdownButtonFormField(
                     value: item.unit,
@@ -82,7 +82,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "WORDID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                     initialValue: item.word,
@@ -103,14 +103,14 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "FAMIID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                   initialValue: item.accuracy,
                   decoration: const InputDecoration(
                     labelText: "ACCURACY",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 )
               ]))));
 }

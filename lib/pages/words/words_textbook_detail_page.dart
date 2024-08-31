@@ -43,14 +43,14 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                   initialValue: item.textbookname,
                   decoration: const InputDecoration(
                     labelText: "TEXTBOOK",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 DropdownButtonFormField(
                     value: item.unit,
@@ -87,7 +87,7 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "WORDID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                     initialValue: item.word,
@@ -108,14 +108,14 @@ class WordsTextbookDetailPageState extends State<WordsTextbookDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "FAMIID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                   initialValue: item.accuracy,
                   decoration: const InputDecoration(
                     labelText: "ACCURACY",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
               ]))));
 }

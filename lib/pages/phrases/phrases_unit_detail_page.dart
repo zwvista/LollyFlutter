@@ -45,7 +45,7 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 DropdownButtonFormField(
                     value: item.unit,
@@ -82,7 +82,7 @@ class PhrasesUnitDetailPageState extends State<PhrasesUnitDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "PHRASEID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                     initialValue: item.phrase,

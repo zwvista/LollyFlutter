@@ -46,14 +46,14 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                   initialValue: item.textbookname,
                   decoration: const InputDecoration(
                     labelText: "TEXTBOOK",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 DropdownButtonFormField(
                     value: item.unit,
@@ -90,7 +90,7 @@ class PhrasesTextbookDetailPageState extends State<PhrasesTextbookDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "PHRASEID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                     initialValue: item.phrase,

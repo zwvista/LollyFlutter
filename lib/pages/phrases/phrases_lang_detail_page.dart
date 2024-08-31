@@ -45,7 +45,7 @@ class PhrasesLangDetailPageState extends State<PhrasesLangDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                     initialValue: item.phrase,

@@ -44,7 +44,7 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                     initialValue: item.word,
@@ -65,14 +65,14 @@ class WordsLangDetailPageState extends State<WordsLangDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "FAMIID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
                   initialValue: item.accuracy,
                   decoration: const InputDecoration(
                     labelText: "ACCURACY",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
               ]))));
 }

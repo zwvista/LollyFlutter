@@ -29,27 +29,35 @@ class WebTextbooksDetailPageState extends State<WebTextbooksDetailPage> {
                   decoration: const InputDecoration(
                     labelText: "ID",
                   ),
-                  enabled: false,
+                  readOnly: true,
                 ),
                 TextFormField(
-                    initialValue: item.textbookname,
-                    decoration: const InputDecoration(
-                      labelText: "TEXTBOOK",
-                    )),
+                  initialValue: item.textbookname,
+                  decoration: const InputDecoration(
+                    labelText: "TEXTBOOK",
+                  ),
+                  readOnly: true,
+                ),
                 TextFormField(
-                    initialValue: item.unit.toString(),
-                    decoration: const InputDecoration(
-                      labelText: "UNIT",
-                    )),
+                  initialValue: item.unit.toString(),
+                  decoration: const InputDecoration(
+                    labelText: "UNIT",
+                  ),
+                  readOnly: true,
+                ),
                 TextFormField(
-                    initialValue: item.title,
-                    decoration: const InputDecoration(
-                      labelText: "TITLE",
-                    )),
+                  initialValue: item.title,
+                  decoration: const InputDecoration(
+                    labelText: "TITLE",
+                  ),
+                  readOnly: true,
+                ),
                 TextFormField(
-                    initialValue: item.url,
-                    decoration: const InputDecoration(
-                      labelText: "URL",
-                    )),
+                  initialValue: item.url,
+                  decoration: const InputDecoration(
+                    labelText: "URL",
+                  ),
+                  readOnly: true,
+                ),
               ]))));
 }
