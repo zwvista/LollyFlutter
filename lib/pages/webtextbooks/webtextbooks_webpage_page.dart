@@ -19,10 +19,10 @@ class WebTextbooksWebPagePageState extends State<WebTextbooksWebPagePage> {
 
   @override
   void initState() {
+    super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(Uri.parse(item.url));
-    super.initState();
   }
 
   @override

@@ -8,21 +8,26 @@ import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
+import '../../viewmodels/misc/home_viewmodel.dart';
 
 class PhrasesUnitPage extends StatefulWidget {
-  final state = PhrasesUnitPageState();
-  PhrasesUnitPage({super.key});
+  final HomeViewModel vmHome;
+  const PhrasesUnitPage(this.vmHome, {super.key});
 
   @override
-  PhrasesUnitPageState createState() => state;
+  PhrasesUnitPageState createState() => PhrasesUnitPageState();
 }
 
 class PhrasesUnitPageState extends State<PhrasesUnitPage> {
-  final vm = PhrasesUnitViewModel(true);
+  late PhrasesUnitViewModel vm;
 
-  PhrasesUnitPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm = PhrasesUnitViewModel(true)
+      ..reloaded = false
+      ..reloadCommand();
+    widget.vmHome.more = more;
   }
 
   @override

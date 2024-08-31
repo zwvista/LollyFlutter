@@ -5,38 +5,45 @@ import 'package:lolly_flutter/viewmodels/misc/search_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../viewmodels/misc/home_viewmodel.dart';
 import 'login_page.dart';
 import 'online_dict.dart';
 
 class SearchPage extends StatefulWidget {
-  final state = SearchPageState();
-  SearchPage({super.key});
+  final HomeViewModel vmHome;
+  const SearchPage(this.vmHome, {super.key});
 
   @override
-  SearchPageState createState() => state;
+  SearchPageState createState() => SearchPageState();
 }
 
 class SearchPageState extends State<SearchPage> {
-  final vm = SearchViewModel();
+  late SearchViewModel vm;
   late OnlineDict onlineDict;
+
+  @override
+  void initState() {
+    super.initState();
+    vm = SearchViewModel();
+    onlineDict = OnlineDict(vm, 'https://google.com');
+    widget.vmHome.more = more;
+    setup();
+  }
 
   Future setup() async {
     final prefs = await SharedPreferences.getInstance();
     for (;;) {
       Global.userid = prefs.getString("userid") ?? "";
       if (Global.userid.isNotEmpty) break;
-      // https://stackoverflow.com/questions/59423954/detect-when-we-moved-back-to-previous-page-in-flutter
-      await Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
+      if (context.mounted) {
+        // https://stackoverflow.com/questions/59423954/detect-when-we-moved-back-to-previous-page-in-flutter
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const LoginPage()));
+      }
     }
     await vmSettings.getData();
     vmSettings.updateLang.listen((_) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
-  }
-
-  SearchPageState() {
-    onlineDict = OnlineDict(vm, 'https://google.com');
-    setup();
   }
 
   @override

@@ -8,21 +8,26 @@ import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
+import '../../viewmodels/misc/home_viewmodel.dart';
 
 class PhrasesLangPage extends StatefulWidget {
-  final state = PhrasesLangPageState();
-  PhrasesLangPage({super.key});
+  final HomeViewModel vmHome;
+  const PhrasesLangPage(this.vmHome, {super.key});
 
   @override
-  PhrasesLangPageState createState() => state;
+  PhrasesLangPageState createState() => PhrasesLangPageState();
 }
 
 class PhrasesLangPageState extends State<PhrasesLangPage> {
-  final vm = PhrasesLangViewModel();
+  late PhrasesLangViewModel vm;
 
-  PhrasesLangPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm = PhrasesLangViewModel()
+      ..reloaded = false
+      ..reloadCommand();
+    widget.vmHome.more = more;
   }
 
   @override

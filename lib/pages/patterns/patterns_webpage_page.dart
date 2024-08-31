@@ -19,10 +19,10 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
 
   @override
   void initState() {
+    super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(Uri.parse(item.url));
-    super.initState();
   }
 
   @override

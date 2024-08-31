@@ -3,23 +3,27 @@ import 'package:lolly_flutter/pages/misc/review_options_page.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_review_viewmodel.dart';
 
 import '../../main.dart';
+import '../../viewmodels/misc/home_viewmodel.dart';
 
 class PhrasesReviewPage extends StatefulWidget {
-  final state = PhrasesReviewPageState();
-  PhrasesReviewPage({super.key});
+  final HomeViewModel vmHome;
+  const PhrasesReviewPage(this.vmHome, {super.key});
 
   @override
-  PhrasesReviewPageState createState() => state;
+  PhrasesReviewPageState createState() => PhrasesReviewPageState();
 }
 
 class PhrasesReviewPageState extends State<PhrasesReviewPage> {
   late PhrasesReviewViewModel vm;
 
-  PhrasesReviewPageState() {
+  @override
+  void initState() {
+    super.initState();
     vm = PhrasesReviewViewModel(() {
       if (vm.hasCurrent && vm.isSpeaking) speak(vm.currentPhrase);
     });
     Future.delayed(const Duration(seconds: 1), () => more());
+    widget.vmHome.more = more;
   }
 
   @override

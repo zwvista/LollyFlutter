@@ -16,6 +16,7 @@ import 'package:lolly_flutter/pages/words/words_lang_page.dart';
 import 'package:lolly_flutter/pages/words/words_review_page.dart';
 import 'package:lolly_flutter/pages/words/words_textbook_page.dart';
 import 'package:lolly_flutter/pages/words/words_unit_page.dart';
+import 'package:lolly_flutter/viewmodels/misc/home_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 
 final vmSettings = SettingsViewModel();
@@ -51,6 +52,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   late NavDrawerBloc _bloc;
   late Widget _content;
+  HomeViewModel vm = HomeViewModel();
 
   @override
   void initState() {
@@ -126,29 +128,29 @@ class MyHomePageState extends State<MyHomePage> {
   _getContentForState(NavItem? state) {
     switch (state) {
       case NavItem.searchPage:
-        return SearchPage();
+        return SearchPage(vm);
       case NavItem.settingsPage:
         return const SettingsPage();
       case NavItem.wordsUnitPage:
-        return WordsUnitPage();
+        return WordsUnitPage(vm);
       case NavItem.phrasesUnitPage:
-        return PhrasesUnitPage();
+        return PhrasesUnitPage(vm);
       case NavItem.wordsReviewPage:
-        return WordsReviewPage();
+        return WordsReviewPage(vm);
       case NavItem.phrasesReviewPage:
-        return PhrasesReviewPage();
+        return PhrasesReviewPage(vm);
       case NavItem.wordsTextbookPage:
         return const WordsTextbookPage();
       case NavItem.phrasesTextbookPage:
         return const PhrasesTextbookPage();
       case NavItem.wordsLangPage:
-        return WordsLangPage();
+        return WordsLangPage(vm);
       case NavItem.phrasesLangPage:
-        return PhrasesLangPage();
+        return PhrasesLangPage(vm);
       case NavItem.patternPage:
-        return PatternsPage();
+        return PatternsPage(vm);
       case NavItem.webTextbookPage:
-        return WebTextbooksPage();
+        return const WebTextbooksPage();
       default:
         return const Center(
           child: Text(
@@ -165,56 +167,56 @@ class MyHomePageState extends State<MyHomePage> {
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as SearchPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.wordsUnitPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as WordsUnitPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.phrasesUnitPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as PhrasesUnitPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.wordsReviewPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as WordsReviewPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.phrasesReviewPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as PhrasesReviewPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.wordsLangPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as WordsLangPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.phrasesLangPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as PhrasesLangPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       case NavItem.patternPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
-            onPressed: () => (_content as PatternsPage).state.more(),
+            onPressed: () => vm.more!(),
           )
         ];
       default:

@@ -9,11 +9,10 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class WebTextbooksPage extends StatefulWidget {
-  final state = WebTextbooksPageState();
-  WebTextbooksPage({super.key});
+  const WebTextbooksPage({super.key});
 
   @override
-  WebTextbooksPageState createState() => state;
+  WebTextbooksPageState createState() => WebTextbooksPageState();
 }
 
 class WebTextbooksPageState extends State<WebTextbooksPage> {

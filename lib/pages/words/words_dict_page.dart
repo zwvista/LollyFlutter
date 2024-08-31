@@ -22,10 +22,10 @@ class WordsDictPageState extends State<WordsDictPage> {
 
   @override
   void initState() {
+    super.initState();
     onlineDict = OnlineDict(vm, vm.getUrl);
     vm.selectedWord_.listen((_) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
-    super.initState();
   }
 
   @override

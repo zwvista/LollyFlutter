@@ -11,22 +11,26 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
+import '../../viewmodels/misc/home_viewmodel.dart';
 
 class WordsUnitPage extends StatefulWidget {
-  // https://stackoverflow.com/questions/50557842/flutter-call-a-function-on-a-child-widgets-state/50558628
-  final state = WordsUnitPageState();
-  WordsUnitPage({super.key});
+  final HomeViewModel vmHome;
+  const WordsUnitPage(this.vmHome, {super.key});
 
   @override
-  WordsUnitPageState createState() => state;
+  WordsUnitPageState createState() => WordsUnitPageState();
 }
 
 class WordsUnitPageState extends State<WordsUnitPage> {
-  final vm = WordsUnitViewModel(true);
+  late WordsUnitViewModel vm;
 
-  WordsUnitPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm = WordsUnitViewModel(true)
+      ..reloaded = false
+      ..reloadCommand();
+    widget.vmHome.more = more;
   }
 
   @override

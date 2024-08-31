@@ -10,21 +10,26 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
+import '../../viewmodels/misc/home_viewmodel.dart';
 
 class WordsLangPage extends StatefulWidget {
-  final state = WordsLangPageState();
-  WordsLangPage({super.key});
+  final HomeViewModel vmHome;
+  const WordsLangPage(this.vmHome, {super.key});
 
   @override
-  WordsLangPageState createState() => state;
+  WordsLangPageState createState() => WordsLangPageState();
 }
 
 class WordsLangPageState extends State<WordsLangPage> {
-  final vm = WordsLangViewModel();
+  late WordsLangViewModel vm;
 
-  WordsLangPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm = WordsLangViewModel()
+      ..reloaded = false
+      ..reloadCommand();
+    widget.vmHome.more = more;
   }
 
   @override

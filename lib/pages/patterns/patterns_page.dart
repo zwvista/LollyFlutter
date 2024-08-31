@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_detail_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_webpage_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
+import 'package:lolly_flutter/viewmodels/misc/home_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
@@ -11,19 +12,23 @@ import '../../keys.dart';
 import '../../main.dart';
 
 class PatternsPage extends StatefulWidget {
-  final state = PatternsPageState();
-  PatternsPage({super.key});
+  final HomeViewModel vmHome;
+  const PatternsPage(this.vmHome, {super.key});
 
   @override
-  PatternsPageState createState() => state;
+  PatternsPageState createState() => PatternsPageState();
 }
 
 class PatternsPageState extends State<PatternsPage> {
-  final vm = PatternsViewModel();
+  late PatternsViewModel vm;
 
-  PatternsPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm = PatternsViewModel()
+      ..reloaded = false
+      ..reloadCommand();
+    widget.vmHome.more = more;
   }
 
   @override
