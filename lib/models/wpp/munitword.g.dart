@@ -17,19 +17,19 @@ Map<String, dynamic> _$MUnitWordsToJson(MUnitWords instance) =>
     };
 
 MUnitWord _$MUnitWordFromJson(Map<String, dynamic> json) => MUnitWord()
-  ..id = json['ID'] as int
-  ..langid = json['LANGID'] as int
-  ..textbookid = json['TEXTBOOKID'] as int
+  ..id = (json['ID'] as num).toInt()
+  ..langid = (json['LANGID'] as num).toInt()
+  ..textbookid = (json['TEXTBOOKID'] as num).toInt()
   ..textbookname = json['TEXTBOOKNAME'] as String
-  ..unit = json['UNIT'] as int
-  ..part = json['PART'] as int
-  ..seqnum = json['SEQNUM'] as int
+  ..unit = (json['UNIT'] as num).toInt()
+  ..part = (json['PART'] as num).toInt()
+  ..seqnum = (json['SEQNUM'] as num).toInt()
   ..word = json['WORD'] as String
   ..note = json['NOTE'] as String
-  ..wordid = json['WORDID'] as int
-  ..famiid = json['FAMIID'] as int
-  ..correct = json['CORRECT'] as int
-  ..total = json['TOTAL'] as int
+  ..wordid = (json['WORDID'] as num).toInt()
+  ..famiid = (json['FAMIID'] as num).toInt()
+  ..correct = (json['CORRECT'] as num).toInt()
+  ..total = (json['TOTAL'] as num).toInt()
   ..textbook = json['textbook'] == null
       ? null
       : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);

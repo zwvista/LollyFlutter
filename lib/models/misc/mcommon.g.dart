@@ -16,7 +16,7 @@ Map<String, dynamic> _$MCodesToJson(MCodes instance) => <String, dynamic>{
     };
 
 MCode _$MCodeFromJson(Map<String, dynamic> json) => MCode()
-  ..code = json['CODE'] as int
+  ..code = (json['CODE'] as num).toInt()
   ..name = json['NAME'] as String;
 
 Map<String, dynamic> _$MCodeToJson(MCode instance) => <String, dynamic>{
@@ -25,7 +25,7 @@ Map<String, dynamic> _$MCodeToJson(MCode instance) => <String, dynamic>{
     };
 
 MSPResult _$MSPResultFromJson(Map<String, dynamic> json) => MSPResult()
-  ..newid = json['NEW_ID'] as int
+  ..newid = (json['NEW_ID'] as num).toInt()
   ..result = json['result'] as String;
 
 Map<String, dynamic> _$MSPResultToJson(MSPResult instance) => <String, dynamic>{

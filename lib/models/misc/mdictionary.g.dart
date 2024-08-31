@@ -18,21 +18,21 @@ Map<String, dynamic> _$MDictionariesToJson(MDictionaries instance) =>
     };
 
 MDictionary _$MDictionaryFromJson(Map<String, dynamic> json) => MDictionary()
-  ..id = json['ID'] as int
-  ..dictid = json['DICTID'] as int
-  ..langidfrom = json['LANGIDFROM'] as int
+  ..id = (json['ID'] as num).toInt()
+  ..dictid = (json['DICTID'] as num).toInt()
+  ..langidfrom = (json['LANGIDFROM'] as num).toInt()
   ..langnamefrom = json['LANGNAMEFROM'] as String
-  ..langidto = json['LANGIDTO'] as int
+  ..langidto = (json['LANGIDTO'] as num).toInt()
   ..langnameto = json['LANGNAMETO'] as String
-  ..seqnum = json['SEQNUM'] as int
-  ..dicttypecode = json['DICTTYPECODE'] as int
+  ..seqnum = (json['SEQNUM'] as num).toInt()
+  ..dicttypecode = (json['DICTTYPECODE'] as num).toInt()
   ..dicttypename = json['DICTTYPENAME'] as String
   ..dictname = json['NAME'] as String
   ..url = json['URL'] as String
   ..chconv = json['CHCONV'] as String
   ..automation = json['AUTOMATION'] as String
   ..transform = json['TRANSFORM'] as String
-  ..wait = json['WAIT'] as int
+  ..wait = (json['WAIT'] as num).toInt()
   ..template = json['TEMPLATE'] as String
   ..template2 = json['TEMPLATE2'] as String;
 

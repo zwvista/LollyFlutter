@@ -17,13 +17,13 @@ Map<String, dynamic> _$MLangWordsToJson(MLangWords instance) =>
     };
 
 MLangWord _$MLangWordFromJson(Map<String, dynamic> json) => MLangWord()
-  ..id = json['ID'] as int
-  ..langid = json['LANGID'] as int
+  ..id = (json['ID'] as num).toInt()
+  ..langid = (json['LANGID'] as num).toInt()
   ..word = json['WORD'] as String
   ..note = json['NOTE'] as String
-  ..famiid = json['FAMIID'] as int
-  ..correct = json['CORRECT'] as int
-  ..total = json['TOTAL'] as int;
+  ..famiid = (json['FAMIID'] as num).toInt()
+  ..correct = (json['CORRECT'] as num).toInt()
+  ..total = (json['TOTAL'] as num).toInt();
 
 Map<String, dynamic> _$MLangWordToJson(MLangWord instance) => <String, dynamic>{
       'ID': instance.id,

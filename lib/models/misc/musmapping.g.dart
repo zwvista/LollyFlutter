@@ -17,12 +17,12 @@ Map<String, dynamic> _$MUSMappingsToJson(MUSMappings instance) =>
     };
 
 MUSMapping _$MUSMappingFromJson(Map<String, dynamic> json) => MUSMapping()
-  ..id = json['ID'] as int
+  ..id = (json['ID'] as num).toInt()
   ..name = json['NAME'] as String
-  ..kind = json['KIND'] as int
-  ..entityid = json['ENTITYID'] as int
-  ..valueid = json['VALUEID'] as int
-  ..level = json['LEVEL'] as int;
+  ..kind = (json['KIND'] as num).toInt()
+  ..entityid = (json['ENTITYID'] as num).toInt()
+  ..valueid = (json['VALUEID'] as num).toInt()
+  ..level = (json['LEVEL'] as num).toInt();
 
 Map<String, dynamic> _$MUSMappingToJson(MUSMapping instance) =>
     <String, dynamic>{

@@ -18,10 +18,10 @@ Map<String, dynamic> _$MUserSettingsToJson(MUserSettings instance) =>
     };
 
 MUserSetting _$MUserSettingFromJson(Map<String, dynamic> json) => MUserSetting()
-  ..id = json['ID'] as int
+  ..id = (json['ID'] as num).toInt()
   ..userid = json['USERID'] as String
-  ..kind = json['KIND'] as int
-  ..entityid = json['ENTITYID'] as int
+  ..kind = (json['KIND'] as num).toInt()
+  ..entityid = (json['ENTITYID'] as num).toInt()
   ..value1 = json['VALUE1'] as String?
   ..value2 = json['VALUE2'] as String?
   ..value3 = json['VALUE3'] as String?

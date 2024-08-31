@@ -17,14 +17,14 @@ Map<String, dynamic> _$MUnitPhrasesToJson(MUnitPhrases instance) =>
     };
 
 MUnitPhrase _$MUnitPhraseFromJson(Map<String, dynamic> json) => MUnitPhrase()
-  ..id = json['ID'] as int
-  ..langid = json['LANGID'] as int
-  ..textbookid = json['TEXTBOOKID'] as int
+  ..id = (json['ID'] as num).toInt()
+  ..langid = (json['LANGID'] as num).toInt()
+  ..textbookid = (json['TEXTBOOKID'] as num).toInt()
   ..textbookname = json['TEXTBOOKNAME'] as String
-  ..unit = json['UNIT'] as int
-  ..part = json['PART'] as int
-  ..seqnum = json['SEQNUM'] as int
-  ..phraseid = json['PHRASEID'] as int
+  ..unit = (json['UNIT'] as num).toInt()
+  ..part = (json['PART'] as num).toInt()
+  ..seqnum = (json['SEQNUM'] as num).toInt()
+  ..phraseid = (json['PHRASEID'] as num).toInt()
   ..phrase = json['PHRASE'] as String
   ..translation = json['TRANSLATION'] as String
   ..textbook = json['textbook'] == null

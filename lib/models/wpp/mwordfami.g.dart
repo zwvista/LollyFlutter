@@ -17,11 +17,11 @@ Map<String, dynamic> _$MWordsFamiToJson(MWordsFami instance) =>
     };
 
 MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) => MWordFami()
-  ..id = json['ID'] as int
+  ..id = (json['ID'] as num).toInt()
   ..userid = json['USERID'] as String
-  ..wordid = json['WORDID'] as int
-  ..correct = json['CORRECT'] as int
-  ..total = json['TOTAL'] as int;
+  ..wordid = (json['WORDID'] as num).toInt()
+  ..correct = (json['CORRECT'] as num).toInt()
+  ..total = (json['TOTAL'] as num).toInt();
 
 Map<String, dynamic> _$MWordFamiToJson(MWordFami instance) => <String, dynamic>{
       'ID': instance.id,

@@ -18,9 +18,9 @@ Map<String, dynamic> _$MAutoCorrectsToJson(MAutoCorrects instance) =>
     };
 
 MAutoCorrect _$MAutoCorrectFromJson(Map<String, dynamic> json) => MAutoCorrect()
-  ..id = json['ID'] as int
-  ..langid = json['LANGID'] as int
-  ..seqnum = json['SEQNUM'] as int
+  ..id = (json['ID'] as num).toInt()
+  ..langid = (json['LANGID'] as num).toInt()
+  ..seqnum = (json['SEQNUM'] as num).toInt()
   ..input = json['INPUT'] as String
   ..extended = json['EXTENDED'] as String
   ..basic = json['BASIC'] as String;
