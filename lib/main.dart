@@ -6,12 +6,12 @@ import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
 import 'package:lolly_flutter/pages/misc/search_page.dart';
 import 'package:lolly_flutter/pages/misc/settings_page.dart';
+import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_page.dart';
 import 'package:lolly_flutter/pages/patterns/patterns_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_lang_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_review_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_textbook_page.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_unit_page.dart';
-import 'package:lolly_flutter/pages/webtextbooks/webtextbooks_page.dart';
 import 'package:lolly_flutter/pages/words/words_lang_page.dart';
 import 'package:lolly_flutter/pages/words/words_review_page.dart';
 import 'package:lolly_flutter/pages/words/words_textbook_page.dart';
@@ -117,10 +117,10 @@ class MyHomePageState extends State<MyHomePage> {
         return 'Words in Language';
       case NavItem.phrasesLangPage:
         return 'Phrases in Language';
-      case NavItem.patternPage:
+      case NavItem.patternsPage:
         return 'Patterns in Language';
-      case NavItem.webTextbookPage:
-        return 'WebTextbook';
+      case NavItem.onlineTextbooksPage:
+        return 'Online Textbook';
       default:
         return '';
     }
@@ -148,10 +148,10 @@ class MyHomePageState extends State<MyHomePage> {
         return WordsLangPage(vm);
       case NavItem.phrasesLangPage:
         return PhrasesLangPage(vm);
-      case NavItem.patternPage:
+      case NavItem.patternsPage:
         return PatternsPage(vm);
-      case NavItem.webTextbookPage:
-        return const WebTextbooksPage();
+      case NavItem.onlineTextbooksPage:
+        return const OnlineTextbooksPage();
       default:
         return const Center(
           child: Text(
@@ -213,7 +213,7 @@ class MyHomePageState extends State<MyHomePage> {
             onPressed: () => vm.more!(),
           )
         ];
-      case NavItem.patternPage:
+      case NavItem.patternsPage:
         return [
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),

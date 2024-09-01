@@ -28,9 +28,9 @@ class NavDrawerWidget extends StatelessWidget {
         Icons.airplanemode_active),
     _NavigationItem(false, NavItem.phrasesLangPage, "Phrases in Language",
         Icons.directions_bike),
-    _NavigationItem(false, NavItem.patternPage, "Patterns in Language",
+    _NavigationItem(false, NavItem.patternsPage, "Patterns in Language",
         Icons.directions_boat),
-    _NavigationItem(false, NavItem.webTextbookPage, "WebTextbooks",
+    _NavigationItem(false, NavItem.onlineTextbooksPage, "Online Textbooks",
         Icons.directions_railway),
   ];
 

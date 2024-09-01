@@ -123,7 +123,7 @@ class SettingsViewModel {
   late RxCommand<void, void> updateVoice;
   List<MTextbook> lstTextbooks = [];
   List<MSelectItem> lstTextbookFilters = [];
-  List<MSelectItem> lstWebTextbookFilters = [];
+  List<MSelectItem> lstOnlineTextbookFilters = [];
   late RxCommand<MTextbook?, void> selectedTextbook_;
   MTextbook? selectedTextbook;
   late RxCommand<void, void> updateTextbook;
@@ -226,11 +226,11 @@ class SettingsViewModel {
       lstTextbookFilters =
           lstTextbooks.map((o) => MSelectItem(o.id, o.textbookname)).toList();
       lstTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
-      lstWebTextbookFilters = lstTextbooks
-          .where((o) => o.isWeb == 1)
+      lstOnlineTextbookFilters = lstTextbooks
+          .where((o) => o.online == 1)
           .map((o) => MSelectItem(o.id, o.textbookname))
           .toList();
-      lstWebTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
+      lstOnlineTextbookFilters.insert(0, MSelectItem(0, "All Textbooks"));
       lstAutoCorrect = await res5;
       selectedVoice_(null);
       lstVoices = await res6;

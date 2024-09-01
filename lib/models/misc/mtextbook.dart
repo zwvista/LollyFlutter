@@ -30,8 +30,8 @@ class MTextbook {
   var units = "";
   @JsonKey(name: 'PARTS')
   var parts = "";
-  @JsonKey(name: "ISWEB")
-  var isWeb = 0;
+  @JsonKey(name: "ONLINE")
+  var online = 0;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   List<MSelectItem> lstUnits = [];

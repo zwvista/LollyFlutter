@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lolly_flutter/pages/webtextbooks/webtextbooks_detail_page.dart';
-import 'package:lolly_flutter/pages/webtextbooks/webtextbooks_webpage_page.dart';
-import 'package:lolly_flutter/viewmodels/webtextbooks/webtextbooks_viewmodel.dart';
+import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_detail_page.dart';
+import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_webpage_page.dart';
+import 'package:lolly_flutter/viewmodels/onlinetextbooks/onlinetextbooks_viewmodel.dart';
 import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
 
-class WebTextbooksPage extends StatefulWidget {
-  const WebTextbooksPage({super.key});
+class OnlineTextbooksPage extends StatefulWidget {
+  const OnlineTextbooksPage({super.key});
 
   @override
-  WebTextbooksPageState createState() => WebTextbooksPageState();
+  OnlineTextbooksPageState createState() => OnlineTextbooksPageState();
 }
 
-class WebTextbooksPageState extends State<WebTextbooksPage> {
-  final vm = WebTextbooksViewModel();
+class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
+  final vm = OnlineTextbooksViewModel();
 
-  WebTextbooksPageState() {
+  OnlineTextbooksPageState() {
     vm.reloaded = false;
     vm.reloadCommand();
   }
@@ -31,14 +31,14 @@ class WebTextbooksPageState extends State<WebTextbooksPage> {
               child: Row(children: [
                 Expanded(
                   child: StreamBuilder(
-                      stream: vm.webTextbookFilter_,
+                      stream: vm.onlineTextbookFilter_,
                       builder: (context, snapshot) => DropdownButtonFormField(
-                            value: vm.webTextbookFilter,
-                            items: vmSettings.lstWebTextbookFilters
+                            value: vm.onlineTextbookFilter,
+                            items: vmSettings.lstOnlineTextbookFilters
                                 .map((o) => DropdownMenuItem(
                                     value: o.value, child: Text(o.label)))
                                 .toList(),
-                            onChanged: vm.webTextbookFilter_.call,
+                            onChanged: vm.onlineTextbookFilter_.call,
                           )),
                 )
               ])),
@@ -48,12 +48,12 @@ class WebTextbooksPageState extends State<WebTextbooksPage> {
               radius: 25.0,
               commandResults: vm.reloadCommand.results,
               dataBuilder: (context, data) => ListView.separated(
-                itemCount: vm.lstWebTextbooks.length,
+                itemCount: vm.lstOnlineTextbooks.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
-                  final entry = vm.lstWebTextbooks[index];
+                  final entry = vm.lstOnlineTextbooks[index];
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WebTextbooksDetailPage(entry),
+                      builder: (context) => OnlineTextbooksDetailPage(entry),
                       fullscreenDialog: true));
 
                   return Slidable(
@@ -96,7 +96,7 @@ class WebTextbooksPageState extends State<WebTextbooksPage> {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          WebTextbooksWebPagePage(
+                                                          OnlineTextbooksWebPagePage(
                                                               entry)));
                                             }),
                                       ]),
@@ -122,7 +122,7 @@ class WebTextbooksPageState extends State<WebTextbooksPage> {
                               onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          WebTextbooksWebPagePage(entry)))),
+                                          OnlineTextbooksWebPagePage(entry)))),
                           onTap: () {
                             speak(entry.textbookname);
                           },
