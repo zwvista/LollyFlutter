@@ -236,3 +236,24 @@ extension FirstWhereOrNullExtension<E> on Iterable<E> {
     return null;
   }
 }
+
+(int, int) getPreferredRangeFromArray(
+    int index, int length, int preferredLength) {
+  int start, end;
+  if (length < preferredLength) {
+    start = 0;
+    end = length;
+  } else {
+    start = index - preferredLength ~/ 2;
+    end = index + preferredLength ~/ 2;
+    if (start < 0) {
+      end -= start;
+      start = 0;
+    }
+    if (end > length) {
+      start -= end - length;
+      end = length;
+    }
+  }
+  return (start, end);
+}
