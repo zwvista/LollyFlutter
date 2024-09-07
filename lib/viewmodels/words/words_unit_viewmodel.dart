@@ -81,4 +81,32 @@ class WordsUnitViewModel {
     lstUnitWordsAll.add(item);
     _applyFilters();
   }
+
+  Future getNote(MUnitWord item) async {
+    item.note = await vmSettings.getNote(item.word);
+    await unitWordService.updateNote(item.wordid, item.note);
+  }
+
+  Future clearNote(MUnitWord item) async {
+    item.note = SettingsViewModel.ZeroNote;
+    await unitWordService.updateNote(item.wordid, item.note);
+  }
+
+  Future getNotes(bool ifEmpty, Function(int) oneComplete) async {
+    await vmSettings.getNotes(
+        lstUnitWords.length, (i) => !ifEmpty || lstUnitWords[i].note.isEmpty,
+        (i) async {
+      await getNote(lstUnitWords[i]);
+      oneComplete(i);
+    });
+  }
+
+  Future clearNotes(bool ifEmpty, Function(int) oneComplete) async {
+    await vmSettings.clearNotes(
+        lstUnitWords.length, (i) => !ifEmpty || lstUnitWords[i].note.isEmpty,
+        (i) async {
+      await clearNote(lstUnitWords[i]);
+      oneComplete(i);
+    });
+  }
 }

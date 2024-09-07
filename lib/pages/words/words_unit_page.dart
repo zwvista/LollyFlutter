@@ -111,7 +111,7 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: const Text("Retrieve Note"),
+                                            child: const Text("Get Note"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
@@ -222,12 +222,12 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                             WordsUnitDetailPage(vm, vm.newUnitWord())));
                   }),
               SimpleDialogOption(
-                  child: const Text("Retrieve All Notes"),
+                  child: const Text("Get All Notes"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               SimpleDialogOption(
-                  child: const Text("Retrieve Notes If Empty"),
+                  child: const Text("Get Notes If Empty"),
                   onPressed: () {
                     Navigator.pop(context);
                   }),

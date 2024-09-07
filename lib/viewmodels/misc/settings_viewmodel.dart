@@ -535,7 +535,7 @@ class SettingsViewModel {
 
   static const ZeroNote = "O";
 
-  Future<String> retrieveNote(String word) async {
+  Future<String> getNote(String word) async {
     if (selectedDictNote == null) return "";
     var url = selectedDictNote!.urlString(word, lstAutoCorrect);
     var html = await BaseService.getHtmlByUrl(url);
@@ -543,7 +543,7 @@ class SettingsViewModel {
         html, selectedDictNote!.transform, "", (text, _) => text);
   }
 
-  Future retrieveNotes(int wordCount, bool Function(int) isNoteEmpty,
+  Future getNotes(int wordCount, bool Function(int) isNoteEmpty,
       Future Function(int) getOne) async {
     if (selectedDictNote == null) return;
     for (int i = 0;;) {

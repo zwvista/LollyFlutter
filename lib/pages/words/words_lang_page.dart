@@ -109,7 +109,7 @@ class WordsLangPageState extends State<WordsLangPage> {
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: const Text("Retrieve Note"),
+                                            child: const Text("Get Note"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
@@ -175,12 +175,17 @@ class WordsLangPageState extends State<WordsLangPage> {
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
                               onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => WordsDictPage(
-                                          vm.lstLangWords
-                                              .map((e) => e.word)
-                                              .toList(),
-                                          index)))),
+                                      MaterialPageRoute(builder: (context) {
+                                    final (start, end) =
+                                        getPreferredRangeFromArray(
+                                            index, vm.lstLangWords.length, 50);
+                                    return WordsDictPage(
+                                        vm.lstLangWords
+                                            .sublist(start, end)
+                                            .map((e) => e.word)
+                                            .toList(),
+                                        index);
+                                  }))),
                           onTap: () {
                             speak(entry.word);
                           },

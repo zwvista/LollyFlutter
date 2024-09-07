@@ -53,4 +53,14 @@ class WordsLangViewModel {
     lstLangWordsAll.add(item);
     _applyFilters();
   }
+
+  Future getNote(MLangWord item) async {
+    item.note = await vmSettings.getNote(item.word);
+    await langWordService.updateNote(item.id, item.note);
+  }
+
+  Future clearNote(MLangWord item) async {
+    item.note = SettingsViewModel.ZeroNote;
+    await langWordService.updateNote(item.id, item.note);
+  }
 }

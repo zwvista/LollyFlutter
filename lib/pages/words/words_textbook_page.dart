@@ -120,7 +120,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: const Text("Retrieve Note"),
+                                            child: const Text("Get Note"),
                                             onPressed: () {
                                               Navigator.pop(context);
                                               edit();
@@ -194,12 +194,17 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
                               onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => WordsDictPage(
-                                          vm.lstUnitWords
-                                              .map((e) => e.word)
-                                              .toList(),
-                                          index)))),
+                                      MaterialPageRoute(builder: (context) {
+                                    final (start, end) =
+                                        getPreferredRangeFromArray(
+                                            index, vm.lstUnitWords.length, 50);
+                                    return WordsDictPage(
+                                        vm.lstUnitWords
+                                            .sublist(start, end)
+                                            .map((e) => e.word)
+                                            .toList(),
+                                        index);
+                                  }))),
                           onTap: () {
                             speak(entry.word);
                           },
