@@ -112,15 +112,15 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Get Note"),
-                                            onPressed: () {
+                                            onPressed: () async {
                                               Navigator.pop(context);
-                                              edit();
+                                              await vm.getNote(entry);
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Clear Note"),
-                                            onPressed: () {
+                                            onPressed: () async {
                                               Navigator.pop(context);
-                                              edit();
+                                              await vm.clearNote(entry);
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Copy Word"),
@@ -223,23 +223,27 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   }),
               SimpleDialogOption(
                   child: const Text("Get All Notes"),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pop(context);
+                    await vm.getNotes(false, (i) {});
                   }),
               SimpleDialogOption(
                   child: const Text("Get Notes If Empty"),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pop(context);
+                    await vm.getNotes(true, (i) {});
                   }),
               SimpleDialogOption(
                   child: const Text("Clear All Notes"),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pop(context);
+                    await vm.clearNotes(true, (i) {});
                   }),
               SimpleDialogOption(
                   child: const Text("Clear Notes If Empty"),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pop(context);
+                    await vm.clearNotes(false, (i) {});
                   }),
               SimpleDialogOption(
                   child: const Text("Batch Edit"),

@@ -110,15 +110,15 @@ class WordsLangPageState extends State<WordsLangPage> {
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Get Note"),
-                                            onPressed: () {
+                                            onPressed: () async {
                                               Navigator.pop(context);
-                                              edit();
+                                              await vm.getNote(entry);
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Clear Note"),
-                                            onPressed: () {
+                                            onPressed: () async {
                                               Navigator.pop(context);
-                                              edit();
+                                              await vm.clearNote(entry);
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Copy Word"),
