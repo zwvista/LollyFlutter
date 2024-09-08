@@ -55,6 +55,13 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => OnlineTextbooksDetailPage(entry),
                       fullscreenDialog: true));
+                  void browseWebPage() {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return OnlineTextbooksWebPagePage(
+                          vm.lstOnlineTextbooks, index);
+                    }));
+                  }
 
                   return Slidable(
                     startActionPane: ActionPane(
@@ -93,11 +100,7 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                                                 const Text("Browse Web Page"),
                                             onPressed: () {
                                               Navigator.pop(context);
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          OnlineTextbooksWebPagePage(
-                                                              entry)));
+                                              browseWebPage();
                                             }),
                                       ]),
                                 )),
@@ -119,10 +122,7 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                           trailing: IconButton(
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
-                              onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          OnlineTextbooksWebPagePage(entry)))),
+                              onPressed: () => browseWebPage()),
                           onTap: () {
                             speak(entry.textbookname);
                           },

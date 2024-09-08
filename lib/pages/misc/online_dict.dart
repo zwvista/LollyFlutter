@@ -12,7 +12,7 @@ class OnlineDict {
   late WebViewController controller;
   IOnlineDict iOnlineDict;
 
-  OnlineDict(this.iOnlineDict, String initialUrl) {
+  OnlineDict(this.iOnlineDict) {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
@@ -36,13 +36,15 @@ class OnlineDict {
           }
         },
       ))
-      ..loadRequest(Uri.parse(initialUrl));
+      ..loadRequest(Uri.parse('https://google.com'));
   }
 
   void searchDict() async {
     final item = vmSettings.selectedDictReference;
     if (item == null) return;
-    final url = iOnlineDict.getUrl;
+    final url = vmSettings.selectedDictReference
+            ?.urlString(iOnlineDict.getWord, vmSettings.lstAutoCorrect) ??
+        "";
     if (item.dicttypename == "OFFLINE") {
       final html = await BaseService.getHtmlByUrl(url);
       final str = item.htmlString(html, iOnlineDict.getWord, true);
@@ -58,6 +60,4 @@ class OnlineDict {
       }
     }
   }
-
-  void loadRequest() => controller.loadRequest(Uri.parse(iOnlineDict.getUrl));
 }

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/viewmodels/words/words_dict_viewmodel.dart';
@@ -23,8 +24,8 @@ class WordsDictPageState extends State<WordsDictPage> {
   @override
   void initState() {
     super.initState();
-    onlineDict = OnlineDict(vm, vm.getUrl);
-    vm.selectedWord_.listen((_) => onlineDict.searchDict());
+    onlineDict = OnlineDict(vm);
+    vm.selectedWordIndex_.listen((_) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
   }
 
@@ -36,15 +37,15 @@ class WordsDictPageState extends State<WordsDictPage> {
             Row(children: [
               Expanded(
                   child: StreamBuilder(
-                      stream: vm.selectedWord_,
+                      stream: vm.selectedWordIndex_,
                       builder: (context, snapshot) => DropdownButton(
-                            value: vm.selectedWord,
+                            value: vm.selectedWordIndex,
                             items: vm.lstWords
-                                .map((e) => DropdownMenuItem(
-                                    value: e, child: Text(e.label)))
+                                .mapIndexed((i, e) =>
+                                    DropdownMenuItem(value: i, child: Text(e)))
                                 .toList(),
                             isExpanded: true,
-                            onChanged: vm.selectedWord_.call,
+                            onChanged: vm.selectedWordIndex_.call,
                           ))),
               Expanded(
                   child: StreamBuilder(

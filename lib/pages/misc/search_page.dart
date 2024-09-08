@@ -25,7 +25,7 @@ class SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     vm = SearchViewModel();
-    onlineDict = OnlineDict(vm, 'https://google.com');
+    onlineDict = OnlineDict(vm);
     widget.vmHome.more = more;
     setup();
   }

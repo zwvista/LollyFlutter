@@ -1,20 +1,21 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:lolly_flutter/models/wpp/mpattern.dart';
-import 'package:lolly_flutter/viewmodels/patterns/patterns_detail_viewmodel.dart';
+import 'package:lolly_flutter/viewmodels/patterns/patterns_webpage_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PatternsWebPagePage extends StatefulWidget {
-  final PatternsDetailViewModel vm;
+  final PatternsWebPageViewmodel vm;
 
-  PatternsWebPagePage(MPattern item, {super.key})
-      : vm = PatternsDetailViewModel(item);
+  PatternsWebPagePage(List<MPattern> lstPatterns, int index, {super.key})
+      : vm = PatternsWebPageViewmodel(lstPatterns, index);
 
   @override
   PatternsWebPagePageState createState() => PatternsWebPagePageState();
 }
 
 class PatternsWebPagePageState extends State<PatternsWebPagePage> {
-  MPattern get item => widget.vm.item;
+  PatternsWebPageViewmodel get vm => widget.vm;
   late WebViewController controller;
 
   @override
@@ -22,7 +23,7 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
     super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(item.url));
+      ..loadRequest(Uri.parse(vm.selectedPattern.url));
   }
 
   @override
@@ -31,7 +32,18 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
-            Center(child: Text(item.title)),
+            Expanded(
+                child: StreamBuilder(
+                    stream: vm.selectedPatternIndex_,
+                    builder: (context, snapshot) => DropdownButton(
+                          value: vm.selectedPatternIndex,
+                          items: vm.lstPatterns
+                              .mapIndexed((i, e) => DropdownMenuItem(
+                                  value: i, child: Text(e.title)))
+                              .toList(),
+                          isExpanded: true,
+                          onChanged: vm.selectedPatternIndex_.call,
+                        ))),
             Expanded(
               child: WebViewWidget(controller: controller),
             )

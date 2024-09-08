@@ -70,6 +70,12 @@ class PatternsPageState extends State<PatternsPage> {
                   void edit() => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => PatternsDetailPage(vm, entry),
                       fullscreenDialog: true));
+                  void browseWebPage() {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return PatternsWebPagePage(vm.lstPatterns, index);
+                    }));
+                  }
 
                   return Slidable(
                     startActionPane: ActionPane(
@@ -108,12 +114,7 @@ class PatternsPageState extends State<PatternsPage> {
                                                 const Text("Browse Web Page"),
                                             onPressed: () {
                                               Navigator.pop(context);
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PatternsWebPagePage(
-                                                              vm.lstPatterns[
-                                                                  index])));
+                                              browseWebPage();
                                             }),
                                         SimpleDialogOption(
                                             child: const Text("Copy Pattern"),
@@ -149,10 +150,7 @@ class PatternsPageState extends State<PatternsPage> {
                           trailing: IconButton(
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
-                              onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => PatternsWebPagePage(
-                                          vm.lstPatterns[index])))),
+                              onPressed: () => browseWebPage()),
                           onTap: () {
                             speak(entry.pattern);
                           },
