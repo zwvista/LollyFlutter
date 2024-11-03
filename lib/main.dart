@@ -35,8 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lolly Flutter',
-      theme: ThemeData(
-          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
+      theme: ThemeData(colorScheme: ColorScheme.light()),
       home: const MyHomePage(),
     );
   }

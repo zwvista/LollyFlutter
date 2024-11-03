@@ -52,12 +52,15 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstOnlineTextbooks[index];
-                  void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => OnlineTextbooksDetailPage(entry),
-                      fullscreenDialog: true));
+                  void edit() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              OnlineTextbooksDetailPage(entry),
+                          fullscreenDialog: true));
                   void browseWebPage() {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return OnlineTextbooksWebPagePage(
                           vm.lstOnlineTextbooks, index);
                     }));

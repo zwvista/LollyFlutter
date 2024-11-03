@@ -66,9 +66,12 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstUnitPhrases[index];
-                  void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PhrasesUnitDetailPage(vm, entry),
-                      fullscreenDialog: true));
+                  void edit() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PhrasesUnitDetailPage(vm, entry),
+                          fullscreenDialog: true));
 
                   return Slidable(
                     startActionPane: ActionPane(
@@ -178,9 +181,11 @@ class PhrasesUnitPageState extends State<PhrasesUnitPage> {
                   child: const Text("Add"),
                   onPressed: () {
                     Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            PhrasesUnitDetailPage(vm, vm.newUnitPhrase())));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PhrasesUnitDetailPage(vm, vm.newUnitPhrase())));
                   }),
               SimpleDialogOption(
                   child: const Text("Batch Edit"),

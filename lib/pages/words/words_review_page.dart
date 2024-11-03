@@ -178,9 +178,11 @@ class WordsReviewPageState extends State<WordsReviewPage> {
       ]));
 
   void more() async {
-    final result = await Navigator.of(context).push<bool>(MaterialPageRoute(
-        builder: (context) => ReviewOptionsPage(vm.options),
-        fullscreenDialog: true));
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ReviewOptionsPage(vm.options),
+            fullscreenDialog: true));
     if (result == true) vm.newTest();
   }
 }

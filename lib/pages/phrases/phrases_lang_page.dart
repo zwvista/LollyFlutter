@@ -66,9 +66,12 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstLangPhrases[index];
-                  void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PhrasesLangDetailPage(vm, entry),
-                      fullscreenDialog: true));
+                  void edit() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PhrasesLangDetailPage(vm, entry),
+                          fullscreenDialog: true));
 
                   return Slidable(
                     startActionPane: ActionPane(
@@ -162,7 +165,10 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
       );
 
   void more() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => PhrasesLangDetailPage(vm, vm.newLangPhrase())));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                PhrasesLangDetailPage(vm, vm.newLangPhrase())));
   }
 }

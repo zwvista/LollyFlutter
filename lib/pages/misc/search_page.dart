@@ -35,10 +35,10 @@ class SearchPageState extends State<SearchPage> {
     for (;;) {
       Global.userid = prefs.getString("userid") ?? "";
       if (Global.userid.isNotEmpty) break;
-      if (context.mounted) {
+      if (mounted) {
         // https://stackoverflow.com/questions/59423954/detect-when-we-moved-back-to-previous-page-in-flutter
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const LoginPage()));
+        await Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginPage()));
       }
     }
     await vmSettings.getData();

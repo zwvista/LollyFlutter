@@ -78,9 +78,12 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstUnitWords[index];
-                  void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WordsTextbookDetailPage(vm, entry),
-                      fullscreenDialog: true));
+                  void edit() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              WordsTextbookDetailPage(vm, entry),
+                          fullscreenDialog: true));
 
                   return Slidable(
                     startActionPane: ActionPane(
@@ -193,7 +196,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                           trailing: IconButton(
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
-                              onPressed: () => Navigator.of(context).push(
+                              onPressed: () => Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
                                     final (start, end) =
                                         getPreferredRangeFromArray(

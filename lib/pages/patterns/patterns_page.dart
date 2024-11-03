@@ -67,12 +67,14 @@ class PatternsPageState extends State<PatternsPage> {
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final entry = vm.lstPatterns[index];
-                  void edit() => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PatternsDetailPage(vm, entry),
-                      fullscreenDialog: true));
+                  void edit() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PatternsDetailPage(vm, entry),
+                          fullscreenDialog: true));
                   void browseWebPage() {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return PatternsWebPagePage(vm.lstPatterns, index);
                     }));
                   }
@@ -169,7 +171,9 @@ class PatternsPageState extends State<PatternsPage> {
       );
 
   void more() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => PatternsDetailPage(vm, vm.newPattern())));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PatternsDetailPage(vm, vm.newPattern())));
   }
 }
