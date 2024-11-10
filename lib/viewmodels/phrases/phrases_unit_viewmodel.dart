@@ -67,14 +67,14 @@ class PhrasesUnitViewModel {
       ..textbook = vmSettings.selectedTextbook;
   }
 
-  Future update(MUnitPhrase item) async {
+  Future<void> update(MUnitPhrase item) async {
     await unitPhraseService.update(item);
     var o =
         await unitPhraseService.getDataById(item.id, vmSettings.lstTextbooks);
     if (o != null) item.copyFrom(o);
   }
 
-  Future create(MUnitPhrase item) async {
+  Future<void> create(MUnitPhrase item) async {
     await unitPhraseService.create(item);
     var o =
         await unitPhraseService.getDataById(item.id, vmSettings.lstTextbooks);

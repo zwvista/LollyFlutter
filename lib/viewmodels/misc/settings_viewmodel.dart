@@ -426,7 +426,7 @@ class SettingsViewModel {
     toType_.listen(setToType.call);
   }
 
-  Future getData() async {
+  Future<void> getData() async {
     final res1 = _languageService.getData();
     final res2 = _usMappingService.getData();
     final res3 = _userSettingService.getData();
@@ -440,7 +440,7 @@ class SettingsViewModel {
   String autoCorrectInput(String text) => _autoCorrectService.autoCorrect(
       text, lstAutoCorrect, (o) => o.input, (o) => o.extended);
 
-  Future previousUnitPart() async {
+  Future<void> previousUnitPart() async {
     if (toType == UnitPartToType.Unit) {
       if (usunitfrom > 1) {
         final res1 = _doUpdateUnitFrom(usunitfrom - 1);
@@ -463,7 +463,7 @@ class SettingsViewModel {
     }
   }
 
-  Future nextUnitPart() async {
+  Future<void> nextUnitPart() async {
     if (toType == UnitPartToType.Unit) {
       if (usunitfrom < unitCount) {
         final res1 = _doUpdateUnitFrom(usunitfrom + 1);
@@ -486,21 +486,21 @@ class SettingsViewModel {
     }
   }
 
-  Future _doUpdateUnitPartFrom() async {
+  Future<void> _doUpdateUnitPartFrom() async {
     final res1 = _doUpdateUnitFrom(usunitto);
     final res2 = _doUpdatePartFrom(uspartto);
     await res1;
     await res2;
   }
 
-  Future _doUpdateUnitPartTo() async {
+  Future<void> _doUpdateUnitPartTo() async {
     final res1 = _doUpdateUnitTo(usunitfrom);
     final res2 = _doUpdatePartTo(uspartfrom);
     await res1;
     await res2;
   }
 
-  Future _doUpdateSingleUnit() async {
+  Future<void> _doUpdateSingleUnit() async {
     final res1 = _doUpdateUnitTo(usunitfrom);
     final res2 = _doUpdatePartFrom(1);
     final res3 = _doUpdatePartTo(partCount);
@@ -509,25 +509,25 @@ class SettingsViewModel {
     await res3;
   }
 
-  Future _doUpdateUnitFrom(int newVal) async {
+  Future<void> _doUpdateUnitFrom(int newVal) async {
     if (usunitfrom == newVal) return;
     selectedUnitFrom(newVal);
     await _userSettingService.updateByInt(INFO_USUNITFROM, usunitfrom = newVal);
   }
 
-  Future _doUpdatePartFrom(int newVal) async {
+  Future<void> _doUpdatePartFrom(int newVal) async {
     if (uspartfrom == newVal) return;
     selectedPartFrom(newVal);
     await _userSettingService.updateByInt(INFO_USPARTFROM, uspartfrom = newVal);
   }
 
-  Future _doUpdateUnitTo(int newVal) async {
+  Future<void> _doUpdateUnitTo(int newVal) async {
     if (usunitto == newVal) return;
     selectedUnitTo(newVal);
     await _userSettingService.updateByInt(INFO_USUNITTO, usunitto = newVal);
   }
 
-  Future _doUpdatePartTo(int newVal) async {
+  Future<void> _doUpdatePartTo(int newVal) async {
     if (uspartto == newVal) return;
     selectedPartTo(newVal);
     await _userSettingService.updateByInt(INFO_USPARTTO, uspartto = newVal);
@@ -543,8 +543,8 @@ class SettingsViewModel {
         html, selectedDictNote!.transform, "", (text, _) => text);
   }
 
-  Future getNotes(int wordCount, bool Function(int) isNoteEmpty,
-      Future Function(int) getOne) async {
+  Future<void> getNotes(int wordCount, bool Function(int) isNoteEmpty,
+      Future<void> Function(int) getOne) async {
     if (selectedDictNote == null) return;
     for (int i = 0;;) {
       await Future.delayed(Duration(milliseconds: selectedDictNote!.wait));
@@ -557,8 +557,8 @@ class SettingsViewModel {
     }
   }
 
-  Future clearNotes(int wordCount, bool Function(int) isNoteEmpty,
-      Future Function(int) getOne) async {
+  Future<void> clearNotes(int wordCount, bool Function(int) isNoteEmpty,
+      Future<void> Function(int) getOne) async {
     if (selectedDictNote == null) return;
     for (int i = 0; i < wordCount;) {
       while (i < wordCount && !isNoteEmpty(i)) {

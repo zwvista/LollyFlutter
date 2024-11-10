@@ -98,7 +98,7 @@ class PhrasesReviewViewModel {
 
   PhrasesReviewViewModel(this.doTestAction);
 
-  Future newTest() async {
+  Future<void> newTest() async {
     index = 0;
     items.clear();
     correctIDs.clear();

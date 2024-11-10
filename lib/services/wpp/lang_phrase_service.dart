@@ -12,13 +12,14 @@ class LangPhraseService extends BaseService<MLangPhrase> {
   Future<int> create(MLangPhrase item) async =>
       await createByUrl("LANGPHRASES", item);
 
-  Future updateTranslation(int id, String translation) async => debugPrint(
-      (await updateByUrlString("LANGPHRASES/$id", "TRANSLATION=$translation"))
+  Future<void> updateTranslation(int id, String translation) async =>
+      debugPrint((await updateByUrlString(
+              "LANGPHRASES/$id", "TRANSLATION=$translation"))
           .toString());
 
-  Future update(MLangPhrase item) async => debugPrint(
+  Future<void> update(MLangPhrase item) async => debugPrint(
       (await callSPByUrl("LANGPHRASES/${item.id}", item)).toString());
 
-  Future delete(MLangPhrase item) async =>
+  Future<void> delete(MLangPhrase item) async =>
       debugPrint((await callSPByUrl("LANGPHRASES_DELETE", item)).toString());
 }

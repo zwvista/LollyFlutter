@@ -45,8 +45,8 @@ class TextbookService extends BaseService<MTextbook> {
 
   Future<int> create(MTextbook item) async =>
       await createByUrl("TEXTBOOKS", item);
-  Future update(MTextbook item) async =>
+  Future<void> update(MTextbook item) async =>
       debugPrint((await updateByUrl("TEXTBOOKS/${item.id}", item)).toString());
-  Future delete(int id) async =>
+  Future<void> delete(int id) async =>
       debugPrint((await deleteByUrl("TEXTBOOKS/$id")).toString());
 }

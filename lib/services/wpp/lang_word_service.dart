@@ -12,12 +12,12 @@ class LangWordService extends BaseService<MLangWord> {
   Future<int> create(MLangWord item) async =>
       await createByUrl("LANGWORDS", item);
 
-  Future updateNote(int id, String note) async => debugPrint(
+  Future<void> updateNote(int id, String note) async => debugPrint(
       (await updateByUrlString("LANGWORDS/$id", "NOTE=$note")).toString());
 
-  Future update(MLangWord item) async =>
+  Future<void> update(MLangWord item) async =>
       debugPrint((await callSPByUrl("LANGWORDS/${item.id}", item)).toString());
 
-  Future delete(MLangWord item) async =>
+  Future<void> delete(MLangWord item) async =>
       debugPrint((await callSPByUrl("LANGWORDS_DELETE", item)).toString());
 }

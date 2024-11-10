@@ -17,15 +17,15 @@ class PatternService extends BaseService<MPattern> {
   Future<int> create(MPattern item) async =>
       await createByUrl("PATTERNS", item);
 
-  Future update(MPattern item) async =>
+  Future<void> update(MPattern item) async =>
       debugPrint((await updateByUrl("PATTERNS/${item.id}", item)).toString());
 
-  Future delete(int id) async =>
+  Future<void> delete(int id) async =>
       debugPrint((await deleteByUrl("PATTERNS/$id")).toString());
 
-  Future mergePatterns(MPattern item) async =>
+  Future<void> mergePatterns(MPattern item) async =>
       debugPrint((await callSPByUrl("PATTERNS_MERGE", item)).toString());
 
-  Future splitPattern(MPattern item) async =>
+  Future<void> splitPattern(MPattern item) async =>
       debugPrint((await callSPByUrl("PATTERNS_SPLIT", item)).toString());
 }

@@ -63,17 +63,18 @@ class UnitPhraseService extends BaseService<MUnitPhrase> {
   Future<int> create(MUnitPhrase item) async =>
       (await callSPByUrl("UNITPHRASES_CREATE", item)).newid;
 
-  Future updateSeqNum(int id, int seqnum) async =>
+  Future<void> updateSeqNum(int id, int seqnum) async =>
       debugPrint((await updateByUrlString("UNITPHRASES/$id", "SEQNUM=$seqnum"))
           .toString());
 
-  Future updateTranslation(int id, String translation) async => debugPrint(
-      (await updateByUrlString("UNITPHRASES/$id", "TRANSLATION=$translation"))
+  Future<void> updateTranslation(int id, String translation) async =>
+      debugPrint((await updateByUrlString(
+              "UNITPHRASES/$id", "TRANSLATION=$translation"))
           .toString());
 
-  Future update(MUnitPhrase item) async =>
+  Future<void> update(MUnitPhrase item) async =>
       debugPrint((await callSPByUrl("UNITPHRASES_UPDATE", item)).toString());
 
-  Future delete(MUnitPhrase item) async =>
+  Future<void> delete(MUnitPhrase item) async =>
       debugPrint((await callSPByUrl("UNITPHRASES_DELETE", item)).toString());
 }

@@ -22,8 +22,8 @@ class DictionaryService extends BaseService<MDictionary> {
           .lst;
   Future<int> create(MDictionary item) async =>
       await createByUrl("DICTIONARIES", item);
-  Future update(MDictionary item) async => debugPrint(
+  Future<void> update(MDictionary item) async => debugPrint(
       (await updateByUrl("DICTIONARIES/${item.id}", item)).toString());
-  Future delete(int id) async =>
+  Future<void> delete(int id) async =>
       debugPrint((await deleteByUrl("DICTIONARIES/$id")).toString());
 }

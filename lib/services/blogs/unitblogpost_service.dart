@@ -13,6 +13,6 @@ class UnitBlogPostService extends BaseService<MUnitBlogPost> {
   Future<int> create(MUnitBlogPost item) async =>
       await createByUrl("UNITBLOGPOSTS", item);
 
-  Future update(MUnitBlogPost item) async => debugPrint(
+  Future<void> update(MUnitBlogPost item) async => debugPrint(
       (await updateByUrl("UNITBLOGPOSTS/${item.id}", item)).toString());
 }

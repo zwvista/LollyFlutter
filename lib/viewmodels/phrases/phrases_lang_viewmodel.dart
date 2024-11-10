@@ -44,11 +44,11 @@ class PhrasesLangViewModel {
   MLangPhrase newLangPhrase() =>
       MLangPhrase()..langid = vmSettings.selectedLang!.id;
 
-  Future update(MLangPhrase item) async {
+  Future<void> update(MLangPhrase item) async {
     await langPhraseService.update(item);
   }
 
-  Future create(MLangPhrase item) async {
+  Future<void> create(MLangPhrase item) async {
     item.id = await langPhraseService.create(item);
     lstLangPhrasesAll.add(item);
     _applyFilters();

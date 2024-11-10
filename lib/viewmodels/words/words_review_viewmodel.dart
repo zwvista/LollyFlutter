@@ -128,7 +128,7 @@ class WordsReviewViewModel {
 
   WordsReviewViewModel(this.doTestAction);
 
-  Future newTest() async {
+  Future<void> newTest() async {
     index = 0;
     items.clear();
     correctIDs.clear();
@@ -207,7 +207,7 @@ class WordsReviewViewModel {
         html, dictTranslation!.transform, "", (text, _) => text);
   }
 
-  Future check(bool toNext) async {
+  Future<void> check(bool toNext) async {
     if (!isTestMode) {
       var b = true;
       if (options.mode == ReviewMode.ReviewManual &&
@@ -248,7 +248,7 @@ class WordsReviewViewModel {
     }
   }
 
-  Future doTest() async {
+  Future<void> doTest() async {
     indexVisible = hasCurrent;
     correctVisible = false;
     incorrectVisible = false;

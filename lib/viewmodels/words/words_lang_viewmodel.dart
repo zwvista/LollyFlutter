@@ -44,22 +44,22 @@ class WordsLangViewModel {
 
   MLangWord newLangWord() => MLangWord()..langid = vmSettings.selectedLang!.id;
 
-  Future update(MLangWord item) async {
+  Future<void> update(MLangWord item) async {
     await langWordService.update(item);
   }
 
-  Future create(MLangWord item) async {
+  Future<void> create(MLangWord item) async {
     item.id = await langWordService.create(item);
     lstLangWordsAll.add(item);
     _applyFilters();
   }
 
-  Future getNote(MLangWord item) async {
+  Future<void> getNote(MLangWord item) async {
     item.note = await vmSettings.getNote(item.word);
     await langWordService.updateNote(item.id, item.note);
   }
 
-  Future clearNote(MLangWord item) async {
+  Future<void> clearNote(MLangWord item) async {
     item.note = SettingsViewModel.ZeroNote;
     await langWordService.updateNote(item.id, item.note);
   }

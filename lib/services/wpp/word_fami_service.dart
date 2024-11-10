@@ -12,10 +12,10 @@ class WordFamiService extends BaseService<MWordFami> {
   Future<int> _create(MWordFami item) async =>
       await createByUrl("WORDSFAMI", item);
 
-  Future _updateItem(MWordFami item) async =>
+  Future<void> _updateItem(MWordFami item) async =>
       debugPrint((await updateByUrl("WORDSFAMI/${item.id}", item)).toString());
 
-  Future delete(int id) async =>
+  Future<void> delete(int id) async =>
       debugPrint((await deleteByUrl("WORDSFAMI/$id")).toString());
 
   Future<MWordFami> update(int wordid, bool isCorrect) async {

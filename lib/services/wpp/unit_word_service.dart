@@ -63,15 +63,15 @@ class UnitWordService extends BaseService<MUnitWord> {
   Future<int> create(MUnitWord item) async =>
       (await callSPByUrl("UNITWORDS_CREATE", item)).newid;
 
-  Future updateSeqNum(int id, int seqnum) async => debugPrint(
+  Future<void> updateSeqNum(int id, int seqnum) async => debugPrint(
       (await updateByUrlString("UNITWORDS/$id", "SEQNUM=$seqnum")).toString());
 
-  Future updateNote(int id, String note) async => debugPrint(
+  Future<void> updateNote(int id, String note) async => debugPrint(
       (await updateByUrlString("UNITWORDS/$id", "NOTE=$note")).toString());
 
-  Future update(MUnitWord item) async =>
+  Future<void> update(MUnitWord item) async =>
       debugPrint((await callSPByUrl("UNITWORDS_UPDATE", item)).toString());
 
-  Future delete(MUnitWord item) async =>
+  Future<void> delete(MUnitWord item) async =>
       debugPrint((await callSPByUrl("UNITWORDS_DELETE", item)).toString());
 }

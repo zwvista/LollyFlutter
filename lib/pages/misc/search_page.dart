@@ -30,7 +30,7 @@ class SearchPageState extends State<SearchPage> {
     setup();
   }
 
-  Future setup() async {
+  Future<void> setup() async {
     final prefs = await SharedPreferences.getInstance();
     for (;;) {
       Global.userid = prefs.getString("userid") ?? "";
@@ -88,7 +88,7 @@ class SearchPageState extends State<SearchPage> {
         )
       ]);
 
-  Future login() async {
+  Future<void> login() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("userid");
     await setup();

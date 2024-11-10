@@ -9,10 +9,10 @@ class UserSettingService extends BaseService<MUserSetting> {
           await getDataByUrl("USERSETTINGS?filter=USERID,eq,${Global.userid}"))
       .lst;
 
-  Future updateByInt(MUserSettingInfo info, int v) async =>
+  Future<void> updateByInt(MUserSettingInfo info, int v) async =>
       updateByString(info, v.toString());
 
-  Future updateByString(MUserSettingInfo info, String v) async =>
+  Future<void> updateByString(MUserSettingInfo info, String v) async =>
       debugPrint((await updateByUrlString(
               "USERSETTINGS/${info.usersettingid}", "VALUE${info.valueid}=$v"))
           .toString());

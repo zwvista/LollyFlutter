@@ -68,13 +68,13 @@ class WordsUnitViewModel {
       ..textbook = vmSettings.selectedTextbook;
   }
 
-  Future update(MUnitWord item) async {
+  Future<void> update(MUnitWord item) async {
     await unitWordService.update(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
     if (o != null) item.copyFrom(o);
   }
 
-  Future create(MUnitWord item) async {
+  Future<void> create(MUnitWord item) async {
     await unitWordService.create(item);
     var o = await unitWordService.getDataById(item.id, vmSettings.lstTextbooks);
     if (o != null) item.copyFrom(o);
@@ -82,17 +82,17 @@ class WordsUnitViewModel {
     _applyFilters();
   }
 
-  Future getNote(MUnitWord item) async {
+  Future<void> getNote(MUnitWord item) async {
     item.note = await vmSettings.getNote(item.word);
     await unitWordService.updateNote(item.wordid, item.note);
   }
 
-  Future clearNote(MUnitWord item) async {
+  Future<void> clearNote(MUnitWord item) async {
     item.note = SettingsViewModel.ZeroNote;
     await unitWordService.updateNote(item.wordid, item.note);
   }
 
-  Future getNotes(bool ifEmpty, Function(int) oneComplete) async {
+  Future<void> getNotes(bool ifEmpty, Function(int) oneComplete) async {
     await vmSettings.getNotes(
         lstUnitWords.length, (i) => !ifEmpty || lstUnitWords[i].note.isEmpty,
         (i) async {
@@ -101,7 +101,7 @@ class WordsUnitViewModel {
     });
   }
 
-  Future clearNotes(bool ifEmpty, Function(int) oneComplete) async {
+  Future<void> clearNotes(bool ifEmpty, Function(int) oneComplete) async {
     await vmSettings.clearNotes(
         lstUnitWords.length, (i) => !ifEmpty || lstUnitWords[i].note.isEmpty,
         (i) async {

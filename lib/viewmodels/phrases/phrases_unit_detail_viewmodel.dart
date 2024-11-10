@@ -7,7 +7,7 @@ class PhrasesUnitDetailViewModel {
 
   PhrasesUnitDetailViewModel(this.vm, this.item);
 
-  Future save() async {
+  Future<void> save() async {
     if (item.id == 0) {
       await vm.create(item);
     } else {
