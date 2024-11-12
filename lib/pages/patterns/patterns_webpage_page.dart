@@ -32,28 +32,26 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Patterns Web Page')),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(children: [
-            Row(children: [
-              Expanded(
-                  child: StreamBuilder(
-                      stream: vm.selectedPatternIndex_,
-                      builder: (context, snapshot) => DropdownButton(
-                            value: vm.selectedPatternIndex,
-                            items: vm.lstPatterns
-                                .mapIndexed((i, e) => DropdownMenuItem(
-                                    value: i, child: Text(e.title)))
-                                .toList(),
-                            isExpanded: true,
-                            onChanged: vm.selectedPatternIndex_.call,
-                          )))
-            ]),
-            Expanded(
-                child: SwipeDetector(
-              child: WebViewWidget(controller: controller),
-              onSwipeLeft: () => vm.next(-1),
-              onSwipeRight: () => vm.next(1),
-            ))
-          ])));
+      body: Column(children: [
+        Row(children: [
+          Expanded(
+              child: StreamBuilder(
+                  stream: vm.selectedPatternIndex_,
+                  builder: (context, snapshot) => DropdownButton(
+                        value: vm.selectedPatternIndex,
+                        items: vm.lstPatterns
+                            .mapIndexed((i, e) => DropdownMenuItem(
+                                value: i, child: Text(e.title)))
+                            .toList(),
+                        isExpanded: true,
+                        onChanged: vm.selectedPatternIndex_.call,
+                      )))
+        ]),
+        Expanded(
+            child: SwipeDetector(
+          child: WebViewWidget(controller: controller),
+          onSwipeLeft: () => vm.next(-1),
+          onSwipeRight: () => vm.next(1),
+        ))
+      ]));
 }
