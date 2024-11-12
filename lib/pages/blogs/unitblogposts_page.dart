@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../main.dart';
 import '../../viewmodels/blogs/unitblogposts_viewmodel.dart';
 
 class UnitBlogPostsPage extends StatefulWidget {
@@ -14,19 +13,15 @@ class UnitBlogPostsPage extends StatefulWidget {
 
 class UnitBlogPostsPageState extends State<UnitBlogPostsPage> {
   UnitBlogPostsViewModel vm = UnitBlogPostsViewModel();
-  late WebViewController controller;
+  WebViewController controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
   UnitBlogPostsPageState() {}
 
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted);
-    vm.selectedUnitIndex_.listen((_) async {
-      final content = await vmSettings.getBlogContent(vm.selectedUnit);
-      controller.loadHtmlString(content);
-    });
+    vm.unitBlogPostHtml.listen(controller.loadHtmlString);
   }
 
   @override
