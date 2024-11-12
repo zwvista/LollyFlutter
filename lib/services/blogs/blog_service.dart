@@ -92,8 +92,7 @@ class BlogService {
 
   String addTagB(String text) => "<B>$text</B>";
   String addTagI(String text) => "<I>$text</I>";
-  String removeTagBI(String text) =>
-      text.replaceAllMapped(RegExp("</?[BI]>"), (m) => "");
+  String removeTagBI(String text) => text.replaceAll(RegExp("</?[BI]>"), "");
   String exchangeTagBI(String text) {
     var text2 = text
         .replaceAllMapped(RegExp("<(/)?B>"), (m) => "<${m.group(1)!}Temp>")
@@ -113,7 +112,7 @@ class BlogService {
     String f(String s) {
       var s2 = s;
       for (var i = 0; i < 10; i++) {
-        s2 = s2.replaceAll(String.fromCharCode(48 + i), _bigDigits[i]);
+        s2 = s2.replaceAll('$i', _bigDigits[i]);
       }
       return s2;
     }

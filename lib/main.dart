@@ -4,6 +4,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/pages/blogs/unitblogposts_page.dart';
 import 'package:lolly_flutter/pages/misc/search_page.dart';
 import 'package:lolly_flutter/pages/misc/settings_page.dart';
 import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_page.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lolly Flutter',
-      theme: ThemeData(colorScheme: ColorScheme.light()),
+      theme: ThemeData(colorScheme: const ColorScheme.light()),
       home: const MyHomePage(),
     );
   }
@@ -120,6 +121,8 @@ class MyHomePageState extends State<MyHomePage> {
         return 'Patterns in Language';
       case NavItem.onlineTextbooksPage:
         return 'Online Textbook';
+      case NavItem.unitBlogPostsPage:
+        return 'Unit Blog Posts';
       default:
         return '';
     }
@@ -151,6 +154,8 @@ class MyHomePageState extends State<MyHomePage> {
         return PatternsPage(vm);
       case NavItem.onlineTextbooksPage:
         return const OnlineTextbooksPage();
+      case NavItem.unitBlogPostsPage:
+        return const UnitBlogPostsPage();
       default:
         return const Center(
           child: Text(

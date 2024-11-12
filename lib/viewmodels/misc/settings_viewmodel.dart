@@ -6,6 +6,7 @@ import 'package:lolly_flutter/models/misc/mtextbook.dart';
 import 'package:lolly_flutter/models/misc/musersetting.dart';
 import 'package:lolly_flutter/models/misc/musmapping.dart';
 import 'package:lolly_flutter/models/misc/mvoice.dart';
+import 'package:lolly_flutter/services/blogs/unitblogpost_service.dart';
 import 'package:lolly_flutter/services/misc/autocorrect_service.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/services/misc/dictionary_service.dart';
@@ -148,6 +149,7 @@ class SettingsViewModel {
   final _textbookService = TextbookService();
   final _autoCorrectService = AutoCorrectService();
   final _voiceService = VoiceService();
+  final _unitBlogPostService = UnitBlogPostService();
 
   List<MSelectItem> get lstUnits => selectedTextbook?.lstUnits ?? [];
   List<MSelectItem> get lstParts => selectedTextbook?.lstParts ?? [];
@@ -568,4 +570,14 @@ class SettingsViewModel {
       i++;
     }
   }
+
+  Future<String> getBlogContent(int unit) async {
+    final item = await _unitBlogPostService.getDataByTextbook(
+        selectedTextbook!.id, unit);
+    return item?.content ?? "";
+  }
+
+  Future<void> saveBlogContent(String content) async =>
+      await _unitBlogPostService.update(
+          selectedTextbook!.id, usunitto, content);
 }

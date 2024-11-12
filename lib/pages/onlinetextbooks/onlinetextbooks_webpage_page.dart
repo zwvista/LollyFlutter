@@ -33,23 +33,23 @@ class OnlineTextbooksWebPagePageState
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Online Textbooks (Web Page)')),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(children: [
-            Expanded(
-                child: StreamBuilder(
-                    stream: vm.selectedOnlineTextbookIndex_,
-                    builder: (context, snapshot) => DropdownButton(
-                          value: vm.selectedOnlineTextbookIndex,
-                          items: vm.lstOnlineTextbooks
-                              .mapIndexed((i, e) => DropdownMenuItem(
-                                  value: i, child: Text(e.title)))
-                              .toList(),
-                          isExpanded: true,
-                          onChanged: vm.selectedOnlineTextbookIndex_.call,
-                        ))),
-            Expanded(
-              child: WebViewWidget(controller: controller),
-            )
-          ])));
+      body: Column(children: [
+        Row(children: [
+          Expanded(
+              child: StreamBuilder(
+                  stream: vm.selectedOnlineTextbookIndex_,
+                  builder: (context, snapshot) => DropdownButton(
+                        value: vm.selectedOnlineTextbookIndex,
+                        items: vm.lstOnlineTextbooks
+                            .mapIndexed((i, e) => DropdownMenuItem(
+                                value: i, child: Text(e.title)))
+                            .toList(),
+                        isExpanded: true,
+                        onChanged: vm.selectedOnlineTextbookIndex_.call,
+                      )))
+        ]),
+        Expanded(
+          child: WebViewWidget(controller: controller),
+        )
+      ]));
 }

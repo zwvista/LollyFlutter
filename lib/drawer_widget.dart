@@ -32,6 +32,8 @@ class NavDrawerWidget extends StatelessWidget {
         Icons.directions_boat),
     _NavigationItem(false, NavItem.onlineTextbooksPage, "Online Textbooks",
         Icons.directions_railway),
+    _NavigationItem(false, NavItem.unitBlogPostsPage, "Unit Blog Posts",
+        Icons.directions_run),
   ];
 
   NavDrawerWidget(this.accountName, this.accountEmail, {super.key});

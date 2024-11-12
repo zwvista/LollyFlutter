@@ -17,4 +17,5 @@ enum NavItem {
   phrasesLangPage,
   patternsPage,
   onlineTextbooksPage,
+  unitBlogPostsPage,
 }
