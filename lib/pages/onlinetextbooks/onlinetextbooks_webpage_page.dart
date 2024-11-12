@@ -4,6 +4,8 @@ import 'package:lolly_flutter/models/misc/monlinetextbook.dart';
 import 'package:lolly_flutter/viewmodels/onlinetextbooks/onlinetextbooks_webpage_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../packages/swipedetector-1.2.0/swipedetector.dart';
+
 class OnlineTextbooksWebPagePage extends StatefulWidget {
   final OnlineTextbooksWebPageViewModel vm;
 
@@ -20,14 +22,13 @@ class OnlineTextbooksWebPagePage extends StatefulWidget {
 class OnlineTextbooksWebPagePageState
     extends State<OnlineTextbooksWebPagePage> {
   OnlineTextbooksWebPageViewModel get vm => widget.vm;
-  late WebViewController controller;
+  final controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(vm.selectedOnlineTextbook.url));
+    controller.loadRequest(Uri.parse(vm.selectedOnlineTextbook.url));
   }
 
   @override
@@ -49,7 +50,10 @@ class OnlineTextbooksWebPagePageState
                       )))
         ]),
         Expanded(
+            child: SwipeDetector(
           child: WebViewWidget(controller: controller),
-        )
+          onSwipeLeft: () => vm.next(-1),
+          onSwipeRight: () => vm.next(1),
+        ))
       ]));
 }
