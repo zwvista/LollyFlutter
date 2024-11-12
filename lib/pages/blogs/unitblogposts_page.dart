@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../packages/swipedetector-1.2.0/swipedetector.dart';
 import '../../viewmodels/blogs/unitblogposts_viewmodel.dart';
 
 class UnitBlogPostsPage extends StatefulWidget {
@@ -41,7 +42,10 @@ class UnitBlogPostsPageState extends State<UnitBlogPostsPage> {
                       )))
         ]),
         Expanded(
+            child: SwipeDetector(
           child: WebViewWidget(controller: controller),
-        )
+          onSwipeLeft: () => vm.next(-1),
+          onSwipeRight: () => vm.next(1),
+        ))
       ]);
 }

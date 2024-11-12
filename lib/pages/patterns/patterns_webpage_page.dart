@@ -24,7 +24,8 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
   @override
   void initState() {
     super.initState();
-    controller.loadRequest(Uri.parse(vm.selectedPattern.url));
+    vm.selectedPatternIndex_.listen(
+        (_) => controller.loadRequest(Uri.parse(vm.selectedPattern.url)));
   }
 
   @override

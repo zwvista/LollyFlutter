@@ -19,11 +19,8 @@ class UnitBlogPostsViewModel {
       final str = blogService.markedToHtml(content);
       unitBlogPostHtml(str);
     });
-    select(lstUnits.indexWhere((o) => o.value == vmSettings.usunitto));
-  }
-
-  void select(int index) {
-    selectedUnitIndex_(index);
+    selectedUnitIndex_(
+        lstUnits.indexWhere((o) => o.value == vmSettings.usunitto));
   }
 
   void next(int delta) => selectedUnitIndex_(
