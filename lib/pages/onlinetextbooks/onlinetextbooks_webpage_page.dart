@@ -28,8 +28,9 @@ class OnlineTextbooksWebPagePageState
   @override
   void initState() {
     super.initState();
-    vm.selectedOnlineTextbookIndex_.listen((_) =>
-        controller.loadRequest(Uri.parse(vm.selectedOnlineTextbook.url)));
+    load() => controller.loadRequest(Uri.parse(vm.selectedOnlineTextbook.url));
+    vm.selectedOnlineTextbookIndex_.listen((_) => load());
+    load();
   }
 
   @override

@@ -7,25 +7,26 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../packages/swipedetector-1.2.0/swipedetector.dart';
 
 class PatternsWebPagePage extends StatefulWidget {
-  final PatternsWebPageViewmodel vm;
+  final PatternsWebPageViewModel vm;
 
   PatternsWebPagePage(List<MPattern> lstPatterns, int index, {super.key})
-      : vm = PatternsWebPageViewmodel(lstPatterns, index);
+      : vm = PatternsWebPageViewModel(lstPatterns, index);
 
   @override
   PatternsWebPagePageState createState() => PatternsWebPagePageState();
 }
 
 class PatternsWebPagePageState extends State<PatternsWebPagePage> {
-  PatternsWebPageViewmodel get vm => widget.vm;
+  PatternsWebPageViewModel get vm => widget.vm;
   final controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
   @override
   void initState() {
     super.initState();
-    vm.selectedPatternIndex_.listen(
-        (_) => controller.loadRequest(Uri.parse(vm.selectedPattern.url)));
+    load() => controller.loadRequest(Uri.parse(vm.selectedPattern.url));
+    vm.selectedPatternIndex_.listen((_) => load());
+    load();
   }
 
   @override
