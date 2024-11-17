@@ -1,28 +1,27 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
-import 'package:rx_command/rx_command.dart';
 
 import '../../services/blogs/blog_service.dart';
 
 class UnitBlogPostsViewModel {
   List<MSelectItem> lstUnits = vmSettings.lstUnits;
-  final selectedUnitIndex_ = RxCommand.createSync((int v) => v);
-  int get selectedUnitIndex => selectedUnitIndex_.lastResult!;
-  int get selectedUnit => lstUnits[selectedUnitIndex].value;
+  final selectedUnitIndex = Command.createSync((int v) => v, initialValue: 0);
 
   final blogService = BlogService();
-  final unitBlogPostHtml = RxCommand.createSync((String v) => v);
+  final unitBlogPostHtml =
+      Command.createSync((String v) => v, initialValue: '');
 
   UnitBlogPostsViewModel() {
-    selectedUnitIndex_.listen((_) async {
-      final content = await vmSettings.getBlogContent(selectedUnit);
+    selectedUnitIndex.listen((v, _) async {
+      final content = await vmSettings.getBlogContent(v);
       final str = blogService.markedToHtml(content);
       unitBlogPostHtml(str);
     });
-    selectedUnitIndex_(
+    selectedUnitIndex(
         lstUnits.indexWhere((o) => o.value == vmSettings.usunitto));
   }
 
-  void next(int delta) => selectedUnitIndex_(
-      (selectedUnitIndex + delta + lstUnits.length) % lstUnits.length);
+  void next(int delta) => selectedUnitIndex(
+      (selectedUnitIndex.value + delta + lstUnits.length) % lstUnits.length);
 }
