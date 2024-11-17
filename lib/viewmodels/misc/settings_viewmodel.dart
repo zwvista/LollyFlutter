@@ -1,3 +1,4 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/models/misc/mautocorrect.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
@@ -16,7 +17,6 @@ import 'package:lolly_flutter/services/misc/textbook_service.dart';
 import 'package:lolly_flutter/services/misc/usersetting_service.dart';
 import 'package:lolly_flutter/services/misc/usmapping_service.dart';
 import 'package:lolly_flutter/services/misc/voice_service.dart';
-import 'package:rx_command/rx_command.dart';
 
 import '../../main.dart';
 
@@ -85,29 +85,29 @@ class SettingsViewModel {
   int get usunitfrom => int.parse(getUSValue(INFO_USUNITFROM) ?? "0");
   String get usunitfromstr => selectedTextbook?.unitstr(usunitfrom) ?? "";
   set usunitfrom(int value) => setUSValue(INFO_USUNITFROM, value.toString());
-  late RxCommand<int?, void> selectedUnitFrom;
-  late RxCommand<void, void> updateUnitFrom;
+  late Command<int?, void> selectedUnitFrom;
+  late Command<void, void> updateUnitFrom;
 
   var INFO_USPARTFROM = MUserSettingInfo();
   int get uspartfrom => int.parse(getUSValue(INFO_USPARTFROM) ?? "0");
   String get uspartfromstr => selectedTextbook?.partstr(uspartfrom) ?? "";
   set uspartfrom(int value) => setUSValue(INFO_USPARTFROM, value.toString());
-  late RxCommand<int?, void> selectedPartFrom;
-  late RxCommand<void, void> updatePartFrom;
+  late Command<int?, void> selectedPartFrom;
+  late Command<void, void> updatePartFrom;
 
   var INFO_USUNITTO = MUserSettingInfo();
   int get usunitto => int.parse(getUSValue(INFO_USUNITTO) ?? "0");
   String get usunittostr => selectedTextbook?.unitstr(usunitto) ?? "";
   set usunitto(int value) => setUSValue(INFO_USUNITTO, value.toString());
-  late RxCommand<int?, void> selectedUnitTo;
-  late RxCommand<void, void> updateUnitTo;
+  late Command<int?, void> selectedUnitTo;
+  late Command<void, void> updateUnitTo;
 
   var INFO_USPARTTO = MUserSettingInfo();
   int get uspartto => int.parse(getUSValue(INFO_USPARTTO) ?? "0");
   String get usparttostr => selectedTextbook?.partstr(uspartto) ?? "";
   set uspartto(int value) => setUSValue(INFO_USPARTTO, value.toString());
-  late RxCommand<int?, void> selectedPartTo;
-  late RxCommand<void, void> updatePartTo;
+  late Command<int?, void> selectedPartTo;
+  late Command<void, void> updatePartTo;
 
   int get usunitpartfrom => usunitfrom * 10 + uspartfrom;
   int get usunitpartto => usunitto * 10 + uspartto;
@@ -115,31 +115,31 @@ class SettingsViewModel {
   bool get isInvaidUnitPart => usunitpartfrom > usunitpartto;
 
   List<MLanguage> lstLanguages = [];
-  late RxCommand<MLanguage?, void> selectedLang_;
+  late Command<MLanguage?, void> selectedLang_;
   MLanguage? selectedLang;
-  late RxCommand<void, void> updateLang;
+  late Command<void, void> updateLang;
   List<MVoice> lstVoices = [];
-  late RxCommand<MVoice?, void> selectedVoice_;
+  late Command<MVoice?, void> selectedVoice_;
   MVoice? selectedVoice;
-  late RxCommand<void, void> updateVoice;
+  late Command<void, void> updateVoice;
   List<MTextbook> lstTextbooks = [];
   List<MSelectItem> lstTextbookFilters = [];
   List<MSelectItem> lstOnlineTextbookFilters = [];
-  late RxCommand<MTextbook?, void> selectedTextbook_;
+  late Command<MTextbook?, void> selectedTextbook_;
   MTextbook? selectedTextbook;
-  late RxCommand<void, void> updateTextbook;
+  late Command<void, void> updateTextbook;
   List<MDictionary> lstDictsReference = [];
-  late RxCommand<MDictionary?, void> selectedDictReference_;
+  late Command<MDictionary?, void> selectedDictReference_;
   MDictionary? selectedDictReference;
-  late RxCommand<void, void> updateDictReference;
+  late Command<void, void> updateDictReference;
   List<MDictionary> lstDictsNote = [];
-  late RxCommand<MDictionary?, void> selectedDictNote_;
+  late Command<MDictionary?, void> selectedDictNote_;
   MDictionary? selectedDictNote;
-  late RxCommand<void, void> updateDictNote;
+  late Command<void, void> updateDictNote;
   List<MDictionary> lstDictsTranslation = [];
-  late RxCommand<MDictionary?, void> selectedDictTranslation_;
+  late Command<MDictionary?, void> selectedDictTranslation_;
   MDictionary? selectedDictTranslation;
-  late RxCommand<void, void> updateDictTranslation;
+  late Command<void, void> updateDictTranslation;
   List<MAutoCorrect> lstAutoCorrect = [];
 
   final _languageService = LanguageService();
@@ -164,9 +164,9 @@ class SettingsViewModel {
     MSelectItem(1, "Part"),
     MSelectItem(2, "To")
   ];
-  late RxCommand<UnitPartToType, void> toType_;
+  late Command<UnitPartToType, void> toType_;
   UnitPartToType toType = UnitPartToType.To;
-  late RxCommand<void, void> setToType;
+  late Command<void, void> setToType;
 
   bool unitToEnabled = true;
   bool partToEnabled = true;
@@ -201,7 +201,7 @@ class SettingsViewModel {
   }
 
   SettingsViewModel() {
-    updateLang = RxCommand.createAsyncNoParamNoResult(() async {
+    updateLang = Command.createAsyncNoParamNoResult(() async {
       if (selectedLang == null) return;
       final newVal = selectedLang!.id;
       final dirty = uslang != newVal;
@@ -271,12 +271,12 @@ class SettingsViewModel {
           lstVoices.firstWhereOrNull((_) => true));
       if (dirty) await _userSettingService.updateByInt(INFO_USLANG, uslang);
     });
-    selectedLang_ = RxCommand.createSync((MLanguage? v) {
+    selectedLang_ = Command.createSync((MLanguage? v) {
       selectedLang = v;
-    });
-    selectedLang_.listen(updateLang.call);
+    }, initialValue: null);
+    selectedLang_.listen((v, _) => updateLang());
 
-    updateVoice = RxCommand.createAsyncNoParamNoResult(() async {
+    updateVoice = Command.createAsyncNoParamNoResult(() async {
       if (selectedVoice == null) return;
       final newVal = selectedVoice!.id;
       final dirty = usvoice != newVal;
@@ -287,12 +287,12 @@ class SettingsViewModel {
       });
       if (dirty) await _userSettingService.updateByInt(INFO_USVOICE, usvoice);
     });
-    selectedVoice_ = RxCommand.createSync((MVoice? v) {
+    selectedVoice_ = Command.createSync((MVoice? v) {
       selectedVoice = v;
-    });
-    selectedVoice_.listen(updateVoice.call);
+    }, initialValue: null);
+    selectedVoice_.listen((v, _) => updateVoice());
 
-    updateTextbook = RxCommand.createAsyncNoParamNoResult(() async {
+    updateTextbook = Command.createAsyncNoParamNoResult(() async {
       if (selectedTextbook == null) return;
       final newVal = selectedTextbook!.id;
       final dirty = ustextbook != newVal;
@@ -314,12 +314,12 @@ class SettingsViewModel {
         await _userSettingService.updateByInt(INFO_USTEXTBOOK, ustextbook);
       }
     });
-    selectedTextbook_ = RxCommand.createSync((MTextbook? v) {
+    selectedTextbook_ = Command.createSync((MTextbook? v) {
       selectedTextbook = v;
-    });
-    selectedTextbook_.listen(updateTextbook.call);
+    }, initialValue: null);
+    selectedTextbook_.listen((v, _) => updateTextbook());
 
-    updateDictReference = RxCommand.createAsyncNoParamNoResult(() async {
+    updateDictReference = Command.createAsyncNoParamNoResult(() async {
       if (selectedDictReference == null) return;
       final newVal = selectedDictReference!.dictid.toString();
       final dirty = usdictreference != newVal;
@@ -329,12 +329,12 @@ class SettingsViewModel {
             INFO_USDICTREFERENCE, usdictreference);
       }
     });
-    selectedDictReference_ = RxCommand.createSync((MDictionary? v) {
+    selectedDictReference_ = Command.createSync((MDictionary? v) {
       selectedDictReference = v;
-    });
-    selectedDictReference_.listen(updateDictReference.call);
+    }, initialValue: null);
+    selectedDictReference_.listen((v, _) => updateDictReference());
 
-    updateDictNote = RxCommand.createAsyncNoParamNoResult(() async {
+    updateDictNote = Command.createAsyncNoParamNoResult(() async {
       if (selectedDictNote == null) return;
       final newVal = selectedDictNote!.dictid;
       final dirty = usdictnote != newVal;
@@ -343,12 +343,12 @@ class SettingsViewModel {
         await _userSettingService.updateByInt(INFO_USDICTNOTE, usdictnote);
       }
     });
-    selectedDictNote_ = RxCommand.createSync((MDictionary? v) {
+    selectedDictNote_ = Command.createSync((MDictionary? v) {
       selectedDictNote = v;
-    });
-    selectedDictNote_.listen(updateDictNote.call);
+    }, initialValue: null);
+    selectedDictNote_.listen((v, _) => updateDictNote());
 
-    updateDictTranslation = RxCommand.createAsyncNoParamNoResult(() async {
+    updateDictTranslation = Command.createAsyncNoParamNoResult(() async {
       if (selectedDictTranslation == null) return;
       final newVal = selectedDictTranslation!.dictid;
       final dirty = usdicttranslation != newVal;
@@ -358,12 +358,12 @@ class SettingsViewModel {
             INFO_USDICTTRANSLATION, usdicttranslation);
       }
     });
-    selectedDictTranslation_ = RxCommand.createSync((MDictionary? v) {
+    selectedDictTranslation_ = Command.createSync((MDictionary? v) {
       selectedDictTranslation = v;
-    });
-    selectedDictTranslation_.listen(updateDictTranslation.call);
+    }, initialValue: null);
+    selectedDictTranslation_.listen((v, _) => updateDictTranslation());
 
-    updateUnitFrom = RxCommand.createAsyncNoParamNoResult(() async {
+    updateUnitFrom = Command.createAsyncNoParamNoResult(() async {
       await _doUpdateUnitFrom(usunitfrom);
       if (toType == UnitPartToType.Unit) {
         await _doUpdateSingleUnit();
@@ -371,41 +371,41 @@ class SettingsViewModel {
         await _doUpdateUnitPartTo();
       }
     });
-    selectedUnitFrom = RxCommand.createSync((int? v) {
+    selectedUnitFrom = Command.createSync((int? v) {
       usunitfrom = v!;
-    });
-    selectedUnitFrom.listen(updateUnitFrom.call);
+    }, initialValue: null);
+    selectedUnitFrom.listen((v, _) => updateUnitFrom());
 
-    updatePartFrom = RxCommand.createAsyncNoParamNoResult(() async {
+    updatePartFrom = Command.createAsyncNoParamNoResult(() async {
       await _doUpdatePartFrom(uspartfrom);
       if (toType == UnitPartToType.Part || isInvaidUnitPart) {
         await _doUpdateUnitPartTo();
       }
     });
-    selectedPartFrom = RxCommand.createSync((int? v) {
+    selectedPartFrom = Command.createSync((int? v) {
       uspartfrom = v!;
-    });
-    selectedPartFrom.listen(updatePartFrom.call);
+    }, initialValue: null);
+    selectedPartFrom.listen((v, _) => updatePartFrom());
 
-    updateUnitTo = RxCommand.createAsyncNoParamNoResult(() async {
+    updateUnitTo = Command.createAsyncNoParamNoResult(() async {
       await _doUpdateUnitTo(usunitto);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
-    selectedUnitTo = RxCommand.createSync((int? v) {
+    selectedUnitTo = Command.createSync((int? v) {
       usunitto = v!;
-    });
-    selectedUnitTo.listen(updateUnitTo.call);
+    }, initialValue: null);
+    selectedUnitTo.listen((v, _) => updateUnitTo());
 
-    updatePartTo = RxCommand.createAsyncNoParamNoResult(() async {
+    updatePartTo = Command.createAsyncNoParamNoResult(() async {
       await _doUpdatePartTo(uspartto);
       if (isInvaidUnitPart) await _doUpdateUnitPartFrom();
     });
-    selectedPartTo = RxCommand.createSync((int? v) {
+    selectedPartTo = Command.createSync((int? v) {
       uspartto = v!;
-    });
-    selectedPartTo.listen(updatePartTo.call);
+    }, initialValue: null);
+    selectedPartTo.listen((v, _) => updatePartTo());
 
-    setToType = RxCommand.createAsyncNoParamNoResult(() async {
+    setToType = Command.createAsyncNoParamNoResult(() async {
       final b = toType == UnitPartToType.To;
       unitToEnabled = b;
       partToEnabled = b && !isSinglePart;
@@ -422,10 +422,10 @@ class SettingsViewModel {
         await _doUpdateUnitPartTo();
       }
     });
-    toType_ = RxCommand.createSync((UnitPartToType v) {
+    toType_ = Command.createSync((UnitPartToType v) {
       toType = v;
-    });
-    toType_.listen(setToType.call);
+    }, initialValue: UnitPartToType.To);
+    toType_.listen((v, _) => setToType());
   }
 
   Future<void> getData() async {

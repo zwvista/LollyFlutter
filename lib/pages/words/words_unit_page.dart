@@ -6,7 +6,6 @@ import 'package:lolly_flutter/pages/words/words_unit_detail_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
-import 'package:rx_widgets/rx_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../keys.dart';
@@ -48,9 +47,9 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                     onChanged: vm.textFilter_.call,
                   ),
                 ),
-                StreamBuilder(
-                    stream: vm.scopeFilter_,
-                    builder: (context, snapshot) => DropdownButton(
+                ValueListenableBuilder(
+                    valueListenable: vm.scopeFilter_,
+                    builder: (context, value, _) => DropdownButton(
                           value: vm.scopeFilter,
                           items: SettingsViewModel.scopeWordFilters
                               .map((s) =>
@@ -60,11 +59,9 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                         ))
               ])),
           Expanded(
-            child: RxLoader(
-              spinnerKey: AppKeys.loadingSpinner,
-              radius: 25.0,
-              commandResults: vm.reloadCommand.results,
-              dataBuilder: (context, data) => ListView.separated(
+            child: ValueListenableBuilder(
+              valueListenable: vm.reloadCommand,
+              builder: (context, data, _) => ListView.separated(
                 itemCount: vm.lstUnitWords.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
@@ -201,11 +198,6 @@ class WordsUnitPageState extends State<WordsUnitPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => const Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
-              errorBuilder: (context, ex) => Center(
-                  key: AppKeys.loaderError,
-                  child: Text("Error: ${ex.toString()}")),
             ),
           ),
         ],

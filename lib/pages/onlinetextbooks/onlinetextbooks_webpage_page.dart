@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/models/misc/monlinetextbook.dart';
 import 'package:lolly_flutter/viewmodels/onlinetextbooks/onlinetextbooks_webpage_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -29,7 +30,7 @@ class OnlineTextbooksWebPagePageState
   void initState() {
     super.initState();
     load() => controller.loadRequest(Uri.parse(vm.selectedOnlineTextbook.url));
-    vm.selectedOnlineTextbookIndex_.listen((_) => load());
+    vm.selectedOnlineTextbookIndex_.listen((v, _) => load());
     load();
   }
 
@@ -39,9 +40,9 @@ class OnlineTextbooksWebPagePageState
       body: Column(children: [
         Row(children: [
           Expanded(
-              child: StreamBuilder(
-                  stream: vm.selectedOnlineTextbookIndex_,
-                  builder: (context, snapshot) => DropdownButton(
+              child: ValueListenableBuilder(
+                  valueListenable: vm.selectedOnlineTextbookIndex_,
+                  builder: (context, value, _) => DropdownButton(
                         value: vm.selectedOnlineTextbookIndex,
                         items: vm.lstOnlineTextbooks
                             .mapIndexed((i, e) => DropdownMenuItem(

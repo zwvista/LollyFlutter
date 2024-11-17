@@ -4,7 +4,6 @@ import 'package:lolly_flutter/pages/phrases/phrases_textbook_detail_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
-import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
@@ -40,9 +39,9 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                       onChanged: vm.textFilter_.call,
                     ),
                   ),
-                  StreamBuilder(
-                      stream: vm.scopeFilter_,
-                      builder: (context, snapshot) => DropdownButton(
+                  ValueListenableBuilder(
+                      valueListenable: vm.scopeFilter_,
+                      builder: (context, value, _) => DropdownButton(
                             value: vm.scopeFilter,
                             items: SettingsViewModel.scopePhraseFilters
                                 .map((s) =>
@@ -53,9 +52,9 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                 ]),
                 Row(children: [
                   Expanded(
-                    child: StreamBuilder(
-                        stream: vm.textbookFilter_,
-                        builder: (context, snapshot) => DropdownButtonFormField(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.textbookFilter_,
+                        builder: (context, value, _) => DropdownButtonFormField(
                               value: vm.textbookFilter,
                               items: vmSettings.lstTextbookFilters
                                   .map((o) => DropdownMenuItem(
@@ -67,11 +66,9 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                 ])
               ])),
           Expanded(
-            child: RxLoader(
-              spinnerKey: AppKeys.loadingSpinner,
-              radius: 25.0,
-              commandResults: vm.reloadCommand.results,
-              dataBuilder: (context, data) => ListView.separated(
+            child: ValueListenableBuilder(
+              valueListenable: vm.reloadCommand,
+              builder: (context, data, _) => ListView.separated(
                 itemCount: vm.lstUnitPhrases.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
@@ -172,11 +169,6 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => const Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
-              errorBuilder: (context, ex) => Center(
-                  key: AppKeys.loaderError,
-                  child: Text("Error: ${ex.toString()}")),
             ),
           ),
         ],

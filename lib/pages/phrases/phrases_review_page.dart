@@ -38,25 +38,25 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
       child: Column(children: [
         Row(
           children: [
-            StreamBuilder(
-                stream: vm.indexVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.indexVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.indexVisible,
-                    child: StreamBuilder(
-                        stream: vm.indexString_,
-                        builder: (context, snapshot) => Text(vm.indexString)))),
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.indexString_,
+                        builder: (context, value, _) => Text(vm.indexString)))),
             const Expanded(child: Text("data", textAlign: TextAlign.center)),
             Stack(
               children: [
-                StreamBuilder(
-                    stream: vm.correctVisible_,
-                    builder: (context, snapshot) => Visibility(
+                ValueListenableBuilder(
+                    valueListenable: vm.correctVisible_,
+                    builder: (context, value, _) => Visibility(
                         visible: vm.correctVisible,
                         child: const Text("Correct",
                             style: TextStyle(color: Colors.green)))),
-                StreamBuilder(
-                    stream: vm.incorrectVisible_,
-                    builder: (context, snapshot) => Visibility(
+                ValueListenableBuilder(
+                    valueListenable: vm.incorrectVisible_,
+                    builder: (context, value, _) => Visibility(
                         visible: vm.incorrectVisible,
                         child: const Text("Incorrect",
                             style: TextStyle(color: Colors.pink))))
@@ -67,19 +67,19 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
         Row(
           children: [
             TextButton(child: const Text("Speak"), onPressed: () {}),
-            StreamBuilder(
-                stream: vm.isSpeaking_,
-                builder: (context, snapshot) => Expanded(
+            ValueListenableBuilder(
+                valueListenable: vm.isSpeaking_,
+                builder: (context, value, _) => Expanded(
                         child: CheckboxListTile(
                       title: const Text("Speak"),
                       value: vm.isSpeaking,
                       onChanged: vm.isSpeaking_.call,
                     ))),
-            StreamBuilder(
-                stream: vm.checkNextEnabled_,
-                builder: (context, snapshot) => StreamBuilder(
-                    stream: vm.checkNextString_,
-                    builder: (context, snapshot) => TextButton(
+            ValueListenableBuilder(
+                valueListenable: vm.checkNextEnabled_,
+                builder: (context, value, _) => ValueListenableBuilder(
+                    valueListenable: vm.checkNextString_,
+                    builder: (context, value, _) => TextButton(
                         onPressed:
                             !vm.checkNextEnabled ? null : () => vm.check(true),
                         child: Text(vm.checkNextString))))
@@ -87,39 +87,39 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
         ),
         Row(
           children: [
-            StreamBuilder(
-                stream: vm.onRepeatVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.onRepeatVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.onRepeatVisible,
-                    child: StreamBuilder(
-                        stream: vm.onRepeat_,
-                        builder: (context, snapshot) => Expanded(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.onRepeat_,
+                        builder: (context, value, _) => Expanded(
                                 child: CheckboxListTile(
                               title: const Text("On Repeat"),
                               value: vm.onRepeat,
                               onChanged: vm.onRepeat_.call,
                             ))))),
-            StreamBuilder(
-                stream: vm.moveForwardVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.moveForwardVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.moveForwardVisible,
-                    child: StreamBuilder(
-                        stream: vm.moveForward_,
-                        builder: (context, snapshot) => Expanded(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.moveForward_,
+                        builder: (context, value, _) => Expanded(
                                 child: CheckboxListTile(
                               title: const Text("Forward"),
                               value: vm.moveForward,
                               onChanged: vm.moveForward_.call,
                             ))))),
-            StreamBuilder(
-                stream: vm.checkPrevVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.checkPrevVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.checkPrevVisible,
-                    child: StreamBuilder(
-                        stream: vm.checkPrevEnabled_,
-                        builder: (context, snapshot) => StreamBuilder(
-                            stream: vm.checkPrevString_,
-                            builder: (context, snapshot) => TextButton(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.checkPrevEnabled_,
+                        builder: (context, value, _) => ValueListenableBuilder(
+                            valueListenable: vm.checkPrevString_,
+                            builder: (context, value, _) => TextButton(
                                 onPressed: !vm.checkPrevEnabled
                                     ? null
                                     : () => vm.check(false),
@@ -131,24 +131,24 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              StreamBuilder(
-                  stream: vm.phraseTargetVisible_,
-                  builder: (context, snapshot) => Visibility(
+              ValueListenableBuilder(
+                  valueListenable: vm.phraseTargetVisible_,
+                  builder: (context, value, _) => Visibility(
                       visible: vm.phraseTargetVisible,
-                      child: StreamBuilder(
-                          stream: vm.phraseTargetString_,
-                          builder: (context, snapshot) => Text(
+                      child: ValueListenableBuilder(
+                          valueListenable: vm.phraseTargetString_,
+                          builder: (context, value, _) => Text(
                               vm.phraseTargetString,
                               style: const TextStyle(
                                   color: Colors.orange, fontSize: 50))))),
-              StreamBuilder(
-                  stream: vm.translationString_,
-                  builder: (context, snapshot) => Text(vm.translationString,
+              ValueListenableBuilder(
+                  valueListenable: vm.translationString_,
+                  builder: (context, value, _) => Text(vm.translationString,
                       style: const TextStyle(
                           color: Colors.purpleAccent, fontSize: 40))),
-              StreamBuilder(
-                  stream: vm.phraseInputString_,
-                  builder: (context, snapshot) => TextField(
+              ValueListenableBuilder(
+                  valueListenable: vm.phraseInputString_,
+                  builder: (context, value, _) => TextField(
                         style: const TextStyle(fontSize: 60),
                         onChanged: vm.phraseInputString_.call,
                       ))

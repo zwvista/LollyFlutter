@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/viewmodels/words/words_dict_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -25,8 +26,8 @@ class WordsDictPageState extends State<WordsDictPage> {
   void initState() {
     super.initState();
     onlineDict = OnlineDict(vm);
-    vm.selectedWordIndex_.listen((_) => onlineDict.searchDict());
-    vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
+    vm.selectedWordIndex_.listen((v, _) => onlineDict.searchDict());
+    vmSettings.updateDictReference.listen((v, _) => onlineDict.searchDict());
   }
 
   @override
@@ -36,9 +37,9 @@ class WordsDictPageState extends State<WordsDictPage> {
           children: [
             Row(children: [
               Expanded(
-                  child: StreamBuilder(
-                      stream: vm.selectedWordIndex_,
-                      builder: (context, snapshot) => DropdownButton(
+                  child: ValueListenableBuilder(
+                      valueListenable: vm.selectedWordIndex_,
+                      builder: (context, value, _) => DropdownButton(
                             value: vm.selectedWordIndex,
                             items: vm.lstWords
                                 .mapIndexed((i, e) =>
@@ -48,9 +49,9 @@ class WordsDictPageState extends State<WordsDictPage> {
                             onChanged: vm.selectedWordIndex_.call,
                           ))),
               Expanded(
-                  child: StreamBuilder(
-                      stream: vmSettings.selectedDictReference_,
-                      builder: (context, snapshot) => DropdownButton(
+                  child: ValueListenableBuilder(
+                      valueListenable: vmSettings.selectedDictReference_,
+                      builder: (context, value, _) => DropdownButton(
                           value: vmSettings.selectedDictReference,
                           items: vmSettings.lstDictsReference
                               .map((e) => DropdownMenuItem(

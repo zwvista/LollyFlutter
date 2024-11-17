@@ -544,22 +544,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
-  rx_command:
-    dependency: "direct main"
-    description:
-      name: rx_command
-      sha256: ba60d1b4c8ef3eb73ccddd1ac949ad62fc0ec86b0474c506b6134239b03ff330
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.1"
-  rx_widgets:
-    dependency: "direct main"
-    description:
-      name: rx_widgets
-      sha256: e71c366c9f9162f7005ad92e79bec7d49101655220eacc2491ebb0ebcc06fb12
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.1"
   rxdart:
     dependency: "direct main"
     description:

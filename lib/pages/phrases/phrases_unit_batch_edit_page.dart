@@ -37,18 +37,18 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              StreamBuilder(
-                  stream: vmBatch.unitChecked,
-                  builder: (context, snapshot) => Row(children: [
+              ValueListenableBuilder(
+                  valueListenable: vmBatch.unitChecked,
+                  builder: (context, value, _) => Row(children: [
                         SizedBox(
                             height: 24.0,
                             width: 30.0,
                             child: Checkbox(
-                                value: vmBatch.unitChecked.lastResult,
+                                value: vmBatch.unitChecked.value,
                                 onChanged: vmBatch.unitChecked.call)),
                         Expanded(
                             child: DropdownButtonFormField(
-                                value: vmBatch.unit.lastResult,
+                                value: vmBatch.unit.value,
                                 decoration: const InputDecoration(
                                   labelText: "UNIT",
                                 ),
@@ -56,22 +56,22 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                     .map((o) => DropdownMenuItem(
                                         value: o.value, child: Text(o.label)))
                                     .toList(),
-                                onChanged: (vmBatch.unitChecked.lastResult!
+                                onChanged: (vmBatch.unitChecked.value
                                     ? vmBatch.unit
                                     : null) as void Function(int?)?))
                       ])),
-              StreamBuilder(
-                  stream: vmBatch.partChecked,
-                  builder: (context, snapshot) => Row(children: [
+              ValueListenableBuilder(
+                  valueListenable: vmBatch.partChecked,
+                  builder: (context, value, _) => Row(children: [
                         SizedBox(
                             height: 24.0,
                             width: 30.0,
                             child: Checkbox(
-                                value: vmBatch.partChecked.lastResult,
+                                value: vmBatch.partChecked.value,
                                 onChanged: vmBatch.partChecked.call)),
                         Expanded(
                             child: DropdownButtonFormField(
-                                value: vmBatch.part.lastResult,
+                                value: vmBatch.part.value,
                                 decoration: const InputDecoration(
                                   labelText: "PART",
                                 ),
@@ -79,22 +79,22 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                     .map((o) => DropdownMenuItem(
                                         value: o.value, child: Text(o.label)))
                                     .toList(),
-                                onChanged: (vmBatch.partChecked.lastResult!
+                                onChanged: (vmBatch.partChecked.value
                                     ? vmBatch.part
                                     : null) as void Function(int?)?))
                       ])),
-              StreamBuilder(
-                  stream: vmBatch.seqnumChecked,
-                  builder: (context, snapshot) => Row(children: [
+              ValueListenableBuilder(
+                  valueListenable: vmBatch.seqnumChecked,
+                  builder: (context, value, _) => Row(children: [
                         SizedBox(
                             height: 24.0,
                             width: 30.0,
                             child: Checkbox(
-                                value: vmBatch.seqnumChecked.lastResult,
+                                value: vmBatch.seqnumChecked.value,
                                 onChanged: vmBatch.seqnumChecked.call)),
                         Expanded(
                             child: TextFormField(
-                                initialValue: vmBatch.seqnum.lastResult,
+                                initialValue: vmBatch.seqnum.value,
                                 decoration: const InputDecoration(
                                   labelText: "SEQNUM(+)",
                                 ),
@@ -102,12 +102,12 @@ class PhrasesUnitBatchEditPageState extends State<PhrasesUnitBatchEditPage> {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
-                                readOnly: !vmBatch.seqnumChecked.lastResult!,
+                                readOnly: !vmBatch.seqnumChecked.value,
                                 onChanged: vmBatch.seqnum.call))
                       ])),
-              StreamBuilder(
-                  stream: vmBatch.selectedItemsCmd,
-                  builder: (context, snapshot) => Expanded(
+              ValueListenableBuilder(
+                  valueListenable: vmBatch.selectedItemsCmd,
+                  builder: (context, value, _) => Expanded(
                       child: ListView.separated(
                           itemCount: vmBatch.vm.lstUnitPhrases.length,
                           separatorBuilder: (context, index) => const Divider(),

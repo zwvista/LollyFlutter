@@ -1,11 +1,11 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/models/misc/monlinetextbook.dart';
-import 'package:rx_command/rx_command.dart';
 
 class OnlineTextbooksWebPageViewModel {
   List<MOnlineTextbook> lstOnlineTextbooks;
-  final selectedOnlineTextbookIndex_ = RxCommand.createSync((int v) => v);
-  int get selectedOnlineTextbookIndex =>
-      selectedOnlineTextbookIndex_.lastResult!;
+  final selectedOnlineTextbookIndex_ =
+      Command.createSync((int v) => v, initialValue: 0);
+  int get selectedOnlineTextbookIndex => selectedOnlineTextbookIndex_.value;
   MOnlineTextbook get selectedOnlineTextbook =>
       lstOnlineTextbooks[selectedOnlineTextbookIndex];
 

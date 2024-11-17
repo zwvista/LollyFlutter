@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/models/wpp/mpattern.dart';
 import 'package:lolly_flutter/viewmodels/patterns/patterns_webpage_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -25,7 +26,7 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
   void initState() {
     super.initState();
     load() => controller.loadRequest(Uri.parse(vm.selectedPattern.url));
-    vm.selectedPatternIndex_.listen((_) => load());
+    vm.selectedPatternIndex_.listen((v, _) => load());
     load();
   }
 
@@ -35,9 +36,9 @@ class PatternsWebPagePageState extends State<PatternsWebPagePage> {
       body: Column(children: [
         Row(children: [
           Expanded(
-              child: StreamBuilder(
-                  stream: vm.selectedPatternIndex_,
-                  builder: (context, snapshot) => DropdownButton(
+              child: ValueListenableBuilder(
+                  valueListenable: vm.selectedPatternIndex_,
+                  builder: (context, value, _) => DropdownButton(
                         value: vm.selectedPatternIndex,
                         items: vm.lstPatterns
                             .mapIndexed((i, e) => DropdownMenuItem(

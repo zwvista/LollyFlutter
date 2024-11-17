@@ -3,7 +3,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_detail_page.dart';
 import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_webpage_page.dart';
 import 'package:lolly_flutter/viewmodels/onlinetextbooks/onlinetextbooks_viewmodel.dart';
-import 'package:rx_widgets/rx_widgets.dart';
 
 import '../../keys.dart';
 import '../../main.dart';
@@ -30,9 +29,9 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
               padding: const EdgeInsets.all(16.0),
               child: Row(children: [
                 Expanded(
-                  child: StreamBuilder(
-                      stream: vm.onlineTextbookFilter_,
-                      builder: (context, snapshot) => DropdownButtonFormField(
+                  child: ValueListenableBuilder(
+                      valueListenable: vm.onlineTextbookFilter_,
+                      builder: (context, value, _) => DropdownButtonFormField(
                             value: vm.onlineTextbookFilter,
                             items: vmSettings.lstOnlineTextbookFilters
                                 .map((o) => DropdownMenuItem(
@@ -43,11 +42,9 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                 )
               ])),
           Expanded(
-            child: RxLoader(
-              spinnerKey: AppKeys.loadingSpinner,
-              radius: 25.0,
-              commandResults: vm.reloadCommand.results,
-              dataBuilder: (context, data) => ListView.separated(
+            child: ValueListenableBuilder(
+              valueListenable: vm.reloadCommand,
+              builder: (context, data, _) => ListView.separated(
                 itemCount: vm.lstOnlineTextbooks.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
@@ -133,11 +130,6 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                   );
                 },
               ),
-              placeHolderBuilder: (context) => const Center(
-                  key: AppKeys.loaderPlaceHolder, child: Text("No Data")),
-              errorBuilder: (context, ex) => Center(
-                  key: AppKeys.loaderError,
-                  child: Text("Error: ${ex.toString()}")),
             ),
           ),
         ],

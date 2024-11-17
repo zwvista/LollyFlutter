@@ -1,10 +1,11 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/models/wpp/mpattern.dart';
-import 'package:rx_command/rx_command.dart';
 
 class PatternsWebPageViewModel {
   List<MPattern> lstPatterns;
-  final selectedPatternIndex_ = RxCommand.createSync((int v) => v);
-  int get selectedPatternIndex => selectedPatternIndex_.lastResult!;
+  final selectedPatternIndex_ =
+      Command.createSync((int v) => v, initialValue: 0);
+  int get selectedPatternIndex => selectedPatternIndex_.value;
   MPattern get selectedPattern => lstPatterns[selectedPatternIndex];
 
   PatternsWebPageViewModel(this.lstPatterns, int index) {

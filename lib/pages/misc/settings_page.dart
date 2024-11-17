@@ -21,9 +21,9 @@ class SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0),
       child: ListView(children: [
-        StreamBuilder(
-            stream: vm.selectedLang_,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedLang_,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.selectedLang,
                   items: vm.lstLanguages
                       .map((e) =>
@@ -34,9 +34,9 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Language",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.selectedVoice_,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedVoice_,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.selectedVoice,
                   items: vm.lstVoices
                       .map((e) =>
@@ -47,9 +47,9 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Voice",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.selectedDictReference_,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedDictReference_,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.selectedDictReference,
                   items: vm.lstDictsReference
                       .map((e) =>
@@ -60,9 +60,9 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Dictionary(Reference)",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.selectedDictNote_,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedDictNote_,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.selectedDictNote,
                   items: vm.lstDictsNote
                       .map((e) =>
@@ -73,9 +73,9 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Dictionary(Note)",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.selectedDictTranslation_,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedDictTranslation_,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.selectedDictTranslation,
                   items: vm.lstDictsTranslation
                       .map((e) =>
@@ -86,9 +86,9 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Dictionary(Translation)",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.selectedTextbook_,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedTextbook_,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.selectedTextbook,
                   items: vm.lstTextbooks
                       .map((e) => DropdownMenuItem(
@@ -99,9 +99,9 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Textbook",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.selectedUnitFrom,
-            builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.selectedUnitFrom,
+            builder: (context, value, _) => DropdownButtonFormField(
                   value: vm.usunitfrom,
                   items: vm.lstUnits
                       .map((e) => DropdownMenuItem(
@@ -112,11 +112,11 @@ class SettingsPageState extends State<SettingsPage> {
                     labelText: "Unit(From)",
                   ),
                 )),
-        StreamBuilder(
-            stream: vm.toType_,
-            builder: (context, snapshot) => StreamBuilder(
-                stream: vm.selectedPartFrom,
-                builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.toType_,
+            builder: (context, value, _) => ValueListenableBuilder(
+                valueListenable: vm.selectedPartFrom,
+                builder: (context, value, _) => DropdownButtonFormField(
                       disabledHint: Text(vm.uspartfromstr),
                       value: vm.uspartfrom,
                       items: vm.lstParts
@@ -130,9 +130,9 @@ class SettingsPageState extends State<SettingsPage> {
                         labelText: "Part(From)",
                       ),
                     ))),
-        StreamBuilder(
-            stream: vm.toType_,
-            builder: (context, snapshot) => Row(
+        ValueListenableBuilder(
+            valueListenable: vm.toType_,
+            builder: (context, value, _) => Row(
                   children: [
                     Expanded(
                       flex: 1,
@@ -164,11 +164,11 @@ class SettingsPageState extends State<SettingsPage> {
                         )),
                   ],
                 )),
-        StreamBuilder(
-            stream: vm.toType_,
-            builder: (context, snapshot) => StreamBuilder(
-                stream: vm.selectedUnitTo,
-                builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.toType_,
+            builder: (context, value, _) => ValueListenableBuilder(
+                valueListenable: vm.selectedUnitTo,
+                builder: (context, value, _) => DropdownButtonFormField(
                       disabledHint: Text(vm.usunittostr),
                       value: vm.usunitto,
                       items: vm.lstUnits
@@ -182,11 +182,11 @@ class SettingsPageState extends State<SettingsPage> {
                         labelText: "Unit(To)",
                       ),
                     ))),
-        StreamBuilder(
-            stream: vm.toType_,
-            builder: (context, snapshot) => StreamBuilder(
-                stream: vm.selectedPartTo,
-                builder: (context, snapshot) => DropdownButtonFormField(
+        ValueListenableBuilder(
+            valueListenable: vm.toType_,
+            builder: (context, value, _) => ValueListenableBuilder(
+                valueListenable: vm.selectedPartTo,
+                builder: (context, value, _) => DropdownButtonFormField(
                       disabledHint: Text(vm.usparttostr),
                       value: vm.uspartto,
                       items: vm.lstParts

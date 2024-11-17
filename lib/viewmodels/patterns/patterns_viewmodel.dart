@@ -1,24 +1,22 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/mpattern.dart';
 import 'package:lolly_flutter/services/wpp/pattern_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
-import 'package:rx_command/rx_command.dart';
-import 'package:rxdart/rxdart.dart';
 
 class PatternsViewModel {
   List<MPattern> lstPatternsAll = [], lstPatterns = [];
   final patternService = PatternService();
   var reloaded = false;
-  late RxCommand<void, List<MPattern>> reloadCommand;
-  final textFilter_ =
-      RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult!;
-  final scopeFilter_ = RxCommand.createSync((String s) => s,
-      initialLastResult: SettingsViewModel.scopePatternFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult!;
+  late Command<void, List<MPattern>> reloadCommand;
+  final textFilter_ = Command.createSync((String s) => s, initialValue: "");
+  String get textFilter => textFilter_.value;
+  final scopeFilter_ = Command.createSync((String s) => s,
+      initialValue: SettingsViewModel.scopePatternFilters[0]);
+  String get scopeFilter => scopeFilter_.value;
 
   PatternsViewModel() {
-    reloadCommand = RxCommand.createAsyncNoParam(() async {
+    reloadCommand = Command.createAsyncNoParam(() async {
       if (!reloaded) {
         lstPatternsAll =
             await patternService.getDataByLang(vmSettings.selectedLang!.id);
@@ -32,11 +30,11 @@ class PatternsViewModel {
                   .contains(textFilter.toLowerCase()))
               .toList();
       return lstPatterns;
-    });
+    }, initialValue: []);
     textFilter_
-        .debounceTime(const Duration(milliseconds: 500))
-        .listen(reloadCommand.call);
-    scopeFilter_.listen(reloadCommand.call);
+        .debounce(const Duration(milliseconds: 500))
+        .listen((v, _) => reloadCommand());
+    scopeFilter_.listen((v, _) => reloadCommand());
   }
 
   MPattern newPattern() => MPattern()..langid = vmSettings.selectedLang!.id;

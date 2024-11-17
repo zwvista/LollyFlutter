@@ -47,8 +47,6 @@ dependencies:
   flutter_tts: ^4.0.2
   http: ^1.2.2
   json_annotation: ^4.9.0
-  rx_command: ^6.0.1
-  rx_widgets: ^4.2.1
   rxdart: ^0.27.7
   shared_preferences: ^2.0.6
   tuple: ^2.0.2

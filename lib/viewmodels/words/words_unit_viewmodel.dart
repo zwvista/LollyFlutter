@@ -1,8 +1,7 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/services/wpp/unit_word_service.dart';
-import 'package:rx_command/rx_command.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../misc/settings_viewmodel.dart';
 
@@ -11,19 +10,17 @@ class WordsUnitViewModel {
   List<MUnitWord> lstUnitWordsAll = [], lstUnitWords = [];
   final unitWordService = UnitWordService();
   var reloaded = false;
-  late RxCommand<void, List<MUnitWord>> reloadCommand;
-  final textFilter_ =
-      RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult!;
-  final scopeFilter_ = RxCommand.createSync((String s) => s,
-      initialLastResult: SettingsViewModel.scopeWordFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult!;
-  final textbookFilter_ =
-      RxCommand.createSync((int v) => v, initialLastResult: 0);
-  int get textbookFilter => textbookFilter_.lastResult!;
+  late Command<void, List<MUnitWord>> reloadCommand;
+  final textFilter_ = Command.createSync((String s) => s, initialValue: "");
+  String get textFilter => textFilter_.value;
+  final scopeFilter_ = Command.createSync((String s) => s,
+      initialValue: SettingsViewModel.scopeWordFilters[0]);
+  String get scopeFilter => scopeFilter_.value;
+  final textbookFilter_ = Command.createSync((int v) => v, initialValue: 0);
+  int get textbookFilter => textbookFilter_.value;
 
   WordsUnitViewModel(this.inbook) {
-    reloadCommand = RxCommand.createAsyncNoParam(() async {
+    reloadCommand = Command.createAsyncNoParam(() async {
       if (!reloaded) {
         lstUnitWordsAll = inbook
             ? await unitWordService.getDataByTextbookUnitPart(
@@ -36,12 +33,12 @@ class WordsUnitViewModel {
       }
       _applyFilters();
       return lstUnitWords;
-    });
+    }, initialValue: []);
     textFilter_
-        .debounceTime(const Duration(milliseconds: 500))
-        .listen(reloadCommand.call);
-    scopeFilter_.listen(reloadCommand.call);
-    textbookFilter_.listen(reloadCommand.call);
+        .debounce(const Duration(milliseconds: 500))
+        .listen((v, _) => reloadCommand());
+    scopeFilter_.listen((v, _) => reloadCommand());
+    textbookFilter_.listen((v, _) => reloadCommand());
   }
 
   void _applyFilters() => lstUnitWords = textFilter.isEmpty &&

@@ -1,8 +1,7 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/mlangword.dart';
 import 'package:lolly_flutter/services/wpp/lang_word_service.dart';
-import 'package:rx_command/rx_command.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../misc/settings_viewmodel.dart';
 
@@ -10,16 +9,15 @@ class WordsLangViewModel {
   List<MLangWord> lstLangWordsAll = [], lstLangWords = [];
   final langWordService = LangWordService();
   var reloaded = false;
-  late RxCommand<void, List<MLangWord>> reloadCommand;
-  final textFilter_ =
-      RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult!;
-  final scopeFilter_ = RxCommand.createSync((String s) => s,
-      initialLastResult: SettingsViewModel.scopeWordFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult!;
+  late Command<void, List<MLangWord>> reloadCommand;
+  final textFilter_ = Command.createSync((String s) => s, initialValue: "");
+  String get textFilter => textFilter_.value;
+  final scopeFilter_ = Command.createSync((String s) => s,
+      initialValue: SettingsViewModel.scopeWordFilters[0]);
+  String get scopeFilter => scopeFilter_.value;
 
   WordsLangViewModel() {
-    reloadCommand = RxCommand.createAsyncNoParam<List<MLangWord>>(() async {
+    reloadCommand = Command.createAsyncNoParam<List<MLangWord>>(() async {
       if (!reloaded) {
         lstLangWordsAll =
             await langWordService.getDataByLang(vmSettings.selectedLang!.id);
@@ -27,11 +25,11 @@ class WordsLangViewModel {
       }
       _applyFilters();
       return lstLangWords;
-    });
+    }, initialValue: []);
     textFilter_
-        .debounceTime(const Duration(milliseconds: 500))
-        .listen(reloadCommand.call);
-    scopeFilter_.listen(reloadCommand.call);
+        .debounce(const Duration(milliseconds: 500))
+        .listen((v, _) => reloadCommand());
+    scopeFilter_.listen((v, _) => reloadCommand());
   }
 
   void _applyFilters() => lstLangWords = textFilter.isEmpty

@@ -1,24 +1,22 @@
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 import 'package:lolly_flutter/services/wpp/lang_phrase_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
-import 'package:rx_command/rx_command.dart';
-import 'package:rxdart/rxdart.dart';
 
 class PhrasesLangViewModel {
   List<MLangPhrase> lstLangPhrasesAll = [], lstLangPhrases = [];
   final langPhraseService = LangPhraseService();
   var reloaded = false;
-  late RxCommand<void, List<MLangPhrase>> reloadCommand;
-  final textFilter_ =
-      RxCommand.createSync((String s) => s, initialLastResult: "");
-  String get textFilter => textFilter_.lastResult!;
-  final scopeFilter_ = RxCommand.createSync((String s) => s,
-      initialLastResult: SettingsViewModel.scopePhraseFilters[0]);
-  String get scopeFilter => scopeFilter_.lastResult!;
+  late Command<void, List<MLangPhrase>> reloadCommand;
+  final textFilter_ = Command.createSync((String s) => s, initialValue: "");
+  String get textFilter => textFilter_.value;
+  final scopeFilter_ = Command.createSync((String s) => s,
+      initialValue: SettingsViewModel.scopePhraseFilters[0]);
+  String get scopeFilter => scopeFilter_.value;
 
   PhrasesLangViewModel() {
-    reloadCommand = RxCommand.createAsyncNoParam(() async {
+    reloadCommand = Command.createAsyncNoParam(() async {
       if (!reloaded) {
         lstLangPhrasesAll =
             await langPhraseService.getDataByLang(vmSettings.selectedLang!.id);
@@ -26,11 +24,11 @@ class PhrasesLangViewModel {
       }
       _applyFilters();
       return lstLangPhrases;
-    });
+    }, initialValue: []);
     textFilter_
-        .debounceTime(const Duration(milliseconds: 500))
-        .listen(reloadCommand.call);
-    scopeFilter_.listen(reloadCommand.call);
+        .debounce(const Duration(milliseconds: 500))
+        .listen((v, _) => reloadCommand());
+    scopeFilter_.listen((v, _) => reloadCommand());
   }
 
   void _applyFilters() => lstLangPhrases = textFilter.isEmpty

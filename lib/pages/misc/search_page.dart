@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/search_viewmodel.dart';
@@ -42,8 +43,8 @@ class SearchPageState extends State<SearchPage> {
       }
     }
     await vmSettings.getData();
-    vmSettings.updateLang.listen((_) => onlineDict.searchDict());
-    vmSettings.updateDictReference.listen((_) => onlineDict.searchDict());
+    vmSettings.updateLang.listen((v, _) => onlineDict.searchDict());
+    vmSettings.updateDictReference.listen((v, _) => onlineDict.searchDict());
   }
 
   @override
@@ -61,9 +62,9 @@ class SearchPageState extends State<SearchPage> {
             }),
         Row(children: [
           Expanded(
-              child: StreamBuilder(
-                  stream: vmSettings.selectedLang_,
-                  builder: (context, snapshot) => DropdownButton(
+              child: ValueListenableBuilder(
+                  valueListenable: vmSettings.selectedLang_,
+                  builder: (context, value, _) => DropdownButton(
                       value: vmSettings.selectedLang,
                       items: vmSettings.lstLanguages
                           .map((e) => DropdownMenuItem(
@@ -72,9 +73,9 @@ class SearchPageState extends State<SearchPage> {
                       isExpanded: true,
                       onChanged: vmSettings.selectedLang_.call))),
           Expanded(
-              child: StreamBuilder(
-                  stream: vmSettings.selectedDictReference_,
-                  builder: (context, snapshot) => DropdownButton(
+              child: ValueListenableBuilder(
+                  valueListenable: vmSettings.selectedDictReference_,
+                  builder: (context, value, _) => DropdownButton(
                       value: vmSettings.selectedDictReference,
                       items: vmSettings.lstDictsReference
                           .map((e) => DropdownMenuItem(

@@ -38,34 +38,34 @@ class WordsReviewPageState extends State<WordsReviewPage> {
       child: Column(children: [
         Row(
           children: [
-            StreamBuilder(
-                stream: vm.indexVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.indexVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.indexVisible,
-                    child: StreamBuilder(
-                        stream: vm.indexString_,
-                        builder: (context, snapshot) => Text(vm.indexString)))),
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.indexString_,
+                        builder: (context, value, _) => Text(vm.indexString)))),
             Expanded(
-                child: StreamBuilder(
-                    stream: vm.accuracyVisible_,
-                    builder: (context, snapshot) => Visibility(
+                child: ValueListenableBuilder(
+                    valueListenable: vm.accuracyVisible_,
+                    builder: (context, value, _) => Visibility(
                         visible: vm.accuracyVisible,
-                        child: StreamBuilder(
-                            stream: vm.accuracyString_,
-                            builder: (context, snapshot) => Text(
+                        child: ValueListenableBuilder(
+                            valueListenable: vm.accuracyString_,
+                            builder: (context, value, _) => Text(
                                 vm.accuracyString,
                                 textAlign: TextAlign.center))))),
             Stack(
               children: [
-                StreamBuilder(
-                    stream: vm.correctVisible_,
-                    builder: (context, snapshot) => Visibility(
+                ValueListenableBuilder(
+                    valueListenable: vm.correctVisible_,
+                    builder: (context, value, _) => Visibility(
                         visible: vm.correctVisible,
                         child: const Text("Correct",
                             style: TextStyle(color: Colors.green)))),
-                StreamBuilder(
-                    stream: vm.incorrectVisible_,
-                    builder: (context, snapshot) => Visibility(
+                ValueListenableBuilder(
+                    valueListenable: vm.incorrectVisible_,
+                    builder: (context, value, _) => Visibility(
                         visible: vm.incorrectVisible,
                         child: const Text("Incorrect",
                             style: TextStyle(color: Colors.pink))))
@@ -76,19 +76,19 @@ class WordsReviewPageState extends State<WordsReviewPage> {
         Row(
           children: [
             TextButton(child: const Text("Speak"), onPressed: () {}),
-            StreamBuilder(
-                stream: vm.isSpeaking_,
-                builder: (context, snapshot) => Expanded(
+            ValueListenableBuilder(
+                valueListenable: vm.isSpeaking_,
+                builder: (context, value, _) => Expanded(
                         child: CheckboxListTile(
                       title: const Text("Speak"),
                       value: vm.isSpeaking,
                       onChanged: vm.isSpeaking_.call,
                     ))),
-            StreamBuilder(
-                stream: vm.checkNextEnabled_,
-                builder: (context, snapshot) => StreamBuilder(
-                    stream: vm.checkNextString_,
-                    builder: (context, snapshot) => TextButton(
+            ValueListenableBuilder(
+                valueListenable: vm.checkNextEnabled_,
+                builder: (context, value, _) => ValueListenableBuilder(
+                    valueListenable: vm.checkNextString_,
+                    builder: (context, value, _) => TextButton(
                         onPressed:
                             !vm.checkNextEnabled ? null : () => vm.check(true),
                         child: Text(vm.checkNextString))))
@@ -96,39 +96,39 @@ class WordsReviewPageState extends State<WordsReviewPage> {
         ),
         Row(
           children: [
-            StreamBuilder(
-                stream: vm.onRepeatVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.onRepeatVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.onRepeatVisible,
-                    child: StreamBuilder(
-                        stream: vm.onRepeat_,
-                        builder: (context, snapshot) => Expanded(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.onRepeat_,
+                        builder: (context, value, _) => Expanded(
                                 child: CheckboxListTile(
                               title: const Text("On Repeat"),
                               value: vm.onRepeat,
                               onChanged: vm.onRepeat_.call,
                             ))))),
-            StreamBuilder(
-                stream: vm.moveForwardVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.moveForwardVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.moveForwardVisible,
-                    child: StreamBuilder(
-                        stream: vm.moveForward_,
-                        builder: (context, snapshot) => Expanded(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.moveForward_,
+                        builder: (context, value, _) => Expanded(
                                 child: CheckboxListTile(
                               title: const Text("Forward"),
                               value: vm.moveForward,
                               onChanged: vm.moveForward_.call,
                             ))))),
-            StreamBuilder(
-                stream: vm.checkPrevVisible_,
-                builder: (context, snapshot) => Visibility(
+            ValueListenableBuilder(
+                valueListenable: vm.checkPrevVisible_,
+                builder: (context, value, _) => Visibility(
                     visible: vm.checkPrevVisible,
-                    child: StreamBuilder(
-                        stream: vm.checkPrevEnabled_,
-                        builder: (context, snapshot) => StreamBuilder(
-                            stream: vm.checkPrevString_,
-                            builder: (context, snapshot) => TextButton(
+                    child: ValueListenableBuilder(
+                        valueListenable: vm.checkPrevEnabled_,
+                        builder: (context, value, _) => ValueListenableBuilder(
+                            valueListenable: vm.checkPrevString_,
+                            builder: (context, value, _) => TextButton(
                                 onPressed: !vm.checkPrevEnabled
                                     ? null
                                     : () => vm.check(false),
@@ -140,35 +140,35 @@ class WordsReviewPageState extends State<WordsReviewPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              StreamBuilder(
-                  stream: vm.wordTargetVisible_,
-                  builder: (context, snapshot) => Visibility(
+              ValueListenableBuilder(
+                  valueListenable: vm.wordTargetVisible_,
+                  builder: (context, value, _) => Visibility(
                       visible: vm.wordTargetVisible,
-                      child: StreamBuilder(
-                          stream: vm.wordTargetString_,
-                          builder: (context, snapshot) => Center(
+                      child: ValueListenableBuilder(
+                          valueListenable: vm.wordTargetString_,
+                          builder: (context, value, _) => Center(
                                 child: Text(vm.wordTargetString,
                                     style: const TextStyle(
                                         color: Colors.orange, fontSize: 50)),
                               )))),
-              StreamBuilder(
-                  stream: vm.noteTargetVisible_,
-                  builder: (context, snapshot) => Visibility(
+              ValueListenableBuilder(
+                  valueListenable: vm.noteTargetVisible_,
+                  builder: (context, value, _) => Visibility(
                       visible: vm.noteTargetVisible,
-                      child: StreamBuilder(
-                          stream: vm.noteTargetString_,
-                          builder: (context, snapshot) => Center(
+                      child: ValueListenableBuilder(
+                          valueListenable: vm.noteTargetString_,
+                          builder: (context, value, _) => Center(
                                 child: Text(vm.noteTargetString,
                                     style: const TextStyle(
                                         color: Colors.purpleAccent,
                                         fontSize: 40)),
                               )))),
-              StreamBuilder(
-                  stream: vm.translationString_,
-                  builder: (context, snapshot) => Text(vm.translationString)),
-              StreamBuilder(
-                  stream: vm.wordInputString_,
-                  builder: (context, snapshot) => TextField(
+              ValueListenableBuilder(
+                  valueListenable: vm.translationString_,
+                  builder: (context, value, _) => Text(vm.translationString)),
+              ValueListenableBuilder(
+                  valueListenable: vm.wordInputString_,
+                  builder: (context, value, _) => TextField(
                         style: const TextStyle(fontSize: 60),
                         onChanged: vm.wordInputString_.call,
                       ))
