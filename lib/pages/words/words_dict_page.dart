@@ -28,6 +28,7 @@ class WordsDictPageState extends State<WordsDictPage> {
     onlineDict = OnlineDict(vm);
     vm.selectedWordIndex_.listen((v, _) => onlineDict.searchDict());
     vmSettings.updateDictReference.listen((v, _) => onlineDict.searchDict());
+    vm.selectedWordIndex_(vm.selectedWordIndex);
   }
 
   @override
