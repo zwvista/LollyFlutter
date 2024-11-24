@@ -261,9 +261,6 @@ class WordsReviewViewModel {
       indexString = "${index + 1}/$count";
       accuracyString = currentItem!.accuracy;
       translationString = await getTranslation();
-      if (translationString.isEmpty && !options.speakingEnabled) {
-        wordInputString = currentWord;
-      }
     } else if (options.mode == ReviewMode.ReviewAuto) {
       subscriptionTimer?.cancel();
     }

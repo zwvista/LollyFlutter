@@ -7,7 +7,6 @@ import 'package:lolly_flutter/viewmodels/misc/home_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/patterns/patterns_viewmodel.dart';
 
-import '../../keys.dart';
 import '../../main.dart';
 
 class PatternsPage extends StatefulWidget {

@@ -424,7 +424,7 @@ class SettingsViewModel {
     });
     toType_ = Command.createSync((UnitPartToType v) {
       toType = v;
-    }, initialValue: UnitPartToType.To);
+    }, initialValue: null);
     toType_.listen((v, _) => setToType());
   }
 

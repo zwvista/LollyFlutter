@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_command/flutter_command.dart';
 import 'package:lolly_flutter/pages/misc/review_options_page.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_review_viewmodel.dart';
 
@@ -15,6 +16,7 @@ class PhrasesReviewPage extends StatefulWidget {
 
 class PhrasesReviewPageState extends State<PhrasesReviewPage> {
   late PhrasesReviewViewModel vm;
+  final phraseInputStringController = TextEditingController();
 
   @override
   void initState() {
@@ -24,6 +26,8 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
     });
     Future.delayed(const Duration(seconds: 1), () => more());
     widget.vmHome.more = more;
+    vm.phraseInputString_
+        .listen((v, _) => phraseInputStringController.text = v);
   }
 
   @override
@@ -149,6 +153,7 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
               ValueListenableBuilder(
                   valueListenable: vm.phraseInputString_,
                   builder: (context, value, _) => TextField(
+                        controller: phraseInputStringController,
                         style: const TextStyle(fontSize: 60),
                         onChanged: vm.phraseInputString_.call,
                       ))

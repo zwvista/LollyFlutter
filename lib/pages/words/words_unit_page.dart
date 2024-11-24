@@ -8,7 +8,6 @@ import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../keys.dart';
 import '../../main.dart';
 import '../../viewmodels/misc/home_viewmodel.dart';
 

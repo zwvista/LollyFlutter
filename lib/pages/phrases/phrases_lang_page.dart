@@ -5,7 +5,6 @@ import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_viewmodel.dart';
 
-import '../../keys.dart';
 import '../../main.dart';
 import '../../viewmodels/misc/home_viewmodel.dart';
 
