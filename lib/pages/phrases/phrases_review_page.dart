@@ -33,6 +33,7 @@ class PhrasesReviewPageState extends State<PhrasesReviewPage> {
   @override
   void dispose() {
     vm.subscriptionTimer?.cancel();
+    phraseInputStringController.dispose();
     super.dispose();
   }
 
