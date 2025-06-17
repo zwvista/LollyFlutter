@@ -18,8 +18,6 @@ class UnitBlogPostsPageState extends State<UnitBlogPostsPage> {
   WebViewController controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
-  UnitBlogPostsPageState() {}
-
   @override
   void initState() {
     super.initState();
