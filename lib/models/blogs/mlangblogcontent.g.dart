@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'mlangblogpostcontent.dart';
+part of 'mlangblogcontent.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'mlangblogpostcontent.g.dart';
+part 'mlangblogcontent.g.dart';
 
 @JsonSerializable()
 class MLangBlogsContent {
