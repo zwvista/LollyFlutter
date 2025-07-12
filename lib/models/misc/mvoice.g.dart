@@ -16,7 +16,6 @@ Map<String, dynamic> _$MVoicesToJson(MVoices instance) => <String, dynamic>{
     };
 
 MVoice _$MVoiceFromJson(Map<String, dynamic> json) => MVoice()
-  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..voicetypeid = (json['VOICETYPEID'] as num).toInt()
   ..voicelang = json['VOICELANG'] as String

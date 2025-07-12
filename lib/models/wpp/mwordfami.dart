@@ -15,7 +15,7 @@ class MWordsFami {
 
 @JsonSerializable()
 class MWordFami {
-  @JsonKey(name: 'ID')
+  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
   var id = 0;
   @JsonKey(name: 'USERID')
   var userid = "";

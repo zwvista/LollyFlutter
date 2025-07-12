@@ -16,7 +16,7 @@ class MUnitWords {
 
 @JsonSerializable()
 class MUnitWord {
-  @JsonKey(name: 'ID')
+  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
   var id = 0;
   @JsonKey(name: 'LANGID')
   var langid = 0;

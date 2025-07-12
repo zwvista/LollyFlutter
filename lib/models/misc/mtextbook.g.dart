@@ -17,7 +17,6 @@ Map<String, dynamic> _$MTextbooksToJson(MTextbooks instance) =>
     };
 
 MTextbook _$MTextbookFromJson(Map<String, dynamic> json) => MTextbook()
-  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..textbookname = json['NAME'] as String
   ..units = json['UNITS'] as String

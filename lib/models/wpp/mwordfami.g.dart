@@ -17,7 +17,6 @@ Map<String, dynamic> _$MWordsFamiToJson(MWordsFami instance) =>
     };
 
 MWordFami _$MWordFamiFromJson(Map<String, dynamic> json) => MWordFami()
-  ..id = (json['ID'] as num).toInt()
   ..userid = json['USERID'] as String
   ..wordid = (json['WORDID'] as num).toInt()
   ..correct = (json['CORRECT'] as num).toInt()

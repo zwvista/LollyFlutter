@@ -17,7 +17,6 @@ Map<String, dynamic> _$MUnitWordsToJson(MUnitWords instance) =>
     };
 
 MUnitWord _$MUnitWordFromJson(Map<String, dynamic> json) => MUnitWord()
-  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..textbookid = (json['TEXTBOOKID'] as num).toInt()
   ..textbookname = json['TEXTBOOKNAME'] as String

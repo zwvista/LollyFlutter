@@ -16,9 +16,8 @@ Map<String, dynamic> _$MLanguagesToJson(MLanguages instance) =>
       'records': instance.lst,
     };
 
-MLanguage _$MLanguageFromJson(Map<String, dynamic> json) => MLanguage()
-  ..id = (json['ID'] as num).toInt()
-  ..langname = json['NAME'] as String;
+MLanguage _$MLanguageFromJson(Map<String, dynamic> json) =>
+    MLanguage()..langname = json['NAME'] as String;
 
 Map<String, dynamic> _$MLanguageToJson(MLanguage instance) => <String, dynamic>{
       'ID': instance.id,

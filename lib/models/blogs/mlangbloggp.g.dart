@@ -17,7 +17,6 @@ Map<String, dynamic> _$MLangBlogGPsToJson(MLangBlogGPs instance) =>
     };
 
 MLangBlogGP _$MLangBlogGPFromJson(Map<String, dynamic> json) => MLangBlogGP()
-  ..id = (json['ID'] as num).toInt()
   ..groupid = (json['GROUPID'] as num).toInt()
   ..postid = (json['POSTID'] as num).toInt()
   ..groupname = json['GROUPNAME'] as String

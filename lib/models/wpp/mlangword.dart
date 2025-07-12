@@ -15,7 +15,7 @@ class MLangWords {
 
 @JsonSerializable()
 class MLangWord {
-  @JsonKey(name: 'ID')
+  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
   var id = 0;
   @JsonKey(name: 'LANGID')
   var langid = 0;

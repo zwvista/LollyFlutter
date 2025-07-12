@@ -17,7 +17,7 @@ class MUnitBlogPosts {
 
 @JsonSerializable()
 class MUnitBlogPost {
-  @JsonKey(name: 'ID')
+  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
   int id = 0;
   @JsonKey(name: 'TEXTBOOKID')
   int textbookid = 0;
