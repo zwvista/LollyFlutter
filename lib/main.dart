@@ -123,6 +123,8 @@ class MyHomePageState extends State<MyHomePage> {
         return 'Online Textbook';
       case NavItem.unitBlogPostsPage:
         return 'Unit Blog Posts';
+      case NavItem.langBlogGroupsPage:
+        return 'Language Blog Groups';
       default:
         return '';
     }
@@ -155,6 +157,8 @@ class MyHomePageState extends State<MyHomePage> {
       case NavItem.onlineTextbooksPage:
         return const OnlineTextbooksPage();
       case NavItem.unitBlogPostsPage:
+        return const UnitBlogPostsPage();
+      case NavItem.langBlogGroupsPage:
         return const UnitBlogPostsPage();
       default:
         return const Center(

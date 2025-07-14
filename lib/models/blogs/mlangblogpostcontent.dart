@@ -1,18 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'mlangblogcontent.g.dart';
+part 'mlangblogpostcontent.g.dart';
 
 @JsonSerializable()
-class MLangBlogsContent {
+class MLangBlogPostContents {
   @JsonKey(name: 'records')
   List<MLangBlogPostContent> lst = [];
 
-  MLangBlogsContent();
+  MLangBlogPostContents();
 
-  factory MLangBlogsContent.fromJson(Map<String, dynamic> json) =>
-      _$MLangBlogsContentFromJson(json);
+  factory MLangBlogPostContents.fromJson(Map<String, dynamic> json) =>
+      _$MLangBlogPostContentsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MLangBlogsContentToJson(this);
+  Map<String, dynamic> toJson() => _$MLangBlogPostContentsToJson(this);
 }
 
 @JsonSerializable()

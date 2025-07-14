@@ -1,18 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'mlangblogcontent.dart';
+part of 'mlangblogpostcontent.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MLangBlogsContent _$MLangBlogsContentFromJson(Map<String, dynamic> json) =>
-    MLangBlogsContent()
+MLangBlogPostContents _$MLangBlogPostContentsFromJson(
+        Map<String, dynamic> json) =>
+    MLangBlogPostContents()
       ..lst = (json['records'] as List<dynamic>)
           .map((e) => MLangBlogPostContent.fromJson(e as Map<String, dynamic>))
           .toList();
 
-Map<String, dynamic> _$MLangBlogsContentToJson(MLangBlogsContent instance) =>
+Map<String, dynamic> _$MLangBlogPostContentsToJson(
+        MLangBlogPostContents instance) =>
     <String, dynamic>{
       'records': instance.lst,
     };

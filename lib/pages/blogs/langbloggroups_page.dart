@@ -1,0 +1,135 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:lolly_flutter/pages/langBlogGroups/langBlogGroups_detail_page.dart';
+import 'package:lolly_flutter/pages/langBlogGroups/langBlogGroups_webpage_page.dart';
+import 'package:lolly_flutter/viewmodels/langBlogGroups/langBlogGroups_viewmodel.dart';
+
+import '../../main.dart';
+
+class LangBlogGroupsPage extends StatefulWidget {
+  const LangBlogGroupsPage({super.key});
+
+  @override
+  LangBlogGroupsPageState createState() => LangBlogGroupsPageState();
+}
+
+class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
+  final vm = LangBlogGroupsViewModel();
+
+  LangBlogGroupsPageState() {
+    vm.reloaded = false;
+    vm.reloadCommand();
+  }
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(children: [
+                Expanded(
+                  child: ValueListenableBuilder(
+                      valueListenable: vm.langBlogGroupFilter_,
+                      builder: (context, value, _) => DropdownButtonFormField(
+                            value: vm.langBlogGroupFilter,
+                            items: vmSettings.lstLangBlogGroupFilters
+                                .map((o) => DropdownMenuItem(
+                                    value: o.value, child: Text(o.label)))
+                                .toList(),
+                            onChanged: vm.langBlogGroupFilter_.call,
+                          )),
+                )
+              ])),
+          Expanded(
+            child: ValueListenableBuilder(
+              valueListenable: vm.reloadCommand,
+              builder: (context, data, _) => ListView.separated(
+                itemCount: vm.lstLangBlogGroups.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (BuildContext context, int index) {
+                  final entry = vm.lstLangBlogGroups[index];
+                  void edit() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LangBlogGroupsDetailPage(entry),
+                          fullscreenDialog: true));
+                  void browseWebPage() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return LangBlogGroupsWebPagePage(
+                          vm.lstLangBlogGroups, index);
+                    }));
+                  }
+
+                  return Slidable(
+                    startActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                          label: 'Edit',
+                          backgroundColor: Colors.blue,
+                          icon: Icons.mode_edit,
+                          onPressed: (context) => edit(),
+                        ),
+                      ],
+                    ),
+                    endActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                            label: 'More',
+                            backgroundColor: Colors.black45,
+                            icon: Icons.more_horiz,
+                            onPressed: (context) => showDialog(
+                                  context: context,
+                                  builder: (context) => SimpleDialog(
+                                      title: const Text("More"),
+                                      children: [
+                                        SimpleDialogOption(
+                                            child: const Text("Edit"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              edit();
+                                            }),
+                                        SimpleDialogOption(
+                                            child:
+                                                const Text("Browse Web Page"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              browseWebPage();
+                                            }),
+                                      ]),
+                                )),
+                      ],
+                    ),
+                    child: Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          title: Text(
+                            entry.textbookname,
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.orange),
+                          ),
+                          subtitle: Text(entry.title,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Color.fromARGB(255, 255, 0, 255),
+                              )),
+                          trailing: IconButton(
+                              icon: const Icon(Icons.keyboard_arrow_right,
+                                  color: Colors.blue, size: 30.0),
+                              onPressed: () => browseWebPage()),
+                          onTap: () {
+                            speak(entry.textbookname);
+                          },
+                        )),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      );
+}

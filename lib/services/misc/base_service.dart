@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,7 @@ class BaseService<T> {
   }
 
   Future<int> createByUrl(String url, T item) async {
-    final body = json.encode(item).replaceAll('"ID":0,', '');
+    final body = json.encode(item);
     final uri = "$urlAPI$url";
     debugPrint("[RestApi]POST:$uri BODY:$body");
     final response = await http.post(Uri.parse(uri), body: body);
@@ -73,5 +74,25 @@ extension StringExtensions on String {
   void google() async {
     final url = "https://www.google.com/search?q=${Uri.encodeFull(this)}";
     await launchUrl(Uri.parse(url));
+  }
+}
+
+extension ApiExtensions on Future<int> {
+  Future<int> logCreate() async {
+    final result = await this;
+    developer.log("✅ Created new item: result=$result");
+    return result;
+  }
+
+  Future<int> logUpdate(int id) async {
+    final result = await this;
+    developer.log("📝 Updated item ID=$id, result=$result");
+    return result;
+  }
+
+  Future<int> logDelete() async {
+    final result = await this;
+    developer.log("❌ Deleted item result=$result");
+    return result;
   }
 }
