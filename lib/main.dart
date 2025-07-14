@@ -4,6 +4,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_bloc.dart';
 import 'package:lolly_flutter/bloc/nav_drawer_state.dart';
 import 'package:lolly_flutter/drawer_widget.dart';
+import 'package:lolly_flutter/pages/blogs/langbloggroups_page.dart';
 import 'package:lolly_flutter/pages/blogs/unitblogposts_page.dart';
 import 'package:lolly_flutter/pages/misc/search_page.dart';
 import 'package:lolly_flutter/pages/misc/settings_page.dart';
@@ -159,7 +160,7 @@ class MyHomePageState extends State<MyHomePage> {
       case NavItem.unitBlogPostsPage:
         return const UnitBlogPostsPage();
       case NavItem.langBlogGroupsPage:
-        return const UnitBlogPostsPage();
+        return const LangBlogGroupsPage();
       default:
         return const Center(
           child: Text(

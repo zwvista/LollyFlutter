@@ -34,6 +34,8 @@ class NavDrawerWidget extends StatelessWidget {
         Icons.directions_railway),
     _NavigationItem(false, NavItem.unitBlogPostsPage, "Unit Blog Posts",
         Icons.directions_run),
+    _NavigationItem(false, NavItem.langBlogGroupsPage, "Language Blog Groups",
+        Icons.directions_ferry),
   ];
 
   NavDrawerWidget(this.accountName, this.accountEmail, {super.key});

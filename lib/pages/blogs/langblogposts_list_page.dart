@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../main.dart';
+import '../../models/blogs/mlangbloggroup.dart';
 import '../../viewmodels/blogs/langbloggroups_viewmodel.dart';
-import 'langbloggroups_detail_page.dart';
-import 'langblogposts_list_page.dart';
+import 'langblogposts_content_page.dart';
+import 'langblogposts_detail_page.dart';
 
-class LangBlogGroupsPage extends StatefulWidget {
-  const LangBlogGroupsPage({super.key});
+class LangBlogPostsListPage extends StatefulWidget {
+  const LangBlogPostsListPage(MLangBlogGroup item, {super.key});
 
   @override
-  LangBlogGroupsPageState createState() => LangBlogGroupsPageState();
+  LangBlogPostsListPageState createState() => LangBlogPostsListPageState();
 }
 
-class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
+class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
   final vm = LangBlogGroupsViewModel();
 
-  LangBlogGroupsPageState() {
+  LangBlogPostsListPageState() {
     vm.reloaded = false;
     vm.reloadCommand();
   }
@@ -41,19 +42,20 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
             child: ValueListenableBuilder(
               valueListenable: vm.reloadCommand,
               builder: (context, data, _) => ListView.separated(
-                itemCount: vm.lstLangBlogGroups.length,
+                itemCount: vm.lstLangBlogPosts.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
-                  final entry = vm.lstLangBlogGroups[index];
+                  final entry = vm.lstLangBlogPosts[index];
                   void edit() => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => LangBlogGroupsDetailPage(entry),
+                          builder: (context) => LangBlogPostsDetailPage(entry),
                           fullscreenDialog: true));
-                  void showPosts() {
+                  void browseWebPage() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return LangBlogPostsListPage(entry);
+                      return LangBlogPostsContentPage(
+                          vm.lstLangBlogPosts, index);
                     }));
                   }
 
@@ -90,10 +92,11 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child: const Text("Show Posts"),
+                                            child:
+                                                const Text("Browse Web Page"),
                                             onPressed: () {
                                               Navigator.pop(context);
-                                              showPosts();
+                                              browseWebPage();
                                             }),
                                       ]),
                                 )),
@@ -103,11 +106,11 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
                         color: Colors.white,
                         child: ListTile(
                           title: Text(
-                            entry.groupname,
+                            entry.title,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.orange),
                           ),
-                          subtitle: Text(entry.groupname,
+                          subtitle: Text(entry.title,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 255, 0, 255),
@@ -115,9 +118,9 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
                           trailing: IconButton(
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
-                              onPressed: () => showPosts()),
+                              onPressed: () => browseWebPage()),
                           onTap: () {
-                            speak(entry.groupname);
+                            speak(entry.title);
                           },
                         )),
                   );
