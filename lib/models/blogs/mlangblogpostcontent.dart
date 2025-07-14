@@ -17,7 +17,7 @@ class MLangBlogPostContents {
 
 @JsonSerializable()
 class MLangBlogPostContent {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   int id = 0;
   @JsonKey(name: 'TITLE')
   String title = "";

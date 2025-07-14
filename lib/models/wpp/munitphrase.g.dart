@@ -17,6 +17,7 @@ Map<String, dynamic> _$MUnitPhrasesToJson(MUnitPhrases instance) =>
     };
 
 MUnitPhrase _$MUnitPhraseFromJson(Map<String, dynamic> json) => MUnitPhrase()
+  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..textbookid = (json['TEXTBOOKID'] as num).toInt()
   ..textbookname = json['TEXTBOOKNAME'] as String
@@ -32,7 +33,6 @@ MUnitPhrase _$MUnitPhraseFromJson(Map<String, dynamic> json) => MUnitPhrase()
 
 Map<String, dynamic> _$MUnitPhraseToJson(MUnitPhrase instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'LANGID': instance.langid,
       'TEXTBOOKID': instance.textbookid,
       'TEXTBOOKNAME': instance.textbookname,

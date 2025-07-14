@@ -17,7 +17,7 @@ class MLanguages {
 
 @JsonSerializable()
 class MLanguage {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   int id = 0;
   @JsonKey(name: 'NAME')
   var langname = "";

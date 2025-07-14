@@ -17,7 +17,7 @@ class MLangBlogGPs {
 
 @JsonSerializable()
 class MLangBlogGP {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   int id = 0;
   @JsonKey(name: 'GROUPID')
   int groupid = 0;

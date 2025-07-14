@@ -17,6 +17,7 @@ Map<String, dynamic> _$MLangWordsToJson(MLangWords instance) =>
     };
 
 MLangWord _$MLangWordFromJson(Map<String, dynamic> json) => MLangWord()
+  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..word = json['WORD'] as String
   ..note = json['NOTE'] as String
@@ -25,7 +26,6 @@ MLangWord _$MLangWordFromJson(Map<String, dynamic> json) => MLangWord()
   ..total = (json['TOTAL'] as num).toInt();
 
 Map<String, dynamic> _$MLangWordToJson(MLangWord instance) => <String, dynamic>{
-      'ID': instance.id,
       'LANGID': instance.langid,
       'WORD': instance.word,
       'NOTE': instance.note,

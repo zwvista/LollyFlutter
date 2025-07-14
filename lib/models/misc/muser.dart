@@ -16,7 +16,7 @@ class MUsers {
 
 @JsonSerializable()
 class MUser {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   var id = 0;
   @JsonKey(name: 'USERID')
   var userid = "";

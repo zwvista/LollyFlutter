@@ -22,13 +22,13 @@ Map<String, dynamic> _$MLangBlogPostContentsToJson(
 MLangBlogPostContent _$MLangBlogPostContentFromJson(
         Map<String, dynamic> json) =>
     MLangBlogPostContent()
+      ..id = (json['ID'] as num).toInt()
       ..title = json['TITLE'] as String
       ..content = json['CONTENT'] as String;
 
 Map<String, dynamic> _$MLangBlogPostContentToJson(
         MLangBlogPostContent instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'TITLE': instance.title,
       'CONTENT': instance.content,
     };

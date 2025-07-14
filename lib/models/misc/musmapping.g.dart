@@ -17,6 +17,7 @@ Map<String, dynamic> _$MUSMappingsToJson(MUSMappings instance) =>
     };
 
 MUSMapping _$MUSMappingFromJson(Map<String, dynamic> json) => MUSMapping()
+  ..id = (json['ID'] as num).toInt()
   ..name = json['NAME'] as String
   ..kind = (json['KIND'] as num).toInt()
   ..entityid = (json['ENTITYID'] as num).toInt()
@@ -25,7 +26,6 @@ MUSMapping _$MUSMappingFromJson(Map<String, dynamic> json) => MUSMapping()
 
 Map<String, dynamic> _$MUSMappingToJson(MUSMapping instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'NAME': instance.name,
       'KIND': instance.kind,
       'ENTITYID': instance.entityid,

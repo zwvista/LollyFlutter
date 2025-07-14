@@ -17,6 +17,7 @@ Map<String, dynamic> _$MUnitWordsToJson(MUnitWords instance) =>
     };
 
 MUnitWord _$MUnitWordFromJson(Map<String, dynamic> json) => MUnitWord()
+  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..textbookid = (json['TEXTBOOKID'] as num).toInt()
   ..textbookname = json['TEXTBOOKNAME'] as String
@@ -34,7 +35,6 @@ MUnitWord _$MUnitWordFromJson(Map<String, dynamic> json) => MUnitWord()
       : MTextbook.fromJson(json['textbook'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$MUnitWordToJson(MUnitWord instance) => <String, dynamic>{
-      'ID': instance.id,
       'LANGID': instance.langid,
       'TEXTBOOKID': instance.textbookid,
       'TEXTBOOKNAME': instance.textbookname,

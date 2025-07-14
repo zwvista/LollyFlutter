@@ -15,7 +15,7 @@ class MLangPhrases {
 
 @JsonSerializable()
 class MLangPhrase {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   var id = 0;
   @JsonKey(name: 'LANGID')
   var langid = 0;

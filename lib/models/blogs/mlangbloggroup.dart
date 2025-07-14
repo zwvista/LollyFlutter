@@ -17,7 +17,7 @@ class MLangBlogGroups {
 
 @JsonSerializable()
 class MLangBlogGroup {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   int id = 0;
   @JsonKey(name: 'LANGID')
   int langid = 0;

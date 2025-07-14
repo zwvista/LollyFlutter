@@ -19,12 +19,12 @@ Map<String, dynamic> _$MLangBlogGroupsToJson(MLangBlogGroups instance) =>
 
 MLangBlogGroup _$MLangBlogGroupFromJson(Map<String, dynamic> json) =>
     MLangBlogGroup()
+      ..id = (json['ID'] as num).toInt()
       ..langid = (json['LANGID'] as num).toInt()
       ..groupname = json['NAME'] as String;
 
 Map<String, dynamic> _$MLangBlogGroupToJson(MLangBlogGroup instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'LANGID': instance.langid,
       'NAME': instance.groupname,
     };

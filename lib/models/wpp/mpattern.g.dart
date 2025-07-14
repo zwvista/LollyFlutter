@@ -16,6 +16,7 @@ Map<String, dynamic> _$MPatternsToJson(MPatterns instance) => <String, dynamic>{
     };
 
 MPattern _$MPatternFromJson(Map<String, dynamic> json) => MPattern()
+  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..pattern = json['PATTERN'] as String
   ..tags = json['TAGS'] as String
@@ -23,7 +24,6 @@ MPattern _$MPatternFromJson(Map<String, dynamic> json) => MPattern()
   ..url = json['URL'] as String;
 
 Map<String, dynamic> _$MPatternToJson(MPattern instance) => <String, dynamic>{
-      'ID': instance.id,
       'LANGID': instance.langid,
       'PATTERN': instance.pattern,
       'TAGS': instance.tags,

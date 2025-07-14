@@ -21,7 +21,7 @@ class MDictionaries {
 
 @JsonSerializable()
 class MDictionary {
-  @JsonKey(name: 'ID', includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'ID', includeFromJson: true, includeToJson: false)
   var id = 0;
   @JsonKey(name: 'DICTID')
   var dictid = 0;

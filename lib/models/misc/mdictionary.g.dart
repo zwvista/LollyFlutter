@@ -18,6 +18,7 @@ Map<String, dynamic> _$MDictionariesToJson(MDictionaries instance) =>
     };
 
 MDictionary _$MDictionaryFromJson(Map<String, dynamic> json) => MDictionary()
+  ..id = (json['ID'] as num).toInt()
   ..dictid = (json['DICTID'] as num).toInt()
   ..langidfrom = (json['LANGIDFROM'] as num).toInt()
   ..langnamefrom = json['LANGNAMEFROM'] as String
@@ -37,7 +38,6 @@ MDictionary _$MDictionaryFromJson(Map<String, dynamic> json) => MDictionary()
 
 Map<String, dynamic> _$MDictionaryToJson(MDictionary instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'DICTID': instance.dictid,
       'LANGIDFROM': instance.langidfrom,
       'LANGNAMEFROM': instance.langnamefrom,

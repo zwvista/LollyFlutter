@@ -19,13 +19,13 @@ Map<String, dynamic> _$MUnitBlogPostsToJson(MUnitBlogPosts instance) =>
 
 MUnitBlogPost _$MUnitBlogPostFromJson(Map<String, dynamic> json) =>
     MUnitBlogPost()
+      ..id = (json['ID'] as num).toInt()
       ..textbookid = (json['TEXTBOOKID'] as num).toInt()
       ..unit = (json['UNIT'] as num).toInt()
       ..content = json['CONTENT'] as String;
 
 Map<String, dynamic> _$MUnitBlogPostToJson(MUnitBlogPost instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'TEXTBOOKID': instance.textbookid,
       'UNIT': instance.unit,
       'CONTENT': instance.content,

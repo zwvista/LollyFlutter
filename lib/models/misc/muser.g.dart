@@ -16,12 +16,12 @@ Map<String, dynamic> _$MUsersToJson(MUsers instance) => <String, dynamic>{
     };
 
 MUser _$MUserFromJson(Map<String, dynamic> json) => MUser()
+  ..id = (json['ID'] as num).toInt()
   ..userid = json['USERID'] as String
   ..username = json['USERNAME'] as String
   ..password = json['PASSWORD'] as String;
 
 Map<String, dynamic> _$MUserToJson(MUser instance) => <String, dynamic>{
-      'ID': instance.id,
       'USERID': instance.userid,
       'USERNAME': instance.username,
       'PASSWORD': instance.password,

@@ -17,13 +17,13 @@ Map<String, dynamic> _$MLangPhrasesToJson(MLangPhrases instance) =>
     };
 
 MLangPhrase _$MLangPhraseFromJson(Map<String, dynamic> json) => MLangPhrase()
+  ..id = (json['ID'] as num).toInt()
   ..langid = (json['LANGID'] as num).toInt()
   ..phrase = json['PHRASE'] as String
   ..translation = json['TRANSLATION'] as String;
 
 Map<String, dynamic> _$MLangPhraseToJson(MLangPhrase instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'LANGID': instance.langid,
       'PHRASE': instance.phrase,
       'TRANSLATION': instance.translation,

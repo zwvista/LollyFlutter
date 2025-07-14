@@ -18,6 +18,7 @@ Map<String, dynamic> _$MUserSettingsToJson(MUserSettings instance) =>
     };
 
 MUserSetting _$MUserSettingFromJson(Map<String, dynamic> json) => MUserSetting()
+  ..id = (json['ID'] as num).toInt()
   ..userid = json['USERID'] as String
   ..kind = (json['KIND'] as num).toInt()
   ..entityid = (json['ENTITYID'] as num).toInt()
@@ -28,7 +29,6 @@ MUserSetting _$MUserSettingFromJson(Map<String, dynamic> json) => MUserSetting()
 
 Map<String, dynamic> _$MUserSettingToJson(MUserSetting instance) =>
     <String, dynamic>{
-      'ID': instance.id,
       'USERID': instance.userid,
       'KIND': instance.kind,
       'ENTITYID': instance.entityid,
