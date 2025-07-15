@@ -16,9 +16,11 @@ class LangBlogGroupsPage extends StatefulWidget {
 class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
   final vm = LangBlogGroupsViewModel();
 
-  LangBlogGroupsPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm.reloadedGroups = false;
+    vm.reloadGroupsCommand();
   }
 
   @override
@@ -39,7 +41,7 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
               ])),
           Expanded(
             child: ValueListenableBuilder(
-              valueListenable: vm.reloadCommand,
+              valueListenable: vm.reloadGroupsCommand,
               builder: (context, data, _) => ListView.separated(
                 itemCount: vm.lstLangBlogGroups.length,
                 separatorBuilder: (context, index) => const Divider(),
@@ -51,9 +53,10 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
                           builder: (context) => LangBlogGroupsDetailPage(entry),
                           fullscreenDialog: true));
                   void showPosts() {
+                    vm.selectedGroup = entry;
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return LangBlogPostsListPage(entry);
+                      return LangBlogPostsListPage(vm);
                     }));
                   }
 

@@ -34,7 +34,7 @@ class LangBlogPostsContentPageState extends State<LangBlogPostsContentPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: const Text('Online Textbooks (Web Page)')),
+      appBar: AppBar(title: const Text('Language Blog Posts(Content)')),
       body: Column(children: [
         Row(children: [
           Expanded(

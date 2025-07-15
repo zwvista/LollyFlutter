@@ -10,9 +10,11 @@ class LangBlogViewModel {
   final langBlogGroupService = LangBlogGroupService();
   final groupFilter_ = Command.createSync((String v) => v, initialValue: "");
   String get groupFilter => groupFilter_.value;
+  MLangBlogGroup? selectedGroup;
 
   List<MLangBlogPost> lstLangBlogPostsAll = [], lstLangBlogPosts = [];
   final langBlogPostService = LangBlogPostService();
   final postFilter_ = Command.createSync((String v) => v, initialValue: "");
   String get postFilter => postFilter_.value;
+  MLangBlogPost? selectedPost;
 }

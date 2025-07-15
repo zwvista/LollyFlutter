@@ -2,28 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../main.dart';
-import '../../models/blogs/mlangbloggroup.dart';
 import '../../viewmodels/blogs/langbloggroups_viewmodel.dart';
 import 'langblogposts_content_page.dart';
 import 'langblogposts_detail_page.dart';
 
 class LangBlogPostsListPage extends StatefulWidget {
-  const LangBlogPostsListPage(MLangBlogGroup item, {super.key});
+  final LangBlogGroupsViewModel vm;
+  const LangBlogPostsListPage(this.vm, {super.key});
 
   @override
   LangBlogPostsListPageState createState() => LangBlogPostsListPageState();
 }
 
 class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
-  final vm = LangBlogGroupsViewModel();
+  LangBlogGroupsViewModel get vm => widget.vm;
 
-  LangBlogPostsListPageState() {
-    vm.reloaded = false;
-    vm.reloadCommand();
+  @override
+  void initState() {
+    super.initState();
+    vm.reloadedPosts = false;
+    vm.reloadPostsCommand();
   }
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(title: const Text('Language Blog Posts(List)')),
+      body: Column(
         children: [
           Padding(
               padding: const EdgeInsets.all(16.0),
@@ -40,7 +44,7 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
               ])),
           Expanded(
             child: ValueListenableBuilder(
-              valueListenable: vm.reloadCommand,
+              valueListenable: vm.reloadPostsCommand,
               builder: (context, data, _) => ListView.separated(
                 itemCount: vm.lstLangBlogPosts.length,
                 separatorBuilder: (context, index) => const Divider(),
@@ -51,7 +55,8 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
                       MaterialPageRoute(
                           builder: (context) => LangBlogPostsDetailPage(entry),
                           fullscreenDialog: true));
-                  void browseWebPage() {
+                  void showContent() {
+                    vm.selectedPost = entry;
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return LangBlogPostsContentPage(
@@ -92,11 +97,10 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
                                               edit();
                                             }),
                                         SimpleDialogOption(
-                                            child:
-                                                const Text("Browse Web Page"),
+                                            child: const Text("Show Content"),
                                             onPressed: () {
                                               Navigator.pop(context);
-                                              browseWebPage();
+                                              showContent();
                                             }),
                                       ]),
                                 )),
@@ -118,7 +122,7 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
                           trailing: IconButton(
                               icon: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.blue, size: 30.0),
-                              onPressed: () => browseWebPage()),
+                              onPressed: () => showContent()),
                           onTap: () {
                             speak(entry.title);
                           },
@@ -129,5 +133,5 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
             ),
           ),
         ],
-      );
+      ));
 }

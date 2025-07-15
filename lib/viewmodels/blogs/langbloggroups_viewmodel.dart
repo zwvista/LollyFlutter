@@ -6,16 +6,17 @@ import '../../models/blogs/mlangblogpost.dart';
 import 'langblog_viewmodel.dart';
 
 class LangBlogGroupsViewModel extends LangBlogViewModel {
-  var reloaded = false;
-  late Command<void, List<MLangBlogGroup>> reloadCommand;
-  late Command<MLangBlogGroup, List<MLangBlogPost>> selectGroupCommand;
+  var reloadedGroups = false;
+  late Command<void, List<MLangBlogGroup>> reloadGroupsCommand;
+  var reloadedPosts = false;
+  late Command<void, List<MLangBlogPost>> reloadPostsCommand;
 
   LangBlogGroupsViewModel() {
-    reloadCommand = Command.createAsyncNoParam(() async {
-      if (!reloaded) {
+    reloadGroupsCommand = Command.createAsyncNoParam(() async {
+      if (!reloadedGroups) {
         lstLangBlogGroupsAll = await langBlogGroupService
             .getDataByLang(vmSettings.selectedLang!.id);
-        reloaded = true;
+        reloadedGroups = true;
       }
       lstLangBlogGroups = groupFilter.isEmpty
           ? lstLangBlogGroupsAll
@@ -25,11 +26,14 @@ class LangBlogGroupsViewModel extends LangBlogViewModel {
               .toList();
       return lstLangBlogGroups;
     }, initialValue: []);
-    groupFilter_.listen((v, _) => reloadCommand());
+    groupFilter_.listen((v, _) => reloadGroupsCommand());
 
-    selectGroupCommand = Command.createAsync((MLangBlogGroup group) async {
-      lstLangBlogPostsAll =
-          await langBlogPostService.getDataByLang(vmSettings.selectedLang!.id);
+    reloadPostsCommand = Command.createAsyncNoParam(() async {
+      if (!reloadedPosts) {
+        lstLangBlogPostsAll = await langBlogPostService.getDataByLangGroup(
+            vmSettings.selectedLang!.id, selectedGroup?.id ?? 0);
+        reloadedPosts = true;
+      }
       lstLangBlogPosts = postFilter.isEmpty
           ? lstLangBlogPostsAll
           : lstLangBlogPostsAll
@@ -38,5 +42,6 @@ class LangBlogGroupsViewModel extends LangBlogViewModel {
               .toList();
       return lstLangBlogPosts;
     }, initialValue: []);
+    postFilter_.listen((v, _) => reloadPostsCommand());
   }
 }
