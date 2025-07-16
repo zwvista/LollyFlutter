@@ -56,11 +56,11 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
                           builder: (context) => LangBlogPostsDetailPage(entry),
                           fullscreenDialog: true));
                   void showContent() {
-                    vm.selectedPost = entry;
+                    vm.selectedPost_(entry);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return LangBlogPostsContentPage(
-                          vm.lstLangBlogPosts, index);
+                          vm.lstLangBlogPosts, index, vm);
                     }));
                   }
 

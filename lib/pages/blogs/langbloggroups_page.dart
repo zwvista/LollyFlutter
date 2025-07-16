@@ -53,7 +53,7 @@ class LangBlogGroupsPageState extends State<LangBlogGroupsPage> {
                           builder: (context) => LangBlogGroupsDetailPage(entry),
                           fullscreenDialog: true));
                   void showPosts() {
-                    vm.selectedGroup = entry;
+                    vm.selectedGroup_(entry);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return LangBlogPostsListPage(vm);

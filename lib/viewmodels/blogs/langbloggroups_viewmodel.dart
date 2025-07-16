@@ -43,5 +43,6 @@ class LangBlogGroupsViewModel extends LangBlogViewModel {
       return lstLangBlogPosts;
     }, initialValue: []);
     postFilter_.listen((v, _) => reloadPostsCommand());
+    selectedGroup_.listen((v, _) => reloadPostsCommand());
   }
 }

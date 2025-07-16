@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_command/flutter_command.dart';
+import 'package:lolly_flutter/viewmodels/blogs/langbloggroups_viewmodel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../models/blogs/mlangblogpost.dart';
@@ -9,8 +10,10 @@ import '../../viewmodels/blogs/langblogposts_content_viewmodel.dart';
 
 class LangBlogPostsContentPage extends StatefulWidget {
   final LangBlogPostsContentViewModel vm;
+  final LangBlogGroupsViewModel vmGroups;
 
-  LangBlogPostsContentPage(List<MLangBlogPost> lstLangBlogPosts, int index,
+  LangBlogPostsContentPage(
+      List<MLangBlogPost> lstLangBlogPosts, int index, this.vmGroups,
       {super.key})
       : vm = LangBlogPostsContentViewModel(lstLangBlogPosts, index);
 
@@ -21,15 +24,16 @@ class LangBlogPostsContentPage extends StatefulWidget {
 
 class LangBlogPostsContentPageState extends State<LangBlogPostsContentPage> {
   LangBlogPostsContentViewModel get vm => widget.vm;
+  LangBlogGroupsViewModel get vmGroups => widget.vmGroups;
   final controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
   @override
   void initState() {
     super.initState();
-    load() => controller.loadRequest(Uri.parse(vm.selectedLangBlogPost.url));
-    vm.selectedLangBlogPostIndex_.listen((v, _) => load());
-    load();
+    vm.selectedLangBlogPostIndex_
+        .listen((v, _) => vmGroups.selectedPost_(vm.selectedLangBlogPost));
+    vmGroups.langBlogPostHtml.listen((v, _) => controller.loadHtmlString(v));
   }
 
   @override
