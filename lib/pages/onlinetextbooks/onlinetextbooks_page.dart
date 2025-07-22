@@ -19,8 +19,12 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
   @override
   void initState() {
     super.initState();
+    _pullRefresh();
+  }
+
+  Future<void> _pullRefresh() async {
     vm.reloaded = false;
-    vm.reloadCommand();
+    await vm.reloadCommand.executeWithFuture();
   }
 
   @override
@@ -43,93 +47,96 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                 )
               ])),
           Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: vm.reloadCommand,
-              builder: (context, data, _) => ListView.separated(
-                itemCount: vm.lstOnlineTextbooks.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (BuildContext context, int index) {
-                  final entry = vm.lstOnlineTextbooks[index];
-                  void edit() => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              OnlineTextbooksDetailPage(entry),
-                          fullscreenDialog: true));
-                  void browseWebPage() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return OnlineTextbooksWebPagePage(
-                          vm.lstOnlineTextbooks, index);
-                    }));
-                  }
+            child: RefreshIndicator(
+              onRefresh: _pullRefresh,
+              child: ValueListenableBuilder(
+                valueListenable: vm.reloadCommand,
+                builder: (context, data, _) => ListView.separated(
+                  itemCount: vm.lstOnlineTextbooks.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (BuildContext context, int index) {
+                    final entry = vm.lstOnlineTextbooks[index];
+                    void edit() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                OnlineTextbooksDetailPage(entry),
+                            fullscreenDialog: true));
+                    void browseWebPage() {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return OnlineTextbooksWebPagePage(
+                            vm.lstOnlineTextbooks, index);
+                      }));
+                    }
 
-                  return Slidable(
-                    startActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                          label: 'Edit',
-                          backgroundColor: Colors.blue,
-                          icon: Icons.mode_edit,
-                          onPressed: (context) => edit(),
-                        ),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                            label: 'More',
-                            backgroundColor: Colors.black45,
-                            icon: Icons.more_horiz,
-                            onPressed: (context) => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: const Text("More"),
-                                      children: [
-                                        SimpleDialogOption(
-                                            child: const Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child:
-                                                const Text("Browse Web Page"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              browseWebPage();
-                                            }),
-                                      ]),
-                                )),
-                      ],
-                    ),
-                    child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            entry.textbookname,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.orange),
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                            label: 'Edit',
+                            backgroundColor: Colors.blue,
+                            icon: Icons.mode_edit,
+                            onPressed: (context) => edit(),
                           ),
-                          subtitle: Text(entry.title,
+                        ],
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                              label: 'More',
+                              backgroundColor: Colors.black45,
+                              icon: Icons.more_horiz,
+                              onPressed: (context) => showDialog(
+                                    context: context,
+                                    builder: (context) => SimpleDialog(
+                                        title: const Text("More"),
+                                        children: [
+                                          SimpleDialogOption(
+                                              child: const Text("Edit"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                edit();
+                                              }),
+                                          SimpleDialogOption(
+                                              child:
+                                                  const Text("Browse Web Page"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                browseWebPage();
+                                              }),
+                                        ]),
+                                  )),
+                        ],
+                      ),
+                      child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              entry.textbookname,
                               style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 255, 0, 255),
-                              )),
-                          trailing: IconButton(
-                              icon: const Icon(Icons.keyboard_arrow_right,
-                                  color: Colors.blue, size: 30.0),
-                              onPressed: () => browseWebPage()),
-                          onTap: () {
-                            speak(entry.textbookname);
-                          },
-                        )),
-                  );
-                },
+                                  fontSize: 20, color: Colors.orange),
+                            ),
+                            subtitle: Text(entry.title,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Color.fromARGB(255, 255, 0, 255),
+                                )),
+                            trailing: IconButton(
+                                icon: const Icon(Icons.keyboard_arrow_right,
+                                    color: Colors.blue, size: 30.0),
+                                onPressed: () => browseWebPage()),
+                            onTap: () {
+                              speak(entry.textbookname);
+                            },
+                          )),
+                    );
+                  },
+                ),
               ),
             ),
           ),

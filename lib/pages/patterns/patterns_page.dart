@@ -18,15 +18,18 @@ class PatternsPage extends StatefulWidget {
 }
 
 class PatternsPageState extends State<PatternsPage> {
-  late PatternsViewModel vm;
+  final vm = PatternsViewModel();
 
   @override
   void initState() {
     super.initState();
-    vm = PatternsViewModel()
-      ..reloaded = false
-      ..reloadCommand();
     widget.vmHome.more = more;
+    _pullRefresh();
+  }
+
+  Future<void> _pullRefresh() async {
+    vm.reloaded = false;
+    await vm.reloadCommand.executeWithFuture();
   }
 
   @override
@@ -56,105 +59,109 @@ class PatternsPageState extends State<PatternsPage> {
                         ))
               ])),
           Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: vm.reloadCommand,
-              builder: (context, data, _) => ListView.separated(
-                itemCount: vm.lstPatterns.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (BuildContext context, int index) {
-                  final entry = vm.lstPatterns[index];
-                  void edit() => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PatternsDetailPage(vm, entry),
-                          fullscreenDialog: true));
-                  void browseWebPage() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return PatternsWebPagePage(vm.lstPatterns, index);
-                    }));
-                  }
+            child: RefreshIndicator(
+              onRefresh: _pullRefresh,
+              child: ValueListenableBuilder(
+                valueListenable: vm.reloadCommand,
+                builder: (context, data, _) => ListView.separated(
+                  itemCount: vm.lstPatterns.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (BuildContext context, int index) {
+                    final entry = vm.lstPatterns[index];
+                    void edit() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PatternsDetailPage(vm, entry),
+                            fullscreenDialog: true));
+                    void browseWebPage() {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PatternsWebPagePage(vm.lstPatterns, index);
+                      }));
+                    }
 
-                  return Slidable(
-                    startActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                          label: 'Edit',
-                          backgroundColor: Colors.blue,
-                          icon: Icons.mode_edit,
-                          onPressed: (context) => edit(),
-                        ),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                            label: 'More',
-                            backgroundColor: Colors.black45,
-                            icon: Icons.more_horiz,
-                            onPressed: (context) => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: const Text("More"),
-                                      children: [
-                                        SimpleDialogOption(
-                                            child: const Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child:
-                                                const Text("Browse Web Page"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              browseWebPage();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: const Text("Copy Pattern"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              vm.lstPatterns[index].pattern
-                                                  .copyToClipboard();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: const Text("Google Pattern"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              vm.lstPatterns[index].pattern
-                                                  .google();
-                                            }),
-                                      ]),
-                                )),
-                      ],
-                    ),
-                    child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            entry.pattern,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.orange),
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                            label: 'Edit',
+                            backgroundColor: Colors.blue,
+                            icon: Icons.mode_edit,
+                            onPressed: (context) => edit(),
                           ),
-                          subtitle: Text(entry.tags,
+                        ],
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                              label: 'More',
+                              backgroundColor: Colors.black45,
+                              icon: Icons.more_horiz,
+                              onPressed: (context) => showDialog(
+                                    context: context,
+                                    builder: (context) => SimpleDialog(
+                                        title: const Text("More"),
+                                        children: [
+                                          SimpleDialogOption(
+                                              child: const Text("Edit"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                edit();
+                                              }),
+                                          SimpleDialogOption(
+                                              child:
+                                                  const Text("Browse Web Page"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                browseWebPage();
+                                              }),
+                                          SimpleDialogOption(
+                                              child: const Text("Copy Pattern"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                vm.lstPatterns[index].pattern
+                                                    .copyToClipboard();
+                                              }),
+                                          SimpleDialogOption(
+                                              child:
+                                                  const Text("Google Pattern"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                vm.lstPatterns[index].pattern
+                                                    .google();
+                                              }),
+                                        ]),
+                                  )),
+                        ],
+                      ),
+                      child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              entry.pattern,
                               style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 255, 0, 255),
-                              )),
-                          trailing: IconButton(
-                              icon: const Icon(Icons.keyboard_arrow_right,
-                                  color: Colors.blue, size: 30.0),
-                              onPressed: () => browseWebPage()),
-                          onTap: () {
-                            speak(entry.pattern);
-                          },
-                        )),
-                  );
-                },
+                                  fontSize: 20, color: Colors.orange),
+                            ),
+                            subtitle: Text(entry.tags,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Color.fromARGB(255, 255, 0, 255),
+                                )),
+                            trailing: IconButton(
+                                icon: const Icon(Icons.keyboard_arrow_right,
+                                    color: Colors.blue, size: 30.0),
+                                onPressed: () => browseWebPage()),
+                            onTap: () {
+                              speak(entry.pattern);
+                            },
+                          )),
+                    );
+                  },
+                ),
               ),
             ),
           ),

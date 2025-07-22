@@ -17,15 +17,18 @@ class PhrasesLangPage extends StatefulWidget {
 }
 
 class PhrasesLangPageState extends State<PhrasesLangPage> {
-  late PhrasesLangViewModel vm;
+  final vm = PhrasesLangViewModel();
 
   @override
   void initState() {
     super.initState();
-    vm = PhrasesLangViewModel()
-      ..reloaded = false
-      ..reloadCommand();
     widget.vmHome.more = more;
+    _pullRefresh();
+  }
+
+  Future<void> _pullRefresh() async {
+    vm.reloaded = false;
+    await vm.reloadCommand.executeWithFuture();
   }
 
   @override
@@ -55,100 +58,104 @@ class PhrasesLangPageState extends State<PhrasesLangPage> {
                         ))
               ])),
           Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: vm.reloadCommand,
-              builder: (context, data, _) => ListView.separated(
-                itemCount: vm.lstLangPhrases.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (BuildContext context, int index) {
-                  final entry = vm.lstLangPhrases[index];
-                  void edit() => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              PhrasesLangDetailPage(vm, entry),
-                          fullscreenDialog: true));
+            child: RefreshIndicator(
+              onRefresh: _pullRefresh,
+              child: ValueListenableBuilder(
+                valueListenable: vm.reloadCommand,
+                builder: (context, data, _) => ListView.separated(
+                  itemCount: vm.lstLangPhrases.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (BuildContext context, int index) {
+                    final entry = vm.lstLangPhrases[index];
+                    void edit() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PhrasesLangDetailPage(vm, entry),
+                            fullscreenDialog: true));
 
-                  return Slidable(
-                    startActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                          label: 'Edit',
-                          backgroundColor: Colors.blue,
-                          icon: Icons.mode_edit,
-                          onPressed: (context) => edit(),
-                        ),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                            label: 'More',
-                            backgroundColor: Colors.black45,
-                            icon: Icons.more_horiz,
-                            onPressed: (context) => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: const Text("More"),
-                                      children: [
-                                        SimpleDialogOption(
-                                            child: const Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: const Text("Delete"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            }),
-                                        SimpleDialogOption(
-                                            child: const Text("Copy Phrase"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              vm.lstLangPhrases[index].phrase
-                                                  .copyToClipboard();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: const Text("Google Phrase"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              vm.lstLangPhrases[index].phrase
-                                                  .google();
-                                            }),
-                                      ]),
-                                )),
-                        SlidableAction(
-                          label: 'Delete',
-                          backgroundColor: Colors.red,
-                          icon: Icons.delete,
-                          onPressed: (context) {},
-                        ),
-                      ],
-                    ),
-                    child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            entry.phrase,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.orange),
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                            label: 'Edit',
+                            backgroundColor: Colors.blue,
+                            icon: Icons.mode_edit,
+                            onPressed: (context) => edit(),
                           ),
-                          subtitle: Text(entry.translation,
+                        ],
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                              label: 'More',
+                              backgroundColor: Colors.black45,
+                              icon: Icons.more_horiz,
+                              onPressed: (context) => showDialog(
+                                    context: context,
+                                    builder: (context) => SimpleDialog(
+                                        title: const Text("More"),
+                                        children: [
+                                          SimpleDialogOption(
+                                              child: const Text("Edit"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                edit();
+                                              }),
+                                          SimpleDialogOption(
+                                              child: const Text("Delete"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              }),
+                                          SimpleDialogOption(
+                                              child: const Text("Copy Phrase"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                vm.lstLangPhrases[index].phrase
+                                                    .copyToClipboard();
+                                              }),
+                                          SimpleDialogOption(
+                                              child:
+                                                  const Text("Google Phrase"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                vm.lstLangPhrases[index].phrase
+                                                    .google();
+                                              }),
+                                        ]),
+                                  )),
+                          SlidableAction(
+                            label: 'Delete',
+                            backgroundColor: Colors.red,
+                            icon: Icons.delete,
+                            onPressed: (context) {},
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              entry.phrase,
                               style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 255, 0, 255),
-                              )),
-                          onTap: () {
-                            speak(entry.phrase);
-                          },
-                        )),
-                  );
-                },
+                                  fontSize: 20, color: Colors.orange),
+                            ),
+                            subtitle: Text(entry.translation,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Color.fromARGB(255, 255, 0, 255),
+                                )),
+                            onTap: () {
+                              speak(entry.phrase);
+                            },
+                          )),
+                    );
+                  },
+                ),
               ),
             ),
           ),

@@ -20,8 +20,12 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
   @override
   void initState() {
     super.initState();
+    _pullRefresh();
+  }
+
+  Future<void> _pullRefresh() async {
     vm.reloadedPosts = false;
-    vm.reloadPostsCommand();
+    await vm.reloadPostsCommand.executeWithFuture();
   }
 
   @override
@@ -43,92 +47,96 @@ class LangBlogPostsListPageState extends State<LangBlogPostsListPage> {
                 )
               ])),
           Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: vm.reloadPostsCommand,
-              builder: (context, data, _) => ListView.separated(
-                itemCount: vm.lstLangBlogPosts.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (BuildContext context, int index) {
-                  final entry = vm.lstLangBlogPosts[index];
-                  void edit() => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LangBlogPostsDetailPage(entry),
-                          fullscreenDialog: true));
-                  void showContent() {
-                    vm.selectedPost_(entry);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return LangBlogPostsContentPage(
-                          vm.lstLangBlogPosts, index, vm);
-                    }));
-                  }
+            child: RefreshIndicator(
+              onRefresh: _pullRefresh,
+              child: ValueListenableBuilder(
+                valueListenable: vm.reloadPostsCommand,
+                builder: (context, data, _) => ListView.separated(
+                  itemCount: vm.lstLangBlogPosts.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (BuildContext context, int index) {
+                    final entry = vm.lstLangBlogPosts[index];
+                    void edit() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LangBlogPostsDetailPage(entry),
+                            fullscreenDialog: true));
+                    void showContent() {
+                      vm.selectedPost_(entry);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LangBlogPostsContentPage(
+                            vm.lstLangBlogPosts, index, vm);
+                      }));
+                    }
 
-                  return Slidable(
-                    startActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                          label: 'Edit',
-                          backgroundColor: Colors.blue,
-                          icon: Icons.mode_edit,
-                          onPressed: (context) => edit(),
-                        ),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        SlidableAction(
-                            label: 'More',
-                            backgroundColor: Colors.black45,
-                            icon: Icons.more_horiz,
-                            onPressed: (context) => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: const Text("More"),
-                                      children: [
-                                        SimpleDialogOption(
-                                            child: const Text("Edit"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              edit();
-                                            }),
-                                        SimpleDialogOption(
-                                            child: const Text("Show Content"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              showContent();
-                                            }),
-                                      ]),
-                                )),
-                      ],
-                    ),
-                    child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            entry.title,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.orange),
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                            label: 'Edit',
+                            backgroundColor: Colors.blue,
+                            icon: Icons.mode_edit,
+                            onPressed: (context) => edit(),
                           ),
-                          subtitle: Text(entry.title,
+                        ],
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.25,
+                        children: [
+                          SlidableAction(
+                              label: 'More',
+                              backgroundColor: Colors.black45,
+                              icon: Icons.more_horiz,
+                              onPressed: (context) => showDialog(
+                                    context: context,
+                                    builder: (context) => SimpleDialog(
+                                        title: const Text("More"),
+                                        children: [
+                                          SimpleDialogOption(
+                                              child: const Text("Edit"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                edit();
+                                              }),
+                                          SimpleDialogOption(
+                                              child: const Text("Show Content"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                showContent();
+                                              }),
+                                        ]),
+                                  )),
+                        ],
+                      ),
+                      child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              entry.title,
                               style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 255, 0, 255),
-                              )),
-                          trailing: IconButton(
-                              icon: const Icon(Icons.keyboard_arrow_right,
-                                  color: Colors.blue, size: 30.0),
-                              onPressed: () => showContent()),
-                          onTap: () {
-                            speak(entry.title);
-                          },
-                        )),
-                  );
-                },
+                                  fontSize: 20, color: Colors.orange),
+                            ),
+                            subtitle: Text(entry.title,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Color.fromARGB(255, 255, 0, 255),
+                                )),
+                            trailing: IconButton(
+                                icon: const Icon(Icons.keyboard_arrow_right,
+                                    color: Colors.blue, size: 30.0),
+                                onPressed: () => showContent()),
+                            onTap: () {
+                              speak(entry.title);
+                            },
+                          )),
+                    );
+                  },
+                ),
               ),
             ),
           ),
