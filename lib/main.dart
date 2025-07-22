@@ -96,7 +96,7 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ));
 
-  _getAppbarTitle(NavItem? state) {
+  String _getAppbarTitle(NavItem? state) {
     switch (state) {
       case NavItem.searchPage:
         return 'Search';
@@ -131,7 +131,7 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  _getContentForState(NavItem? state) {
+  Widget _getContentForState(NavItem? state) {
     switch (state) {
       case NavItem.searchPage:
         return SearchPage(vm);

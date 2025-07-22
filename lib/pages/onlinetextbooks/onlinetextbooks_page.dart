@@ -16,7 +16,9 @@ class OnlineTextbooksPage extends StatefulWidget {
 class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
   final vm = OnlineTextbooksViewModel();
 
-  OnlineTextbooksPageState() {
+  @override
+  void initState() {
+    super.initState();
     vm.reloaded = false;
     vm.reloadCommand();
   }

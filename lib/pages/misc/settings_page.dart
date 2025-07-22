@@ -13,7 +13,9 @@ class SettingsPage extends StatefulWidget {
 class SettingsPageState extends State<SettingsPage> {
   final vm = vmSettings;
 
-  SettingsPageState() {
+  @override
+  void initState() {
+    super.initState();
     vm.getData();
   }
 
