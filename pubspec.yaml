@@ -42,7 +42,7 @@ dependencies:
   cupertino_icons: ^2.0.0
   drag_and_drop_lists: ^0.4.2
   flutter_bloc: ^9.1.1
-  flutter_command: ^7.2.2
+  command_it: ^9.0.2
   flutter_slidable: ^5.2.0
   flutter_tts: ^4.2.5
   http: ^1.6.0

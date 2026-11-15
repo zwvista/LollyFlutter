@@ -1,4 +1,4 @@
-import 'package:flutter_command/flutter_command.dart';
+import 'package:command_it/command_it.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';

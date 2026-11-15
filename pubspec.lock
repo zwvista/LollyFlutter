@@ -137,6 +137,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
+  command_it:
+    dependency: "direct main"
+    description:
+      name: command_it
+      sha256: "1d4705cb830a09917da5cb0007d4dacda187bbac9f7153552e56b4357825d1e6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.5.2"
   convert:
     dependency: transitive
     description:
@@ -162,7 +170,7 @@ packages:
     source: hosted
     version: "2.0.0"
   cupertino_ui:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: cupertino_ui
       sha256: "369e39a1c5c030a6212589c3da1809920b1c2cfade7b02aade7695bfa4b88c3a"
@@ -230,14 +238,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.1.1"
-  flutter_command:
-    dependency: "direct main"
-    description:
-      name: flutter_command
-      sha256: e6e77c60ac104aec297ccf7c90d186d0409bbcd8665df7c0ff43f34d9d538067
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.2.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -277,14 +277,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  functional_listener:
-    dependency: transitive
-    description:
-      name: functional_listener
-      sha256: c096db771b4ce7ba0f886cc4a761044b11e8276a7bc24cfc812dc4b2bc6f5b16
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   glob:
     dependency: transitive
     description:
@@ -421,6 +413,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  listen_it:
+    dependency: transitive
+    description:
+      name: listen_it
+      sha256: "137f2576048c1982863141547db0a3c5a200541f47216b507f9fe6545ea696f5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   logging:
     dependency: transitive
     description:
@@ -489,10 +489,10 @@ packages:
     dependency: transitive
     description:
       name: package_config
-      sha256: f096c55ebb7deb7e384101542bfba8c52696c1b56fca2eb62827989ef2353bbc
+      sha256: ffcf4cf3d6c0b74ac43708d9f56625506e8a68aa935abe9d267a7330f320eb5d
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   path:
     dependency: transitive
     description:

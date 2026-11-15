@@ -1,4 +1,4 @@
-import 'package:flutter_command/flutter_command.dart';
+import 'package:command_it/command_it.dart';
 import 'package:lolly_flutter/services/blogs/langblogpostcontent_service.dart';
 
 import '../../models/blogs/mlangbloggroup.dart';

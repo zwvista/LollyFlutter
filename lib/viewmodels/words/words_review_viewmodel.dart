@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter_command/flutter_command.dart';
+import 'package:command_it/command_it.dart';
 import 'package:lolly_flutter/models/misc/mdictionary.dart';
 import 'package:lolly_flutter/models/misc/mreviewoptions.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';

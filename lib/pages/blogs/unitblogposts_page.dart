@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:flutter_command/flutter_command.dart';
+import 'package:command_it/command_it.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../packages/swipedetector-1.2.0/swipedetector.dart';
