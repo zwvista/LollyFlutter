@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/words/words_dict_page.dart';
 import 'package:lolly_flutter/pages/words/words_textbook_detail_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -62,7 +62,7 @@ class WordsTextbookPageState extends State<WordsTextbookPage> {
                     child: ValueListenableBuilder(
                         valueListenable: vm.textbookFilter_,
                         builder: (context, value, _) => DropdownButtonFormField(
-                              value: vm.textbookFilter,
+                              initialValue: vm.textbookFilter,
                               items: vmSettings.lstTextbookFilters
                                   .map((o) => DropdownMenuItem(
                                       value: o.value, child: Text(o.label)))

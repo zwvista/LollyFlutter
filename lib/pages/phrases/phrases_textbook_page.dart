@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_textbook_detail_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_unit_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../main.dart';
 
@@ -60,7 +60,7 @@ class PhrasesTextbookPageState extends State<PhrasesTextbookPage> {
                     child: ValueListenableBuilder(
                         valueListenable: vm.textbookFilter_,
                         builder: (context, value, _) => DropdownButtonFormField(
-                              value: vm.textbookFilter,
+                              initialValue: vm.textbookFilter,
                               items: vmSettings.lstTextbookFilters
                                   .map((o) => DropdownMenuItem(
                                       value: o.value, child: Text(o.label)))

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:lolly_flutter/main.dart';
 import 'package:lolly_flutter/models/misc/mcommon.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -21,7 +21,6 @@ class SettingsPageState extends State<SettingsPage> {
 
   Future<void> _pullRefresh() async {
     await vm.getData();
-    ;
   }
 
   @override
@@ -33,7 +32,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedLang_,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.selectedLang,
+                      initialValue: vm.selectedLang,
                       items: vm.lstLanguages
                           .map((e) => DropdownMenuItem(
                               value: e, child: Text(e.langname)))
@@ -46,7 +45,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedVoice_,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.selectedVoice,
+                      initialValue: vm.selectedVoice,
                       items: vm.lstVoices
                           .map((e) => DropdownMenuItem(
                               value: e, child: Text(e.voicename)))
@@ -59,7 +58,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedDictReference_,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.selectedDictReference,
+                      initialValue: vm.selectedDictReference,
                       items: vm.lstDictsReference
                           .map((e) => DropdownMenuItem(
                               value: e, child: Text(e.dictname)))
@@ -72,7 +71,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedDictNote_,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.selectedDictNote,
+                      initialValue: vm.selectedDictNote,
                       items: vm.lstDictsNote
                           .map((e) => DropdownMenuItem(
                               value: e, child: Text(e.dictname)))
@@ -85,7 +84,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedDictTranslation_,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.selectedDictTranslation,
+                      initialValue: vm.selectedDictTranslation,
                       items: vm.lstDictsTranslation
                           .map((e) => DropdownMenuItem(
                               value: e, child: Text(e.dictname)))
@@ -98,7 +97,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedTextbook_,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.selectedTextbook,
+                      initialValue: vm.selectedTextbook,
                       items: vm.lstTextbooks
                           .map((e) => DropdownMenuItem(
                               value: e, child: Text(e.textbookname)))
@@ -111,7 +110,7 @@ class SettingsPageState extends State<SettingsPage> {
             ValueListenableBuilder(
                 valueListenable: vm.selectedUnitFrom,
                 builder: (context, value, _) => DropdownButtonFormField(
-                      value: vm.usunitfrom,
+                      initialValue: vm.usunitfrom,
                       items: vm.lstUnits
                           .map((e) => DropdownMenuItem(
                               value: e.value, child: Text(e.label)))
@@ -127,7 +126,7 @@ class SettingsPageState extends State<SettingsPage> {
                     valueListenable: vm.selectedPartFrom,
                     builder: (context, value, _) => DropdownButtonFormField(
                           disabledHint: Text(vm.uspartfromstr),
-                          value: vm.uspartfrom,
+                          initialValue: vm.uspartfrom,
                           items: vm.lstParts
                               .map((e) => DropdownMenuItem(
                                   value: e.value, child: Text(e.label)))
@@ -146,7 +145,7 @@ class SettingsPageState extends State<SettingsPage> {
                         Expanded(
                           flex: 1,
                           child: DropdownButtonFormField(
-                            value: vm.toType,
+                            initialValue: vm.toType,
                             items: SettingsViewModel.lstToTypes
                                 .map((e) => DropdownMenuItem(
                                     value: UnitPartToType.values[e.value],
@@ -179,7 +178,7 @@ class SettingsPageState extends State<SettingsPage> {
                     valueListenable: vm.selectedUnitTo,
                     builder: (context, value, _) => DropdownButtonFormField(
                           disabledHint: Text(vm.usunittostr),
-                          value: vm.usunitto,
+                          initialValue: vm.usunitto,
                           items: vm.lstUnits
                               .map((e) => DropdownMenuItem(
                                   value: e.value, child: Text(e.label)))
@@ -197,7 +196,7 @@ class SettingsPageState extends State<SettingsPage> {
                     valueListenable: vm.selectedPartTo,
                     builder: (context, value, _) => DropdownButtonFormField(
                           disabledHint: Text(vm.usparttostr),
-                          value: vm.uspartto,
+                          initialValue: vm.uspartto,
                           items: vm.lstParts
                               .map((e) => DropdownMenuItem(
                                   value: e.value, child: Text(e.label)))

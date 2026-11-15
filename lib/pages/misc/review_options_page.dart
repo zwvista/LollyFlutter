@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lolly_flutter/models/misc/mreviewoptions.dart';
 import 'package:lolly_flutter/packages/checkbox_formfield-0.1.0+3/checkbox_list_tile_formfield.dart';
 import 'package:lolly_flutter/viewmodels/misc/settings_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ReviewOptionsPage extends StatefulWidget {
   final MReviewOptions options;
@@ -38,7 +38,7 @@ class ReviewOptionsPageState extends State<ReviewOptionsPage> {
               key: _formKey,
               child: ListView(children: [
                 DropdownButtonFormField(
-                    value: options.mode,
+                    initialValue: options.mode,
                     items: SettingsViewModel.reviewModes
                         .map((o) => DropdownMenuItem(
                             value: ReviewMode.values[o.value],

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_batch_edit_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../main.dart';
 
@@ -46,7 +46,7 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                 onChanged: vmBatch.unitChecked.call)),
                         Expanded(
                             child: DropdownButtonFormField(
-                                value: vmBatch.unit.value,
+                                initialValue: vmBatch.unit.value,
                                 decoration: const InputDecoration(
                                   labelText: "UNIT",
                                 ),
@@ -69,7 +69,7 @@ class WordsUnitBatchEditPageState extends State<WordsUnitBatchEditPage> {
                                 onChanged: vmBatch.partChecked.call)),
                         Expanded(
                             child: DropdownButtonFormField(
-                                value: vmBatch.part.value,
+                                initialValue: vmBatch.part.value,
                                 decoration: const InputDecoration(
                                   labelText: "PART",
                                 ),

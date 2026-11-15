@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lolly_flutter/models/wpp/munitword.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_detail_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/words/words_unit_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 
 class WordsUnitDetailPage extends StatefulWidget {
   final WordsUnitDetailViewModel vmDetail;
@@ -48,7 +48,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                   readOnly: true,
                 ),
                 DropdownButtonFormField(
-                    value: item.unit,
+                    initialValue: item.unit,
                     items: item.textbook!.lstUnits
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))
@@ -59,7 +59,7 @@ class WordsUnitDetailPageState extends State<WordsUnitDetailPage> {
                     onChanged: (v) => v,
                     onSaved: (v) => item.unit = v as int),
                 DropdownButtonFormField(
-                    value: item.part,
+                    initialValue: item.part,
                     items: item.textbook!.lstParts
                         .map((o) => DropdownMenuItem(
                             value: o.value, child: Text(o.label)))

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/phrases/phrases_lang_detail_page.dart';
 import 'package:lolly_flutter/services/misc/base_service.dart';

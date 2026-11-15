@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../models/blogs/mlangblogpost.dart';
 import '../../viewmodels/blogs/langblogposts_detail_viewmodel.dart';

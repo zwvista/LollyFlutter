@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:lolly_flutter/models/wpp/mlangphrase.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_detail_viewmodel.dart';
 import 'package:lolly_flutter/viewmodels/phrases/phrases_lang_viewmodel.dart';

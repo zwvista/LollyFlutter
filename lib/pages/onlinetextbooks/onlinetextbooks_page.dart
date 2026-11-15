@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_detail_page.dart';
 import 'package:lolly_flutter/pages/onlinetextbooks/onlinetextbooks_webpage_page.dart';
 import 'package:lolly_flutter/viewmodels/onlinetextbooks/onlinetextbooks_viewmodel.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../main.dart';
 
@@ -37,7 +37,7 @@ class OnlineTextbooksPageState extends State<OnlineTextbooksPage> {
                   child: ValueListenableBuilder(
                       valueListenable: vm.onlineTextbookFilter_,
                       builder: (context, value, _) => DropdownButtonFormField(
-                            value: vm.onlineTextbookFilter,
+                            initialValue: vm.onlineTextbookFilter,
                             items: vmSettings.lstOnlineTextbookFilters
                                 .map((o) => DropdownMenuItem(
                                     value: o.value, child: Text(o.label)))
